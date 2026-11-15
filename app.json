@@ -42,8 +42,7 @@
           "speechRecognitionPermission": "worlds turns what you say into text so it can build a world from your day."
         }
       ],
-      "expo-notifications",
-      "expo-secure-store"
+      "expo-notifications"
     ],
     "experiments": {
       "typedRoutes": true,
