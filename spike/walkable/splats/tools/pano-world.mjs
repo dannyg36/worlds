@@ -96,6 +96,7 @@ lap("cut_faces", t);
 // ---------- depth per face ----------
 const N = faceSize * faceSize;
 const falCalls = [];
+let depthMeta = null;
 if (depthMode === "box") {
   const half = [3, 1.5, 3], cy = 1.6 - 1.5;
   for (const F of FACES) {
@@ -154,6 +155,19 @@ if (depthMode === "box") {
     F.plyInfo = { points: ply.count, mapped: hit, valid_frac: +(hit / N).toFixed(3), convention: opencv ? "opencv" : "opengl", props: ply.props };
   }
   lap("parse_point_clouds", t);
+} else if (depthMode === "moge2-cpu") {
+  const { execFileSync } = await import("node:child_process");
+  t = Date.now();
+  const depthDir = path.join(workDir, "depth");
+  execFileSync(path.join(splatsRoot, ".venv", "bin", "python"), [path.join(here, "moge_faces.py"), "--faces", ...FACES.map((F) => F.png), "--fov", String(fov), "--out", depthDir, "--model", args.model || "Ruicheng/moge-2-vits-normal"], { stdio: ["ignore", "ignore", "inherit"] });
+  lap("moge2_cpu", t);
+  depthMeta = JSON.parse(fs.readFileSync(path.join(depthDir, "moge.json"), "utf8"));
+  for (const F of FACES) {
+    const buf = fs.readFileSync(path.join(depthDir, "face-" + F.name + ".f32"));
+    F.range = new Float32Array(buf.buffer.slice(buf.byteOffset, buf.byteOffset + N * 4));
+    const m = depthMeta.faces.find((f) => f.face === "face-" + F.name);
+    F.plyInfo = { valid_frac: m.valid_frac, median_range: m.median_range_m, wall_s: m.wall_s, cpu_s: m.cpu_s };
+  }
 } else throw new Error("unknown --depth " + depthMode);
 
 // Fill small holes in each face range map (edge-removed pixels) from valid neighbours.
@@ -354,7 +368,7 @@ const summary = {
   id, day: args.day ?? null, pano: { source: args.pano, width: PW, height: PH }, depth: depthMode, fov, faceSize, kScale, skyRange,
   camHeight_depth_units: +camHeight.toFixed(3), metric_scale_applied: +g.toFixed(4),
   face_scales: FACES.map((F) => ({ face: F.name, scale: +F.scale.toFixed(4), ...(F.plyInfo ?? {}) })), pairs: pairs.map((p) => ({ a: FACES[p.a].name, b: FACES[p.b].name, log_ratio: +p.m.toFixed(4), n: p.n })),
-  fal_calls: falCalls, timings, outputs,
+  fal_calls: falCalls, depth_meta: depthMeta && { model: depthMeta.model, load_s: depthMeta.load_s, total_wall_s: depthMeta.total_wall_s, cpu_s: +depthMeta.faces.reduce((s, f) => s + f.cpu_s, 0).toFixed(1), threads: depthMeta.threads }, timings, outputs,
 };
 fs.writeFileSync(path.join(workDir, "summary.json"), JSON.stringify(summary, null, 2));
 console.log(JSON.stringify(summary, null, 2));

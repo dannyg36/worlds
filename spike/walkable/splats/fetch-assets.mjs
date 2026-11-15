@@ -2,8 +2,10 @@
 // Downloads everything the splats page needs into spike/walkable/splats/assets/ from the committed manifest.
 //   node spike/walkable/splats/fetch-assets.mjs            (everything)
 //   node spike/walkable/splats/fetch-assets.mjs --only hackathon   (entries whose id contains "hackathon", plus vendor libs)
+//   node spike/walkable/splats/fetch-assets.mjs --build          (also runs the build command of local entries that have no url)
 // No dependencies. Files already present with the right size (and sha256 when the manifest has one) are skipped.
 import fs from "node:fs";
+import { execSync } from "node:child_process";
 import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
@@ -13,6 +15,8 @@ const manifest = JSON.parse(fs.readFileSync(path.join(root, "manifest.json"), "u
 const assetsDir = path.join(root, "assets");
 const onlyIdx = process.argv.indexOf("--only");
 const only = onlyIdx > 0 ? process.argv[onlyIdx + 1] : null;
+const build = process.argv.includes("--build");
+const repoRoot = path.resolve(root, "../../..");
 
 const entries = [
   ...manifest.vendor.map((v) => ({ ...v, id: "vendor:" + v.path })),
@@ -23,7 +27,7 @@ const entries = [
 const sha256 = (buf) => crypto.createHash("sha256").update(buf).digest("hex");
 
 function present(e) {
-  const p = path.join(assetsDir, e.path);
+  const p = path.join(e.local ? root : assetsDir, e.path);
   if (!fs.existsSync(p)) return false;
   const buf = fs.readFileSync(p);
   if (e.bytes && buf.length !== e.bytes) return false;
@@ -53,7 +57,8 @@ async function download(e) {
   throw lastErr;
 }
 
-const queue = [...entries];
+const builds = new Set(entries.filter((e) => !e.url && e.build && !present(e)).map((e) => e.build));
+const queue = entries.filter((e) => e.url);
 let failed = 0;
 let fetched = 0;
 let skipped = 0;
@@ -77,5 +82,18 @@ async function worker() {
   }
 }
 await Promise.all(Array.from({ length: 4 }, worker));
+for (const cmd of builds) {
+  if (!build) {
+    console.log("needs build (run with --build): " + cmd);
+    continue;
+  }
+  console.log("build " + cmd);
+  try {
+    execSync(cmd, { cwd: repoRoot, stdio: "inherit", shell: "/bin/bash" });
+  } catch (err) {
+    failed++;
+    console.error("FAIL build  " + (err?.message ?? err));
+  }
+}
 console.log(fetched + " fetched (" + (bytes / 1e6).toFixed(1) + " MB), " + skipped + " already present, " + failed + " failed -> " + path.relative(process.cwd(), assetsDir));
 if (failed) process.exit(1);

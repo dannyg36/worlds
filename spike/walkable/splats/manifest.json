@@ -1,5 +1,5 @@
 {
-  "note": "Everything the splats page loads. fetch-assets.mjs downloads each url into assets/<path> and checks bytes and sha256. Splat files made by this spike are uploaded to fal storage (fal CDN URLs); vendor libs are pinned jsDelivr URLs; marble-* are World Labs' public example exports, used only as a reference.",
+  "note": "Everything the splats page loads. fetch-assets.mjs downloads each url into assets/<path> and checks bytes and sha256; vendor libs are pinned jsDelivr URLs; marble-* are World Labs' public example exports, used only as a reference. The day pano worlds (local: true, no url) are built on this machine from the shared GMI pano by the entry's build command (CPU MoGe-2, about 60 s per day) because the spike has no public bucket for its own .spz files; fetch-assets.mjs --build runs those commands.",
   "vendor": [
     {
       "path": "vendor/three.module.js",
@@ -86,6 +86,182 @@
       "sha256": "bfbc06994ff0ca492b486b3d270f3196fb6b1fb103c7e836a648af8946c8d16c",
       "kind": "pano-input",
       "label": "Marble example pano (2560x1280), input for a like-for-like pano->splat comparison"
+    },
+    {
+      "id": "hackathon-pano-1448",
+      "path": "work/hackathon-pano/hackathon-pano-1448.spz",
+      "local": true,
+      "bytes": 8217605,
+      "sha256": "5cae02ba17a5d63fe00212670af09a005610ce8de3c90957e91586ea1d571c24",
+      "build": "cd spike/walkable/splats && node tools/pano-world.mjs --id hackathon-pano --day hackathon --pano https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a17cd8f-6021-4420-af25-dced6c24718eb7bff6fe-a6cc-4c2d-a8bf-7c6ab8cfba4a.png --depth moge2-cpu --face 768 --fov 100 --levels 2896,2048,1448,1024",
+      "day": "hackathon",
+      "src": "pano",
+      "kind": "pano-moge2-cpu",
+      "label": "Hackathon: CPU pano world (0.72M)",
+      "splats": 722134,
+      "view": {
+        "mode": "walk",
+        "eye": [
+          0,
+          0,
+          0
+        ],
+        "radius": 1.2
+      }
+    },
+    {
+      "id": "hackathon-pano-2048",
+      "path": "work/hackathon-pano/hackathon-pano-2048.spz",
+      "local": true,
+      "bytes": 16067912,
+      "sha256": "12acf65d5f0a6dcc01e947b19ddb27c04cfae29fd7760e96ef4a631408f21eca",
+      "build": "cd spike/walkable/splats && node tools/pano-world.mjs --id hackathon-pano --day hackathon --pano https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a17cd8f-6021-4420-af25-dced6c24718eb7bff6fe-a6cc-4c2d-a8bf-7c6ab8cfba4a.png --depth moge2-cpu --face 768 --fov 100 --levels 2896,2048,1448,1024",
+      "day": "hackathon",
+      "src": "pano-hi",
+      "kind": "pano-moge2-cpu",
+      "label": "Hackathon: CPU pano world (1.44M)",
+      "splats": 1444466,
+      "view": {
+        "mode": "walk",
+        "eye": [
+          0,
+          0,
+          0
+        ],
+        "radius": 1.2
+      }
+    },
+    {
+      "id": "hackathon-pano-1024",
+      "path": "work/hackathon-pano/hackathon-pano-1024.spz",
+      "local": true,
+      "bytes": 4220795,
+      "sha256": "589752646adbd7593b9686782e7887cda2b82ffc37196e0ca673945e98a9a923",
+      "build": "cd spike/walkable/splats && node tools/pano-world.mjs --id hackathon-pano --day hackathon --pano https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a17cd8f-6021-4420-af25-dced6c24718eb7bff6fe-a6cc-4c2d-a8bf-7c6ab8cfba4a.png --depth moge2-cpu --face 768 --fov 100 --levels 2896,2048,1448,1024",
+      "day": "hackathon",
+      "src": "pano-lo",
+      "kind": "pano-moge2-cpu",
+      "label": "Hackathon: CPU pano world (0.36M)",
+      "splats": 361040,
+      "view": {
+        "mode": "walk",
+        "eye": [
+          0,
+          0,
+          0
+        ],
+        "radius": 1.2
+      }
+    },
+    {
+      "id": "hackathon-pano-2896",
+      "path": "work/hackathon-pano/hackathon-pano-2896.spz",
+      "local": true,
+      "bytes": 30764535,
+      "sha256": "54a5c4a5e96d378c080e22e68b7d63f75e64a6a79e2eacc1acd935952487a0b1",
+      "build": "cd spike/walkable/splats && node tools/pano-world.mjs --id hackathon-pano --day hackathon --pano https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a17cd8f-6021-4420-af25-dced6c24718eb7bff6fe-a6cc-4c2d-a8bf-7c6ab8cfba4a.png --depth moge2-cpu --face 768 --fov 100 --levels 2896,2048,1448,1024",
+      "day": "hackathon",
+      "src": "pano-max",
+      "kind": "pano-moge2-cpu",
+      "label": "Hackathon: CPU pano world (2.89M)",
+      "splats": 2889056,
+      "view": {
+        "mode": "walk",
+        "eye": [
+          0,
+          0,
+          0
+        ],
+        "radius": 1.2
+      }
+    },
+    {
+      "id": "santa-cruz-pano-1448",
+      "path": "work/santa-cruz-pano/santa-cruz-pano-1448.spz",
+      "local": true,
+      "bytes": 8001813,
+      "sha256": "9f2866b0ea6a5631c16dcd9658cf76567ac27619e5d893438de472539075f1c2",
+      "build": "cd spike/walkable/splats && node tools/pano-world.mjs --id santa-cruz-pano --day santa-cruz --pano https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_ac8d810a-868c-400a-8f44-3311e8df35527e4b4469-a952-48bd-aa36-12585c8f0732.png --depth moge2-cpu --face 768 --fov 100 --levels 2896,2048,1448,1024",
+      "day": "santa-cruz",
+      "src": "pano",
+      "kind": "pano-moge2-cpu",
+      "label": "Santa Cruz: CPU pano world (0.72M)",
+      "splats": 722134,
+      "view": {
+        "mode": "walk",
+        "eye": [
+          0,
+          0,
+          0
+        ],
+        "radius": 1.2
+      }
+    },
+    {
+      "id": "santa-cruz-pano-2048",
+      "path": "work/santa-cruz-pano/santa-cruz-pano-2048.spz",
+      "local": true,
+      "bytes": 15696066,
+      "sha256": "d50490433a2c539d7e9dfaac0ff1067064a32f02a5781ac8f59f57283e73e2b9",
+      "build": "cd spike/walkable/splats && node tools/pano-world.mjs --id santa-cruz-pano --day santa-cruz --pano https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_ac8d810a-868c-400a-8f44-3311e8df35527e4b4469-a952-48bd-aa36-12585c8f0732.png --depth moge2-cpu --face 768 --fov 100 --levels 2896,2048,1448,1024",
+      "day": "santa-cruz",
+      "src": "pano-hi",
+      "kind": "pano-moge2-cpu",
+      "label": "Santa Cruz: CPU pano world (1.44M)",
+      "splats": 1444466,
+      "view": {
+        "mode": "walk",
+        "eye": [
+          0,
+          0,
+          0
+        ],
+        "radius": 1.2
+      }
+    },
+    {
+      "id": "santa-cruz-pano-1024",
+      "path": "work/santa-cruz-pano/santa-cruz-pano-1024.spz",
+      "local": true,
+      "bytes": 4085111,
+      "sha256": "6c2d9df1a2c51343a5b6c2b7908e0aae062f8ccda5683e74a8352ec55798ef87",
+      "build": "cd spike/walkable/splats && node tools/pano-world.mjs --id santa-cruz-pano --day santa-cruz --pano https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_ac8d810a-868c-400a-8f44-3311e8df35527e4b4469-a952-48bd-aa36-12585c8f0732.png --depth moge2-cpu --face 768 --fov 100 --levels 2896,2048,1448,1024",
+      "day": "santa-cruz",
+      "src": "pano-lo",
+      "kind": "pano-moge2-cpu",
+      "label": "Santa Cruz: CPU pano world (0.36M)",
+      "splats": 361040,
+      "view": {
+        "mode": "walk",
+        "eye": [
+          0,
+          0,
+          0
+        ],
+        "radius": 1.2
+      }
+    },
+    {
+      "id": "santa-cruz-pano-2896",
+      "path": "work/santa-cruz-pano/santa-cruz-pano-2896.spz",
+      "local": true,
+      "bytes": 29978823,
+      "sha256": "11349254959d12aec438b5c43edd672987dc8bf3fd5ec308ae4732dfddef9bf0",
+      "build": "cd spike/walkable/splats && node tools/pano-world.mjs --id santa-cruz-pano --day santa-cruz --pano https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_ac8d810a-868c-400a-8f44-3311e8df35527e4b4469-a952-48bd-aa36-12585c8f0732.png --depth moge2-cpu --face 768 --fov 100 --levels 2896,2048,1448,1024",
+      "day": "santa-cruz",
+      "src": "pano-max",
+      "kind": "pano-moge2-cpu",
+      "label": "Santa Cruz: CPU pano world (2.89M)",
+      "splats": 2889056,
+      "view": {
+        "mode": "walk",
+        "eye": [
+          0,
+          0,
+          0
+        ],
+        "radius": 1.2
+      }
     }
   ]
 }
