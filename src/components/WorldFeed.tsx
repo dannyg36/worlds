@@ -150,13 +150,18 @@ function Loading() {
   );
 }
 
+/** The frame tonight's first world will fill. */
 function Empty() {
   return (
     <Animated.View entering={FadeIn.delay(200).duration(700)} style={styles.empty}>
-      <Text style={[type.headline, styles.center]}>Your first world is one night away.</Text>
-      <Text style={[type.body, styles.center]}>
-        Tap the pearl and tell it about your day. A minute later it becomes a little place you can explore.
-      </Text>
+      <View style={styles.emptyPlate} />
+      <View style={styles.emptyCaption}>
+        <Text style={type.meta}>Tonight</Text>
+        <Text style={type.headline}>Your first world is one night{" "}away.</Text>
+        <Text style={type.body}>
+          Tap the pearl and tell it about your day. A minute later it becomes a little place you can explore.
+        </Text>
+      </View>
     </Animated.View>
   );
 }
@@ -221,12 +226,24 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   empty: {
-    alignItems: "center",
-    gap: space.md,
-    paddingTop: space.xxxl,
-    paddingHorizontal: space.lg,
+    gap: space.lg,
   },
-  center: {
-    textAlign: "center",
+  emptyPlate: {
+    aspectRatio: 1,
+    borderRadius: radius.lg + 4,
+    borderCurve: "continuous",
+    borderWidth: 1,
+    borderColor: color.hairline,
+    backgroundColor: color.pearlLight,
+    backgroundImage: [
+      `radial-gradient(circle at 30% 26%, ${color.blush} 0%, rgba(243, 221, 227, 0) 52%)`,
+      `radial-gradient(circle at 76% 70%, ${color.mint} 0%, rgba(214, 236, 231, 0) 50%)`,
+      `radial-gradient(circle at 70% 18%, ${color.lilac} 0%, rgba(227, 221, 243, 0) 44%)`,
+    ].join(", "),
+    boxShadow: "inset 0 1px 3px rgba(0, 0, 0, 0.04)",
+  },
+  emptyCaption: {
+    gap: space.xs + 2,
+    paddingHorizontal: space.xs,
   },
 });
