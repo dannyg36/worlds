@@ -1,0 +1,329 @@
+diff --git a/app.json b/app.json
+index 09a670e..12ec287 100644
+--- a/app.json
++++ b/app.json
+@@ -34,12 +34,11 @@
+           "imageWidth": 76
+         }
+       ],
+-      "@clerk/expo",
+       "expo-secure-store"
+     ],
+     "experiments": {
+       "typedRoutes": true,
+-      "reactCompiler": true
++      "reactCompiler": false
+     }
+   }
+ }
+diff --git a/package.json b/package.json
+index 9d6dda0..ef6fab3 100644
+--- a/package.json
++++ b/package.json
+@@ -5,6 +5,7 @@
+   "dependencies": {
+     "@clerk/expo": "^4.16.1",
+     "@expo/ui": "~58.0.28",
++    "@react-three/fiber": "^9.8.2",
+     "convex": "^1.50.0",
+     "expo": "~58.0.25",
+     "expo-auth-session": "~58.0.18",
+@@ -12,6 +13,7 @@
+     "expo-crypto": "~58.0.8",
+     "expo-device": "~58.0.5",
+     "expo-font": "~58.0.12",
++    "expo-gl": "~58.0.4",
+     "expo-glass-effect": "~58.0.5",
+     "expo-image": "~58.0.18",
+     "expo-linking": "~58.0.17",
+@@ -30,10 +32,12 @@
+     "react-native-safe-area-context": "~5.11.1",
+     "react-native-screens": "~4.30.1",
+     "react-native-web": "~0.21.4",
+-    "react-native-worklets": "0.13.0"
++    "react-native-worklets": "0.13.0",
++    "three": "^0.187.0"
+   },
+   "devDependencies": {
+     "@types/react": "~19.3.0",
++    "@types/three": "^0.187.0",
+     "eslint": "^9.0.0",
+     "eslint-config-expo": "~58.0.4",
+     "typescript": "~6.0.3"
+diff --git a/src/app/_layout.tsx b/src/app/_layout.tsx
+index d4612b7..d75f4a2 100644
+--- a/src/app/_layout.tsx
++++ b/src/app/_layout.tsx
+@@ -1,74 +1,5 @@
+-import { ClerkProvider, useAuth, useClerk } from "@clerk/expo";
+-import { tokenCache } from "@clerk/expo/token-cache";
+-import { ConvexReactClient, useConvexAuth } from "convex/react";
+-import { ConvexProviderWithClerk } from "convex/react-clerk";
+-import {
+-  DarkTheme,
+-  DefaultTheme,
+-  SplashScreen,
+-  Stack,
+-  ThemeProvider,
+-  useTheme,
+-} from "expo-router";
+-import { Pressable, Text, useColorScheme } from "react-native";
+-
+-SplashScreen.preventAutoHideAsync();
+-
+-const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
+-  unsavedChangesWarning: false,
+-});
++import { Stack } from 'expo-router';
+ 
+ export default function RootLayout() {
+-  const colorScheme = useColorScheme();
+-
+-  return (
+-    <ClerkProvider
+-      publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
+-      tokenCache={tokenCache}
+-    >
+-      <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
+-        <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+-          <RootStack />
+-        </ThemeProvider>
+-      </ConvexProviderWithClerk>
+-    </ClerkProvider>
+-  );
+-}
+-
+-function RootStack() {
+-  const { isLoading, isAuthenticated } = useConvexAuth();
+-
+-  if (isLoading) {
+-    return null;
+-  }
+-  SplashScreen.hide();
+-
+-  return (
+-    <Stack>
+-      <Stack.Protected guard={isAuthenticated}>
+-        <Stack.Screen
+-          name="index"
+-          options={{
+-            title: "Worlds",
+-            headerLargeTitleEnabled: true,
+-            headerRight: () => <SignOutButton />,
+-          }}
+-        />
+-      </Stack.Protected>
+-      <Stack.Protected guard={!isAuthenticated}>
+-        <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+-      </Stack.Protected>
+-    </Stack>
+-  );
+-}
+-
+-function SignOutButton() {
+-  const { signOut } = useClerk();
+-  const { colors } = useTheme();
+-
+-  return (
+-    <Pressable accessibilityRole="button" hitSlop={8} onPress={() => signOut()}>
+-      <Text style={{ color: colors.primary, fontSize: 17 }}>Sign out</Text>
+-    </Pressable>
+-  );
++  return <Stack screenOptions={{ headerShown: false }} />;
+ }
+diff --git a/src/app/index.tsx b/src/app/index.tsx
+index c167358..0777451 100644
+--- a/src/app/index.tsx
++++ b/src/app/index.tsx
+@@ -1,157 +1,41 @@
+-import { useMutation, useQuery } from "convex/react";
+-import { useTheme } from "expo-router";
+-import { useState } from "react";
+-import {
+-  ActivityIndicator,
+-  Alert,
+-  FlatList,
+-  Pressable,
+-  StyleSheet,
+-  Text,
+-  TextInput,
+-  View,
+-} from "react-native";
++import { useState } from 'react';
++import { ScrollView, Text } from 'react-native';
+ 
+-import { api } from "../../convex/_generated/api";
++const steps: [string, () => unknown][] = [
++  ['three', () => require('three')],
++  ['GLTFLoader', () => require('three/examples/jsm/loaders/GLTFLoader.js')],
++  ['RoomEnvironment', () => require('three/examples/jsm/environments/RoomEnvironment.js')],
++  ['expo-gl', () => require('expo-gl')],
++  ['expo-asset', () => require('expo-asset')],
++  ['expo-file-system', () => require('expo-file-system')],
++  ['expo-file-system/legacy', () => require('expo-file-system/legacy')],
++  ['buffer', () => require('buffer')],
++  ['base64-js', () => require('base64-js')],
++  ['r3f-native', () => require('@react-three/fiber/native')],
++  ['bake', () => require('../bake')],
++];
+ 
+-export default function WorldsScreen() {
+-  const { colors } = useTheme();
+-  const worlds = useQuery(api.worlds.list);
+-  const addWorld = useMutation(api.worlds.add);
+-  const [transcript, setTranscript] = useState("");
+-  const [adding, setAdding] = useState(false);
+-  const canAdd = transcript.trim().length > 0 && !adding;
+-
+-  async function handleAdd() {
+-    setAdding(true);
+-    try {
+-      await addWorld({ transcript });
+-      setTranscript((current) => (current === transcript ? "" : current));
+-    } catch (error) {
+-      Alert.alert(
+-        "Couldn't add your world",
+-        error instanceof Error ? error.message : String(error),
+-      );
+-    } finally {
+-      setAdding(false);
+-    }
++let Bake: any = null;
++const log: string[] = [];
++for (const [name, fn] of steps) {
++  try {
++    const m: any = fn();
++    if (name === 'bake') Bake = m.default;
++    log.push('OK ' + name);
++  } catch (e: any) {
++    log.push('FAIL ' + name + ': ' + e?.message + '\n' + String(e?.stack).slice(0, 600));
+   }
++}
++console.log('BAKE: ' + log.join(' | '));
+ 
++export default function Index() {
++  const [, set] = useState(0);
++  if (Bake && !log.some((l) => l.startsWith('FAIL'))) return <Bake />;
+   return (
+-    <FlatList
+-      data={worlds ?? []}
+-      keyExtractor={(world) => world._id}
+-      contentInsetAdjustmentBehavior="automatic"
+-      keyboardShouldPersistTaps="handled"
+-      keyboardDismissMode="on-drag"
+-      contentContainerStyle={styles.content}
+-      ListHeaderComponent={
+-        <View
+-          style={[
+-            styles.card,
+-            { backgroundColor: colors.card, borderColor: colors.border },
+-          ]}
+-        >
+-          <TextInput
+-            value={transcript}
+-            onChangeText={setTranscript}
+-            placeholder="What happened today?"
+-            placeholderTextColor={secondaryText}
+-            accessibilityLabel="Describe your day"
+-            multiline
+-            style={[styles.input, { color: colors.text }]}
+-          />
+-          <Pressable
+-            accessibilityRole="button"
+-            accessibilityState={{ disabled: !canAdd }}
+-            disabled={!canAdd}
+-            onPress={handleAdd}
+-            style={[
+-              styles.button,
+-              { backgroundColor: colors.primary, opacity: canAdd ? 1 : 0.4 },
+-            ]}
+-          >
+-            <Text style={styles.buttonLabel}>
+-              {adding ? "Adding…" : "Add world"}
+-            </Text>
+-          </Pressable>
+-        </View>
+-      }
+-      ListEmptyComponent={
+-        worlds === undefined ? (
+-          <ActivityIndicator style={styles.empty} />
+-        ) : (
+-          <Text style={styles.empty}>
+-            No worlds yet. Describe your day to make the first one.
+-          </Text>
+-        )
+-      }
+-      renderItem={({ item }) => (
+-        <View
+-          style={[
+-            styles.card,
+-            { backgroundColor: colors.card, borderColor: colors.border },
+-          ]}
+-        >
+-          <Text style={styles.date}>
+-            {new Date(item._creationTime).toLocaleString(undefined, {
+-              weekday: "short",
+-              month: "short",
+-              day: "numeric",
+-              hour: "numeric",
+-              minute: "2-digit",
+-            })}
+-          </Text>
+-          <Text style={[styles.transcript, { color: colors.text }]}>
+-            {item.transcript}
+-          </Text>
+-        </View>
+-      )}
+-    />
++    <ScrollView style={{ flex: 1, paddingTop: 60, backgroundColor: '#fff' }}>
++      {log.map((l, i) => (
++        <Text key={i} style={{ fontSize: 12 }} onPress={() => set((x) => x + 1)}>{l}</Text>
++      ))}
++    </ScrollView>
+   );
+ }
+-
+-const secondaryText = "#8E8E93";
+-
+-const styles = StyleSheet.create({
+-  content: {
+-    padding: 16,
+-    gap: 12,
+-  },
+-  card: {
+-    borderRadius: 16,
+-    borderWidth: StyleSheet.hairlineWidth,
+-    padding: 16,
+-    gap: 12,
+-  },
+-  input: {
+-    minHeight: 72,
+-    fontSize: 17,
+-    lineHeight: 22,
+-    textAlignVertical: "top",
+-  },
+-  button: {
+-    alignItems: "center",
+-    borderRadius: 12,
+-    paddingVertical: 12,
+-  },
+-  buttonLabel: {
+-    color: "#FFFFFF",
+-    fontSize: 17,
+-    fontWeight: "600",
+-  },
+-  date: {
+-    color: secondaryText,
+-    fontSize: 13,
+-    fontWeight: "500",
+-  },
+-  transcript: {
+-    fontSize: 17,
+-    lineHeight: 24,
+-  },
+-  empty: {
+-    color: secondaryText,
+-    marginTop: 24,
+-    textAlign: "center",
+-  },
+-});

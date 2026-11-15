@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from "convex/react";
-import { useTheme } from "expo-router";
+import { useMutation } from "convex/react";
+import { useRouter, useTheme } from "expo-router";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -12,11 +12,16 @@ import {
   View,
 } from "react-native";
 
+import { StatusChip } from "@/world/status-chip";
+import { WorldThumbnail } from "@/world/thumbnail";
+import { useWorlds, worldDate, worldTitle } from "@/world/worlds";
+
 import { api } from "../../convex/_generated/api";
 
 export default function WorldsScreen() {
   const { colors } = useTheme();
-  const worlds = useQuery(api.worlds.list);
+  const router = useRouter();
+  const worlds = useWorlds();
   const addWorld = useMutation(api.worlds.add);
   const [transcript, setTranscript] = useState("");
   const [adding, setAdding] = useState(false);
@@ -87,25 +92,38 @@ export default function WorldsScreen() {
         )
       }
       renderItem={({ item }) => (
-        <View
-          style={[
+        <Pressable
+          accessibilityRole="button"
+          onPress={() =>
+            router.push({ pathname: "/world/[id]", params: { id: item._id } })
+          }
+          style={({ pressed }) => [
             styles.card,
-            { backgroundColor: colors.card, borderColor: colors.border },
+            styles.row,
+            {
+              backgroundColor: colors.card,
+              borderColor: colors.border,
+              opacity: pressed ? 0.7 : 1,
+            },
           ]}
         >
-          <Text style={styles.date}>
-            {new Date(item._creationTime).toLocaleString(undefined, {
-              weekday: "short",
-              month: "short",
-              day: "numeric",
-              hour: "numeric",
-              minute: "2-digit",
-            })}
-          </Text>
-          <Text style={[styles.transcript, { color: colors.text }]}>
-            {item.transcript}
-          </Text>
-        </View>
+          <WorldThumbnail world={item} size={68} />
+          <View style={styles.rowText}>
+            <View style={styles.rowMeta}>
+              <Text style={styles.date}>{worldDate(item)}</Text>
+              <StatusChip status={item.status} />
+            </View>
+            <Text
+              numberOfLines={1}
+              style={[styles.title, { color: colors.text }]}
+            >
+              {worldTitle(item)}
+            </Text>
+            <Text numberOfLines={2} style={styles.subtitle}>
+              {item.caption ?? item.transcript}
+            </Text>
+          </View>
+        </Pressable>
       )}
     />
   );
@@ -140,14 +158,35 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "600",
   },
+  row: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 14,
+    padding: 12,
+  },
+  rowText: {
+    flex: 1,
+    gap: 3,
+  },
+  rowMeta: {
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 8,
+    justifyContent: "space-between",
+  },
   date: {
     color: secondaryText,
     fontSize: 13,
     fontWeight: "500",
   },
-  transcript: {
+  title: {
     fontSize: 17,
-    lineHeight: 24,
+    fontWeight: "600",
+  },
+  subtitle: {
+    color: secondaryText,
+    fontSize: 15,
+    lineHeight: 20,
   },
   empty: {
     color: secondaryText,
