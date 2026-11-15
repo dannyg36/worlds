@@ -74,6 +74,16 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(204, { "Cache-Control": "no-store" }).end();
       return;
     }
+    if (req.method === "POST" && url.pathname === "/frame") {
+      const buf = await readBody(req, 20 * 1024 * 1024);
+      const session = (url.searchParams.get("session") || "s").replace(/[^a-z0-9_-]+/gi, "_").slice(0, 60);
+      const i = String(Number(url.searchParams.get("i") || 0)).padStart(5, "0");
+      const dir = path.join(here, "out", "frames", session);
+      fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(path.join(dir, i + ".jpg"), buf);
+      res.writeHead(204).end();
+      return;
+    }
     if (req.method === "POST" && url.pathname === "/clip") {
       const buf = await readBody(req, 80 * 1024 * 1024);
       const type = String(req.headers["content-type"] || "");

@@ -334,7 +334,27 @@ async function init() {
     b.classList.remove("on");
     setTimeout(() => (b.textContent = "REC"), 2500);
   };
-  renderer.setAnimationLoop(frame);
+  if (qs.get("capture")) captureFrames(Number(qs.get("capture")), qs.get("session") || day + "-" + setName);
+  else renderer.setAnimationLoop(frame);
+}
+
+async function captureFrames(count, sessionName) {
+  $("hud").classList.add("hidden");
+  $("buttons").style.display = "none";
+  $("hint").style.display = "none";
+  const step = 1 / 30;
+  let fake = performance.now();
+  const realNow = performance.now.bind(performance);
+  performance.now = () => fake;
+  for (let i = 0; i < count; i++) {
+    fake += step * 1000;
+    frame();
+    const blob = await new Promise((r) => canvas.toBlob(r, "image/jpeg", 0.88));
+    await fetch("frame?session=" + encodeURIComponent(sessionName) + "&i=" + i, { method: "POST", body: blob });
+    $("loadinfo").textContent = "captured " + (i + 1) + "/" + count;
+  }
+  performance.now = realNow;
+  document.title = "capture done " + count;
 }
 
 function onResize() {
