@@ -485,7 +485,7 @@ function obbOverlap(a, b, margin = 0) {
   return true;
 }
 
-export function layoutWorld({ objects, templates, ground, seed, raycastDown, spawn }) {
+export function layoutWorld({ objects, templates, ground, seed, raycastDown, spawn, faceSpawn = false }) {
   const rand = mulberry32(seed);
   const ids = objects.map((o) => o.id);
   const rules = new Map(objects.map((o) => [o.id, parsePlace(o.place, ids, o.id)]));
@@ -520,6 +520,7 @@ export function layoutWorld({ objects, templates, ground, seed, raycastDown, spa
       const jitter = isPerson ? 0.94 + rand() * 0.12 : 1;
       let best = null;
       const consider = (x, z, yaw, extra = {}) => {
+        if (faceSpawn && rule.kind !== "backdrop") yaw = faceYaw(x, z, spawn.x, spawn.z);
         const cand = { x, z, yaw, hx: hx0 * jitter, hz: hz0 * jitter, ...extra };
         const others = cand.parent ? placed.filter((p) => p.parent === cand.parent) : [...blockers, ...placed.filter((p) => !p.parent)];
         let overlaps = 0;
@@ -532,6 +533,24 @@ export function layoutWorld({ objects, templates, ground, seed, raycastDown, spa
       if (rule.kind === "center") {
         const yaw = tpl.size.z > tpl.size.x ? Math.PI / 2 : 0;
         consider(0, 0, yaw);
+      } else if (rule.kind === "on" && ref && tpl.card) {
+        const top = templates.get(rule.ref)?.topFrac ?? 0.6;
+        const fx = Math.sin(ref.yaw), fz = Math.cos(ref.yaw), rx = Math.cos(ref.yaw), rz = -Math.sin(ref.yaw);
+        for (let k = 0; k < tries; k++) {
+          const lat = (rand() * 2 - 1) * Math.max(0.05, ref.hx * 0.75 - hx0);
+          const fwd = ref.hz + 0.03 + rand() * 0.05;
+          const x = ref.x + fx * fwd + rx * lat, z = ref.z + fz * fwd + rz * lat;
+          if (consider(x, z, ref.yaw, { y: ref.y + ref.height * top - 0.04, parent: ref })) break;
+        }
+      } else if (rule.kind === "around" && ref && tpl.card) {
+        const n = o.count || 1;
+        const back = Math.atan2(ref.x - spawn.x, ref.z - spawn.z);
+        for (let k = 0; k < 24; k++) {
+          const a = back + (-1.25 + (2.5 * (i + 0.5)) / n) + (k ? (rand() - 0.5) * 0.3 : 0);
+          const rr = Math.max(ref.hx, ref.hz) * (0.55 + 0.1 * (i % 2)) + footR * 0.5 + 0.2 + k * 0.05;
+          const x = ref.x + Math.sin(a) * rr, z = ref.z + Math.cos(a) * rr;
+          if (consider(x, z, 0, { penalty: ground.isLand(x, z) ? 0 : 5 })) break;
+        }
       } else if (rule.kind === "on" && ref && raycastDown) {
         const c = Math.cos(ref.yaw), s = Math.sin(ref.yaw);
         const hits = [];
@@ -654,7 +673,7 @@ export function layoutWorld({ objects, templates, ground, seed, raycastDown, spa
       };
       const shrink = isTree ? 0.18 : isPerson ? 0.55 : 0.92;
       p.collider = !p.parent && !p.floating && p.height > 0.25 ? { x: p.x, z: p.z, yaw: p.yaw, hx: Math.max(0.12, p.hx * shrink), hz: Math.max(0.12, p.hz * shrink) } : null;
-      if (best.floating && o.size_m >= 3) p.walkable = true;
+      if (best.floating && o.size_m >= 3 && !tpl.card) p.walkable = true;
       placed.push(p);
     }
   }

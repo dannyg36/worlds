@@ -1,0 +1,72 @@
+{
+  "day": "hackathon",
+  "from": "gmi-objects-front",
+  "to": "cards",
+  "cards_ms": 20550,
+  "timings": {
+    "table": {
+      "cutout_ms": 169,
+      "depth_ms": 2546,
+      "depth_infer_ms": 1594,
+      "total_ms": 4062,
+      "png_kb": 111,
+      "size": "768x498"
+    },
+    "monitor": {
+      "cutout_ms": 170,
+      "depth_ms": 915,
+      "depth_infer_ms": 841,
+      "total_ms": 1962,
+      "png_kb": 91,
+      "size": "536x560"
+    },
+    "cans": {
+      "cutout_ms": 208,
+      "depth_ms": 472,
+      "depth_infer_ms": 404,
+      "total_ms": 2084,
+      "png_kb": 107,
+      "size": "768x385"
+    },
+    "pizza": {
+      "cutout_ms": 382,
+      "depth_ms": 2060,
+      "depth_infer_ms": 2003,
+      "total_ms": 3475,
+      "png_kb": 89,
+      "size": "768x411"
+    },
+    "person": {
+      "cutout_ms": 209,
+      "depth_ms": 1046,
+      "depth_infer_ms": 941,
+      "total_ms": 2448,
+      "png_kb": 134,
+      "size": "661x768"
+    },
+    "whiteboard": {
+      "cutout_ms": 159,
+      "depth_ms": 401,
+      "depth_infer_ms": 341,
+      "total_ms": 1367,
+      "png_kb": 79,
+      "size": "346x768"
+    },
+    "beanbag": {
+      "cutout_ms": 176,
+      "depth_ms": 1148,
+      "depth_infer_ms": 1070,
+      "total_ms": 2051,
+      "png_kb": 132,
+      "size": "734x565"
+    },
+    "window": {
+      "cutout_ms": 207,
+      "depth_ms": 1886,
+      "depth_infer_ms": 1844,
+      "total_ms": 3097,
+      "png_kb": 94,
+      "size": "392x768"
+    }
+  }
+}

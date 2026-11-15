@@ -90,22 +90,33 @@ export async function cropSheet(file, { ids, cols, rows, outDir, size = 1024, pa
   return { sheet: { w, h, cols, rows, components: comps.length }, crops: out };
 }
 
-export async function cutout(input, outPath) {
+// Key out a near-uniform light background: estimate its color from the border, flood-fill everything connected to
+// the border that stays close to it (soft grey contact shadows included, since they are low-chroma and light),
+// then ramp alpha over a thin edge band and pull the background color out of the edge pixels.
+export async function cutout(input, outPath, { tol = 34, chroma = 22 } = {}) {
   const { data, info } = await sharp(input).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width: w, height: h } = info;
-  const white = new Float32Array(w * h);
-  for (let p = 0; p < w * h; p++) {
+  const border = [];
+  for (let x = 0; x < w; x += 4) border.push(x, (h - 1) * w + x);
+  for (let y = 0; y < h; y += 4) border.push(y * w, y * w + w - 1);
+  const med = (k) => border.map((p) => data[p * 3 + k]).sort((a, b) => a - b)[border.length >> 1];
+  const bgc = [med(0), med(1), med(2)];
+  const n = w * h;
+  const dist = new Float32Array(n);
+  for (let p = 0; p < n; p++) {
     const r = data[p * 3], g = data[p * 3 + 1], b = data[p * 3 + 2];
-    const mn = Math.min(r, g, b), mx = Math.max(r, g, b);
-    white[p] = mn / 255 - (mx - mn) / 255;
+    const dr = r - bgc[0], dg = g - bgc[1], db = b - bgc[2];
+    const lum = (dr + dg + db) / 3;
+    const chromaDev = Math.max(Math.abs(dr - lum), Math.abs(dg - lum), Math.abs(db - lum));
+    dist[p] = chromaDev > chroma ? 255 : Math.max(Math.abs(lum) * (lum < 0 ? 1 : 0.5), chromaDev * 2);
   }
-  const bg = new Uint8Array(w * h);
+  const bg = new Uint8Array(n);
   const stack = [];
   for (let x = 0; x < w; x++) stack.push(x, (h - 1) * w + x);
   for (let y = 0; y < h; y++) stack.push(y * w, y * w + w - 1);
   while (stack.length) {
     const p = stack.pop();
-    if (bg[p] || white[p] < 0.9) continue;
+    if (bg[p] || dist[p] > tol) continue;
     bg[p] = 1;
     const x = p % w;
     if (x > 0) stack.push(p - 1);
@@ -113,18 +124,26 @@ export async function cutout(input, outPath) {
     if (p >= w) stack.push(p - w);
     if (p < w * (h - 1)) stack.push(p + w);
   }
-  const rgba = Buffer.alloc(w * h * 4);
-  for (let p = 0; p < w * h; p++) {
-    let a = bg[p] ? 0 : 255;
-    if (!bg[p]) {
-      const x = p % w;
-      const nearBg = (x > 0 && bg[p - 1]) || (x < w - 1 && bg[p + 1]) || (p >= w && bg[p - w]) || (p < w * (h - 1) && bg[p + w]);
-      if (nearBg) a = Math.round(255 * Math.min(1, Math.max(0.25, (1 - white[p]) / 0.2)));
+  const edge = new Uint8Array(n);
+  for (let p = 0; p < n; p++) {
+    if (bg[p]) continue;
+    const x = p % w;
+    if ((x > 0 && bg[p - 1]) || (x < w - 1 && bg[p + 1]) || (p >= w && bg[p - w]) || (p < n - w && bg[p + w])) edge[p] = 1;
+  }
+  const rgba = Buffer.alloc(n * 4);
+  for (let p = 0; p < n; p++) {
+    let a = bg[p] ? 0 : 1;
+    if (edge[p]) a = Math.min(1, Math.max(0.2, (dist[p] - tol * 0.5) / (tol * 1.5)));
+    let r = data[p * 3], g = data[p * 3 + 1], b = data[p * 3 + 2];
+    if (a > 0 && a < 1) {
+      r = Math.min(255, Math.max(0, (r - (1 - a) * bgc[0]) / a));
+      g = Math.min(255, Math.max(0, (g - (1 - a) * bgc[1]) / a));
+      b = Math.min(255, Math.max(0, (b - (1 - a) * bgc[2]) / a));
     }
-    rgba[p * 4] = data[p * 3];
-    rgba[p * 4 + 1] = data[p * 3 + 1];
-    rgba[p * 4 + 2] = data[p * 3 + 2];
-    rgba[p * 4 + 3] = a;
+    rgba[p * 4] = r;
+    rgba[p * 4 + 1] = g;
+    rgba[p * 4 + 2] = b;
+    rgba[p * 4 + 3] = Math.round(a * 255);
   }
   await sharp(rgba, { raw: { width: w, height: h, channels: 4 } }).trim({ threshold: 1 }).png().toFile(outPath);
   return outPath;

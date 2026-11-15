@@ -45,16 +45,17 @@ function sheetLayout(n) {
   const cols = Math.ceil(Math.sqrt(n));
   return { cols, rows: Math.ceil(n / cols) };
 }
+const view = args.view === "front" ? "front view at eye level" : "three-quarter view from slightly above";
 function sheetPrompt(list, cols, rows) {
   const cells = list.map((o, k) => "row " + (Math.floor(k / cols) + 1) + ", column " + ((k % cols) + 1) + ": " + objectLine(o)).join("; ");
-  return "A sprite sheet of " + list.length + " separate 3D game assets laid out in a strict " + cols + " by " + rows + " grid on a pure white background. " +
-    "Each asset stands alone, centered in its own cell, fully visible with wide white margins, shown in a three-quarter view from slightly above, not touching or overlapping any other asset, no ground, no shadows, no text, no labels, no grid lines. " +
+  return "A sprite sheet of " + list.length + " separate game assets laid out in a strict " + cols + " by " + rows + " grid on one uniform plain pure white background. " +
+    "Each asset is small inside its own cell and surrounded by wide empty white space, fully visible, " + view + ", never touching the cell edges or any other asset. No panels, frames, borders or cell backgrounds, no ground, no floor, no cast shadows, no text, no labels. " +
     cells + ". " + spec.style + ".";
 }
-const objectPrompt = (o) => objectLine(o) + ". A single isolated 3D game asset, centered, the whole object in frame, three-quarter view from slightly above, plain pure white background, no ground, no shadow, no text. " + spec.style + ".";
+const objectPrompt = (o) => objectLine(o) + ". A single isolated object, " + view + ", the whole object fully inside the frame with generous empty margin on every side, centered, on a plain flat pure white background, no ground, no floor, no cast shadow, no text. " + spec.style + ".";
 
 const sha = (buf) => crypto.createHash("sha256").update(buf).digest("hex");
-const report = { day, set: setName, provider: P.name, image_mode: mode, image_model: P.imageModel, model3d: P.model3d, started_at: new Date(t0).toISOString(), objects: {}, timeline, calls: [] };
+const report = { day, set: setName, provider: P.name, image_mode: mode, image_model: P.imageModel, model3d: P.model3d, payload3d: P.payload3d ?? null, started_at: new Date(t0).toISOString(), objects: {}, timeline, calls: [] };
 
 mark("start", { note: objects.length + " objects via " + mode });
 const crops = {};
@@ -67,7 +68,7 @@ if (reuseImages) {
 } else if (mode === "sheet") {
   const { cols, rows } = sheetLayout(objects.length);
   const prompt = sheetPrompt(objects, cols, rows);
-  const r = await P.image({ prompt, aspect: cols === rows ? "1:1" : cols > rows ? "4:3" : "3:4", label: day + "-" + setName + "-sheet", outDir: runDir });
+  const r = await P.image({ prompt, size: args["sheet-size"] || "2048x2048", label: day + "-" + setName + "-sheet", outDir: runDir });
   report.calls.push(r.entry);
   report.sheet = { prompt, cols, rows, url: r.url, local: path.relative(compositeDir, r.local) };
   mark("sheet image", { note: r.entry.latency_s + "s, $" + r.entry.est_cost_usd });
@@ -77,7 +78,7 @@ if (reuseImages) {
   mark("sheet cropped", { note: c.crops.filter((x) => x.fallback).length + " cells fell back to the cell rectangle" });
 } else {
   await Promise.all(objects.map(async (o) => {
-    const r = await P.image({ prompt: objectPrompt(o), aspect: "1:1", label: day + "-" + setName + "-" + o.id, outDir: runDir });
+    const r = await P.image({ prompt: objectPrompt(o), size: args["object-size"] || "1024x1024", label: day + "-" + setName + "-" + o.id, outDir: runDir });
     report.calls.push(r.entry);
     const dir = path.join(runDir, "img");
     fs.mkdirSync(dir, { recursive: true });

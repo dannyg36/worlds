@@ -110,6 +110,58 @@ function makeTemplate(root, sizeM, frontYawDeg) {
   return { object: holder, size: size.multiplyScalar(s) };
 }
 
+async function textureFrom(buf, type) {
+  const url = URL.createObjectURL(new Blob([buf], { type }));
+  const tex = await new THREE.TextureLoader().loadAsync(url);
+  URL.revokeObjectURL(url);
+  return tex;
+}
+
+async function pixelsFrom(buf) {
+  const bmp = await createImageBitmap(new Blob([buf], { type: "image/png" }));
+  const c = document.createElement("canvas");
+  c.width = bmp.width;
+  c.height = bmp.height;
+  const ctx = c.getContext("2d", { willReadFrequently: true });
+  ctx.drawImage(bmp, 0, 0);
+  return { w: bmp.width, h: bmp.height, data: ctx.getImageData(0, 0, bmp.width, bmp.height).data };
+}
+
+const cardMode = qs.get("cards") || "relief";
+async function makeCardTemplate(card, sizeM) {
+  const [imgBuf, depthBuf] = await Promise.all([fetchAsset(card.image), card.depth && cardMode === "relief" ? fetchAsset(card.depth) : null]);
+  const map = await textureFrom(imgBuf, "image/png");
+  map.colorSpace = THREE.SRGBColorSpace;
+  map.anisotropy = 4;
+  const aspect = card.width / card.height;
+  const w = aspect >= 1 ? sizeM : sizeM * aspect;
+  const h = aspect >= 1 ? sizeM / aspect : sizeM;
+  const relief = depthBuf ? Math.min(0.55, Math.max(0.08, Math.min(w, h) * Number(qs.get("relief") || 0.28))) : 0;
+  const segX = relief ? Math.max(12, Math.round(72 * Math.min(1, aspect))) : 1;
+  const segY = relief ? Math.max(12, Math.round(72 * Math.min(1, 1 / aspect))) : 1;
+  const geo = new THREE.PlaneGeometry(w, h, segX, segY).translate(0, h / 2, 0);
+  if (relief) {
+    const d = await pixelsFrom(depthBuf);
+    const pos = geo.attributes.position, uv = geo.attributes.uv;
+    for (let i = 0; i < pos.count; i++) {
+      const x = Math.min(d.w - 1, Math.round(uv.getX(i) * (d.w - 1)));
+      const y = Math.min(d.h - 1, Math.round((1 - uv.getY(i)) * (d.h - 1)));
+      pos.setZ(i, (d.data[(y * d.w + x) * 4] / 255) * relief);
+    }
+    geo.computeVertexNormals();
+  }
+  const mat = new THREE.MeshStandardMaterial({ map, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.9, emissive: 0xffffff, emissiveMap: map, emissiveIntensity: Number(qs.get("cardGlow") || 0.22) });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  mesh.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map, alphaTest: 0.5 });
+  const holder = new THREE.Group();
+  holder.add(mesh);
+  holder.userData.card = true;
+  if (cardMode === "billboard") holder.userData.billboard = true;
+  return { object: holder, size: new THREE.Vector3(w, h, Math.max(0.12, relief)), card: true, topFrac: card.top_frac ?? 0.6 };
+}
+
 async function makeSpriteTemplate(file, sizeM) {
   const buf = await fetchAsset(file);
   const url = URL.createObjectURL(new Blob([buf], { type: "image/png" }));
@@ -187,6 +239,7 @@ async function init() {
     const a = set.objects[o.id];
     if (!a) return null;
     if (a.sprite) return [o.id, await makeSpriteTemplate(a.sprite, o.size_m)];
+    if (a.card) return [o.id, await makeCardTemplate(a.card, o.size_m)];
     const buf = await fetchAsset(a.file);
     const t = performance.now();
     const gltf = await gltfLoader.parseAsync(buf, "assets/" + a.file.replace(/[^/]+$/, ""));
@@ -252,7 +305,7 @@ async function init() {
   for (let k = 0; k < 20 && !ground.isLand(spawn.x, spawn.z); k++) spawn = { x: spawn.x, z: spawn.z + 0.4 };
 
   const tl = performance.now();
-  const lay = layoutWorld({ objects: spec.objects, templates, ground, seed: hashString(day + ":" + setName), raycastDown, spawn });
+  const lay = layoutWorld({ objects: spec.objects, templates, ground, seed: hashString(day + ":" + setName), raycastDown, spawn, faceSpawn: set.kind === "cards" && cardMode !== "billboard" });
   layoutMs = Math.round(performance.now() - tl);
   placed = lay.placed;
   hero = lay.hero;
@@ -351,7 +404,7 @@ async function captureFrames(count, sessionName) {
     frame();
     const blob = await new Promise((r) => canvas.toBlob(r, "image/jpeg", 0.88));
     await fetch("frame?session=" + encodeURIComponent(sessionName) + "&i=" + i, { method: "POST", body: blob });
-    $("loadinfo").textContent = "captured " + (i + 1) + "/" + count;
+    document.title = "captured " + (i + 1) + "/" + count;
   }
   performance.now = realNow;
   document.title = "capture done " + count;

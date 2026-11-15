@@ -1,0 +1,83 @@
+{
+  "day": "hackathon",
+  "set": "gmi-sheet-front",
+  "provider": "gmi",
+  "image_mode": "sheet",
+  "image_model": "seedream-4-0-250828",
+  "model3d": "hunyuan-3d-pro",
+  "payload3d": {},
+  "started_at": "2026-11-15T20:55:14.345Z",
+  "objects": {},
+  "timeline": [
+    {
+      "t": 0,
+      "event": "start",
+      "note": "8 objects via sheet"
+    },
+    {
+      "t": 12.65,
+      "event": "sheet image",
+      "note": "12.48s, $0.05"
+    },
+    {
+      "t": 15.71,
+      "event": "sheet cropped",
+      "note": "7 cells fell back to the cell rectangle"
+    },
+    {
+      "t": 15.71,
+      "event": "images done"
+    },
+    {
+      "t": 15.71,
+      "event": "done"
+    }
+  ],
+  "calls": [
+    {
+      "ts": "2026-11-15T20:55:14.348Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "hackathon-gmi-sheet-front-sheet",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "3a121a51-2715-49d8-b575-f0bb3c498184",
+      "status": "ok",
+      "error": null,
+      "latency_s": 12.48,
+      "queue_wait_s": 12.48,
+      "server_s": 12,
+      "est_cost_usd": 0.05,
+      "output_bytes": 1011910,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a121a51-2715-49d8-b575-f0bb3c498184e5d04d24-f7da-4053-b48c-385c070117e8.jpg",
+          "local": "assets/hackathon/gmi-sheet-front/hackathon-gmi-sheet-front-sheet__media_urls.0.url.jpg",
+          "bytes": 1011910,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a121a51-2715-49d8-b575-f0bb3c498184e5d04d24-f7da-4053-b48c-385c070117e8.jpg"
+        }
+      ]
+    }
+  ],
+  "sheet": {
+    "prompt": "A sprite sheet of 8 separate game assets laid out in a strict 3 by 3 grid on one uniform plain pure white background. Each asset is small inside its own cell and surrounded by wide empty white space, fully visible, front view at eye level, never touching the cell edges or any other asset. No panels, frames, borders or cell backgrounds, no ground, no floor, no cast shadows, no text, no labels. row 1, column 1: a long wooden office table crowded with laptops and glowing monitors; row 1, column 2: a computer monitor showing a tiny colorful 3D world; row 1, column 3: a messy pile of Red Bull energy drink cans; row 2, column 1: two open pizza boxes with cold pizza slices; row 2, column 2: a young person cheering with both arms raised, casual hoodie; row 2, column 3: a rolling whiteboard covered in database diagrams; row 3, column 1: a big orange beanbag chair; row 3, column 2: a tall floor-to-ceiling window frame glowing with sunset light. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+    "cols": 3,
+    "rows": 3,
+    "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a121a51-2715-49d8-b575-f0bb3c498184e5d04d24-f7da-4053-b48c-385c070117e8.jpg",
+    "local": "assets/hackathon/gmi-sheet-front/hackathon-gmi-sheet-front-sheet__media_urls.0.url.jpg",
+    "crop": {
+      "w": 2048,
+      "h": 2048,
+      "cols": 3,
+      "rows": 3,
+      "components": 1
+    }
+  },
+  "wall_s": 15.71,
+  "est_cost_usd": 0.05,
+  "download_bytes": 0
+}

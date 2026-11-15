@@ -25,12 +25,12 @@ function gmiProvider(args) {
   const kit = import(path.join(kitDir, "gmi.mjs"));
   const imagePayload = JSON.parse(args["image-payload"] || "{}");
   const payload3d = JSON.parse(args["payload-3d"] || "{}");
-  const imageField = args["image-field"] || "image";
+  const imageField = args["image-field"] || "image_url";
   return {
-    name: "gmi", imageModel, model3d,
-    async image({ prompt, aspect, label, outDir }) {
+    name: "gmi", imageModel, model3d, payload3d,
+    async image({ prompt, size, label, outDir }) {
       const { run } = await kit;
-      const r = await run({ approach: "composite", model: imageModel, payload: { prompt, aspect_ratio: aspect, ...imagePayload }, estCostUsd: estImage, label, outDir, is3d: false });
+      const r = await run({ approach: "composite", model: imageModel, payload: { prompt, size, ...imagePayload }, estCostUsd: estImage, label, outDir, is3d: false });
       const f = firstFile(r.files, /\.(png|jpe?g|webp)(\?|$)/i) || r.files[0];
       return { url: f.url, local: path.resolve(f.local), entry: r.entry };
     },

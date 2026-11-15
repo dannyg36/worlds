@@ -66,154 +66,101 @@
     "style": "Stylized 3D animated-film look, soft clay-like materials, warm cinematic light"
   },
   "panorama": {
-    "file": "sample/umhlanga_sunrise.jpg",
-    "source": "https://dl.polyhaven.org/file/ph-assets/HDRIs/extra/Tonemapped%20JPG/umhlanga_sunrise.jpg",
+    "file": "santa-cruz/pano-4096.jpeg",
+    "bytes": 906477,
+    "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_ac8d810a-868c-400a-8f44-3311e8df35527e4b4469-a952-48bd-aa36-12585c8f0732.png",
+    "source_bytes": 12018209,
+    "model": "seedream-5.0-lite",
+    "size": "4096x2048",
     "yaw_deg": 0,
     "height_m": 1.7
   },
-  "default_set": "sample-opt",
+  "default_set": "cards",
   "sets": {
-    "sample": {
-      "label": "dev stand-ins (Khronos CC0 models), not generated",
+    "cards": {
       "objects": {
         "wharf": {
-          "file": "sample/GlamVelvetSofa.glb",
-          "bytes": 3149844
+          "card": {
+            "image": "santa-cruz/cards/wharf.png",
+            "depth": "santa-cruz/cards/wharf.depth.png",
+            "width": 768,
+            "height": 409,
+            "top_frac": 0.848,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 108406
         },
         "sealion": {
-          "file": "sample/Fox.glb",
-          "bytes": 162852
+          "card": {
+            "image": "santa-cruz/cards/sealion.png",
+            "depth": "santa-cruz/cards/sealion.depth.png",
+            "width": 638,
+            "height": 727,
+            "top_frac": 0.235,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 106705
         },
         "bike": {
-          "file": "sample/ToyCar.glb",
-          "bytes": 5422412
+          "card": {
+            "image": "santa-cruz/cards/bike.png",
+            "depth": "santa-cruz/cards/bike.depth.png",
+            "width": 768,
+            "height": 661,
+            "top_frac": 0.572,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 162763
         },
         "surfer": {
-          "file": "sample/CesiumMan.glb",
-          "bytes": 438044
+          "card": {
+            "image": "santa-cruz/cards/surfer.png",
+            "depth": "santa-cruz/cards/surfer.depth.png",
+            "width": 537,
+            "height": 678,
+            "top_frac": 0.13,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 94550
         },
         "chowder": {
-          "file": "sample/ChairDamaskPurplegold.glb",
-          "bytes": 2028924
+          "card": {
+            "image": "santa-cruz/cards/chowder.png",
+            "depth": "santa-cruz/cards/chowder.depth.png",
+            "width": 428,
+            "height": 654,
+            "top_frac": 0.693,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 105649
         },
         "cypress": {
-          "file": "sample/Lantern.glb",
-          "bytes": 9564264
+          "card": {
+            "image": "santa-cruz/cards/cypress.png",
+            "depth": "santa-cruz/cards/cypress.depth.png",
+            "width": 768,
+            "height": 760,
+            "top_frac": 0.738,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 211305
         },
         "bench": {
-          "file": "sample/SheenChair.glb",
-          "bytes": 4125648
-        }
-      }
-    },
-    "sample-opt": {
-      "label": "dev stand-ins (Khronos CC0 models), not generated · optimized (ktx2, meshopt)",
-      "objects": {
-        "surfer": {
-          "file": "santa-cruz/sample-opt/surfer.glb",
-          "bytes": 142180,
-          "raw_file": "sample/CesiumMan.glb",
-          "raw_bytes": 438044,
-          "tris": 4672,
-          "tris_raw": 4672,
-          "textures": [
-            "1024x1024 image/ktx2"
-          ]
-        },
-        "sealion": {
-          "file": "santa-cruz/sample-opt/sealion.glb",
-          "bytes": 94116,
-          "raw_file": "sample/Fox.glb",
-          "raw_bytes": 162852,
-          "tris": 576,
-          "tris_raw": 576,
-          "textures": [
-            "1024x1024 image/ktx2"
-          ]
-        },
-        "wharf": {
-          "file": "santa-cruz/sample-opt/wharf.glb",
-          "bytes": 385580,
-          "raw_file": "sample/GlamVelvetSofa.glb",
-          "raw_bytes": 3149844,
-          "tris": 4196,
-          "tris_raw": 4196,
-          "textures": [
-            "1024x1024 image/ktx2",
-            "1024x1024 image/ktx2"
-          ]
-        },
-        "bike": {
-          "file": "santa-cruz/sample-opt/bike.glb",
-          "bytes": 642216,
-          "raw_file": "sample/ToyCar.glb",
-          "raw_bytes": 5422412,
-          "tris": 13998,
-          "tris_raw": 108936,
-          "textures": [
-            "1024x1024 image/ktx2",
-            "1024x1024 image/ktx2",
-            "1024x1024 image/ktx2",
-            "1024x1024 image/ktx2",
-            "512x512 image/ktx2",
-            "1024x1024 image/ktx2",
-            "512x512 image/ktx2",
-            "1024x1024 image/ktx2"
-          ]
-        },
-        "bench": {
-          "file": "santa-cruz/sample-opt/bench.glb",
-          "bytes": 636592,
-          "raw_file": "sample/SheenChair.glb",
-          "raw_bytes": 4125648,
-          "tris": 13997,
-          "tris_raw": 39936,
-          "textures": [
-            "1024x1024 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "1024x512 image/ktx2",
-            "512x512 image/ktx2"
-          ]
-        },
-        "chowder": {
-          "file": "santa-cruz/sample-opt/chowder.glb",
-          "bytes": 517388,
-          "raw_file": "sample/ChairDamaskPurplegold.glb",
-          "raw_bytes": 2028924,
-          "tris": 9984,
-          "tris_raw": 9984,
-          "textures": [
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "128x128 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "1024x512 image/ktx2"
-          ]
-        },
-        "cypress": {
-          "file": "santa-cruz/sample-opt/cypress.glb",
-          "bytes": 378984,
-          "raw_file": "sample/Lantern.glb",
-          "raw_bytes": 9564264,
-          "tris": 5394,
-          "tris_raw": 5394,
-          "textures": [
-            "1024x1024 image/ktx2",
-            "1024x1024 image/ktx2",
-            "1024x1024 image/ktx2",
-            "1024x1024 image/ktx2"
-          ]
+          "card": {
+            "image": "santa-cruz/cards/bench.png",
+            "depth": "santa-cruz/cards/bench.depth.png",
+            "width": 768,
+            "height": 492,
+            "top_frac": 0.957,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 130857
         }
       },
-      "optimized_from": "sample",
-      "optimize_ms": 14450
+      "label": "cutout cards from gmi-objects-front (local keyer + Depth Anything V2 Small relief)",
+      "kind": "cards",
+      "cards_ms": 17687,
+      "source": "gmi-objects-front"
     }
   }
 }

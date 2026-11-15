@@ -73,178 +73,112 @@
     "style": "Stylized 3D animated-film look, soft clay-like materials, warm cinematic light"
   },
   "panorama": {
-    "file": "sample/lebombo.jpg",
-    "source": "https://dl.polyhaven.org/file/ph-assets/HDRIs/extra/Tonemapped%20JPG/lebombo.jpg",
+    "file": "hackathon/pano-4096.jpeg",
+    "bytes": 784682,
+    "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a17cd8f-6021-4420-af25-dced6c24718eb7bff6fe-a6cc-4c2d-a8bf-7c6ab8cfba4a.png",
+    "source_bytes": 10748297,
+    "model": "seedream-5.0-lite",
+    "size": "4096x2048",
     "yaw_deg": 0,
     "height_m": 1.7
   },
-  "default_set": "sample-opt",
+  "default_set": "cards",
   "sets": {
-    "sample": {
-      "label": "dev stand-ins (Khronos CC0 models), not generated",
+    "cards": {
       "objects": {
         "table": {
-          "file": "sample/GlamVelvetSofa.glb",
-          "bytes": 3149844
+          "card": {
+            "image": "hackathon/cards/table.png",
+            "depth": "hackathon/cards/table.depth.png",
+            "width": 768,
+            "height": 498,
+            "top_frac": 0.777,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 140401
         },
         "monitor": {
-          "file": "sample/BoomBox.glb",
-          "bytes": 10614184
+          "card": {
+            "image": "hackathon/cards/monitor.png",
+            "depth": "hackathon/cards/monitor.depth.png",
+            "width": 536,
+            "height": 560,
+            "top_frac": 0.993,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 119977
         },
         "cans": {
-          "file": "sample/WaterBottle.glb",
-          "bytes": 8966700
+          "card": {
+            "image": "hackathon/cards/cans.png",
+            "depth": "hackathon/cards/cans.depth.png",
+            "width": 768,
+            "height": 385,
+            "top_frac": 0.491,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 128551
         },
         "pizza": {
-          "file": "sample/IridescentDishWithOlives.glb",
-          "bytes": 5742828
+          "card": {
+            "image": "hackathon/cards/pizza.png",
+            "depth": "hackathon/cards/pizza.depth.png",
+            "width": 768,
+            "height": 411,
+            "top_frac": 0.893,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 110857
         },
         "person": {
-          "file": "sample/CesiumMan.glb",
-          "bytes": 438044
+          "card": {
+            "image": "hackathon/cards/person.png",
+            "depth": "hackathon/cards/person.depth.png",
+            "width": 661,
+            "height": 768,
+            "top_frac": 0.948,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 164707
         },
         "whiteboard": {
-          "file": "sample/Lantern.glb",
-          "bytes": 9564264
+          "card": {
+            "image": "hackathon/cards/whiteboard.png",
+            "depth": "hackathon/cards/whiteboard.depth.png",
+            "width": 346,
+            "height": 768,
+            "top_frac": 0.966,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 97286
         },
         "beanbag": {
-          "file": "sample/SheenChair.glb",
-          "bytes": 4125648
+          "card": {
+            "image": "hackathon/cards/beanbag.png",
+            "depth": "hackathon/cards/beanbag.depth.png",
+            "width": 734,
+            "height": 565,
+            "top_frac": 0.754,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 153198
         },
         "window": {
-          "file": "sample/ChairDamaskPurplegold.glb",
-          "bytes": 2028924
-        }
-      }
-    },
-    "sample-opt": {
-      "label": "dev stand-ins (Khronos CC0 models), not generated · optimized (ktx2, meshopt)",
-      "objects": {
-        "person": {
-          "file": "hackathon/sample-opt/person.glb",
-          "bytes": 142180,
-          "raw_file": "sample/CesiumMan.glb",
-          "raw_bytes": 438044,
-          "tris": 4672,
-          "tris_raw": 4672,
-          "textures": [
-            "1024x1024 image/ktx2"
-          ]
-        },
-        "beanbag": {
-          "file": "hackathon/sample-opt/beanbag.glb",
-          "bytes": 383312,
-          "raw_file": "sample/SheenChair.glb",
-          "raw_bytes": 4125648,
-          "tris": 7995,
-          "tris_raw": 39936,
-          "textures": [
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x256 image/ktx2",
-            "512x512 image/ktx2"
-          ]
-        },
-        "table": {
-          "file": "hackathon/sample-opt/table.glb",
-          "bytes": 385580,
-          "raw_file": "sample/GlamVelvetSofa.glb",
-          "raw_bytes": 3149844,
-          "tris": 4196,
-          "tris_raw": 4196,
-          "textures": [
-            "1024x1024 image/ktx2",
-            "1024x1024 image/ktx2"
-          ]
-        },
-        "cans": {
-          "file": "hackathon/sample-opt/cans.glb",
-          "bytes": 102564,
-          "raw_file": "sample/WaterBottle.glb",
-          "raw_bytes": 8966700,
-          "tris": 4000,
-          "tris_raw": 4510,
-          "textures": [
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2"
-          ]
-        },
-        "monitor": {
-          "file": "hackathon/sample-opt/monitor.glb",
-          "bytes": 122084,
-          "raw_file": "sample/BoomBox.glb",
-          "raw_bytes": 10614184,
-          "tris": 4000,
-          "tris_raw": 6036,
-          "textures": [
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2"
-          ]
-        },
-        "pizza": {
-          "file": "hackathon/sample-opt/pizza.glb",
-          "bytes": 389592,
-          "raw_file": "sample/IridescentDishWithOlives.glb",
-          "raw_bytes": 5742828,
-          "tris": 11018,
-          "tris_raw": 24448,
-          "textures": [
-            "512x256 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x256 image/ktx2",
-            "512x256 image/ktx2",
-            "512x256 image/ktx2",
-            "512x256 image/ktx2",
-            "512x256 image/ktx2",
-            "512x256 image/ktx2",
-            "512x256 image/ktx2"
-          ]
-        },
-        "window": {
-          "file": "hackathon/sample-opt/window.glb",
-          "bytes": 517388,
-          "raw_file": "sample/ChairDamaskPurplegold.glb",
-          "raw_bytes": 2028924,
-          "tris": 9984,
-          "tris_raw": 9984,
-          "textures": [
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "128x128 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "512x512 image/ktx2",
-            "1024x512 image/ktx2"
-          ]
-        },
-        "whiteboard": {
-          "file": "hackathon/sample-opt/whiteboard.glb",
-          "bytes": 378984,
-          "raw_file": "sample/Lantern.glb",
-          "raw_bytes": 9564264,
-          "tris": 5394,
-          "tris_raw": 5394,
-          "textures": [
-            "1024x1024 image/ktx2",
-            "1024x1024 image/ktx2",
-            "1024x1024 image/ktx2",
-            "1024x1024 image/ktx2"
-          ]
+          "card": {
+            "image": "hackathon/cards/window.png",
+            "depth": "hackathon/cards/window.depth.png",
+            "width": 392,
+            "height": 768,
+            "top_frac": 0.962,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 109929
         }
       },
-      "optimized_from": "sample",
-      "optimize_ms": 12355
+      "label": "cutout cards from gmi-objects-front (local keyer + Depth Anything V2 Small relief)",
+      "kind": "cards",
+      "cards_ms": 20550,
+      "source": "gmi-objects-front"
     }
   }
 }
