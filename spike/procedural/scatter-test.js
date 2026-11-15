@@ -6,45 +6,15 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { mat, rng, cyl, box, put } from "./core.js";
 import { scatter } from "./scatter.js";
+import { buildIsland } from "./island.js";
 
 const q = new URLSearchParams(location.search);
 const biome = q.get("biome") ?? "meadow", time = q.get("time") ?? "golden-hour";
 const SIZE = Number(q.get("size") ?? 1000);
-const R = 9;
-const plotDefs = [[200, 2.0], [260, 2.6], [0, 3.2], [100, 2.6], [150, 2.0]];
-const plots = plotDefs.map(([deg, radius]) => {
-  const a = THREE.MathUtils.degToRad(deg), d = 5.4;
-  return { x: Math.sin(a) * d, z: Math.cos(a) * d, rot: deg > 90 && deg < 270 ? 0 : a * 0.3, radius };
-});
-const path = [];
-for (let t = 200; t >= -100 + 0.01; t -= 6) {
-  const a = THREE.MathUtils.degToRad(t), d = 5.4 + Math.sin(t * 0.05) * 0.4;
-  path.push([Math.sin(a) * d, Math.cos(a) * d]);
-}
-const landmark = { x: 0, z: 0, radius: 1.3 };
-const segDist = (x, z) => {
-  let best = Infinity;
-  for (let i = 0; i + 1 < path.length; i++) {
-    const [ax, az] = path[i], [bx, bz] = path[i + 1], dx = bx - ax, dz = bz - az;
-    const t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / (dx * dx + dz * dz)));
-    best = Math.min(best, Math.hypot(x - ax - dx * t, z - az - dz * t));
-  }
-  return best;
-};
-const island = {
-  radius: R, plots, path, landmark,
-  isFree(x, z, c) {
-    if (Math.hypot(x, z) > R - c) return false;
-    for (const p of plots) if (Math.hypot(x - p.x, z - p.z) < p.radius + c) return false;
-    if (Math.hypot(x - landmark.x, z - landmark.z) < landmark.radius + c) return false;
-    return segDist(x, z) >= 0.45 + c;
-  },
-  heightAt(x, z) {
-    const d = Math.hypot(x, z);
-    return d <= R ? 0 : d < R + 1.4 ? -(d - R) * 0.35 : -0.6;
-  },
-};
-
+const spec = await (await fetch("scenes/islands/_layout-test.json")).json();
+spec.biome = biome; spec.time = time;
+const island = buildIsland(spec, { rand: rng(77), time });
+const R = island.radius;
 const TIMES = {
   "golden-hour": { sun: "#ffad5c", sunI: 3.2, elev: 22, az: -55, hemi: ["#ffd9a8", "#5a3d34"], hemiI: 0.7, bg: "#e8b08a" },
   noon: { sun: "#ffffff", sunI: 3.0, elev: 62, az: -30, hemi: ["#d6e8ff", "#6b5a4a"], hemiI: 0.8, bg: "#c9dcef" },
@@ -70,31 +40,19 @@ Object.assign(sun.shadow.camera, { left: -13, right: 13, top: 13, bottom: -13, n
 sun.shadow.bias = -0.0004;
 scene.add(sun);
 
-const GROUND = { meadow: "#6a9a48", autumn: "#8a8a48", snow: "#e8eef5", beach: "#8fae58", desert: "#d9b07a", city: "#7a9a58" };
-const stage = new THREE.Group();
-put(stage, cyl(R, R, 0.3, mat(GROUND[biome] ?? GROUND.meadow), 96), 0, -0.15, 0);
-put(stage, cyl(R + 0.05, R + 1.6, 0.6, mat(biome === "snow" ? "#dfe6ee" : "#e6cf9a"), 96), 0, -0.6, 0);
-const water = new THREE.Mesh(new THREE.CircleGeometry(30, 64), mat("#4f8fb0", { clay: false, rough: 0.3 }));
-water.rotation.x = -Math.PI / 2; water.position.y = -0.62; stage.add(water);
-for (const p of plots) {
+const stage = island.group;
+stage.traverse((o) => { if (o.isMesh) { o.receiveShadow = true; } });
+scene.add(stage);
+// plot placeholders: a backdrop and a figure so the breathing margin and front rule are visible
+for (const p of island.plots) {
   const g = new THREE.Group();
-  put(g, cyl(p.radius, p.radius, 0.04, mat("#b8a890"), 48), 0, 0.02, 0);
   put(g, box(p.radius * 1.4, 1.4, 0.2, mat("#d8c6a8")), 0, 0.7, -p.radius + 0.3);
   put(g, box(0.4, 1.4, 0.4, mat("#3b6ea5")), 0.4, 0.7, 0.3);
-  g.position.set(p.x, 0, p.z); g.rotation.y = p.rot; stage.add(g);
+  g.position.set(p.x, 0, p.z); g.rotation.y = p.rot; scene.add(g);
 }
-for (let i = 0; i + 1 < path.length; i++) {
-  const [ax, az] = path[i], [bx, bz] = path[i + 1];
-  const m = box(0.9, 0.03, Math.hypot(bx - ax, bz - az) + 0.05, mat("#c9b48e"));
-  m.position.set((ax + bx) / 2, 0.015, (az + bz) / 2); m.rotation.y = Math.atan2(bx - ax, bz - az); stage.add(m);
-}
-put(stage, cyl(0.3, 0.4, 4, mat("#c06a9a")), 0, 2, 0);
-stage.traverse((o) => { if (o.isMesh) { o.receiveShadow = true; o.castShadow = true; } });
-water.castShadow = false;
-scene.add(stage);
-
+put(scene, cyl(0.3, 0.4, 4, mat("#c06a9a")), 0, 2, 0);
 const t0 = performance.now();
-const filler = scatter(island, { biome, time }, { rand: rng(99), time });
+const filler = scatter(island, spec, { rand: rng(99), time });
 const ms = Math.round(performance.now() - t0);
 scene.add(filler);
 

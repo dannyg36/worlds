@@ -53,7 +53,8 @@ function customKit(ctx) {
     part: (type, params = {}) => {
       const make = registry[type];
       if (!make) throw new Error("unknown part " + type);
-      const built = make({ type, ...params }, ctx);
+      const look = type === "person" && params.who && ctx.cast?.[params.who] ? Object.fromEntries(LOOK_FIELDS.filter((f) => ctx.cast[params.who][f] !== undefined).map((f) => [f, ctx.cast[params.who][f]])) : {};
+      const built = make({ type, ...params, ...look }, ctx);
       return built?.isObject3D ? built : built.group;
     },
   };
@@ -294,6 +295,7 @@ export async function createWorld(container, spec, opts = {}) {
       rand: rng(Math.floor((obj.at?.[0] ?? 0) * 1000 + (obj.at?.[1] ?? 0) * 7919 + stats.objects * 31)),
       time: spec.time,
       palette: spec.palette ?? [],
+      cast,
       addLight(pos, color = "#ffcc88", intensity = 1, distance = 4) {
         lightRequests.push({ obj: null, pos: pos.clone ? pos.clone() : new THREE.Vector3(...pos), color, intensity, distance });
       },

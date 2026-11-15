@@ -265,10 +265,10 @@ function daisies(k, cols) {
     k.add("petal", GREENS[2], [x + 0.03, 0.02, z], [0, a, 0.3], [0.035, 0.012, 0.018], 0.2);
   }
 }
-function tuft(k, shades, n = 8, hMin = 0.13, hMax = 0.26, lean = 0.5, w = 0.022) {
+function tuft(k, shades, n = 11, hMin = 0.14, hMax = 0.3, lean = 0.55, w = 0.024) {
   const r = k.r;
   for (let j = 0; j < n; j++) {
-    const a = (j / n) * TAU + r() * 0.6, t = lean * (0.4 + r() * 0.8), off = 0.03 + r() * 0.04;
+    const a = (j / n) * TAU + r() * 0.6, t = lean * (0.4 + r() * 0.8), off = 0.02 + r() * 0.08;
     const d = V(Math.cos(a) * Math.sin(t), Math.cos(t), Math.sin(a) * Math.sin(t));
     k.add("blade", pick(r, shades), [Math.cos(a) * off, 0, Math.sin(a) * off], new THREE.Quaternion().setFromUnitVectors(UP, d), [w, hMin + r() * (hMax - hMin), w * 0.55], 0.55);
   }
@@ -483,12 +483,12 @@ const K = {
   palm: { h: 3.4, f: 0.6, v: 2, shadow: true, make: (k) => palm(k, PALM) },
   saguaro: { h: 2.1, f: 0.4, v: 2, shadow: true, make: saguaro },
   streetTree: { h: 2.7, f: 0.6, v: 1, shadow: true, make: streetTree },
-  bush: { h: 0.6, f: 0.36, v: 1, shadow: true, make: (k) => bush(k, GREENS) },
-  bushFlower: { h: 0.6, f: 0.36, v: 2, shadow: true, make: (k, i) => bush(k, GREENS, i ? ["#f6f1e6", "#f4d03f"] : ["#e8485a", "#ff8fb1"]) },
-  bushAutumn: { h: 0.6, f: 0.36, v: 2, shadow: true, make: (k, i) => bush(k, i ? AUT_OR : AUT_RED) },
-  bushTropic: { h: 0.6, f: 0.36, v: 1, shadow: true, make: (k) => bush(k, TROPIC, ["#e0457b", "#f26a3d"]) },
-  bushSnow: { h: 0.55, f: 0.36, v: 1, shadow: true, make: (k) => { bush(k, PINE); k.add("lo", SNOW, [0, 0.47, 0], [0, 0, 0], [0.26, 0.08, 0.22], 0.1); } },
-  flowers: { h: 0.32, f: 0.22, v: 3, shadow: false, make: (k, i) => flowerClump(k, FLOWERS[i]) },
+  bush: { h: 0.6, f: 0.36, v: 1, s: [1, 1.6], shadow: true, make: (k) => bush(k, GREENS) },
+  bushFlower: { h: 0.6, f: 0.36, v: 2, s: [1, 1.5], shadow: true, make: (k, i) => bush(k, GREENS, i ? ["#f6f1e6", "#f4d03f"] : ["#e8485a", "#ff8fb1"]) },
+  bushAutumn: { h: 0.6, f: 0.36, v: 2, s: [1, 1.6], shadow: true, make: (k, i) => bush(k, i ? AUT_OR : AUT_RED) },
+  bushTropic: { h: 0.6, f: 0.36, v: 1, s: [1, 1.6], shadow: true, make: (k) => bush(k, TROPIC, ["#e0457b", "#f26a3d"]) },
+  bushSnow: { h: 0.55, f: 0.36, v: 1, s: [1, 1.5], shadow: true, make: (k) => { bush(k, PINE); k.add("lo", SNOW, [0, 0.47, 0], [0, 0, 0], [0.26, 0.08, 0.22], 0.1); } },
+  flowers: { h: 0.32, f: 0.22, v: 3, s: [1, 1.5], shadow: false, make: (k, i) => flowerClump(k, FLOWERS[i]) },
   rock: { h: 0.4, f: 0.32, v: 1, shadow: true, make: (k) => rock(k, GREYS) },
   rockMoss: { h: 0.45, f: 0.32, v: 1, shadow: true, make: (k) => rock(k, GREYS, "#5f8a3a") },
   rockSnow: { h: 0.45, f: 0.32, v: 1, shadow: true, make: (k) => rock(k, GREYS, SNOW) },
@@ -512,6 +512,8 @@ const K = {
   driftwood: { h: 0.15, f: 0.4, v: 1, shadow: true, make: driftwood },
   grass: { h: 0.25, f: 0.12, v: 2, shadow: false, make: (k) => tuft(k, GRASS) },
   grassDry: { h: 0.25, f: 0.12, v: 1, shadow: false, make: (k) => tuft(k, DRY) },
+  grassBig: { h: 0.4, f: 0.3, v: 1, s: [1, 1.5], shadow: false, make: (k) => tuft(k, GRASS, 20, 0.2, 0.42, 0.6, 0.028) },
+  grassBigDry: { h: 0.4, f: 0.3, v: 1, s: [1, 1.5], shadow: false, make: (k) => tuft(k, DRY, 20, 0.2, 0.42, 0.6, 0.028) },
   grassDark: { h: 0.25, f: 0.12, v: 1, shadow: false, make: (k) => tuft(k, ["#3a5a34", "#4a6a3a", "#5d7a48"], 6) },
   daisies: { h: 0.2, f: 0.12, v: 2, shadow: false, make: (k, i) => daisies(k, i ? ["#f6f1e6", "#ff8fb1"] : ["#f4d03f", "#9b6bd6"]) },
   pebbles: { h: 0.06, f: 0.12, v: 1, shadow: false, make: (k) => pebbles(k, GREYS) },
@@ -532,14 +534,14 @@ const K = {
 const BIOMES = {
   meadow: {
     trees: [["round", 3], ["olive", 1.2], ["cypress", 1.4]],
-    medium: [["bush", 2], ["bushFlower", 2], ["flowers", 3], ["rockMoss", 1], ["clover", 1.2]],
+    medium: [["bush", 2.5], ["bushFlower", 2], ["flowers", 3], ["grassBig", 2.5], ["rockMoss", 0.8], ["clover", 0.8]],
     small: [["grass", 6], ["daisies", 2.5], ["clover", 0.8], ["pebbles", 0.5], ["mushrooms", 0.25]],
     ring: [["rock", 3], ["beachGrass", 2], ["shells", 1], ["driftwood", 0.6], ["rockMoss", 1]],
     edge: [["fence", 1], ["stones", 1], ["line", 1.5]], fence: 0, line: ["daisies", "flowers"], light: "lantern",
   },
   autumn: {
     trees: [["roundOrange", 2], ["roundRed", 1.5], ["roundYellow", 1.5], ["pine", 0.8]],
-    medium: [["bushAutumn", 3], ["leafPile", 2.5], ["pumpkins", 1.3], ["rockMoss", 0.8], ["flowers", 0.6]],
+    medium: [["bushAutumn", 3], ["grassBigDry", 1.5], ["leafPile", 2.5], ["pumpkins", 1.3], ["rockMoss", 0.8], ["flowers", 0.6]],
     small: [["grassDry", 3], ["leaves", 3.5], ["mushrooms", 1], ["grass", 1.5], ["pebbles", 0.5]],
     ring: [["rock", 3], ["leaves", 1.5], ["beachGrass", 1], ["driftwood", 0.8]],
     edge: [["fence", 1.5], ["stones", 1], ["line", 1]], fence: 0, line: ["pumpkins", "leaves"], light: "lantern",
@@ -560,14 +562,14 @@ const BIOMES = {
   },
   desert: {
     trees: [["saguaro", 3], ["palm", 0.6]],
-    medium: [["dryShrub", 3], ["sandstone", 1.8], ["barrel", 1.5], ["prickly", 1.5]],
+    medium: [["dryShrub", 3], ["grassBigDry", 1.2], ["sandstone", 1.8], ["barrel", 1.5], ["prickly", 1.5]],
     small: [["grassDry", 3], ["pebblesSand", 2.5], ["barrel", 0.4], ["dryShrub", 0.4]],
     ring: [["sandstone", 2], ["rock", 1], ["grassDry", 1]],
     edge: [["stones", 1.5], ["none", 1]], fence: 0, line: ["pebblesSand"], light: "lantern",
   },
   city: {
     trees: [["streetTree", 2], ["round", 1.2]],
-    medium: [["hedge", 2], ["flowerBox", 1.2], ["bush", 2], ["flowers", 1.5], ["bushFlower", 1]],
+    medium: [["hedge", 2], ["flowerBox", 1.2], ["bush", 2], ["grassBig", 1.5], ["flowers", 1.5], ["bushFlower", 1]],
     small: [["grass", 6], ["daisies", 1.5], ["clover", 1], ["pebbles", 0.4]],
     ring: [["rock", 3], ["beachGrass", 1]],
     edge: [["fence", 1], ["hedgeRow", 1.5], ["line", 1]], fence: 1, line: ["flowerBox", "flowers"], light: "lamp",
@@ -641,7 +643,7 @@ export function scatter(island, spec = {}, ctx = {}) {
 
   function place(kind, x, z, s = 1, rotY = r() * TAU, tilt = 0.06, f = null) {
     const def = K[kind];
-    const v = Math.floor(r() * def.v);
+    const v = kind === "fence" ? B.fence : Math.floor(r() * def.v);
     const key = kind + ":" + v;
     if (!buckets.has(key)) buckets.set(key, { kind, v, items: [] });
     const sy = s * (0.92 + r() * 0.16);
@@ -745,50 +747,6 @@ export function scatter(island, spec = {}, ctx = {}) {
     }
   }
 
-  // ---- jittered-grid layers over the island top ----
-  const grid = (cell, fn) => {
-    const n = Math.ceil(R / cell);
-    for (let i = -n; i < n; i++)
-      for (let j = -n; j < n; j++) {
-        const x = (i + 0.5 + (r() - 0.5) * 0.9) * cell, z = (j + 0.5 + (r() - 0.5) * 0.9) * cell;
-        if (x * x + z * z < R * R) fn(x, z);
-      }
-  };
-  // 2. trees: 1.4-2.2 m apart, kept off plots, the path and anything they'd hide.
-  const trees = new Hash(2);
-  grid(1.6, (x, z) => {
-    if (r() < 0.1) return;
-    const kind = pickW(r, B.trees), def = K[kind];
-    let s = 0.85 + r() * 0.35;
-    const cap = capAt(x, z);
-    if (def.h * s > cap) { s = cap / def.h; if (s < 0.55) return; }
-    const f = def.f * s;
-    if (!onTop(x, z, f * 0.6) || !free(x, z, f + MARGIN)) return;
-    if (trees.hit(x, z, 0.7 + r() * 0.4) || occ.hit(x, z, 0.35)) return;
-    trees.add(x, z, 0.7);
-    place(kind, x, z, s, r() * TAU, 0.08, 0.38);
-  });
-  // 3. medium: bushes, rocks, flower clumps.
-  grid(0.62, (x, z) => {
-    if (r() < 0.1) return;
-    const kind = pickW(r, B.medium), def = K[kind];
-    const s = 0.85 + r() * 0.5;
-    if (def.h * s > capAt(x, z) + 0.1) return;
-    const f = def.f * s;
-    if (!onTop(x, z, f) || !free(x, z, f + MARGIN)) return;
-    if (occ.hit(x, z, f, 0.9)) return;
-    place(kind, x, z, s, r() * TAU, kind === "snowman" || kind === "flowerBox" || kind === "hedge" ? 0.02 : 0.12);
-  });
-  // 4. small ground cover everywhere else that's free.
-  grid(0.3, (x, z) => {
-    const kind = pickW(r, B.small), def = K[kind];
-    const s = 0.95 + r() * 0.6, f = Math.min(def.f, 0.14) * s;
-    if (!onTop(x, z, f) || !free(x, z, f + 0.18)) return;
-    if (occ.hit(x, z, f, 0.85)) return;
-    place(kind, x, z, s, r() * TAU, 0.15, f);
-  });
-
-  // ---- 5. beach ring just outside the flat top ----
   const pathDist = (x, z) => {
     let best = Infinity;
     for (let i = 0; i + 1 < path.length; i++) {
@@ -798,6 +756,63 @@ export function scatter(island, spec = {}, ctx = {}) {
     }
     return best;
   };
+
+  // ---- jittered-grid layers over the island top ----
+  // One cell at a time, up to `tries` darts per cell; fn returns true once it placed something.
+  const grid = (cell, tries, fn) => {
+    const n = Math.ceil(R / cell);
+    for (let i = -n; i < n; i++)
+      for (let j = -n; j < n; j++)
+        for (let t = 0; t < tries; t++) {
+          const x = (i + r()) * cell, z = (j + r()) * cell;
+          if (x * x + z * z < R * R && fn(x, z)) break;
+        }
+  };
+  // 2. trees: 1.4-2.2 m apart, kept off plots, the path and anything they'd hide.
+  const trees = new Hash(2);
+  grid(1.5, 6, (x, z) => {
+    const kind = pickW(r, B.trees), def = K[kind];
+    let s = 0.85 + r() * 0.35;
+    const cap = capAt(x, z);
+    if (def.h * s > cap) { s = cap / def.h; if (s < 0.55) return false; }
+    // trunk + inner canopy clearance; the canopy rim may overhang the path a little
+    if (!onTop(x, z, 0.5) || !free(x, z, 0.4 * s + MARGIN)) return false;
+    if (trees.hit(x, z, 0.7 + r() * 0.4) || occ.hit(x, z, 0.35)) return false;
+    trees.add(x, z, 0.7);
+    place(kind, x, z, s, r() * TAU, 0.08, 0.38);
+    return true;
+  });
+  // 3. medium: bushes, rocks, flower clumps.
+  grid(0.6, 3, (x, z) => {
+    const kind = pickW(r, B.medium), def = K[kind];
+    const s = def.s ? lerp(def.s[0], def.s[1], r()) : 0.85 + r() * 0.5;
+    if (def.h * s > capAt(x, z) + 0.1) return false;
+    const f = def.f * s;
+    if (!onTop(x, z, f) || !free(x, z, f * 0.5 + MARGIN - 0.12)) return false;
+    if (occ.hit(x, z, f, 0.75)) return false;
+    place(kind, x, z, s, r() * TAU, kind === "snowman" || kind === "flowerBox" || kind === "hedge" ? 0.02 : 0.12);
+    return true;
+  });
+  // 4. small ground cover everywhere else that's free.
+  const small = (x, z, s, fits) => {
+    const kind = pickW(r, B.small), def = K[kind], f = Math.min(def.f, 0.14) * s;
+    if (!fits(x, z, f) || occ.hit(x, z, f, 0.62)) return false;
+    place(kind, x, z, s, r() * TAU, 0.15, f / s);
+    return true;
+  };
+  grid(0.27, 2, (x, z) => small(x, z, 1.0 + r() * 0.7, (x, z, f) => onTop(x, z, f) && free(x, z, f * 0.5 + 0.06)));
+  // Low cover in the outer ring of the landmark's keep-out disc, so it doesn't stand on a bare circle.
+  const L = island.landmark;
+  if (L) {
+    const n = Math.round((TAU * L.radius) / 0.3);
+    for (let i = 0; i < n * 2; i++) {
+      const a = r() * TAU, d = L.radius * (0.7 + r() * 0.3), x = L.x + Math.sin(a) * d, z = L.z + Math.cos(a) * d;
+      if (plots.some((p) => Math.hypot(x - p.x, z - p.z) < p.radius + 0.15) || !onTop(x, z, 0.5) || pathDist(x, z) < 0.6) continue;
+      small(x, z, 0.9 + r() * 0.5, () => true);
+    }
+  }
+
+  // ---- 5. beach ring just outside the flat top ----
   // Per direction: find the top's edge, the cliff foot (where the slope flattens), and the sand band below it
   // down to roughly the waterline; drop items on that band.
   const ringN = Math.round((TAU * (R + 0.5)) / 0.42);
@@ -807,6 +822,14 @@ export function scatter(island, spec = {}, ctx = {}) {
     const h = (d) => yAt(ux * d, uz * d);
     let e = R * 0.4;
     while (e < R + 4 && h(e) >= yTop - 0.001) e += 0.05;
+    // Fringe: isFree keeps a margin off the lip, so tuck low grass and flowers into that strip ourselves.
+    for (let t = 0; t < 2; t++) {
+      const d = e - 0.08 - r() * 0.45, x = ux * d, z = uz * d;
+      if (plots.some((p) => Math.hypot(x - p.x, z - p.z) < p.radius + 0.1)) continue;
+      if (island.landmark && Math.hypot(x - island.landmark.x, z - island.landmark.z) < island.landmark.radius + 0.1) continue;
+      if (pathDist(x, z) < 0.45 + 0.12) continue;
+      small(x, z, 0.8 + r() * 0.6, () => true);
+    }
     let foot = e;
     while (foot < e + 3 && h(foot + 0.05) - h(foot) < -0.04) foot += 0.05;
     const footY = h(foot);

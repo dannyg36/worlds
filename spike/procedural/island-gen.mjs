@@ -13,6 +13,7 @@ import { appendFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs"
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
+import { Agent, setGlobalDispatcher } from "undici";
 import { ProviderError, callCost, chat as gmiChat, llmPrices, money, parseSpec, readTranscript } from "./gen.mjs";
 import { PLOT_RADIUS, formatStats, validate, validateVignette } from "./validate.mjs";
 
@@ -25,6 +26,10 @@ const EFFORTS = ["low", "medium", "high", "xhigh", "max"];
 const MAX_TOKENS = 16_000;
 // USD per token. Cache writes (5 minute TTL) bill at 1.25x input.
 const CLAUDE_PRICES = { "claude-opus-5-5": { input: 4e-6, output: 20e-6, cacheWrite: 5e-6, cacheRead: 0.2e-6 } };
+
+// Node 26's fetch reuses the outline call's HTTP/2 connection and runs the "parallel" vignette calls on it one at a
+// time (each started streaming as the previous one finished, on both providers). HTTP/1.1 opens a connection each.
+setGlobalDispatcher(new Agent({ allowH2: false }));
 
 function usage(message) {
   if (message) console.error(`island-gen.mjs: ${message}`);
