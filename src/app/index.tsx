@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "convex/react";
-import { useTheme } from "expo-router";
+import { router, useTheme } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -38,76 +39,90 @@ export default function WorldsScreen() {
   }
 
   return (
-    <FlatList
-      data={worlds ?? []}
-      keyExtractor={(world) => world._id}
-      contentInsetAdjustmentBehavior="automatic"
-      keyboardShouldPersistTaps="handled"
-      keyboardDismissMode="on-drag"
-      contentContainerStyle={styles.content}
-      ListHeaderComponent={
-        <View
-          style={[
-            styles.card,
-            { backgroundColor: colors.card, borderColor: colors.border },
-          ]}
-        >
-          <TextInput
-            value={transcript}
-            onChangeText={setTranscript}
-            placeholder="What happened today?"
-            placeholderTextColor={secondaryText}
-            accessibilityLabel="Describe your day"
-            multiline
-            style={[styles.input, { color: colors.text }]}
-          />
-          <Pressable
-            accessibilityRole="button"
-            accessibilityState={{ disabled: !canAdd }}
-            disabled={!canAdd}
-            onPress={handleAdd}
+    <>
+      <FlatList
+        data={worlds ?? []}
+        keyExtractor={(world) => world._id}
+        contentInsetAdjustmentBehavior="automatic"
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
+        contentContainerStyle={styles.content}
+        ListHeaderComponent={
+          <View
             style={[
-              styles.button,
-              { backgroundColor: colors.primary, opacity: canAdd ? 1 : 0.4 },
+              styles.card,
+              { backgroundColor: colors.card, borderColor: colors.border },
             ]}
           >
-            <Text style={styles.buttonLabel}>
-              {adding ? "Adding…" : "Add world"}
+            <TextInput
+              value={transcript}
+              onChangeText={setTranscript}
+              placeholder="What happened today?"
+              placeholderTextColor={secondaryText}
+              accessibilityLabel="Describe your day"
+              multiline
+              style={[styles.input, { color: colors.text }]}
+            />
+            <Pressable
+              accessibilityRole="button"
+              accessibilityState={{ disabled: !canAdd }}
+              disabled={!canAdd}
+              onPress={handleAdd}
+              style={[
+                styles.button,
+                { backgroundColor: colors.primary, opacity: canAdd ? 1 : 0.4 },
+              ]}
+            >
+              <Text style={styles.buttonLabel}>
+                {adding ? "Adding…" : "Add world"}
+              </Text>
+            </Pressable>
+          </View>
+        }
+        ListEmptyComponent={
+          worlds === undefined ? (
+            <ActivityIndicator style={styles.empty} />
+          ) : (
+            <Text style={styles.empty}>
+              No worlds yet. Describe your day to make the first one.
             </Text>
-          </Pressable>
-        </View>
-      }
-      ListEmptyComponent={
-        worlds === undefined ? (
-          <ActivityIndicator style={styles.empty} />
-        ) : (
-          <Text style={styles.empty}>
-            No worlds yet. Describe your day to make the first one.
-          </Text>
-        )
-      }
-      renderItem={({ item }) => (
-        <View
-          style={[
-            styles.card,
-            { backgroundColor: colors.card, borderColor: colors.border },
-          ]}
-        >
-          <Text style={styles.date}>
-            {new Date(item._creationTime).toLocaleString(undefined, {
-              weekday: "short",
-              month: "short",
-              day: "numeric",
-              hour: "numeric",
-              minute: "2-digit",
-            })}
-          </Text>
-          <Text style={[styles.transcript, { color: colors.text }]}>
-            {item.transcript}
-          </Text>
-        </View>
-      )}
-    />
+          )
+        }
+        renderItem={({ item }) => (
+          <View
+            style={[
+              styles.card,
+              { backgroundColor: colors.card, borderColor: colors.border },
+            ]}
+          >
+            <Text style={styles.date}>
+              {new Date(item._creationTime).toLocaleString(undefined, {
+                weekday: "short",
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+              })}
+            </Text>
+            <Text style={[styles.transcript, { color: colors.text }]}>
+              {item.transcript}
+            </Text>
+          </View>
+        )}
+      />
+      <Pressable
+        accessibilityRole="button"
+        onPress={() => router.push("/record")}
+        style={[styles.recordButton, { backgroundColor: colors.primary }]}
+      >
+        <SymbolView
+          name={{ ios: "mic.fill", android: "mic", web: "mic" }}
+          size={20}
+          tintColor="#FFFFFF"
+        />
+        <Text style={styles.buttonLabel}>Record your day</Text>
+      </Pressable>
+    </>
   );
 }
 
@@ -116,6 +131,7 @@ const secondaryText = "#8E8E93";
 const styles = StyleSheet.create({
   content: {
     padding: 16,
+    paddingBottom: 120,
     gap: 12,
   },
   card: {
@@ -134,6 +150,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 12,
     paddingVertical: 12,
+  },
+  recordButton: {
+    position: "absolute",
+    bottom: 40,
+    alignSelf: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    borderRadius: 999,
+    paddingHorizontal: 24,
+    paddingVertical: 16,
+    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.2)",
   },
   buttonLabel: {
     color: "#FFFFFF",
