@@ -575,7 +575,7 @@ function house(p, ctx) {
   const dark = isDark(ctx.time);
   const r = ctx.rand;
   const medium = p.size === "medium";
-  const W = medium ? 3.0 : 2.4, D = medium ? 2.4 : 2.0, H = medium ? 2.05 : 1.8, Rh = medium ? 1.05 : 0.9;
+  const W = medium ? 3.0 : 2.4, D = medium ? 2.4 : 2.0, H = medium ? 2.3 : 2.0, Rh = medium ? 1.05 : 0.9;
   const wallC = col(p.color, pick(r, WALLS));
   const roofC = col(p.roof, pick(r, ROOFS));
   const wall = mat(wallC, { rough: 0.85 });
@@ -593,7 +593,7 @@ function house(p, ctx) {
   const trimC = "#f6f0e2";
   for (const sx of [-1, 1]) for (const sz of [-1, 1]) put(g, box(0.08, H - 0.2, 0.08, mat(trimC)), sx * (W / 2 - 0.02), H / 2 + 0.1, sz * (D / 2 - 0.02));
   // Roof slabs with shingles, ridge, chimney.
-  const ang = Math.atan2(Rh, D / 2), e = 0.22, T = 0.1;
+  const ang = Math.atan2(Rh, D / 2), e = 0.16, T = 0.1;
   const slope = (D / 2 + e) / Math.cos(ang) + 0.05, RL = W + 0.36;
   const roofM = mat("#ffffff", { map: shingleTex(), tint: roofC, rough: 0.85 });
   for (const s of [1, -1]) {
@@ -613,8 +613,8 @@ function house(p, ctx) {
   }
   // Door with hood, step, lamp.
   const doorC = pick(r, ["#3f6a8a", "#9a3f33", "#2f6a45", "#e0b13f", "#5d3b23"]);
-  const dx = medium ? -0.55 : 0;
-  const dh = 1.45, dw = 0.62, zf = D / 2;
+  const dx = 0;
+  const dh = 1.45, dw = medium ? 0.62 : 0.58, zf = D / 2;
   put(g, rb(dw + 0.1, dh + 0.06, 0.05, mat(trimC), 0.02), dx, dh / 2 + 0.2, zf + 0.01);
   put(g, rb(dw, dh, 0.06, mat(doorC, { rough: 0.6 }), 0.02), dx, dh / 2 + 0.2, zf + 0.02);
   for (const y of [0.55, 1.15]) put(g, rb(dw - 0.18, 0.4, 0.03, mat(shade(doorC, -0.08)), 0.02), dx, y + 0.2, zf + 0.05);
@@ -622,16 +622,15 @@ function house(p, ctx) {
   put(g, rb(dw + 0.3, 0.06, 0.32, mat(shade(roofC, -0.05)), 0.02), dx, dh + 0.33, zf + 0.15);
   for (const s of [-1, 1]) rod(g, [dx + s * (dw / 2 + 0.08), dh + 0.12, zf], [dx + s * (dw / 2 + 0.08), dh + 0.3, zf + 0.26], 0.015, woodM("#6a4a32"));
   put(g, rb(dw + 0.3, 0.12, 0.3, mat("#c9bca6"), 0.03), dx, 0.06, zf + 0.15);
-  const lx = dx + dw / 2 + 0.22;
+  const lx = (medium ? 1 : -1) * (dw / 2 + 0.16);
   put(g, box(0.04, 0.04, 0.08, ironM()), lx, 1.25, zf + 0.04);
   put(g, rb(0.1, 0.16, 0.1, dark ? glowMat("#ffd28a", 3) : mat("#f6ead0", { rough: 0.3 }), 0.02), lx, 1.25, zf + 0.1);
   put(g, rb(0.13, 0.03, 0.13, ironM(), 0.01), lx, 1.34, zf + 0.1);
   // Windows: front, sides, back.
   const shutterC = pick(r, ["#2f6a45", "#3f6a8a", "#9a3f33", "#e0b13f", null]);
   const flowerC = pick(r, ["#e86a8a", "#f3d36b", "#f6a9c4", "#e8604c", "#b18ad8"]);
-  const ww = 0.5, wh = 0.62, wy = H * 0.56;
-  const fronts = medium ? [0.35, 1.05] : [-0.75, 0.75];
-  for (const x of fronts) put(g, cottageWindow(ww, wh, dark, trimC, shutterC, flowerC, r), x, wy, zf + 0.015);
+  const ww = medium ? 0.46 : 0.44, wh = 0.62, wy = H * 0.52;
+  for (const x of medium ? [-1.0, 1.0] : [-0.78, 0.78]) put(g, cottageWindow(ww, wh, dark, trimC, medium ? shutterC : null, flowerC, r), x, wy, zf + 0.015);
   for (const s of [-1, 1]) put(g, cottageWindow(ww, wh, dark, trimC, null, null, r), s * (W / 2 + 0.015), wy, 0, 0, (s * PI) / 2, 0);
   for (const x of medium ? [-0.7, 0.7] : [0]) put(g, cottageWindow(ww, wh, dark, trimC, null, null, r), x, wy, -zf - 0.015, 0, PI, 0);
   if (dark) ctx.addLight([0, 1.2, zf + 0.7], WARM, 1.2, 3.5);

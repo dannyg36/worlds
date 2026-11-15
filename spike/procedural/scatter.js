@@ -673,7 +673,8 @@ export function scatter(island, spec = {}, ctx = {}) {
         if (along <= 0 || lat > p.radius + 0.8) continue;
         const beyond = along - p.radius;
         if (beyond > 4.5) continue;
-        cap = Math.min(cap, 0.5 + Math.max(0, beyond) * 0.5);
+        // the hero camera looks down at ~38 degrees: an item `beyond` metres past the plot edge hides it above ~0.78 * beyond
+        cap = Math.min(cap, 0.5 + Math.max(0, beyond) * 0.7);
       }
     });
     return cap;
@@ -768,10 +769,10 @@ export function scatter(island, spec = {}, ctx = {}) {
     place(kind, x, z, s, r() * TAU, 0.08, 0.38);
   });
   // 3. medium: bushes, rocks, flower clumps.
-  grid(0.72, (x, z) => {
-    if (r() < 0.15) return;
+  grid(0.62, (x, z) => {
+    if (r() < 0.1) return;
     const kind = pickW(r, B.medium), def = K[kind];
-    const s = 0.8 + r() * 0.45;
+    const s = 0.85 + r() * 0.5;
     if (def.h * s > capAt(x, z) + 0.1) return;
     const f = def.f * s;
     if (!onTop(x, z, f) || !free(x, z, f + MARGIN)) return;
@@ -781,7 +782,7 @@ export function scatter(island, spec = {}, ctx = {}) {
   // 4. small ground cover everywhere else that's free.
   grid(0.3, (x, z) => {
     const kind = pickW(r, B.small), def = K[kind];
-    const s = 0.75 + r() * 0.5, f = Math.min(def.f, 0.14) * s;
+    const s = 0.95 + r() * 0.6, f = Math.min(def.f, 0.14) * s;
     if (!onTop(x, z, f) || !free(x, z, f + 0.18)) return;
     if (occ.hit(x, z, f, 0.85)) return;
     place(kind, x, z, s, r() * TAU, 0.15, f);
@@ -797,15 +798,25 @@ export function scatter(island, spec = {}, ctx = {}) {
     }
     return best;
   };
-  const ringN = Math.round((TAU * (R + 0.5)) / 0.5);
+  // Per direction: find the top's edge, the cliff foot (where the slope flattens), and the sand band below it
+  // down to roughly the waterline; drop items on that band.
+  const ringN = Math.round((TAU * (R + 0.5)) / 0.42);
   const yTop = yAt(0, 0);
   for (let i = 0; i < ringN; i++) {
-    if (r() < 0.3) continue;
-    const a = ((i + r() * 0.8) / ringN) * TAU, rr = R + 0.12 + Math.pow(r(), 1.5) * 0.85;
-    const x = Math.sin(a) * rr, z = Math.cos(a) * rr;
-    if (pathDist(x, z) < 1.1) continue;
-    if (yAt(x, z) < yTop - 1.2) continue; // below the waterline
-    const kind = pickW(r, B.ring), def = K[kind], s = 0.7 + r() * 0.6;
+    const a = ((i + r() * 0.8) / ringN) * TAU, ux = Math.sin(a), uz = Math.cos(a);
+    const h = (d) => yAt(ux * d, uz * d);
+    let e = R * 0.4;
+    while (e < R + 4 && h(e) >= yTop - 0.001) e += 0.05;
+    let foot = e;
+    while (foot < e + 3 && h(foot + 0.05) - h(foot) < -0.04) foot += 0.05;
+    const footY = h(foot);
+    let end = foot;
+    while (end < foot + 3 && h(end) > footY - 0.16) end += 0.05;
+    if (r() < 0.3 || end - foot < 0.15) continue;
+    const rr = foot + 0.06 + r() * (end - foot - 0.1);
+    const x = ux * rr, z = uz * rr;
+    if (pathDist(x, z) < 0.7) continue;
+    const kind = pickW(r, B.ring), def = K[kind], s = 0.6 + r() * 0.6;
     if (occ.hit(x, z, def.f * s, 0.8)) continue;
     place(kind, x, z, s, r() * TAU, 0.25);
   }

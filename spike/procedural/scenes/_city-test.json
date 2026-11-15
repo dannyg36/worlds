@@ -1,0 +1,30 @@
+{
+  "title": "City test",
+  "time": "golden-hour",
+  "base": { "shape": "square", "surface": "wood" },
+  "objects": [
+    { "type": "shop-front", "kind": "cafe", "width": 2.1, "at": [-4.4, -4.0] },
+    { "type": "shop-front", "kind": "bakery", "width": 2.1, "at": [-2.2, -4.0] },
+    { "type": "shop-front", "kind": "bookshop", "width": 2.1, "at": [0, -4.0] },
+    { "type": "shop-front", "kind": "market", "width": 2.1, "at": [2.2, -4.0] },
+    { "type": "shop-front", "kind": "office", "width": 2.1, "at": [4.4, -4.0] },
+    { "type": "house", "size": "small", "at": [-3.6, -1.6] },
+    { "type": "house", "size": "medium", "at": [-0.3, -1.6], "color": "#cfdde6", "roof": "#4f6475" },
+    { "type": "bus-stop", "at": [3.4, -1.4], "id": "stop" },
+    { "type": "mug", "on": "stop", "at": [0.3, 0] },
+    { "type": "car", "kind": "sedan", "at": [-4.4, 1.7], "id": "sedan" },
+    { "type": "car", "kind": "hatch", "at": [-2.8, 1.7], "color": "#3f7cc0" },
+    { "type": "car", "kind": "taxi", "at": [-1.2, 1.7] },
+    { "type": "car", "kind": "van", "at": [0.4, 1.7] },
+    { "type": "backpack", "on": "sedan", "at": [0, 0] },
+    { "type": "bus", "at": [2.4, 1.9] },
+    { "type": "food-truck", "at": [-3.2, 4.3], "rot": -90 },
+    { "type": "hydrant", "at": [-0.9, 4.3] },
+    { "type": "traffic-cone", "at": [-0.2, 4.6] },
+    { "type": "traffic-cone", "at": [0.3, 4.2] },
+    { "type": "street-sign", "kind": "stop", "at": [1.1, 4.3] },
+    { "type": "street-sign", "kind": "arrow", "at": [2.1, 4.3] },
+    { "type": "street-sign", "kind": "bus", "at": [3.1, 4.3] },
+    { "type": "shop-front", "kind": "bakery", "width": 3.8, "at": [4.4, 1.2], "rot": -90 }
+  ]
+}

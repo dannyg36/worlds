@@ -72,7 +72,7 @@ for (const [name, sizes] of Object.entries({ "4:m,L,m,s": ["medium", "large", "m
 const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 300);
 const yaw = THREE.MathUtils.degToRad(num("yaw", 0)), elev = THREE.MathUtils.degToRad(num("elev", 35)), dist = num("dist", (isl.radius + 3) * 2.75);
 camera.position.set(Math.sin(yaw) * Math.cos(elev) * dist, Math.sin(elev) * dist, Math.cos(yaw) * Math.cos(elev) * dist);
-camera.lookAt(0, num("ty", 0), 0);
+camera.position.x += num("tx", 0); camera.position.z += num("tz", 0); camera.lookAt(num("tx", 0), num("ty", 0), num("tz", 0));
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
 composer.addPass(new UnrealBloomPass(new THREE.Vector2(S, S), 0.55, 0.5, 1.25));

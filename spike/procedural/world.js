@@ -42,7 +42,10 @@ const MAX_CUSTOM_TRIANGLES = 20000;
 function customKit(ctx) {
   return {
     THREE,
-    mat: core.mat, glowMat: core.glowMat, glassMat: core.glassMat,
+    // Cap glow so one model-written screen can't flood the frame with bloom.
+    mat: (c, opts = {}) => core.mat(c, opts.emissiveIntensity > 2.5 ? { ...opts, emissiveIntensity: 2.5 } : opts),
+    glowMat: (c, i = 2.5) => core.glowMat(c, Math.min(i, 2.5)),
+    glassMat: core.glassMat,
     rbox: core.rbox, box: core.box, cyl: core.cyl, sph: core.sph, cap: core.cap, cone: core.cone,
     torus: core.torus, lathe: core.lathe, tube: core.tube, put: core.put, group: core.group,
     rand: ctx.rand,
@@ -152,25 +155,60 @@ function weather(kind, scene, r, radius) {
   scene.add(new THREE.Points(geo, m));
 }
 
+// Plain untextured matte materials can be baked into vertex colours and share one material,
+// which turns hundreds of per-colour materials (custom objects, people) into a handful of draw calls.
+function bakeable(m) {
+  const e = m.emissive;
+  return m.isMeshStandardMaterial && !m.map && !m.alphaMap && !m.transparent && (m.metalness ?? 0) < 0.05 &&
+    m.side === THREE.FrontSide && !(e && e.r + e.g + e.b > 0.001 && m.emissiveIntensity > 0);
+}
+function colourAttr(g, m) {
+  const n = g.attributes.position.count;
+  const out = new Float32Array(n * 3);
+  const src = m.vertexColors ? g.attributes.color : null;
+  for (let i = 0; i < n; i++) {
+    const r = src ? src.getX(i) : 1, gg = src ? src.getY(i) : 1, b = src ? src.getZ(i) : 1;
+    out[i * 3] = r * m.color.r; out[i * 3 + 1] = gg * m.color.g; out[i * 3 + 2] = b * m.color.b;
+  }
+  return new THREE.BufferAttribute(out, 3);
+}
+
 // The world is static, so merge every mesh that shares a material into one draw call.
 function mergeStatic(root, skip) {
   root.updateMatrixWorld(true);
   const buckets = new Map();
+  const shared = new Map();
+  const sharedFor = (m) => {
+    const rough = Math.round(m.roughness * 5) / 5;
+    const key = rough + "|" + (m.flatShading ? 1 : 0) + "|" + (m.normalMap ? m.normalMap.uuid : "-");
+    if (!shared.has(key)) {
+      const s = new THREE.MeshStandardMaterial({ color: 0xffffff, vertexColors: true, roughness: rough, metalness: 0, flatShading: m.flatShading, normalMap: m.normalMap ?? null });
+      if (m.normalMap) s.normalScale.copy(m.normalScale);
+      shared.set(key, s);
+    }
+    return shared.get(key);
+  };
   const victims = [];
   root.traverse((o) => {
     if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh || Array.isArray(o.material) || skip.has(o)) return;
     if (o.parent === root) return;
-    const key = o.material.uuid + (o.castShadow ? "s" : "") + (o.receiveShadow ? "r" : "");
     const g = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry.clone();
     g.applyMatrix4(o.matrixWorld);
+    const bake = bakeable(o.material);
+    const baked = bake ? colourAttr(g, o.material) : null;
     for (const name of Object.keys(g.attributes)) if (!["position", "normal", "uv", "color"].includes(name)) g.deleteAttribute(name);
     if (!g.attributes.normal) g.computeVertexNormals();
     if (!g.attributes.uv) g.setAttribute("uv", new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2));
-    const wantColor = !!o.material.vertexColors;
-    if (g.attributes.color && g.attributes.color.itemSize !== 3) g.deleteAttribute("color");
-    if (wantColor && !g.attributes.color) g.setAttribute("color", new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 3).fill(1), 3));
-    if (!wantColor && g.attributes.color) g.deleteAttribute("color");
-    if (!buckets.has(key)) buckets.set(key, { mat: o.material, cast: o.castShadow, recv: o.receiveShadow, geos: [] });
+    const target = bake ? sharedFor(o.material) : o.material;
+    if (bake) g.setAttribute("color", baked);
+    else {
+      const wantColor = !!o.material.vertexColors;
+      if (g.attributes.color && g.attributes.color.itemSize !== 3) g.deleteAttribute("color");
+      if (wantColor && !g.attributes.color) g.setAttribute("color", new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 3).fill(1), 3));
+      if (!wantColor && g.attributes.color) g.deleteAttribute("color");
+    }
+    const key = target.uuid + (o.castShadow ? "s" : "") + (o.receiveShadow ? "r" : "");
+    if (!buckets.has(key)) buckets.set(key, { mat: target, cast: o.castShadow, recv: o.receiveShadow, geos: [] });
     buckets.get(key).geos.push(g);
     victims.push(o);
   });
@@ -416,8 +454,8 @@ export async function createWorld(container, spec, opts = {}) {
   stats.buildMs = Math.round(performance.now() - t0);
 
   // ---------- camera ----------
-  const yaw = deg(o.yaw ?? 0), elev = deg(o.elev ?? (island ? 38 : 30));
-  const dist = o.dist ?? (island ? THREE.MathUtils.clamp(extent * 2.75, 18, 70) : THREE.MathUtils.clamp(extent * 3.3, 10, 24));
+  const yaw = deg(o.yaw ?? 0), elev = deg(o.elev ?? (island ? 40 : 30));
+  const dist = o.dist ?? (island ? THREE.MathUtils.clamp(extent * 3.25, 20, 80) : THREE.MathUtils.clamp(extent * 3.3, 10, 24));
   const target = new THREE.Vector3(center.x + (o.tx ?? 0), o.ty ?? (island ? 0.4 : 0.9), center.z + (o.tz ?? 0));
   const placeCamera = (tgt, y, e, d) => {
     camera.position.set(tgt.x + Math.sin(y) * Math.cos(e) * d, tgt.y + Math.sin(e) * d, tgt.z + Math.cos(y) * Math.cos(e) * d);

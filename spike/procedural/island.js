@@ -51,7 +51,7 @@ const BANDS = [
 const BIOMES = {
   meadow: { top: ["#86b553", "#6ea446", "#9cc463"], lip: "#5f9a3e", beach: "#e6d09a", wet: "#b49a6a", strata: ["#5b3f2c", "#a4723f", "#c08a52", "#7d5236"], path: "dirt", dirt: ["#a98159", "#8e6a46"] },
   autumn: { top: ["#c99a43", "#d4843a", "#b98d3d"], lip: "#9a6e2c", beach: "#e3c995", wet: "#ad9265", strata: ["#5a3b2a", "#9c5f34", "#c07a45", "#74452d"], path: "dirt", dirt: ["#9f7550", "#86603f"] },
-  snow: { top: ["#f3f6fb", "#dde6f4", "#c3d1ea"], lip: "#e8eef8", beach: "#e3eaf5", wet: "#9fb0c8", strata: ["#e2e9f4", "#7d828d", "#5f6270", "#949aa6"], path: "snow", dirt: ["#e9eef7", "#cdd8ea"] },
+  snow: { top: ["#f3f6fb", "#dde6f4", "#c3d1ea"], lip: "#e8eef8", beach: "#e3eaf5", wet: "#9fb0c8", strata: ["#e2e9f4", "#7d828d", "#5f6270", "#949aa6"], path: "snow", dirt: ["#d3dcea", "#b7c6dc"] },
   beach: { top: ["#ecd7a2", "#e2c88e", "#a7c46d"], lip: "#d9bf86", beach: "#f2e2b6", wet: "#c6aa76", strata: ["#c99c62", "#ddb67e", "#b9864f", "#cfa36b"], path: "sand", dirt: ["#d5b781", "#c4a370"] },
   desert: { top: ["#e3b877", "#d4a160", "#ecc78f"], lip: "#cf9b5c", beach: "#ebd09c", wet: "#c4a070", strata: ["#b5653c", "#d08b52", "#a1512f", "#dba266"], path: "sand", dirt: ["#c99a63", "#b98a55"] },
   city: { top: ["#7aa94f", "#6b9a45", "#b4afa6"], lip: "#5e8d3e", beach: "#9d988f", wet: "#6f6c68", strata: ["#6f6a63", "#8b857b", "#5d5852", "#9a9286"], path: "cobble", dirt: ["#8f8a82", "#7b766f"] },
@@ -122,10 +122,12 @@ function layout(spec, rand) {
   }
   if (n === 1) R = 0;
   const need = angles(R);
-  const slack = n > 1 ? (TAU - need.reduce((s, x) => s + x, 0)) / n : 0;
+  // Spare angle: half goes to the gap between the last and first plot (no path there, it becomes a bay at the back),
+  // the rest is spread evenly, so the story side stays dense.
+  const spare = n > 1 ? TAU - need.reduce((s, x) => s + x, 0) : 0;
   const theta = [];
   let a = 0;
-  for (let i = 0; i < n; i++) { theta.push(a); a += need[i] + slack; }
+  for (let i = 0; i < n; i++) { theta.push(a); a += need[i] + (spare * 0.5) / n; }
   let hero = vs.findIndex((v) => v.hero);
   if (hero < 0) hero = rs.indexOf(rMax);
   const shift = hero >= 0 ? -theta[hero] : 0;
@@ -210,7 +212,7 @@ export function buildIsland(spec, ctx = {}) {
   };
   let radius = 0;
   for (let k = 0; k < ANG; k++) radius = Math.max(radius, T[k]);
-  const seaR = radius + 2.0;
+  const seaR = radius + 2.4;
 
   // ---------- terrain mesh (one geometry, vertex colours) ----------
   const S = 192;
@@ -346,29 +348,39 @@ export function buildIsland(spec, ctx = {}) {
     sea.renderOrder = 1;
     group.add(sea);
 
-    // Foam: a wavy ring hugging the shore plus a broken outer line.
+    // Foam: a wavy ring hugging the real waterline plus a broken outer line.
+    const water = Array.from({ length: S }, (_, s) => {
+      for (let k = 10; k < PROFILE.length; k++) {
+        const [x0, y0, z0] = rowPos[k - 1][s], [x1, y1, z1] = rowPos[k][s];
+        if (y0 >= SEA_Y && y1 < SEA_Y) {
+          const r0 = Math.hypot(x0, z0), r1 = Math.hypot(x1, z1);
+          return r0 + (r1 - r0) * ((y0 - SEA_Y) / (y0 - y1));
+        }
+      }
+      return topR((s / S) * TAU) + shore;
+    });
     const fp = [], fi = [];
     const foamRing = (inner, outer, wob1, keep) => {
       const fj = ringNoise(rand, [9, 14, 23]);
       const base0 = fp.length / 3;
-      for (let s = 0; s <= S * 2; s++) {
-        const t = (s / (S * 2)) * TAU, w = fj(t) * wob1, r0 = topR(t);
+      for (let s = 0; s <= S; s++) {
+        const t = (s / S) * TAU, w = fj(t) * wob1, r0 = water[s % S];
         for (const off of [inner, outer]) fp.push(Math.sin(t) * (r0 + off + w), SEA_Y + 0.006, Math.cos(t) * (r0 + off + w));
       }
-      for (let s = 0; s < S * 2; s++) {
-        if (keep && !keep((s / (S * 2)) * TAU)) continue;
+      for (let s = 0; s < S; s++) {
+        if (keep && !keep((s / S) * TAU)) continue;
         const a = base0 + s * 2, b = a + 1, c = a + 2, d = a + 3;
-        fi.push(a, c, b, b, c, d);
+        fi.push(a, b, c, b, d, c);
       }
     };
-    foamRing(shore - 0.12, shore + 0.1, 0.06);
+    foamRing(-0.06, 0.26, 0.06);
     const gaps = ringNoise(rand, [13, 21, 34]);
-    foamRing(shore + 0.42, shore + 0.5, 0.1, (t) => gaps(t) > -0.05);
+    foamRing(0.55, 0.66, 0.12, (t) => gaps(t) > -0.1);
     const fg = new THREE.BufferGeometry();
     fg.setAttribute("position", new THREE.Float32BufferAttribute(fp, 3));
     fg.setIndex(fi);
     fg.computeVertexNormals();
-    const foam = new THREE.Mesh(fg, mat("#f3fbff", { rough: 0.7, clay: false }));
+    const foam = new THREE.Mesh(fg, mat("#e9f7f8", { rough: 0.7, clay: false }));
     foam.name = "foam";
     foam.renderOrder = 2;
     group.add(foam);
@@ -377,9 +389,9 @@ export function buildIsland(spec, ctx = {}) {
   // ---------- wooden plinth (a tray whose lip rises just above the water) ----------
   {
     const R0 = seaR;
-    const prof = [[R0 - 0.02, SEA_Y + 0.02], [R0 + 0.06, SEA_Y + 0.12], [R0 + 0.22, SEA_Y + 0.13], [R0 + 0.3, SEA_Y + 0.04], [R0 + 0.32, FLOOR_Y - 0.1]];
+    const prof = [[R0 + 0.32, FLOOR_Y - 0.1], [R0 + 0.3, SEA_Y + 0.04], [R0 + 0.22, SEA_Y + 0.13], [R0 + 0.06, SEA_Y + 0.12], [R0 - 0.02, SEA_Y + 0.02]]; // bottom to top, so normals face out
     const tray = new THREE.Mesh(new THREE.LatheGeometry(prof.map(([r, y]) => new THREE.Vector2(r, y)), 128), mat("#7a4e2e", { rough: 0.7 }));
-    const band = new THREE.Mesh(new THREE.LatheGeometry([[R0 + 0.32, FLOOR_Y - 0.1], [R0 + 0.36, FLOOR_Y - 0.15], [R0 + 0.36, FLOOR_Y - 0.6], [R0 + 0.3, FLOOR_Y - 0.66], [0.01, FLOOR_Y - 0.66]].map(([r, y]) => new THREE.Vector2(r, y)), 128), mat("#5c3a22", { rough: 0.75 }));
+    const band = new THREE.Mesh(new THREE.LatheGeometry([[0.01, FLOOR_Y - 0.66], [R0 + 0.3, FLOOR_Y - 0.66], [R0 + 0.36, FLOOR_Y - 0.6], [R0 + 0.36, FLOOR_Y - 0.15], [R0 + 0.32, FLOOR_Y - 0.1]].map(([r, y]) => new THREE.Vector2(r, y)), 128), mat("#5c3a22", { rough: 0.75 }));
     tray.name = "plinth"; band.name = "plinth-base";
     group.add(tray, band);
   }

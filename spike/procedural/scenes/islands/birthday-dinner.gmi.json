@@ -1,0 +1,1403 @@
+{
+  "title": "A Sparkler for Priya",
+  "caption": "A long patio table, singing over tiramisu, and guitar on the pier.",
+  "palette": [
+    "#d35400",
+    "#f4ecd8",
+    "#2c3e50",
+    "#27ae60"
+  ],
+  "time": "dusk",
+  "biome": "meadow",
+  "landmark": {
+    "type": "tree",
+    "kind": "olive",
+    "height": 5
+  },
+  "cast": [
+    {
+      "name": "me",
+      "skin": "#e0ac69",
+      "shirt": "#3b6ea5",
+      "pants": "#2d2d3a",
+      "hair": "#2b1d14",
+      "hairStyle": "short"
+    },
+    {
+      "name": "Priya",
+      "skin": "#c68642",
+      "shirt": "#e8a33d",
+      "pants": "#4a2f27",
+      "hair": "#1b120c",
+      "hairStyle": "long"
+    }
+  ],
+  "vignettes": [
+    {
+      "title": "Arriving at the Trattoria",
+      "moment": "We meet outside the tiny brick Italian restaurant tucked along the lane.",
+      "hero": false,
+      "size": "medium",
+      "surface": "cobblestone",
+      "objects": [
+        {
+          "type": "wall",
+          "material": "brick",
+          "length": 4.6,
+          "height": 2.8,
+          "color": "#9c3d28",
+          "at": [
+            0,
+            -1.8
+          ],
+          "rot": 0,
+          "door": true,
+          "window": true,
+          "vines": true
+        },
+        {
+          "type": "roof",
+          "length": 4.8,
+          "depth": 0.8,
+          "color": "#5c2a1e",
+          "at": [
+            0,
+            -1.5
+          ],
+          "y": 2.8
+        },
+        {
+          "type": "awning",
+          "size": [
+            2.2,
+            0.9
+          ],
+          "height": 2.3,
+          "stripes": [
+            "#27ae60",
+            "#f4ecd8"
+          ],
+          "at": [
+            0.2,
+            -1.3
+          ],
+          "rot": 0
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -0.9,
+            -1.7
+          ],
+          "y": 2
+        },
+        {
+          "type": "lantern",
+          "at": [
+            1.3,
+            -1.7
+          ],
+          "y": 2
+        },
+        {
+          "type": "custom",
+          "name": "restaurant-chalkboard-menu",
+          "at": [
+            -1.4,
+            -1.1
+          ],
+          "rot": 18,
+          "code": "const g = k.group(); const board = k.rbox(0.5, 0.8, 0.05, k.mat('#222'), 0.02); const frame = k.rbox(0.56, 0.86, 0.04, k.mat('#5a3825'), 0.02); k.put(g, frame, 0, 0.5, 0, -0.15, 0, 0); k.put(g, board, 0, 0.5, 0.01, -0.15, 0, 0); const textLine1 = k.rbox(0.32, 0.04, 0.01, k.mat('#f4ecd8'), 0.005); k.put(g, textLine1, 0, 0.68, 0.03, -0.15, 0, 0); const textLine2 = k.rbox(0.24, 0.03, 0.01, k.mat('#f4ecd8'), 0.005); k.put(g, textLine2, 0, 0.58, 0.03, -0.15, 0, 0); const leg = k.cyl(0.015, 0.015, 0.7, k.mat('#5a3825')); k.put(g, leg, 0, 0.4, -0.18, 0.25, 0, 0); return g;"
+        },
+        {
+          "type": "potted-plant",
+          "kind": "olive",
+          "size": 0.8,
+          "at": [
+            -1.9,
+            -1.4
+          ]
+        },
+        {
+          "type": "planter",
+          "length": 1.4,
+          "flowers": "#e74c3c",
+          "at": [
+            1.5,
+            -1.6
+          ],
+          "rot": 0
+        },
+        {
+          "type": "lamp-post",
+          "height": 2.4,
+          "at": [
+            1.9,
+            0.4
+          ],
+          "rot": -30
+        },
+        {
+          "type": "bench",
+          "length": 1.2,
+          "color": "#4a3328",
+          "at": [
+            -1.6,
+            0.2
+          ],
+          "rot": 85
+        },
+        {
+          "type": "bike",
+          "color": "#27ae60",
+          "at": [
+            -1.8,
+            -0.6
+          ],
+          "rot": 15
+        },
+        {
+          "type": "person",
+          "who": "Priya",
+          "pose": "wave",
+          "at": [
+            0.4,
+            -0.2
+          ],
+          "rot": -140
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "walk",
+          "at": [
+            -0.4,
+            0.8
+          ],
+          "rot": 35
+        },
+        {
+          "type": "person",
+          "pose": "stand",
+          "skin": "#d89e6e",
+          "shirt": "#95a5a6",
+          "pants": "#34495e",
+          "hair": "#1a120b",
+          "hairStyle": "curly",
+          "at": [
+            1.2,
+            -0.4
+          ],
+          "rot": -110
+        },
+        {
+          "type": "person",
+          "pose": "stand",
+          "skin": "#f2c9a1",
+          "shirt": "#b84233",
+          "pants": "#1f2421",
+          "hair": "#3c2a1c",
+          "hairStyle": "bun",
+          "holding": "phone",
+          "at": [
+            -0.6,
+            -0.5
+          ],
+          "rot": 100
+        },
+        {
+          "type": "potted-plant",
+          "kind": "herb",
+          "size": 0.4,
+          "at": [
+            0.8,
+            -1.4
+          ]
+        },
+        {
+          "type": "potted-plant",
+          "kind": "succulent",
+          "size": 0.35,
+          "at": [
+            -0.4,
+            -1.4
+          ]
+        },
+        {
+          "type": "hydrant",
+          "color": "#c0392b",
+          "at": [
+            1.9,
+            1.4
+          ]
+        },
+        {
+          "type": "tree",
+          "kind": "cypress",
+          "height": 3.4,
+          "at": [
+            -2,
+            -1.8
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.6,
+          "flowers": "#f1c40f",
+          "at": [
+            2,
+            -1
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Pasta for Eight",
+      "moment": "Heaping plates of pasta pass across the crowded patio table beneath the glow of string lights.",
+      "hero": false,
+      "size": "medium",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "wall",
+          "material": "brick",
+          "color": "#a85d47",
+          "length": 4.6,
+          "height": 2.6,
+          "vines": true,
+          "at": [
+            0,
+            -2.1
+          ],
+          "rot": 0
+        },
+        {
+          "type": "fence",
+          "length": 3.6,
+          "color": "#5c4033",
+          "at": [
+            -2.2,
+            0
+          ],
+          "rot": 90
+        },
+        {
+          "type": "fence",
+          "length": 3.6,
+          "color": "#5c4033",
+          "at": [
+            2.2,
+            0
+          ],
+          "rot": 90
+        },
+        {
+          "type": "potted-plant",
+          "kind": "olive",
+          "size": 1.2,
+          "at": [
+            -1.9,
+            -1.8
+          ]
+        },
+        {
+          "type": "potted-plant",
+          "kind": "herb",
+          "size": 0.8,
+          "at": [
+            1.9,
+            -1.8
+          ]
+        },
+        {
+          "type": "post",
+          "id": "post-nw",
+          "height": 2.4,
+          "at": [
+            -1.8,
+            -1.5
+          ]
+        },
+        {
+          "type": "post",
+          "id": "post-ne",
+          "height": 2.4,
+          "at": [
+            1.8,
+            -1.5
+          ]
+        },
+        {
+          "type": "post",
+          "id": "post-sw",
+          "height": 2.4,
+          "at": [
+            -1.8,
+            1.6
+          ]
+        },
+        {
+          "type": "post",
+          "id": "post-se",
+          "height": 2.4,
+          "at": [
+            1.8,
+            1.6
+          ]
+        },
+        {
+          "type": "string-lights",
+          "color": "#ffe082",
+          "points": [
+            [
+              -1.8,
+              2.3,
+              -1.5
+            ],
+            [
+              -0.9,
+              2.1,
+              -0.7
+            ],
+            [
+              0,
+              2.25,
+              0
+            ],
+            [
+              0.9,
+              2.1,
+              0.7
+            ],
+            [
+              1.8,
+              2.3,
+              1.6
+            ]
+          ]
+        },
+        {
+          "type": "string-lights",
+          "color": "#ffe082",
+          "points": [
+            [
+              1.8,
+              2.3,
+              -1.5
+            ],
+            [
+              0.9,
+              2.15,
+              -0.6
+            ],
+            [
+              0,
+              2.2,
+              0
+            ],
+            [
+              -0.9,
+              2.15,
+              0.6
+            ],
+            [
+              -1.8,
+              2.3,
+              1.6
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "id": "dinner-table",
+          "shape": "rect",
+          "size": [
+            1.1,
+            2.6
+          ],
+          "cloth": "red-check",
+          "at": [
+            0,
+            0.1
+          ],
+          "rot": 0
+        },
+        {
+          "type": "chair",
+          "id": "chair-w1",
+          "color": "#6e4a2e",
+          "at": [
+            -0.85,
+            -0.9
+          ],
+          "rot": 90
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            -0.85,
+            -0.9
+          ],
+          "rot": 90,
+          "holding": "glass"
+        },
+        {
+          "type": "chair",
+          "id": "chair-w2",
+          "color": "#6e4a2e",
+          "at": [
+            -0.85,
+            -0.3
+          ],
+          "rot": 90
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "skin": "#dfb18b",
+          "shirt": "#9b59b6",
+          "pants": "#34495e",
+          "hair": "#4a3525",
+          "hairStyle": "curly",
+          "at": [
+            -0.85,
+            -0.3
+          ],
+          "rot": 90
+        },
+        {
+          "type": "chair",
+          "id": "chair-w3",
+          "color": "#6e4a2e",
+          "at": [
+            -0.85,
+            0.3
+          ],
+          "rot": 90
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "skin": "#f1c27d",
+          "shirt": "#27ae60",
+          "pants": "#2c3e50",
+          "hair": "#1e272c",
+          "hairStyle": "short",
+          "at": [
+            -0.85,
+            0.3
+          ],
+          "rot": 90
+        },
+        {
+          "type": "chair",
+          "id": "chair-e1",
+          "color": "#6e4a2e",
+          "at": [
+            0.85,
+            -0.9
+          ],
+          "rot": -90
+        },
+        {
+          "type": "person",
+          "who": "Priya",
+          "pose": "sit",
+          "at": [
+            0.85,
+            -0.9
+          ],
+          "rot": -90,
+          "holding": "glass"
+        },
+        {
+          "type": "chair",
+          "id": "chair-e2",
+          "color": "#6e4a2e",
+          "at": [
+            0.85,
+            -0.3
+          ],
+          "rot": -90
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "skin": "#8d5524",
+          "shirt": "#e67e22",
+          "pants": "#222f3e",
+          "hair": "#0f0f0f",
+          "hairStyle": "short",
+          "at": [
+            0.85,
+            -0.3
+          ],
+          "rot": -90
+        },
+        {
+          "type": "chair",
+          "id": "chair-e3",
+          "color": "#6e4a2e",
+          "at": [
+            0.85,
+            0.3
+          ],
+          "rot": -90
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "skin": "#ffdbac",
+          "shirt": "#16a085",
+          "pants": "#57606f",
+          "hair": "#d4a373",
+          "hairStyle": "bun",
+          "at": [
+            0.85,
+            0.3
+          ],
+          "rot": -90
+        },
+        {
+          "type": "chair",
+          "id": "chair-n",
+          "color": "#6e4a2e",
+          "at": [
+            0,
+            -1.45
+          ],
+          "rot": 0
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "skin": "#d78b5e",
+          "shirt": "#c0392b",
+          "pants": "#2f3542",
+          "hair": "#2f1b0c",
+          "hairStyle": "short",
+          "at": [
+            0,
+            -1.45
+          ],
+          "rot": 0
+        },
+        {
+          "type": "chair",
+          "id": "chair-s",
+          "color": "#6e4a2e",
+          "at": [
+            0,
+            1.65
+          ],
+          "rot": 180
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "skin": "#f5d0a9",
+          "shirt": "#2980b9",
+          "pants": "#1e272e",
+          "hair": "#784421",
+          "hairStyle": "long",
+          "at": [
+            0,
+            1.65
+          ],
+          "rot": 180
+        },
+        {
+          "type": "plate",
+          "food": "pasta",
+          "on": "dinner-table",
+          "at": [
+            -0.3,
+            -0.9
+          ]
+        },
+        {
+          "type": "plate",
+          "food": "pasta",
+          "on": "dinner-table",
+          "at": [
+            0.3,
+            -0.9
+          ]
+        },
+        {
+          "type": "plate",
+          "food": "pasta",
+          "on": "dinner-table",
+          "at": [
+            -0.3,
+            -0.3
+          ]
+        },
+        {
+          "type": "plate",
+          "food": "pasta",
+          "on": "dinner-table",
+          "at": [
+            0.3,
+            -0.3
+          ]
+        },
+        {
+          "type": "plate",
+          "food": "pasta",
+          "on": "dinner-table",
+          "at": [
+            -0.3,
+            0.3
+          ]
+        },
+        {
+          "type": "plate",
+          "food": "pasta",
+          "on": "dinner-table",
+          "at": [
+            0.3,
+            0.3
+          ]
+        },
+        {
+          "type": "plate",
+          "food": "pasta",
+          "on": "dinner-table",
+          "at": [
+            0,
+            -1.1
+          ]
+        },
+        {
+          "type": "plate",
+          "food": "pasta",
+          "on": "dinner-table",
+          "at": [
+            0,
+            0.95
+          ]
+        },
+        {
+          "type": "bread-basket",
+          "on": "dinner-table",
+          "at": [
+            0,
+            -0.55
+          ]
+        },
+        {
+          "type": "bottle",
+          "color": "#2c4c38",
+          "on": "dinner-table",
+          "at": [
+            0,
+            0
+          ]
+        },
+        {
+          "type": "bottle",
+          "color": "#781d28",
+          "on": "dinner-table",
+          "at": [
+            -0.08,
+            0.2
+          ]
+        },
+        {
+          "type": "candle",
+          "on": "dinner-table",
+          "at": [
+            0.08,
+            -0.1
+          ]
+        },
+        {
+          "type": "glass",
+          "drink": "red-wine",
+          "on": "dinner-table",
+          "at": [
+            0.35,
+            -0.65
+          ]
+        },
+        {
+          "type": "glass",
+          "drink": "red-wine",
+          "on": "dinner-table",
+          "at": [
+            -0.35,
+            -0.65
+          ]
+        },
+        {
+          "type": "potted-plant",
+          "kind": "flowers",
+          "flowers": "#e74c3c",
+          "size": 0.6,
+          "at": [
+            -1.7,
+            1.8
+          ]
+        },
+        {
+          "type": "potted-plant",
+          "kind": "flowers",
+          "flowers": "#f1c40f",
+          "size": 0.6,
+          "at": [
+            1.7,
+            1.8
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The Sparkler and the Song",
+      "moment": "The waiters surround the table singing while Priya beams at a tiramisu sparkling with light.",
+      "hero": true,
+      "size": "large",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "wall",
+          "at": [
+            0,
+            -2.4
+          ],
+          "length": 5.4,
+          "height": 2.8,
+          "material": "brick",
+          "color": "#964332",
+          "vines": true
+        },
+        {
+          "type": "post",
+          "id": "post-left",
+          "at": [
+            -2.5,
+            2
+          ],
+          "height": 2.6
+        },
+        {
+          "type": "post",
+          "id": "post-right",
+          "at": [
+            2.5,
+            2
+          ],
+          "height": 2.6
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -2.4,
+              2.4,
+              -2.3
+            ],
+            [
+              -1.3,
+              2.3,
+              0
+            ],
+            [
+              -2.5,
+              2.4,
+              2
+            ]
+          ],
+          "color": "#ffeaa7"
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              2.4,
+              2.4,
+              -2.3
+            ],
+            [
+              1.3,
+              2.3,
+              0
+            ],
+            [
+              2.5,
+              2.4,
+              2
+            ]
+          ],
+          "color": "#ffeaa7"
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -2.4,
+              2.5,
+              -2.3
+            ],
+            [
+              0,
+              2.3,
+              -1
+            ],
+            [
+              2.4,
+              2.5,
+              -2.3
+            ]
+          ],
+          "color": "#ffeaa7"
+        },
+        {
+          "type": "planter",
+          "at": [
+            -2,
+            -2.1
+          ],
+          "length": 1.4,
+          "flowers": "#ff7675"
+        },
+        {
+          "type": "planter",
+          "at": [
+            2,
+            -2.1
+          ],
+          "length": 1.4,
+          "flowers": "#fdcb6e"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -2.4,
+            -1.2
+          ],
+          "kind": "olive",
+          "size": 1.2
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            2.4,
+            -1.2
+          ],
+          "kind": "herb",
+          "size": 0.8
+        },
+        {
+          "type": "table",
+          "id": "dinner-table",
+          "at": [
+            0,
+            0.1
+          ],
+          "size": [
+            3.4,
+            1.1
+          ],
+          "shape": "rect",
+          "cloth": "red-check"
+        },
+        {
+          "type": "cake",
+          "on": "dinner-table",
+          "at": [
+            0,
+            0
+          ],
+          "kind": "tiramisu",
+          "sparkler": true
+        },
+        {
+          "type": "plate",
+          "on": "dinner-table",
+          "at": [
+            -0.6,
+            0.25
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "dinner-table",
+          "at": [
+            0.6,
+            0.25
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "dinner-table",
+          "at": [
+            -1.2,
+            0.25
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "dinner-table",
+          "at": [
+            1.2,
+            0.25
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "glass",
+          "on": "dinner-table",
+          "at": [
+            -0.2,
+            0.25
+          ],
+          "drink": "red-wine"
+        },
+        {
+          "type": "glass",
+          "on": "dinner-table",
+          "at": [
+            0.2,
+            0.25
+          ],
+          "drink": "red-wine"
+        },
+        {
+          "type": "bottle",
+          "on": "dinner-table",
+          "at": [
+            -0.8,
+            -0.1
+          ],
+          "color": "#1b4d3e"
+        },
+        {
+          "type": "bottle",
+          "on": "dinner-table",
+          "at": [
+            0.8,
+            -0.1
+          ],
+          "color": "#781c2d"
+        },
+        {
+          "type": "bread-basket",
+          "on": "dinner-table",
+          "at": [
+            -0.4,
+            -0.2
+          ]
+        },
+        {
+          "type": "chair",
+          "id": "chair-priya",
+          "at": [
+            0,
+            -0.65
+          ],
+          "rot": 0,
+          "color": "#8b5a2b"
+        },
+        {
+          "type": "person",
+          "who": "Priya",
+          "at": [
+            0,
+            -0.65
+          ],
+          "rot": 0,
+          "pose": "cheer"
+        },
+        {
+          "type": "chair",
+          "id": "chair-me",
+          "at": [
+            -0.8,
+            0.85
+          ],
+          "rot": 180,
+          "color": "#8b5a2b"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "at": [
+            -0.8,
+            0.85
+          ],
+          "rot": 180,
+          "pose": "cheer"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.8,
+            -0.65
+          ],
+          "rot": 0,
+          "color": "#8b5a2b"
+        },
+        {
+          "type": "person",
+          "at": [
+            -0.8,
+            -0.65
+          ],
+          "rot": 0,
+          "pose": "cheer",
+          "skin": "#dfc19c",
+          "shirt": "#2ecc71",
+          "pants": "#34495e",
+          "hair": "#3e2723",
+          "hairStyle": "curly"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0.8,
+            -0.65
+          ],
+          "rot": 0,
+          "color": "#8b5a2b"
+        },
+        {
+          "type": "person",
+          "at": [
+            0.8,
+            -0.65
+          ],
+          "rot": 0,
+          "pose": "cheer",
+          "skin": "#eed9c4",
+          "shirt": "#e74c3c",
+          "pants": "#2c3e50",
+          "hair": "#bca06c",
+          "hairStyle": "bun"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0,
+            0.85
+          ],
+          "rot": 180,
+          "color": "#8b5a2b"
+        },
+        {
+          "type": "person",
+          "at": [
+            0,
+            0.85
+          ],
+          "rot": 180,
+          "pose": "cheer",
+          "skin": "#a6734c",
+          "shirt": "#9b59b6",
+          "pants": "#2b2b2b",
+          "hair": "#1a1a1a",
+          "hairStyle": "short"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0.8,
+            0.85
+          ],
+          "rot": 180,
+          "color": "#8b5a2b"
+        },
+        {
+          "type": "person",
+          "at": [
+            0.8,
+            0.85
+          ],
+          "rot": 180,
+          "pose": "cheer",
+          "skin": "#f1c27d",
+          "shirt": "#1abc9c",
+          "pants": "#3e3b39",
+          "hair": "#5a3d28",
+          "hairStyle": "short"
+        },
+        {
+          "type": "person",
+          "at": [
+            -2.2,
+            0.1
+          ],
+          "rot": 80,
+          "pose": "cheer",
+          "skin": "#eed9c4",
+          "shirt": "#ffffff",
+          "pants": "#1e272e",
+          "hair": "#2d3436",
+          "hairStyle": "cap"
+        },
+        {
+          "type": "person",
+          "at": [
+            2.2,
+            0.1
+          ],
+          "rot": -80,
+          "pose": "cheer",
+          "skin": "#d7a15c",
+          "shirt": "#ffffff",
+          "pants": "#1e272e",
+          "hair": "#111111",
+          "hairStyle": "short"
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -2.1,
+            1.8
+          ]
+        },
+        {
+          "type": "lantern",
+          "at": [
+            2.1,
+            1.8
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Guitar on the Pier",
+      "moment": "We sit out over the quiet bay water listening to gentle acoustic chords under the evening sky.",
+      "hero": false,
+      "size": "medium",
+      "surface": "water",
+      "objects": [
+        {
+          "type": "dock",
+          "id": "pier",
+          "at": [
+            0,
+            0
+          ],
+          "length": 4.6,
+          "width": 2.2,
+          "rot": 0
+        },
+        {
+          "type": "post",
+          "id": "post-nw",
+          "at": [
+            -1,
+            -1.8
+          ],
+          "height": 1.2
+        },
+        {
+          "type": "post",
+          "id": "post-ne",
+          "at": [
+            1,
+            -1.8
+          ],
+          "height": 1.2
+        },
+        {
+          "type": "post",
+          "id": "post-mid-w",
+          "at": [
+            -1,
+            0
+          ],
+          "height": 1.1
+        },
+        {
+          "type": "post",
+          "id": "post-mid-e",
+          "at": [
+            1,
+            0
+          ],
+          "height": 1.1
+        },
+        {
+          "type": "post",
+          "id": "post-sw",
+          "at": [
+            -1,
+            1.8
+          ],
+          "height": 1
+        },
+        {
+          "type": "post",
+          "id": "post-se",
+          "at": [
+            1,
+            1.8
+          ],
+          "height": 1
+        },
+        {
+          "type": "boat",
+          "kind": "row",
+          "color": "#34495e",
+          "at": [
+            1.8,
+            -0.2
+          ],
+          "rot": 15
+        },
+        {
+          "type": "rock",
+          "size": 0.6,
+          "at": [
+            -1.8,
+            -1.5
+          ]
+        },
+        {
+          "type": "rock",
+          "size": 0.4,
+          "at": [
+            -1.9,
+            0.8
+          ]
+        },
+        {
+          "type": "bench",
+          "id": "pier-bench",
+          "at": [
+            0,
+            -1.2
+          ],
+          "rot": 0,
+          "length": 1.5,
+          "color": "#5c3a21"
+        },
+        {
+          "type": "person",
+          "who": "Priya",
+          "pose": "sit",
+          "at": [
+            -0.3,
+            -1.2
+          ],
+          "rot": 10
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            0.3,
+            -1.2
+          ],
+          "rot": -10
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            0,
+            0.5
+          ],
+          "rot": 180,
+          "skin": "#d7a15c",
+          "shirt": "#8e44ad",
+          "pants": "#2c3e50",
+          "hair": "#1a1a1a",
+          "hairStyle": "curly"
+        },
+        {
+          "type": "guitar",
+          "at": [
+            0,
+            0.45
+          ],
+          "rot": 180
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            -0.7,
+            0.2
+          ],
+          "rot": 110,
+          "skin": "#f1c27d",
+          "shirt": "#27ae60",
+          "pants": "#34495e",
+          "hair": "#4a2c11",
+          "hairStyle": "bun"
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            0.7,
+            0.3
+          ],
+          "rot": -110,
+          "skin": "#c68642",
+          "shirt": "#c0392b",
+          "pants": "#1f2421",
+          "hair": "#222222",
+          "hairStyle": "short"
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -0.4,
+            0.3
+          ]
+        },
+        {
+          "type": "bottle",
+          "color": "#2c3e50",
+          "at": [
+            0.4,
+            -0.2
+          ]
+        },
+        {
+          "type": "glass",
+          "drink": "white-wine",
+          "at": [
+            0.55,
+            -0.2
+          ]
+        },
+        {
+          "type": "backpack",
+          "color": "#7f8c8d",
+          "at": [
+            -0.7,
+            -0.9
+          ],
+          "rot": 25
+        },
+        {
+          "type": "lantern",
+          "at": [
+            0.85,
+            1.6
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "buoy",
+          "at": [
+            -1.7,
+            1.7
+          ],
+          "code": "const g = k.group(); const b = k.sph(0.18, k.mat('#e67e22')); k.put(g, b, 0, 0.1, 0); const cap = k.cyl(0.04, 0.04, 0.16, k.mat('#ffffff')); k.put(g, cap, 0, 0.25, 0); return g;"
+        }
+      ]
+    }
+  ]
+}
