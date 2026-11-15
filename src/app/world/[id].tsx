@@ -1,16 +1,17 @@
 import * as Haptics from "expo-haptics";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { SymbolView } from "expo-symbols";
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   View,
+  type TextStyle,
 } from "react-native";
 import Animated, {
   FadeIn,
@@ -22,9 +23,14 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { Icon } from "@/components/Icon";
+import { Button } from "@/components/ui/Button";
+import { IconButton } from "@/components/ui/IconButton";
+import { usePressScale } from "@/components/ui/press";
+import { Surface } from "@/components/ui/Surface";
+import { color, layout, radius, space, type } from "@/design/tokens";
 import { Aurora } from "@/world/aurora";
 import { auroraBase } from "@/world/color";
-import { GlassCard } from "@/world/glass-card";
 import { WorldForming } from "@/world/forming";
 import WorldViewer from "@/world/viewer";
 import {
@@ -46,7 +52,7 @@ export default function WorldScreen() {
 
   return (
     <>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       {world ? (
         <WorldScene world={world} />
       ) : (
@@ -58,9 +64,9 @@ export default function WorldScreen() {
         >
           <Aurora palette={defaultPalette} />
           {world === undefined ? (
-            <ActivityIndicator color="#FFFFFF" style={styles.loading} />
+            <ActivityIndicator color={color.ink} style={styles.loading} />
           ) : (
-            <View style={styles.centerContent}>
+            <View style={styles.message}>
               <Text style={styles.messageTitle}>This world isn’t here</Text>
               <Text style={styles.messageBody}>
                 It may have been deleted, or the link is wrong.
@@ -116,27 +122,26 @@ function WorldScene({ world }: { world: World }) {
         options={{
           headerRight: viewerReady
             ? () => (
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel={walking ? "Stop walking" : "Walk around"}
-                  hitSlop={10}
-                  onPress={() => {
-                    void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                    setWalking((current) => !current);
-                  }}
-                  style={styles.headerButton}
-                >
-                  <SymbolView
-                    name={walking ? "xmark" : "figure.walk"}
-                    size={20}
-                    tintColor="#FFFFFF"
-                    fallback={
-                      <Text style={styles.headerFallback}>
-                        {walking ? "Done" : "Walk"}
-                      </Text>
+                <View style={styles.headerAction}>
+                  <IconButton
+                    // iOS 26 wraps header items in its own glass capsule, so iOS gets the bare glyph.
+                    variant={Platform.OS === "ios" ? "plain" : "frost"}
+                    icon={
+                      walking
+                        ? { ios: "xmark", web: "close" }
+                        : { ios: "figure.walk", web: "directions_walk" }
                     }
+                    accessibilityLabel={
+                      walking ? "Stop walking" : "Walk around"
+                    }
+                    onPress={() => {
+                      void Haptics.impactAsync(
+                        Haptics.ImpactFeedbackStyle.Light,
+                      );
+                      setWalking((current) => !current);
+                    }}
                   />
-                </Pressable>
+                </View>
               )
             : undefined,
         }}
@@ -184,7 +189,7 @@ function WorldScene({ world }: { world: World }) {
           <InfoCard
             world={world}
             visible={viewerReady && !walking}
-            bottom={insets.bottom + 8}
+            bottom={Math.max(insets.bottom, space.md)}
             onHeight={setCardHeight}
           />
           {viewerReady && walking ? <WalkHint top={insets.top + 60} /> : null}
@@ -204,22 +209,19 @@ function WorldScene({ world }: { world: World }) {
           {errorMessage ? (
             <Animated.View
               entering={FadeIn}
-              style={[styles.errorWrap, { bottom: insets.bottom + 120 }]}
+              style={[styles.errorWrap, { bottom: insets.bottom + space.lg }]}
             >
-              <GlassCard style={styles.errorCard}>
+              <Surface radius={radius.xl} style={styles.errorCard}>
                 <Text style={styles.errorText}>{errorMessage}</Text>
-                <Pressable
-                  accessibilityRole="button"
+                <Button
+                  label="Try again"
                   onPress={() => {
                     setModelError(null);
                     setProgress(null);
                     setAttempt((current) => current + 1);
                   }}
-                  style={styles.pillButton}
-                >
-                  <Text style={styles.pillLabel}>Try again</Text>
-                </Pressable>
-              </GlassCard>
+                />
+              </Surface>
             </Animated.View>
           ) : null}
         </Animated.View>
@@ -241,6 +243,7 @@ function InfoCard({
 }) {
   const [expanded, setExpanded] = useState(false);
   const shown = useSharedValue(0);
+  const press = usePressScale(0.98);
 
   useEffect(() => {
     shown.set(
@@ -270,20 +273,27 @@ function InfoCard({
         accessibilityHint={
           expanded ? "Hides what you said" : "Shows what you said"
         }
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
         onPress={() => setExpanded((current) => !current)}
+        style={styles.cardPressable}
       >
-        <GlassCard interactive style={styles.infoCard}>
-          <Text style={styles.infoDate}>{worldDate(world)}</Text>
-          <Text style={styles.infoTitle}>{worldTitle(world)}</Text>
-          {world.caption ? (
-            <Text style={styles.infoCaption}>{world.caption}</Text>
-          ) : null}
-          {expanded ? (
-            <ScrollView style={styles.infoScroll}>
-              <Text style={styles.infoTranscript}>“{world.transcript}”</Text>
-            </ScrollView>
-          ) : null}
-        </GlassCard>
+        <Animated.View style={press.style}>
+          <Surface variant="frost" radius={radius.xl} style={styles.infoCard}>
+            <Text style={styles.infoDate}>{worldDate(world)}</Text>
+            <Text style={styles.infoTitle} lineBreakStrategyIOS="standard">
+              {worldTitle(world)}
+            </Text>
+            {world.caption ? (
+              <Text style={styles.infoCaption}>{world.caption}</Text>
+            ) : null}
+            {expanded ? (
+              <ScrollView style={styles.infoScroll}>
+                <Text style={styles.infoTranscript}>“{world.transcript}”</Text>
+              </ScrollView>
+            ) : null}
+          </Surface>
+        </Animated.View>
       </Pressable>
     </Animated.View>
   );
@@ -307,11 +317,11 @@ function WalkHint({ top }: { top: number }) {
       pointerEvents="none"
       style={[styles.hintWrap, { top }]}
     >
-      <GlassCard style={styles.hint}>
+      <Surface variant="frost" radius={radius.pill} style={styles.hint}>
         <Text style={styles.hintText}>
-          Drag to look around · tap a spot to walk there
+          Drag to look around. Tap a spot to walk there.
         </Text>
-      </GlassCard>
+      </Surface>
     </Animated.View>
   );
 }
@@ -342,31 +352,33 @@ function FailedWorld({ world }: { world: World }) {
       <ScrollView
         contentInsetAdjustmentBehavior="never"
         contentContainerStyle={[
-          styles.centerContent,
+          styles.page,
           { paddingTop: insets.top + 72, paddingBottom: insets.bottom + 32 },
         ]}
       >
-        <GlassCard style={styles.failCard}>
-          <SymbolView name="cloud.drizzle.fill" size={36} tintColor="#FFFFFF" />
-          <Text style={styles.failTitle}>This world didn’t form</Text>
-          <Text style={styles.failBody}>
-            {world.error ?? "Something went wrong while making it."}
-          </Text>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityState={{ disabled: retrying }}
-            disabled={retrying}
+        <Surface radius={radius.xl} style={styles.failCard}>
+          <Icon
+            name={{ ios: "cloud.drizzle", web: "cloud" }}
+            size={30}
+            tint={color.inkSecondary}
+            weight="regular"
+          />
+          <View style={styles.failText}>
+            <Text style={styles.failTitle}>This world didn’t form</Text>
+            <Text style={styles.failBody}>
+              {world.error ?? "Something went wrong while making it."}
+            </Text>
+          </View>
+          <Button
+            label="Try again"
+            loading={retrying}
             onPress={handleRetry}
-            style={[styles.pillButton, { opacity: retrying ? 0.7 : 1 }]}
-          >
-            {retrying ? (
-              <ActivityIndicator color="#111111" />
-            ) : (
-              <Text style={styles.pillLabel}>Try again</Text>
-            )}
-          </Pressable>
-        </GlassCard>
-        <Text style={styles.quote}>“{world.transcript}”</Text>
+            style={styles.failButton}
+          />
+        </Surface>
+        <Text style={[styles.quote, styles.failQuote]}>
+          “{world.transcript}”
+        </Text>
       </ScrollView>
     </View>
   );
@@ -382,7 +394,7 @@ function QuietWorld({ world }: { world: World }) {
       <ScrollView
         contentInsetAdjustmentBehavior="never"
         contentContainerStyle={[
-          styles.centerContent,
+          styles.page,
           { paddingTop: insets.top + 72, paddingBottom: insets.bottom + 32 },
         ]}
       >
@@ -405,157 +417,140 @@ const styles = StyleSheet.create({
   loading: {
     flex: 1,
   },
-  centerContent: {
+  message: {
     alignItems: "center",
-    flexGrow: 1,
-    gap: 24,
+    flex: 1,
+    gap: space.sm,
     justifyContent: "center",
-    paddingHorizontal: 28,
+    paddingHorizontal: space.xxl,
   },
   messageTitle: {
-    color: "#FFFFFF",
-    fontSize: 24,
-    fontWeight: "700",
-  },
-  messageBody: {
-    color: "rgba(255, 255, 255, 0.72)",
-    fontSize: 16,
+    ...type.headline,
     textAlign: "center",
   },
-  headerButton: {
-    alignItems: "center",
-    height: 36,
-    justifyContent: "center",
-    minWidth: 36,
+  messageBody: {
+    ...type.body,
+    textAlign: "center",
   },
-  headerFallback: {
-    color: "#FFFFFF",
-    fontSize: 17,
-    fontWeight: "600",
+  headerAction: {
+    // The web header gives custom items no end margin; native bars add their own.
+    marginRight: Platform.OS === "web" ? space.md : 0,
+  },
+  page: {
+    alignItems: "center",
+    alignSelf: "center",
+    flexGrow: 1,
+    gap: space.xxl,
+    justifyContent: "center",
+    maxWidth: layout.maxWidth,
+    paddingHorizontal: layout.gutter,
+    width: "100%",
   },
   cardWrap: {
-    left: 12,
+    alignItems: "center",
+    left: space.md,
     position: "absolute",
-    right: 12,
+    right: space.md,
+  },
+  cardPressable: {
+    maxWidth: layout.maxWidth,
+    width: "100%",
   },
   infoCard: {
-    borderCurve: "continuous",
-    borderRadius: 28,
-    gap: 4,
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    gap: space.xs,
+    paddingBottom: space.xl + space.xxs,
+    paddingHorizontal: space.xl + space.xs,
+    paddingTop: space.xl,
   },
   infoDate: {
-    color: "rgba(255, 255, 255, 0.6)",
-    fontSize: 13,
-    fontWeight: "600",
+    ...type.meta,
   },
   infoTitle: {
-    color: "#FFFFFF",
-    fontSize: 22,
-    fontWeight: "700",
-    letterSpacing: -0.3,
-  },
+    ...type.headline,
+    // Web: no single-word last line in two-line names.
+    textWrap: "balance",
+  } as TextStyle,
   infoCaption: {
-    color: "rgba(255, 255, 255, 0.78)",
-    fontSize: 15,
-    lineHeight: 20,
+    ...type.caption,
   },
   infoScroll: {
-    marginTop: 8,
+    marginTop: space.md,
     maxHeight: 220,
   },
   infoTranscript: {
-    color: "rgba(255, 255, 255, 0.9)",
-    fontFamily: "Georgia",
-    fontSize: 17,
-    fontStyle: "italic",
-    lineHeight: 25,
+    ...type.quote,
   },
   hintWrap: {
     alignItems: "center",
     left: 0,
+    paddingHorizontal: layout.gutter,
     position: "absolute",
     right: 0,
   },
   hint: {
-    borderRadius: 999,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: space.lg,
+    paddingVertical: space.sm + space.xxs,
   },
   hintText: {
-    color: "#FFFFFF",
-    fontSize: 14,
-    fontWeight: "600",
+    ...type.caption,
+    color: color.ink,
+    textAlign: "center",
   },
   errorWrap: {
-    left: 20,
+    alignItems: "center",
+    left: layout.gutter,
     position: "absolute",
-    right: 20,
+    right: layout.gutter,
   },
   errorCard: {
     alignItems: "center",
-    borderRadius: 24,
-    gap: 14,
-    padding: 18,
+    gap: space.lg,
+    // Wide enough to cover the forming progress it replaces.
+    maxWidth: layout.maxWidth - 2 * layout.gutter,
+    padding: space.xl + space.xs,
+    width: "100%",
   },
   errorText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "600",
+    ...type.label,
     textAlign: "center",
   },
   failCard: {
     alignItems: "center",
     alignSelf: "stretch",
-    borderCurve: "continuous",
-    borderRadius: 32,
-    gap: 12,
-    paddingHorizontal: 24,
-    paddingVertical: 28,
+    gap: space.lg,
+    paddingBottom: space.xxl,
+    paddingHorizontal: space.xxl,
+    paddingTop: space.xxl + space.xs,
+  },
+  failText: {
+    alignItems: "center",
+    gap: space.sm,
   },
   failTitle: {
-    color: "#FFFFFF",
-    fontSize: 24,
-    fontWeight: "700",
+    ...type.headline,
     textAlign: "center",
   },
   failBody: {
-    color: "rgba(255, 255, 255, 0.75)",
-    fontSize: 16,
-    lineHeight: 22,
+    ...type.body,
     textAlign: "center",
   },
-  pillButton: {
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 999,
-    marginTop: 8,
-    minWidth: 160,
-    paddingHorizontal: 24,
-    paddingVertical: 14,
-  },
-  pillLabel: {
-    color: "#111111",
-    fontSize: 17,
-    fontWeight: "700",
+  failButton: {
+    marginTop: space.sm,
+    minWidth: 180,
   },
   quote: {
-    color: "rgba(255, 255, 255, 0.85)",
-    fontFamily: "Georgia",
-    fontSize: 20,
-    fontStyle: "italic",
-    lineHeight: 30,
+    ...type.quote,
+    paddingHorizontal: space.sm,
     textAlign: "center",
   },
+  failQuote: {
+    color: color.inkSecondary,
+  },
   quietDate: {
-    color: "rgba(255, 255, 255, 0.6)",
-    fontSize: 14,
-    fontWeight: "600",
+    ...type.meta,
   },
   quietNote: {
-    color: "rgba(255, 255, 255, 0.6)",
-    fontSize: 15,
+    ...type.caption,
     textAlign: "center",
   },
 });

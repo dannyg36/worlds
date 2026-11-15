@@ -1,6 +1,12 @@
 import { Image } from "expo-image";
 import { useEffect, useMemo } from "react";
-import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+  type TextStyle,
+} from "react-native";
 import Animated, {
   Easing,
   FadeIn,
@@ -18,6 +24,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { withAlpha } from "@/design/palette";
+import { color, layout, radius, shadow, space, type } from "@/design/tokens";
 import { Aurora } from "@/world/aurora";
 import { formingStatuses, worldPalette, type World } from "@/world/worlds";
 
@@ -58,7 +66,7 @@ function stageLabel(stage: Stage, progress: number | null) {
     case "arriving":
       return progress === null
         ? "Bringing it to life…"
-        : `Bringing it to life · ${Math.round(progress * 100)}%`;
+        : `Bringing it to life… ${Math.round(progress * 100)}%`;
   }
 }
 
@@ -98,7 +106,9 @@ export function WorldForming({
               entering={FadeInDown.duration(700)}
               style={styles.titleBlock}
             >
-              <Text style={styles.title}>{world.title}</Text>
+              <Text style={styles.title} lineBreakStrategyIOS="standard">
+                {world.title}
+              </Text>
               {world.caption ? (
                 <Text style={styles.caption}>{world.caption}</Text>
               ) : null}
@@ -179,7 +189,7 @@ function PaintingCard() {
   return (
     <Animated.View
       entering={ZoomIn.duration(600)}
-      style={[styles.card, styles.paintingCard, { width: size, height: size }]}
+      style={[styles.card, styles.nacre, { width: size, height: size }]}
     >
       <Sweep size={size} duration={1700} />
     </Animated.View>
@@ -219,7 +229,12 @@ function ConceptCard({ uri, lively }: { uri: string; lively: boolean }) {
   return (
     <Animated.View entering={ZoomIn.springify().damping(16)}>
       <Animated.View
-        style={[styles.card, { width: size, height: size }, cardStyle]}
+        style={[
+          styles.card,
+          styles.nacre,
+          { width: size, height: size },
+          cardStyle,
+        ]}
       >
         <Image
           source={{ uri }}
@@ -356,16 +371,21 @@ function ActiveFill({
   return <Animated.View style={[styles.fill, style]} />;
 }
 
+const light = (alpha: number) => withAlpha(color.paper, alpha);
+
 const styles = StyleSheet.create({
   content: {
+    alignSelf: "center",
     flex: 1,
     justifyContent: "space-between",
-    paddingHorizontal: 28,
+    maxWidth: layout.maxWidth,
+    paddingHorizontal: space.xxl,
+    width: "100%",
   },
   center: {
     alignItems: "center",
     flex: 1,
-    gap: 28,
+    gap: space.xxl,
     justifyContent: "center",
   },
   transcript: {
@@ -374,82 +394,76 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   word: {
-    color: "#FFFFFF",
-    fontFamily: "Georgia",
-    fontSize: 22,
-    fontStyle: "italic",
-    lineHeight: 32,
+    ...type.quote,
   },
   card: {
-    backgroundColor: "rgba(255, 255, 255, 0.08)",
-    borderColor: "rgba(255, 255, 255, 0.22)",
+    borderColor: color.hairline,
     borderCurve: "continuous",
-    borderRadius: 32,
+    borderRadius: radius.xl,
     borderWidth: StyleSheet.hairlineWidth,
-    boxShadow: "0 24px 60px rgba(0, 0, 0, 0.45)",
+    // A bright inner rim inside the hairline, the way nacre catches light at its edge.
+    boxShadow: `${shadow.float}, inset 0 0 0 1px ${light(0.6)}, inset 0 2px 1px -1px ${light(0.95)}`,
     overflow: "hidden",
   },
-  paintingCard: {
-    backgroundImage:
-      "linear-gradient(150deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.04) 60%, rgba(255, 255, 255, 0.12))",
+  nacre: {
+    backgroundColor: color.pearlLight,
+    backgroundImage: [
+      `radial-gradient(circle at 26% 22%, ${light(0.95)} 0%, ${light(0)} 42%)`,
+      `radial-gradient(circle at 82% 26%, ${color.lilac} 0%, ${withAlpha(color.lilac, 0)} 58%)`,
+      `radial-gradient(circle at 78% 82%, ${color.blush} 0%, ${withAlpha(color.blush, 0)} 60%)`,
+      `radial-gradient(circle at 18% 78%, ${color.mint} 0%, ${withAlpha(color.mint, 0)} 58%)`,
+      `linear-gradient(150deg, ${color.pearlLight} 0%, ${color.champagne} 62%, ${color.pearlDeep} 100%)`,
+    ].join(", "),
   },
   sweep: {
-    backgroundImage:
-      "linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.32) 50%, rgba(255, 255, 255, 0))",
+    backgroundImage: `linear-gradient(90deg, ${light(0)}, ${light(0.55)} 50%, ${light(0)})`,
     position: "absolute",
   },
   titleBlock: {
     alignItems: "center",
-    gap: 8,
+    gap: space.sm + space.xxs,
   },
   title: {
-    color: "#FFFFFF",
-    fontSize: 30,
-    fontWeight: "700",
-    letterSpacing: -0.4,
+    ...type.title,
     textAlign: "center",
-  },
+    // Web: no single-word last line in two-line names.
+    textWrap: "balance",
+  } as TextStyle,
   caption: {
-    color: "rgba(255, 255, 255, 0.72)",
-    fontSize: 16,
-    lineHeight: 22,
+    ...type.body,
     textAlign: "center",
   },
   footer: {
-    gap: 16,
+    gap: space.lg,
   },
   stage: {
-    color: "#FFFFFF",
-    fontSize: 17,
-    fontWeight: "600",
+    ...type.label,
     textAlign: "center",
   },
   tracker: {
     flexDirection: "row",
-    gap: 8,
+    gap: space.sm,
   },
   step: {
     flex: 1,
-    gap: 8,
+    gap: space.sm,
   },
   track: {
-    backgroundColor: "rgba(255, 255, 255, 0.16)",
-    borderRadius: 2,
-    height: 4,
+    backgroundColor: color.inkFaint,
+    borderRadius: 1.5,
+    height: 3,
     overflow: "hidden",
   },
   fill: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 2,
-    height: 4,
+    backgroundColor: color.ink,
+    borderRadius: 1.5,
+    height: 3,
   },
   stepLabel: {
-    color: "rgba(255, 255, 255, 0.4)",
-    fontSize: 12,
-    fontWeight: "600",
+    ...type.meta,
     textAlign: "center",
   },
   stepLabelActive: {
-    color: "rgba(255, 255, 255, 0.9)",
+    color: color.ink,
   },
 });

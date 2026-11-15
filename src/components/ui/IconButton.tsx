@@ -9,6 +9,7 @@ import { Surface } from "./Surface";
 
 /**
  * paper: on the pearl page. frost: over imagery or a 3D world. ink: the active state.
+ * plain: the glyph alone, for native headers that draw their own backing (iOS 26 glass).
  */
 export function IconButton({
   icon,
@@ -22,7 +23,7 @@ export function IconButton({
   onPress: () => void;
   accessibilityLabel: string;
   size?: number;
-  variant?: "paper" | "frost" | "ink";
+  variant?: "paper" | "frost" | "ink" | "plain";
   tint?: string;
 }) {
   const press = usePressScale(0.9);
@@ -49,7 +50,11 @@ export function IconButton({
             {glyph}
           </Surface>
         ) : (
-          <View style={[shape, styles.center, variant === "ink" ? styles.ink : styles.paper]}>{glyph}</View>
+          <View
+            style={[shape, styles.center, variant === "ink" ? styles.ink : variant === "paper" ? styles.paper : null]}
+          >
+            {glyph}
+          </View>
         )}
       </Pressable>
     </Animated.View>
