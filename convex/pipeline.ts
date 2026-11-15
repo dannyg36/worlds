@@ -63,6 +63,20 @@ export async function startGeneration(
     }
   }
   const now = Date.now();
+  if (
+    previousRun &&
+    previousRun.step !== "ready" &&
+    previousRun.step !== "failed"
+  ) {
+    // worlds.extend can replace a run that is still forming. Ending it frees
+    // its 3D slot and keeps the watchdog from reviving it.
+    await ctx.db.patch("generationRuns", previousRun._id, {
+      step: "failed",
+      error: "Replaced by a newer run.",
+      finishedAt: now,
+      touchedAt: now,
+    });
+  }
   const runId = await ctx.db.insert("generationRuns", {
     worldId,
     attempt: (previousRun?.attempt ?? 0) + 1,

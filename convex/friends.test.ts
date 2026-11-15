@@ -186,3 +186,38 @@ test("only the owner can share or unshare a world", async () => {
   ).rejects.toThrow("World not found.");
   expect(await ben.query(api.feed.list, {})).toEqual([]);
 });
+
+test("a friend who can see a shared world still can't add to it", async () => {
+  const t = convexTest(schema, modules);
+  const ana = await signUp(t, "Ana");
+  const ben = await signUp(t, "Ben", ana.inviteCode);
+  const world = await addWorld(ana, "Ana's day.");
+  await ana.mutation(api.sharing.share, { worldId: world });
+  expect(await ben.query(api.worlds.get, { id: world })).not.toBeNull();
+
+  await expect(
+    ben.mutation(api.worlds.extend, { id: world, transcript: "Ben was there too." }),
+  ).rejects.toThrow("World not found.");
+  await expect(
+    t.mutation(api.worlds.extend, { id: world, transcript: "Anyone at all." }),
+  ).rejects.toThrow("World not found.");
+  expect((await ana.query(api.worlds.get, { id: world }))?.transcript).toBe(
+    "Ana's day.",
+  );
+});
+
+test("the feed tags each world with its author's profile id, as the friends list does", async () => {
+  const t = convexTest(schema, modules);
+  const ana = await signUp(t, "Ana");
+  const ben = await signUp(t, "Ben", ana.inviteCode);
+  const anaWorld = await addWorld(ana, "Ana's day.");
+  await ana.mutation(api.sharing.share, { worldId: anaWorld });
+  const benWorld = await addWorld(ben, "Ben's day.");
+  const [anaProfile] = await ben.query(api.friends.list, {});
+  const [benProfile] = await ana.query(api.friends.list, {});
+
+  expect(await ben.query(api.feed.list, {})).toMatchObject([
+    { _id: benWorld, mine: true, authorId: benProfile._id, authorName: "Ben" },
+    { _id: anaWorld, mine: false, authorId: anaProfile._id, authorName: "Ana" },
+  ]);
+});

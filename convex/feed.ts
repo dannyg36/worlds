@@ -16,17 +16,20 @@ export const list = query({
     const authors = new Map(
       await Promise.all(
         [...new Set(worlds.map((world) => world.ownerTokenIdentifier))].map(
-          async (owner) =>
-            [owner, (await getProfile(ctx, owner))?.name] as const,
+          async (owner) => [owner, await getProfile(ctx, owner)] as const,
         ),
       ),
     );
     return await Promise.all(
-      worlds.map(async (world) => ({
-        ...(await present(ctx, world)),
-        mine: world.ownerTokenIdentifier === viewer,
-        authorName: authors.get(world.ownerTokenIdentifier) ?? "Someone",
-      })),
+      worlds.map(async (world) => {
+        const author = authors.get(world.ownerTokenIdentifier);
+        return {
+          ...(await present(ctx, world)),
+          mine: world.ownerTokenIdentifier === viewer,
+          authorId: author?._id ?? null,
+          authorName: author?.name ?? "Someone",
+        };
+      }),
     );
   },
 });

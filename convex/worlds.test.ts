@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 import { convexTest } from "convex-test";
-import { afterEach, beforeEach, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { api } from "./_generated/api";
 import { installFakeGmi } from "./fakeGmi.testing";
 import schema from "./schema";
@@ -90,4 +90,35 @@ test("retry leaves ready and generating worlds alone and starts worlds made befo
   await expect(t.mutation(api.worlds.retry, { id: legacy })).rejects.toThrow(
     "This world is already ready.",
   );
+});
+
+describe("extend", () => {
+  test("rejects empty text, a day over the limit, and worlds that aren't yours", async () => {
+    const t = signedInTest();
+    const morning = "a".repeat(3990);
+    const id = await t.mutation(api.worlds.add, { transcript: morning });
+
+    await expect(
+      t.mutation(api.worlds.extend, { id, transcript: " \n " }),
+    ).rejects.toThrow("A world needs a description of your day.");
+    await expect(
+      t.mutation(api.worlds.extend, { id, transcript: "b".repeat(9) }),
+    ).rejects.toThrow("Today's world is full. Keep your day under 4000 characters.");
+    const stranger = t.withIdentity({ tokenIdentifier: "https://test.convex.dev|stranger" });
+    await expect(
+      stranger.mutation(api.worlds.extend, { id, transcript: "My day now." }),
+    ).rejects.toThrow("World not found.");
+    expect((await t.query(api.worlds.get, { id }))?.transcript).toBe(morning);
+
+    // The blank line counts toward the limit: 3990 + 2 + 8 is exactly 4000.
+    await t.mutation(api.worlds.extend, { id, transcript: "b".repeat(8) });
+    expect((await t.query(api.worlds.get, { id }))?.transcript).toBe(
+      `${morning}\n\n${"b".repeat(8)}`,
+    );
+
+    await t.run(async (ctx) => ctx.db.delete("worlds", id));
+    await expect(
+      t.mutation(api.worlds.extend, { id, transcript: "Still there?" }),
+    ).rejects.toThrow("World not found.");
+  });
 });

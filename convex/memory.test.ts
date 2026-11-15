@@ -118,6 +118,42 @@ test("adding a world schedules remember, which saves the day to its owner's spac
   ]);
 });
 
+test("adding to a world remembers only the new part, in the same document", async () => {
+  vi.useFakeTimers();
+  const calls = stubSupermemory(() => ({ id: "doc", status: "queued" }));
+  const t = convexTest(schema, modules);
+  const owner = t.withIdentity({ tokenIdentifier: OWNER });
+  const space = await memorySpace(OWNER);
+
+  const worldId = await owner.mutation(api.worlds.add, {
+    transcript: "Took Mochi to Blue Door Café.",
+  });
+  await t.finishAllScheduledFunctions(vi.runAllTimers);
+  await owner.mutation(api.worlds.extend, {
+    id: worldId,
+    transcript: "  Priya came by after.  ",
+  });
+  await t.finishAllScheduledFunctions(vi.runAllTimers);
+
+  expect(
+    calls
+      .filter((call) => call.path.endsWith("/document"))
+      .map(({ path, body }) => [path, body]),
+  ).toEqual([
+    [
+      `/ns/${space}/document`,
+      expect.objectContaining({
+        id: worldId,
+        content: "Took Mochi to Blue Door Café.",
+      }),
+    ],
+    [
+      `/ns/${space}/document`,
+      expect.objectContaining({ id: worldId, content: "Priya came by after." }),
+    ],
+  ]);
+});
+
 test.each([
   ["down", down],
   ["never answers", neverAnswers],
