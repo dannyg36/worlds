@@ -1,0 +1,166 @@
+{
+  "day": "santa-cruz",
+  "spec": {
+    "day": "santa-cruz",
+    "title": "Cliffs, surfers, sea lions",
+    "transcript": "Took the day off and drove to Santa Cruz with Maya. Foggy in the morning but it cleared up around noon. We rented bikes, rode along the cliffs, saw like a hundred surfers. Got clam chowder in a bread bowl on the wharf and watched the sea lions yelling at each other. Sunburnt now.",
+    "time_of_day": "noon",
+    "weather": "sunny, last wisps of morning fog over the water",
+    "palette": "ocean blue, sand, cypress green, sun-bleached wood",
+    "ground": {
+      "type": "grassy cliff top over sand and ocean",
+      "material": "grass, sandstone, sand, water",
+      "island_radius_m": 8
+    },
+    "objects": [
+      {
+        "id": "wharf",
+        "prompt": "a section of an old wooden wharf on stilts",
+        "size_m": 6,
+        "count": 1,
+        "place": "over water"
+      },
+      {
+        "id": "sealion",
+        "prompt": "a sea lion barking with its head up",
+        "size_m": 1.5,
+        "count": 3,
+        "place": "on wharf beams"
+      },
+      {
+        "id": "bike",
+        "prompt": "a red rental beach cruiser bicycle",
+        "size_m": 1.8,
+        "count": 2,
+        "place": "cliff path"
+      },
+      {
+        "id": "surfer",
+        "prompt": "a surfer riding a surfboard",
+        "size_m": 1.7,
+        "count": 3,
+        "place": "in water"
+      },
+      {
+        "id": "chowder",
+        "prompt": "a small seaside chowder stand with a bread bowl sign",
+        "size_m": 2.5,
+        "count": 1,
+        "place": "near wharf"
+      },
+      {
+        "id": "cypress",
+        "prompt": "a windswept Monterey cypress tree",
+        "size_m": 5,
+        "count": 2,
+        "place": "cliff edge"
+      },
+      {
+        "id": "bench",
+        "prompt": "a weathered wooden bench",
+        "size_m": 1.5,
+        "count": 1,
+        "place": "cliff path"
+      }
+    ],
+    "style": "Stylized 3D animated-film look, soft clay-like materials, warm cinematic light"
+  },
+  "panorama": {
+    "file": "santa-cruz/pano-4096.jpeg",
+    "bytes": 906477,
+    "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_ac8d810a-868c-400a-8f44-3311e8df35527e4b4469-a952-48bd-aa36-12585c8f0732.png",
+    "source_bytes": 12018209,
+    "model": "seedream-5.0-lite",
+    "size": "4096x2048",
+    "yaw_deg": 0,
+    "height_m": 1.7
+  },
+  "default_set": "cards",
+  "sets": {
+    "cards": {
+      "objects": {
+        "wharf": {
+          "card": {
+            "image": "santa-cruz/cards/wharf.png",
+            "depth": "santa-cruz/cards/wharf.depth.png",
+            "width": 768,
+            "height": 409,
+            "top_frac": 0.848,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 108406
+        },
+        "sealion": {
+          "card": {
+            "image": "santa-cruz/cards/sealion.png",
+            "depth": "santa-cruz/cards/sealion.depth.png",
+            "width": 638,
+            "height": 727,
+            "top_frac": 0.235,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 106705
+        },
+        "bike": {
+          "card": {
+            "image": "santa-cruz/cards/bike.png",
+            "depth": "santa-cruz/cards/bike.depth.png",
+            "width": 768,
+            "height": 661,
+            "top_frac": 0.572,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 162763
+        },
+        "surfer": {
+          "card": {
+            "image": "santa-cruz/cards/surfer.png",
+            "depth": "santa-cruz/cards/surfer.depth.png",
+            "width": 537,
+            "height": 678,
+            "top_frac": 0.13,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 94550
+        },
+        "chowder": {
+          "card": {
+            "image": "santa-cruz/cards/chowder.png",
+            "depth": "santa-cruz/cards/chowder.depth.png",
+            "width": 428,
+            "height": 654,
+            "top_frac": 0.693,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 105649
+        },
+        "cypress": {
+          "card": {
+            "image": "santa-cruz/cards/cypress.png",
+            "depth": "santa-cruz/cards/cypress.depth.png",
+            "width": 768,
+            "height": 760,
+            "top_frac": 0.738,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 211305
+        },
+        "bench": {
+          "card": {
+            "image": "santa-cruz/cards/bench.png",
+            "depth": "santa-cruz/cards/bench.depth.png",
+            "width": 768,
+            "height": 492,
+            "top_frac": 0.957,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 130857
+        }
+      },
+      "label": "cutout cards from gmi-objects-front (local keyer + Depth Anything V2 Small relief)",
+      "kind": "cards",
+      "cards_ms": 17687,
+      "source": "gmi-objects-front"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "day": "santa-cruz",
+  "from": "gmi-objects-front",
+  "to": "cards",
+  "cards_ms": 17687,
+  "timings": {
+    "wharf": {
+      "cutout_ms": 195,
+      "depth_ms": 2440,
+      "depth_infer_ms": 1970,
+      "total_ms": 3890,
+      "png_kb": 87,
+      "size": "768x409"
+    },
+    "sealion": {
+      "cutout_ms": 147,
+      "depth_ms": 1008,
+      "depth_infer_ms": 907,
+      "total_ms": 1889,
+      "png_kb": 81,
+      "size": "638x727"
+    },
+    "bike": {
+      "cutout_ms": 205,
+      "depth_ms": 1072,
+      "depth_infer_ms": 977,
+      "total_ms": 2589,
+      "png_kb": 126,
+      "size": "768x661"
+    },
+    "surfer": {
+      "cutout_ms": 195,
+      "depth_ms": 1115,
+      "depth_infer_ms": 1039,
+      "total_ms": 2202,
+      "png_kb": 69,
+      "size": "537x678"
+    },
+    "chowder": {
+      "cutout_ms": 152,
+      "depth_ms": 558,
+      "depth_infer_ms": 491,
+      "total_ms": 1649,
+      "png_kb": 81,
+      "size": "428x654"
+    },
+    "cypress": {
+      "cutout_ms": 214,
+      "depth_ms": 866,
+      "depth_infer_ms": 749,
+      "total_ms": 2743,
+      "png_kb": 171,
+      "size": "768x760"
+    },
+    "bench": {
+      "cutout_ms": 155,
+      "depth_ms": 1508,
+      "depth_infer_ms": 1446,
+      "total_ms": 2724,
+      "png_kb": 108,
+      "size": "768x492"
+    }
+  }
+}

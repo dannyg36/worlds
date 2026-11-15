@@ -1,0 +1,303 @@
+{
+  "day": "hackathon",
+  "set": "gmi-objects",
+  "provider": "gmi",
+  "image_mode": "objects",
+  "image_model": "seedream-4-0-250828",
+  "model3d": "hunyuan-3d-pro",
+  "payload3d": {},
+  "started_at": "2026-11-15T20:53:10.072Z",
+  "objects": {},
+  "timeline": [
+    {
+      "t": 0,
+      "event": "start",
+      "note": "8 objects via objects"
+    },
+    {
+      "t": 7.79,
+      "event": "object image",
+      "id": "cans",
+      "note": "7.25s"
+    },
+    {
+      "t": 8.84,
+      "event": "object image",
+      "id": "beanbag",
+      "note": "8.39s"
+    },
+    {
+      "t": 8.9,
+      "event": "object image",
+      "id": "monitor",
+      "note": "8.4s"
+    },
+    {
+      "t": 8.98,
+      "event": "object image",
+      "id": "person",
+      "note": "8.54s"
+    },
+    {
+      "t": 9.18,
+      "event": "object image",
+      "id": "window",
+      "note": "8.74s"
+    },
+    {
+      "t": 9.66,
+      "event": "object image",
+      "id": "pizza",
+      "note": "9.13s"
+    },
+    {
+      "t": 10.22,
+      "event": "object image",
+      "id": "table",
+      "note": "9.79s"
+    },
+    {
+      "t": 14.11,
+      "event": "object image",
+      "id": "whiteboard",
+      "note": "13.7s"
+    },
+    {
+      "t": 14.11,
+      "event": "images done"
+    },
+    {
+      "t": 14.11,
+      "event": "done"
+    }
+  ],
+  "calls": [
+    {
+      "ts": "2026-11-15T20:53:10.098Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "hackathon-gmi-objects-cans",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "ca474461-5888-4364-bf19-43d6d0950d4f",
+      "status": "ok",
+      "error": null,
+      "latency_s": 7.25,
+      "queue_wait_s": 7.25,
+      "server_s": 7,
+      "est_cost_usd": 0.05,
+      "output_bytes": 378548,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_ca474461-5888-4364-bf19-43d6d0950d4fa25ace02-735d-43a2-9e17-f613340c0720.jpg",
+          "local": "assets/hackathon/gmi-objects/hackathon-gmi-objects-cans__media_urls.0.url.jpg",
+          "bytes": 378548,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_ca474461-5888-4364-bf19-43d6d0950d4fa25ace02-735d-43a2-9e17-f613340c0720.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T20:53:10.100Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "hackathon-gmi-objects-beanbag",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "b04db919-67bf-4014-a7ec-78d825d8e76b",
+      "status": "ok",
+      "error": null,
+      "latency_s": 8.39,
+      "queue_wait_s": 8.39,
+      "server_s": 8,
+      "est_cost_usd": 0.05,
+      "output_bytes": 275367,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_b04db919-67bf-4014-a7ec-78d825d8e76bf3f425d9-b0d3-4491-8b9d-31300c44a526.jpg",
+          "local": "assets/hackathon/gmi-objects/hackathon-gmi-objects-beanbag__media_urls.0.url.jpg",
+          "bytes": 275367,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_b04db919-67bf-4014-a7ec-78d825d8e76bf3f425d9-b0d3-4491-8b9d-31300c44a526.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T20:53:10.097Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "hackathon-gmi-objects-monitor",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "cac78602-64b1-491b-adb7-6c8711b66ea9",
+      "status": "ok",
+      "error": null,
+      "latency_s": 8.4,
+      "queue_wait_s": 8.4,
+      "server_s": 8,
+      "est_cost_usd": 0.05,
+      "output_bytes": 238227,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_cac78602-64b1-491b-adb7-6c8711b66ea915b9d73e-2bf2-4d9e-8f00-3a77c377db3e.jpg",
+          "local": "assets/hackathon/gmi-objects/hackathon-gmi-objects-monitor__media_urls.0.url.jpg",
+          "bytes": 238227,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_cac78602-64b1-491b-adb7-6c8711b66ea915b9d73e-2bf2-4d9e-8f00-3a77c377db3e.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T20:53:10.099Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "hackathon-gmi-objects-person",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "d9786074-9b3d-4a26-8e2f-b58c98e406fc",
+      "status": "ok",
+      "error": null,
+      "latency_s": 8.54,
+      "queue_wait_s": 8.54,
+      "server_s": 8,
+      "est_cost_usd": 0.05,
+      "output_bytes": 298169,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_d9786074-9b3d-4a26-8e2f-b58c98e406fc32b44796-7264-46ab-ba8e-aa196eff8ee1.jpg",
+          "local": "assets/hackathon/gmi-objects/hackathon-gmi-objects-person__media_urls.0.url.jpg",
+          "bytes": 298169,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_d9786074-9b3d-4a26-8e2f-b58c98e406fc32b44796-7264-46ab-ba8e-aa196eff8ee1.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T20:53:10.100Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "hackathon-gmi-objects-window",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "69dd022c-b8b2-479b-888c-7710fbb040a8",
+      "status": "ok",
+      "error": null,
+      "latency_s": 8.74,
+      "queue_wait_s": 8.74,
+      "server_s": 8,
+      "est_cost_usd": 0.05,
+      "output_bytes": 261061,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_69dd022c-b8b2-479b-888c-7710fbb040a8d1d4578b-1571-47c2-8672-eb1ee1db16e6.jpg",
+          "local": "assets/hackathon/gmi-objects/hackathon-gmi-objects-window__media_urls.0.url.jpg",
+          "bytes": 261061,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_69dd022c-b8b2-479b-888c-7710fbb040a8d1d4578b-1571-47c2-8672-eb1ee1db16e6.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T20:53:10.098Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "hackathon-gmi-objects-pizza",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "4b78febd-b1ac-429f-b8ba-828b1668e7ad",
+      "status": "ok",
+      "error": null,
+      "latency_s": 9.13,
+      "queue_wait_s": 9.13,
+      "server_s": 9,
+      "est_cost_usd": 0.05,
+      "output_bytes": 312795,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_4b78febd-b1ac-429f-b8ba-828b1668e7ad5f125174-8dc1-42f2-b17a-c11089b10403.jpg",
+          "local": "assets/hackathon/gmi-objects/hackathon-gmi-objects-pizza__media_urls.0.url.jpg",
+          "bytes": 312795,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_4b78febd-b1ac-429f-b8ba-828b1668e7ad5f125174-8dc1-42f2-b17a-c11089b10403.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T20:53:10.073Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "hackathon-gmi-objects-table",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "30d9b833-1528-4fab-89e2-cd5c4387076d",
+      "status": "ok",
+      "error": null,
+      "latency_s": 9.79,
+      "queue_wait_s": 9.79,
+      "server_s": 9,
+      "est_cost_usd": 0.05,
+      "output_bytes": 432555,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_30d9b833-1528-4fab-89e2-cd5c4387076d814376f7-fad0-4d09-91c2-7d4ae8aed322.jpg",
+          "local": "assets/hackathon/gmi-objects/hackathon-gmi-objects-table__media_urls.0.url.jpg",
+          "bytes": 432555,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_30d9b833-1528-4fab-89e2-cd5c4387076d814376f7-fad0-4d09-91c2-7d4ae8aed322.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T20:53:10.099Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "hackathon-gmi-objects-whiteboard",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "05022a48-445d-4c8c-98a3-94ecf743c2b0",
+      "status": "ok",
+      "error": null,
+      "latency_s": 13.7,
+      "queue_wait_s": 13.7,
+      "server_s": 13,
+      "est_cost_usd": 0.05,
+      "output_bytes": 251096,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_05022a48-445d-4c8c-98a3-94ecf743c2b0e02eca60-cc1e-4a07-8500-37e697bfc1d4.jpg",
+          "local": "assets/hackathon/gmi-objects/hackathon-gmi-objects-whiteboard__media_urls.0.url.jpg",
+          "bytes": 251096,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_05022a48-445d-4c8c-98a3-94ecf743c2b0e02eca60-cc1e-4a07-8500-37e697bfc1d4.jpg"
+        }
+      ]
+    }
+  ],
+  "wall_s": 14.11,
+  "est_cost_usd": 0.4,
+  "download_bytes": 0
+}
