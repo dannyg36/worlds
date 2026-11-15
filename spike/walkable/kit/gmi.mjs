@@ -22,15 +22,23 @@ function headers(json = true) {
 async function gmi(method, pathname, body) {
   const url = pathname.startsWith("http") ? pathname : BASE + pathname;
   for (let attempt = 1; ; attempt++) {
-    const res = await fetch(url, { method, headers: headers(), body: body ? JSON.stringify(body) : undefined });
+    let res;
+    try {
+      res = await fetch(url, { method, headers: headers(), body: body ? JSON.stringify(body) : undefined, signal: AbortSignal.timeout(90000) });
+    } catch (e) {
+      if (method !== "GET" || attempt >= 4) throw new Error(method + " " + pathname + " -> " + String(e?.message ?? e));
+      await sleep(2000 * attempt);
+      continue;
+    }
     const text = await res.text();
     let json = null;
     try { json = JSON.parse(text); } catch {}
     if (res.ok) return json ?? text;
-    const retryable = res.status === 429 || res.status >= 500;
-    if (!retryable || attempt >= 5) throw new Error(method + " " + pathname + " -> HTTP " + res.status + ": " + text.slice(0, 500));
+    const capacity = /ResourceInsufficient|insufficient/i.test(text);
+    const retryable = !capacity && (res.status === 429 || (method === "GET" && res.status >= 500));
+    if (!retryable || attempt >= 4) throw new Error(method + " " + pathname + " -> HTTP " + res.status + ": " + text.slice(0, 500));
     const ra = Number(res.headers.get("retry-after"));
-    await sleep(Number.isFinite(ra) && ra > 0 ? ra * 1000 : Math.min(30000, 2000 * 2 ** (attempt - 1)));
+    await sleep(Number.isFinite(ra) && ra > 0 ? Math.min(ra, 60) * 1000 : 3000 * attempt);
   }
 }
 
@@ -105,6 +113,7 @@ export async function run({ approach, model, payload, estCostUsd, label = "", ou
   checkBudget(approach, estCostUsd);
   headers();
   const threeD = is3d ?? (THREE_D_MODELS.has(model) || /3d/i.test(model));
+  if (threeD && process.env.GMI_ALLOW_3D !== "1") throw new Error(model + " is paused for the whole crew: every submit fails with ResourceInsufficient and retries flood GMI. Don't submit 3D jobs until YCCO-10 root says GMI or fal 3D works again.");
   const timeoutMs = (timeoutS ?? (threeD ? 1800 : 900)) * 1000;
   if (threeD) await acquire3dLock();
   const t0 = Date.now();
@@ -142,6 +151,7 @@ export async function run({ approach, model, payload, estCostUsd, label = "", ou
     error,
     latency_s: +((t1 - t0) / 1000).toFixed(2),
     queue_wait_s: processingAt ? +((processingAt - t0) / 1000).toFixed(2) : null,
+    server_s: final?.updated_at && final?.created_at ? final.updated_at - final.created_at : null,
     est_cost_usd: requestId ? estCostUsd : 0,
     output_bytes: outputBytes || null,
     files,
