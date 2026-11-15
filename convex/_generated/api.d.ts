@@ -8,6 +8,16 @@
  * @module
  */
 
+import type * as access from "../access.js";
+import type * as crons from "../crons.js";
+import type * as generation_fal from "../generation/fal.js";
+import type * as generation_falWebhook from "../generation/falWebhook.js";
+import type * as generation_models from "../generation/models.js";
+import type * as generation_scene from "../generation/scene.js";
+import type * as generation_sceneWriterPrompt from "../generation/sceneWriterPrompt.js";
+import type * as generation_tables from "../generation/tables.js";
+import type * as http from "../http.js";
+import type * as pipeline from "../pipeline.js";
 import type * as worlds from "../worlds.js";
 
 import type {
@@ -17,6 +27,16 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  access: typeof access;
+  crons: typeof crons;
+  "generation/fal": typeof generation_fal;
+  "generation/falWebhook": typeof generation_falWebhook;
+  "generation/models": typeof generation_models;
+  "generation/scene": typeof generation_scene;
+  "generation/sceneWriterPrompt": typeof generation_sceneWriterPrompt;
+  "generation/tables": typeof generation_tables;
+  http: typeof http;
+  pipeline: typeof pipeline;
   worlds: typeof worlds;
 }>;
 
