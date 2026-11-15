@@ -1,0 +1,705 @@
+{
+  "days": {
+    "hackathon": {
+      "sets": {
+        "veo": {
+          "model": "veo-3.1-lite-generate-001",
+          "price": "$0.03/s at 720p without audio",
+          "edges": {
+            "left": {
+              "from": "start",
+              "move": "left",
+              "model": "veo-3.1-lite-generate-001",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+              "prompt": "First-person view at eye level, standing still and slowly turning to the left (the camera pans left about 90 degrees), revealing more of the office to the left: desks, office chairs and the sunset windows. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing still and slowly turning to the left (the camera pans left about 90 degrees), revealing more of the office to the left: desks, office chairs and the sunset windows. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+                "durationSeconds": 4,
+                "aspectRatio": "16:9",
+                "resolution": "720p",
+                "generateAudio": false,
+                "personGeneration": "allow_all"
+              },
+              "status": "error",
+              "error": "veo-3.1-lite-generate-001 failed: POST /requests -> HTTP 500: {\"error\":\"Generation failed for an unknown reason; please retry\",\"request_id\":\"ccbf7ae0-e5d1-45e9-af09-c8a6d5746523\"}",
+              "ts": "2026-11-15T20:56:39.140Z"
+            },
+            "right": {
+              "from": "start",
+              "move": "right",
+              "model": "veo-3.1-lite-generate-001",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+              "prompt": "First-person view at eye level, standing still and slowly turning to the right (the camera pans right about 90 degrees), revealing more of the office to the right: bookshelves, a plant and more desks with laptops. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing still and slowly turning to the right (the camera pans right about 90 degrees), revealing more of the office to the right: bookshelves, a plant and more desks with laptops. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+                "durationSeconds": 4,
+                "aspectRatio": "16:9",
+                "resolution": "720p",
+                "generateAudio": false,
+                "personGeneration": "allow_all"
+              },
+              "status": "error",
+              "error": "veo-3.1-lite-generate-001 failed: POST /requests -> HTTP 500: {\"error\":\"Generation failed for an unknown reason; please retry\",\"request_id\":\"885f3d5d-75a5-4dd1-918a-ae88d8905da5\"}",
+              "ts": "2026-11-15T20:56:39.144Z"
+            },
+            "forward": {
+              "from": "start",
+              "move": "forward",
+              "model": "veo-3.1-lite-generate-001",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+              "prompt": "First-person view at eye level, walking slowly forward into the office toward the long table and the cheering team, stepping between the open pizza boxes on the floor. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, walking slowly forward into the office toward the long table and the cheering team, stepping between the open pizza boxes on the floor. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+                "durationSeconds": 4,
+                "aspectRatio": "16:9",
+                "resolution": "720p",
+                "generateAudio": false,
+                "personGeneration": "allow_adult"
+              },
+              "status": "error",
+              "error": "veo-3.1-lite-generate-001 failed: POST /requests -> HTTP 500: {\"error\":\"Generation failed for an unknown reason; please retry\",\"request_id\":\"cb616aca-0d26-4e95-95db-847247571c78\"}",
+              "ts": "2026-11-15T21:02:52.145Z"
+            }
+          }
+        },
+        "hailuo": {
+          "model": "Minimax-Hailuo-2.3-Fast",
+          "price": "$0.032/s, 6 s minimum, 768P",
+          "edges": {
+            "right": {
+              "from": "start",
+              "move": "right",
+              "model": "Minimax-Hailuo-2.3-Fast",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+              "prompt": "First-person view at eye level, standing still and slowly turning to the right (the camera pans right about 90 degrees), revealing more of the office to the right: bookshelves, a plant and more desks with laptops. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing still and slowly turning to the right (the camera pans right about 90 degrees), revealing more of the office to the right: bookshelves, a plant and more desks with laptops. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light. [Pan right]",
+                "first_frame_image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+                "duration": 6,
+                "resolution": "768P",
+                "prompt_optimizer": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/7a6e5985-c6c5-4e57-9816-12c9c80b3a6b.mp4",
+              "files": [
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_7a6e5985-c6c5-4e57-9816-12c9c80b3a6b.jpg"
+                },
+                {
+                  "key": "video_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/7a6e5985-c6c5-4e57-9816-12c9c80b3a6b.mp4"
+                }
+              ],
+              "request_id": "7a6e5985-c6c5-4e57-9816-12c9c80b3a6b",
+              "ts": "2026-11-15T20:56:33.853Z",
+              "latency_s": 46.19,
+              "queue_wait_s": 0.83,
+              "server_s": 45,
+              "est_cost_usd": 0.192
+            },
+            "forward": {
+              "from": "start",
+              "move": "forward",
+              "model": "Minimax-Hailuo-2.3-Fast",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+              "prompt": "First-person view at eye level, walking slowly forward into the office toward the long table and the cheering team, stepping between the open pizza boxes on the floor. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, walking slowly forward into the office toward the long table and the cheering team, stepping between the open pizza boxes on the floor. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light. [Push in]",
+                "first_frame_image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+                "duration": 6,
+                "resolution": "768P",
+                "prompt_optimizer": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/42dcd8fa-919c-468b-ad16-48c1176c9828.mp4",
+              "files": [
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_42dcd8fa-919c-468b-ad16-48c1176c9828.jpg"
+                },
+                {
+                  "key": "video_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/42dcd8fa-919c-468b-ad16-48c1176c9828.mp4"
+                }
+              ],
+              "request_id": "42dcd8fa-919c-468b-ad16-48c1176c9828",
+              "ts": "2026-11-15T20:56:33.853Z",
+              "latency_s": 51.35,
+              "queue_wait_s": 0.9,
+              "server_s": 49,
+              "est_cost_usd": 0.192,
+              "end_frame_url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/2f69966d-35d5-4bce-a68d-cdc161552dfb.png"
+            },
+            "left": {
+              "from": "start",
+              "move": "left",
+              "model": "Minimax-Hailuo-2.3-Fast",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+              "prompt": "First-person view at eye level, standing still and slowly turning to the left (the camera pans left about 90 degrees), revealing more of the office to the left: desks, office chairs and the sunset windows. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing still and slowly turning to the left (the camera pans left about 90 degrees), revealing more of the office to the left: desks, office chairs and the sunset windows. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light. [Pan left]",
+                "first_frame_image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+                "duration": 6,
+                "resolution": "768P",
+                "prompt_optimizer": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/8db31d2c-a7c1-40d0-99fb-58aadb9a7e91.mp4",
+              "files": [
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_8db31d2c-a7c1-40d0-99fb-58aadb9a7e91.jpg"
+                },
+                {
+                  "key": "video_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/8db31d2c-a7c1-40d0-99fb-58aadb9a7e91.mp4"
+                }
+              ],
+              "request_id": "8db31d2c-a7c1-40d0-99fb-58aadb9a7e91",
+              "ts": "2026-11-15T20:56:33.853Z",
+              "latency_s": 112.06,
+              "queue_wait_s": 0.84,
+              "server_s": 109,
+              "est_cost_usd": 0.192
+            },
+            "forward.left": {
+              "from": "forward",
+              "move": "left",
+              "model": "Minimax-Hailuo-2.3-Fast",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/2f69966d-35d5-4bce-a68d-cdc161552dfb.png",
+              "prompt": "First-person view at eye level, standing still and slowly turning to the left (the camera pans left about 90 degrees), revealing more of the office to the left: desks, office chairs and the sunset windows. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing still and slowly turning to the left (the camera pans left about 90 degrees), revealing more of the office to the left: desks, office chairs and the sunset windows. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light. [Pan left]",
+                "first_frame_image": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/2f69966d-35d5-4bce-a68d-cdc161552dfb.png",
+                "duration": 6,
+                "resolution": "768P",
+                "prompt_optimizer": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/840db0b9-e230-46d4-9ff9-e81ef1d138a4.mp4",
+              "files": [
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_840db0b9-e230-46d4-9ff9-e81ef1d138a4.jpg"
+                },
+                {
+                  "key": "video_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/840db0b9-e230-46d4-9ff9-e81ef1d138a4.mp4"
+                }
+              ],
+              "request_id": "840db0b9-e230-46d4-9ff9-e81ef1d138a4",
+              "ts": "2026-11-15T21:03:57.946Z",
+              "latency_s": 50.91,
+              "queue_wait_s": 0.43,
+              "server_s": 47,
+              "est_cost_usd": 0.192
+            },
+            "forward.forward": {
+              "from": "forward",
+              "move": "forward",
+              "model": "Minimax-Hailuo-2.3-Fast",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/89e128dd-160c-4c99-8954-8d280dfb00d0.png",
+              "prompt": "First-person view at eye level, walking slowly forward into the office toward the long table and the cheering team, stepping between the open pizza boxes on the floor. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, walking slowly forward into the office toward the long table and the cheering team, stepping between the open pizza boxes on the floor. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light. [Push in]",
+                "first_frame_image": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/89e128dd-160c-4c99-8954-8d280dfb00d0.png",
+                "duration": 6,
+                "resolution": "768P",
+                "prompt_optimizer": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/32222bbd-4dcd-4f72-8507-5c85fc9b8e21.mp4",
+              "files": [
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_32222bbd-4dcd-4f72-8507-5c85fc9b8e21.jpg"
+                },
+                {
+                  "key": "video_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/32222bbd-4dcd-4f72-8507-5c85fc9b8e21.mp4"
+                }
+              ],
+              "request_id": "32222bbd-4dcd-4f72-8507-5c85fc9b8e21",
+              "ts": "2026-11-15T21:03:57.935Z",
+              "latency_s": 76.56,
+              "queue_wait_s": 0.38,
+              "server_s": 74,
+              "est_cost_usd": 0.192
+            },
+            "forward.right": {
+              "from": "forward",
+              "move": "right",
+              "model": "Minimax-Hailuo-2.3-Fast",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/ae2c9f04-7a0b-4fb0-ac7d-2d9cd73cbd5d.png",
+              "prompt": "First-person view at eye level, standing still and slowly turning to the right (the camera pans right about 90 degrees), revealing more of the office to the right: bookshelves, a plant and more desks with laptops. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing still and slowly turning to the right (the camera pans right about 90 degrees), revealing more of the office to the right: bookshelves, a plant and more desks with laptops. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light. [Pan right]",
+                "first_frame_image": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/ae2c9f04-7a0b-4fb0-ac7d-2d9cd73cbd5d.png",
+                "duration": 6,
+                "resolution": "768P",
+                "prompt_optimizer": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/2de5fc67-0fbb-4f2c-b83c-7c308b1c6241.mp4",
+              "files": [
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_2de5fc67-0fbb-4f2c-b83c-7c308b1c6241.jpg"
+                },
+                {
+                  "key": "video_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/2de5fc67-0fbb-4f2c-b83c-7c308b1c6241.mp4"
+                }
+              ],
+              "request_id": "2de5fc67-0fbb-4f2c-b83c-7c308b1c6241",
+              "ts": "2026-11-15T21:03:57.914Z",
+              "latency_s": 96.69,
+              "queue_wait_s": 0.4,
+              "server_s": 94,
+              "est_cost_usd": 0.192
+            }
+          }
+        },
+        "wan": {
+          "model": "wan3.0-video",
+          "price": "$0.05/s at 480P",
+          "edges": {
+            "right": {
+              "from": "start",
+              "move": "right",
+              "model": "wan3.0-video",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+              "prompt": "First-person view at eye level, standing still and slowly turning to the right (the camera pans right about 90 degrees), revealing more of the office to the right: bookshelves, a plant and more desks with laptops. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing still and slowly turning to the right (the camera pans right about 90 degrees), revealing more of the office to the right: bookshelves, a plant and more desks with laptops. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "negative_prompt": "cuts, scene change, fast motion, shaky camera, zoom, morphing, warping, distorted faces, extra limbs, text, watermark, blurry",
+                "first_frame": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+                "resolution": "480P",
+                "ratio": "16:9",
+                "duration": 4,
+                "prompt_extend": false,
+                "watermark": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/a8eb61a3-7ce8-4e08-b117-d9cf9b8309f4.mp4",
+              "files": [
+                {
+                  "key": "media_urls.0.url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/a8eb61a3-7ce8-4e08-b117-d9cf9b8309f4.mp4"
+                },
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_a8eb61a3-7ce8-4e08-b117-d9cf9b8309f4.jpg"
+                }
+              ],
+              "request_id": "a8eb61a3-7ce8-4e08-b117-d9cf9b8309f4",
+              "ts": "2026-11-15T20:56:33.854Z",
+              "latency_s": 66.41,
+              "queue_wait_s": 0.82,
+              "server_s": 62,
+              "est_cost_usd": 0.2,
+              "end_frame_url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/077a7377-6157-4619-b9ac-06c74022b61d.png"
+            },
+            "forward": {
+              "from": "start",
+              "move": "forward",
+              "model": "wan3.0-video",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+              "prompt": "First-person view at eye level, walking slowly forward into the office toward the long table and the cheering team, stepping between the open pizza boxes on the floor. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, walking slowly forward into the office toward the long table and the cheering team, stepping between the open pizza boxes on the floor. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "negative_prompt": "cuts, scene change, fast motion, shaky camera, zoom, morphing, warping, distorted faces, extra limbs, text, watermark, blurry",
+                "first_frame": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+                "resolution": "480P",
+                "ratio": "16:9",
+                "duration": 4,
+                "prompt_extend": false,
+                "watermark": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/59e764cd-114e-498e-919e-9ed167f88ea9.mp4",
+              "files": [
+                {
+                  "key": "media_urls.0.url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/59e764cd-114e-498e-919e-9ed167f88ea9.mp4"
+                },
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_59e764cd-114e-498e-919e-9ed167f88ea9.jpg"
+                }
+              ],
+              "request_id": "59e764cd-114e-498e-919e-9ed167f88ea9",
+              "ts": "2026-11-15T20:56:33.854Z",
+              "latency_s": 66.46,
+              "queue_wait_s": 16.3,
+              "server_s": 63,
+              "est_cost_usd": 0.2
+            },
+            "left": {
+              "from": "start",
+              "move": "left",
+              "model": "wan3.0-video",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+              "prompt": "First-person view at eye level, standing still and slowly turning to the left (the camera pans left about 90 degrees), revealing more of the office to the left: desks, office chairs and the sunset windows. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing still and slowly turning to the left (the camera pans left about 90 degrees), revealing more of the office to the left: desks, office chairs and the sunset windows. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "negative_prompt": "cuts, scene change, fast motion, shaky camera, zoom, morphing, warping, distorted faces, extra limbs, text, watermark, blurry",
+                "first_frame": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+                "resolution": "480P",
+                "ratio": "16:9",
+                "duration": 4,
+                "prompt_extend": false,
+                "watermark": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/af7cd607-343e-4e83-b440-07631cae0097.mp4",
+              "files": [
+                {
+                  "key": "media_urls.0.url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/af7cd607-343e-4e83-b440-07631cae0097.mp4"
+                },
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_af7cd607-343e-4e83-b440-07631cae0097.jpg"
+                }
+              ],
+              "request_id": "af7cd607-343e-4e83-b440-07631cae0097",
+              "ts": "2026-11-15T20:56:33.854Z",
+              "latency_s": 81.7,
+              "queue_wait_s": 0.93,
+              "server_s": 78,
+              "est_cost_usd": 0.2
+            },
+            "right.forward": {
+              "from": "right",
+              "move": "forward",
+              "model": "wan3.0-video",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/077a7377-6157-4619-b9ac-06c74022b61d.png",
+              "prompt": "First-person view at eye level, walking slowly forward into the office toward the long table and the cheering team, stepping between the open pizza boxes on the floor. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, walking slowly forward into the office toward the long table and the cheering team, stepping between the open pizza boxes on the floor. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "negative_prompt": "cuts, scene change, fast motion, shaky camera, zoom, morphing, warping, distorted faces, extra limbs, text, watermark, blurry",
+                "first_frame": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/077a7377-6157-4619-b9ac-06c74022b61d.png",
+                "resolution": "480P",
+                "ratio": "16:9",
+                "duration": 4,
+                "prompt_extend": false,
+                "watermark": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/f591bd6f-8cd7-42a3-b583-3c8039f7dd11.mp4",
+              "files": [
+                {
+                  "key": "media_urls.0.url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/f591bd6f-8cd7-42a3-b583-3c8039f7dd11.mp4"
+                },
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_f591bd6f-8cd7-42a3-b583-3c8039f7dd11.jpg"
+                }
+              ],
+              "request_id": "f591bd6f-8cd7-42a3-b583-3c8039f7dd11",
+              "ts": "2026-11-15T21:04:00.721Z",
+              "latency_s": 66.49,
+              "queue_wait_s": 0.7,
+              "server_s": 62,
+              "est_cost_usd": 0.2
+            },
+            "right.right": {
+              "from": "right",
+              "move": "right",
+              "model": "wan3.0-video",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/1f1783a3-0b68-4b1a-a33f-9f840a174a72.png",
+              "prompt": "First-person view at eye level, standing still and slowly turning to the right (the camera pans right about 90 degrees), revealing more of the office to the right: bookshelves, a plant and more desks with laptops. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing still and slowly turning to the right (the camera pans right about 90 degrees), revealing more of the office to the right: bookshelves, a plant and more desks with laptops. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "negative_prompt": "cuts, scene change, fast motion, shaky camera, zoom, morphing, warping, distorted faces, extra limbs, text, watermark, blurry",
+                "first_frame": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/1f1783a3-0b68-4b1a-a33f-9f840a174a72.png",
+                "resolution": "480P",
+                "ratio": "16:9",
+                "duration": 4,
+                "prompt_extend": false,
+                "watermark": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/60a42faa-703e-4442-a025-820c7ca1cc5f.mp4",
+              "files": [
+                {
+                  "key": "media_urls.0.url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/60a42faa-703e-4442-a025-820c7ca1cc5f.mp4"
+                },
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_60a42faa-703e-4442-a025-820c7ca1cc5f.jpg"
+                }
+              ],
+              "request_id": "60a42faa-703e-4442-a025-820c7ca1cc5f",
+              "ts": "2026-11-15T21:04:00.715Z",
+              "latency_s": 81.84,
+              "queue_wait_s": 0.85,
+              "server_s": 78,
+              "est_cost_usd": 0.2
+            },
+            "right.left": {
+              "from": "right",
+              "move": "left",
+              "model": "wan3.0-video",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/e4233837-ad72-44ff-95f2-63eda8b64268.png",
+              "prompt": "First-person view at eye level, standing still and slowly turning to the left (the camera pans left about 90 degrees), revealing more of the office to the left: desks, office chairs and the sunset windows. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing still and slowly turning to the left (the camera pans left about 90 degrees), revealing more of the office to the left: desks, office chairs and the sunset windows. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "negative_prompt": "cuts, scene change, fast motion, shaky camera, zoom, morphing, warping, distorted faces, extra limbs, text, watermark, blurry",
+                "first_frame": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/e4233837-ad72-44ff-95f2-63eda8b64268.png",
+                "resolution": "480P",
+                "ratio": "16:9",
+                "duration": 4,
+                "prompt_extend": false,
+                "watermark": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/3929d1ee-c7fe-463a-9e21-2b140fc15d40.mp4",
+              "files": [
+                {
+                  "key": "media_urls.0.url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/3929d1ee-c7fe-463a-9e21-2b140fc15d40.mp4"
+                },
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_3929d1ee-c7fe-463a-9e21-2b140fc15d40.jpg"
+                }
+              ],
+              "request_id": "3929d1ee-c7fe-463a-9e21-2b140fc15d40",
+              "ts": "2026-11-15T21:04:00.719Z",
+              "latency_s": 81.85,
+              "queue_wait_s": 0.79,
+              "server_s": 77,
+              "est_cost_usd": 0.2
+            }
+          }
+        }
+      }
+    },
+    "santa-cruz": {
+      "sets": {
+        "hailuo": {
+          "model": "Minimax-Hailuo-2.3-Fast",
+          "price": "$0.032/s, 6 s minimum, 768P",
+          "edges": {
+            "forward": {
+              "from": "start",
+              "move": "forward",
+              "model": "Minimax-Hailuo-2.3-Fast",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+              "prompt": "First-person view at eye level, walking slowly forward along the cliffside path past the two parked rental bikes toward the wooden railing, the ocean and the surfers ahead, waves rolling in. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, walking slowly forward along the cliffside path past the two parked rental bikes toward the wooden railing, the ocean and the surfers ahead, waves rolling in. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light. [Push in]",
+                "first_frame_image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+                "duration": 6,
+                "resolution": "768P",
+                "prompt_optimizer": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/62feb2bc-c52d-42d5-8a03-16ce0764b373.mp4",
+              "files": [
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_62feb2bc-c52d-42d5-8a03-16ce0764b373.jpg"
+                },
+                {
+                  "key": "video_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/62feb2bc-c52d-42d5-8a03-16ce0764b373.mp4"
+                }
+              ],
+              "request_id": "62feb2bc-c52d-42d5-8a03-16ce0764b373",
+              "ts": "2026-11-15T21:02:46.639Z",
+              "latency_s": 52.03,
+              "queue_wait_s": 1.62,
+              "server_s": 46,
+              "est_cost_usd": 0.192
+            },
+            "right": {
+              "from": "start",
+              "move": "right",
+              "model": "Minimax-Hailuo-2.3-Fast",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+              "prompt": "First-person view at eye level, standing on the cliff path and slowly turning to the right (the camera pans right about 90 degrees) along the cliffs and the railing, surfers riding the waves below. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing on the cliff path and slowly turning to the right (the camera pans right about 90 degrees) along the cliffs and the railing, surfers riding the waves below. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light. [Pan right]",
+                "first_frame_image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+                "duration": 6,
+                "resolution": "768P",
+                "prompt_optimizer": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/0888eabd-c69f-4271-974e-3db1084dd3a0.mp4",
+              "files": [
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_0888eabd-c69f-4271-974e-3db1084dd3a0.jpg"
+                },
+                {
+                  "key": "video_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/0888eabd-c69f-4271-974e-3db1084dd3a0.mp4"
+                }
+              ],
+              "request_id": "0888eabd-c69f-4271-974e-3db1084dd3a0",
+              "ts": "2026-11-15T21:02:46.718Z",
+              "latency_s": 56.78,
+              "queue_wait_s": 1.37,
+              "server_s": 55,
+              "est_cost_usd": 0.192
+            },
+            "left": {
+              "from": "start",
+              "move": "left",
+              "model": "Minimax-Hailuo-2.3-Fast",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+              "prompt": "First-person view at eye level, standing on the cliff path and slowly turning to the left (the camera pans left about 90 degrees) toward the long wooden wharf with sea lions on the pilings. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing on the cliff path and slowly turning to the left (the camera pans left about 90 degrees) toward the long wooden wharf with sea lions on the pilings. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light. [Pan left]",
+                "first_frame_image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+                "duration": 6,
+                "resolution": "768P",
+                "prompt_optimizer": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/0c409704-130f-4ebd-9bf0-2f36c2a7a2d5.mp4",
+              "files": [
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_0c409704-130f-4ebd-9bf0-2f36c2a7a2d5.jpg"
+                },
+                {
+                  "key": "video_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/0c409704-130f-4ebd-9bf0-2f36c2a7a2d5.mp4"
+                }
+              ],
+              "request_id": "0c409704-130f-4ebd-9bf0-2f36c2a7a2d5",
+              "ts": "2026-11-15T21:02:46.717Z",
+              "latency_s": 57.3,
+              "queue_wait_s": 1.75,
+              "server_s": 53,
+              "est_cost_usd": 0.192
+            }
+          }
+        },
+        "wan": {
+          "model": "wan3.0-video",
+          "price": "$0.05/s at 480P",
+          "edges": {
+            "forward": {
+              "from": "start",
+              "move": "forward",
+              "model": "wan3.0-video",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+              "prompt": "First-person view at eye level, walking slowly forward along the cliffside path past the two parked rental bikes toward the wooden railing, the ocean and the surfers ahead, waves rolling in. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, walking slowly forward along the cliffside path past the two parked rental bikes toward the wooden railing, the ocean and the surfers ahead, waves rolling in. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "negative_prompt": "cuts, scene change, fast motion, shaky camera, zoom, morphing, warping, distorted faces, extra limbs, text, watermark, blurry",
+                "first_frame": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+                "resolution": "480P",
+                "ratio": "16:9",
+                "duration": 4,
+                "prompt_extend": false,
+                "watermark": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/d0bdbedf-a125-4364-bb71-ce73bcfa2861.mp4",
+              "files": [
+                {
+                  "key": "media_urls.0.url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/d0bdbedf-a125-4364-bb71-ce73bcfa2861.mp4"
+                },
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_d0bdbedf-a125-4364-bb71-ce73bcfa2861.jpg"
+                }
+              ],
+              "request_id": "d0bdbedf-a125-4364-bb71-ce73bcfa2861",
+              "ts": "2026-11-15T21:02:46.719Z",
+              "latency_s": 67.38,
+              "queue_wait_s": 1.73,
+              "server_s": 62,
+              "est_cost_usd": 0.2
+            },
+            "right": {
+              "from": "start",
+              "move": "right",
+              "model": "wan3.0-video",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+              "prompt": "First-person view at eye level, standing on the cliff path and slowly turning to the right (the camera pans right about 90 degrees) along the cliffs and the railing, surfers riding the waves below. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing on the cliff path and slowly turning to the right (the camera pans right about 90 degrees) along the cliffs and the railing, surfers riding the waves below. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "negative_prompt": "cuts, scene change, fast motion, shaky camera, zoom, morphing, warping, distorted faces, extra limbs, text, watermark, blurry",
+                "first_frame": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+                "resolution": "480P",
+                "ratio": "16:9",
+                "duration": 4,
+                "prompt_extend": false,
+                "watermark": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/78e7c706-4253-4b4c-92f8-b8a6497cce3e.mp4",
+              "files": [
+                {
+                  "key": "media_urls.0.url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/78e7c706-4253-4b4c-92f8-b8a6497cce3e.mp4"
+                },
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_78e7c706-4253-4b4c-92f8-b8a6497cce3e.jpg"
+                }
+              ],
+              "request_id": "78e7c706-4253-4b4c-92f8-b8a6497cce3e",
+              "ts": "2026-11-15T21:02:46.721Z",
+              "latency_s": 82.74,
+              "queue_wait_s": 1.86,
+              "server_s": 78,
+              "est_cost_usd": 0.2
+            },
+            "left": {
+              "from": "start",
+              "move": "left",
+              "model": "wan3.0-video",
+              "image": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+              "prompt": "First-person view at eye level, standing on the cliff path and slowly turning to the left (the camera pans left about 90 degrees) toward the long wooden wharf with sea lions on the pilings. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+              "payload": {
+                "prompt": "First-person view at eye level, standing on the cliff path and slowly turning to the left (the camera pans left about 90 degrees) toward the long wooden wharf with sea lions on the pilings. One smooth continuous camera move, steady and level like a gimbal, at a slow walking pace. The scene, people and objects stay consistent. No cuts. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light.",
+                "negative_prompt": "cuts, scene change, fast motion, shaky camera, zoom, morphing, warping, distorted faces, extra limbs, text, watermark, blurry",
+                "first_frame": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+                "resolution": "480P",
+                "ratio": "16:9",
+                "duration": 4,
+                "prompt_extend": false,
+                "watermark": false
+              },
+              "status": "ok",
+              "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/66b693a3-a752-4c1f-a28b-767d4e1550e2.mp4",
+              "files": [
+                {
+                  "key": "media_urls.0.url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/66b693a3-a752-4c1f-a28b-767d4e1550e2.mp4"
+                },
+                {
+                  "key": "thumbnail_image_url",
+                  "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/thumbnail_image_66b693a3-a752-4c1f-a28b-767d4e1550e2.jpg"
+                }
+              ],
+              "request_id": "66b693a3-a752-4c1f-a28b-767d4e1550e2",
+              "ts": "2026-11-15T21:02:46.720Z",
+              "latency_s": 83.29,
+              "queue_wait_s": 83.29,
+              "server_s": 80,
+              "est_cost_usd": 0.2
+            }
+          }
+        }
+      }
+    }
+  },
+  "note": "Branching-walk clips from GMI image-to-video models. Edge ids are node paths: 'forward' starts at the day's eye image ('start'); 'forward.left' starts at the last frame of 'forward'. fetch-assets.mjs downloads each url and builds the phone files."
+}

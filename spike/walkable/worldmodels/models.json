@@ -1,0 +1,137 @@
+{
+  "note": "World-model endpoints this spike may open through the guarded proxy. Prices are the list prices from each endpoint's https://fal.ai/models/<id>/llms.txt, read 2026-11-15.",
+  "default": "robbyant/lingbot-world-2",
+  "models": {
+    "robbyant/lingbot-world-2": {
+      "label": "LingBot World 2",
+      "family": "lingbot",
+      "price_usd_per_s": 0.00125,
+      "min_billable_s": 0,
+      "max_session_s": 120,
+      "price_line": "- **Price**: $0.00125 per seconds",
+      "declared_video": {
+        "width": 1664,
+        "height": 960,
+        "fps": 48
+      },
+      "receive": [
+        "video"
+      ],
+      "commands": [
+        "forward",
+        "backward",
+        "left",
+        "right",
+        "look_up",
+        "look_down",
+        "look_left",
+        "look_right"
+      ],
+      "quick_actions": true
+    },
+    "alibaba/abot-world-0": {
+      "label": "Abot World 0",
+      "family": "abot",
+      "price_usd_per_s": 0.00125,
+      "min_billable_s": 0,
+      "max_session_s": 120,
+      "price_line": "- **Price**: $0.00125 per seconds",
+      "declared_video": {
+        "width": 1280,
+        "height": 704,
+        "fps": 16
+      },
+      "receive": [
+        "video"
+      ],
+      "commands": [
+        "forward",
+        "backward",
+        "left",
+        "right",
+        "look_up",
+        "look_down",
+        "look_left",
+        "look_right"
+      ],
+      "quick_actions": false
+    },
+    "vast/eden-live-5b-game": {
+      "label": "Eden Live 5B (game)",
+      "family": "eden",
+      "price_usd_per_s": 0.0035,
+      "min_billable_s": 10,
+      "max_session_s": 120,
+      "price_line": "Sessions cost $0.0035 per second of video generated, with a minimum of 10 billable seconds ($0.035) per session.",
+      "declared_video": {
+        "width": 1280,
+        "height": 704,
+        "fps": 24
+      },
+      "receive": [
+        "video"
+      ],
+      "commands": [
+        "forward",
+        "backward",
+        "left",
+        "right",
+        "look_up",
+        "look_down",
+        "look_left",
+        "look_right",
+        "jump"
+      ],
+      "default_game": "desert",
+      "quick_actions": false
+    },
+    "vast/eden-live-14b-game": {
+      "label": "Eden Live 14B (game)",
+      "family": "eden",
+      "price_usd_per_s": 0.01,
+      "min_billable_s": 10,
+      "max_session_s": 60,
+      "price_line": "Sessions cost $0.01 per second of video generated, with a minimum of 10 billable seconds ($0.10) per session.",
+      "declared_video": {
+        "width": 832,
+        "height": 480,
+        "fps": 16
+      },
+      "receive": [
+        "video"
+      ],
+      "commands": [
+        "forward",
+        "backward",
+        "left",
+        "right",
+        "look_up",
+        "look_down",
+        "look_left",
+        "look_right",
+        "jump"
+      ],
+      "default_game": "desert",
+      "quick_actions": false
+    },
+    "minimax/h3-max/reference-director": {
+      "label": "H3 Max Reference Director (directable)",
+      "family": "h3",
+      "price_usd_per_s": 0.05,
+      "min_billable_s": 0,
+      "max_session_s": 30,
+      "price_line": "- **Price**: $0.05 per seconds",
+      "declared_video": {
+        "width": 854,
+        "height": 480,
+        "fps": 24
+      },
+      "receive": [
+        "video",
+        "audio"
+      ],
+      "commands": [],
+      "quick_actions": false
+    }
+  }
+}

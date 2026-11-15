@@ -1,0 +1,4 @@
+{
+  "note": "Assets the page downloads with fetch-assets.mjs. Eye-level images come from ../inputs.json automatically; recorded sessions for replay mode are listed here with their fal storage URLs.",
+  "assets": []
+}

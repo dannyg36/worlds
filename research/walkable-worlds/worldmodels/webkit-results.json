@@ -1,0 +1,218 @@
+[
+  {
+    "day": "hackathon",
+    "set": "hailuo",
+    "device": "iPhone 15 Pro",
+    "engine": "WebKit (Playwright, software rendering)",
+    "ready_ms": 364,
+    "loaded_bytes": 10669797,
+    "load_ms": 175,
+    "page_fps": 0,
+    "moves": [
+      {
+        "move": "forward",
+        "edge": "forward",
+        "reverse": false,
+        "swipe_to_frame_ms": 295,
+        "fps": 22.6,
+        "dropped": 0,
+        "total": 141,
+        "wall_s": 5.84
+      },
+      {
+        "move": "forward",
+        "edge": "forward.forward",
+        "reverse": false,
+        "swipe_to_frame_ms": 106,
+        "fps": 24.1,
+        "dropped": 0,
+        "total": 141,
+        "wall_s": 5.86
+      },
+      {
+        "move": "back",
+        "edge": "forward.forward",
+        "reverse": true,
+        "swipe_to_frame_ms": 100,
+        "fps": 23.9,
+        "dropped": 0,
+        "total": 141,
+        "wall_s": 5.85
+      },
+      {
+        "move": "left",
+        "edge": "forward.left",
+        "reverse": false,
+        "swipe_to_frame_ms": 115,
+        "fps": 23.7,
+        "dropped": 0,
+        "total": 141,
+        "wall_s": 5.85
+      },
+      {
+        "move": "back",
+        "edge": "forward.left",
+        "reverse": true,
+        "swipe_to_frame_ms": 91,
+        "fps": 24.1,
+        "dropped": 0,
+        "total": 141,
+        "wall_s": 5.86
+      },
+      {
+        "move": "back",
+        "edge": "forward",
+        "reverse": true,
+        "swipe_to_frame_ms": 93,
+        "fps": 24.1,
+        "dropped": 0,
+        "total": 141,
+        "wall_s": 5.86
+      },
+      {
+        "move": "right",
+        "edge": "right",
+        "reverse": false,
+        "swipe_to_frame_ms": 73,
+        "fps": 24,
+        "dropped": 0,
+        "total": 141,
+        "wall_s": 5.87
+      },
+      {
+        "move": "back",
+        "edge": "right",
+        "reverse": true,
+        "swipe_to_frame_ms": 69,
+        "fps": 24,
+        "dropped": 0,
+        "total": 141,
+        "wall_s": 5.87
+      }
+    ],
+    "errors": [],
+    "hud": "walk · hackathon · hailuo (Minimax-Hailuo-2.3-Fast)\nnode start\nclip right (reversed) 1280x720 @24fps 5.88s, 1.0 MB\ngen  Minimax-Hailuo-2.3-Fast: 46.19 s wall, 45 s on GMI, $0.192\nlast back: swipe->frame 69 ms, 24 fps, dropped 0/141\nmoves 8, median swipe->frame 100 ms\nvideo 1280x720   loaded 12 files 10.7 MB in 0.2 s\npage 16 fps (64.2 ms, worst 388)   393x659 @3x"
+  },
+  {
+    "day": "hackathon",
+    "set": "wan",
+    "device": "iPhone 15 Pro",
+    "engine": "WebKit (Playwright, software rendering)",
+    "ready_ms": 332,
+    "loaded_bytes": 5727758,
+    "load_ms": 140,
+    "page_fps": 0,
+    "moves": [
+      {
+        "move": "right",
+        "edge": "right",
+        "reverse": false,
+        "swipe_to_frame_ms": 230,
+        "fps": 28.6,
+        "dropped": 0,
+        "total": 120,
+        "wall_s": 3.99
+      },
+      {
+        "move": "forward",
+        "edge": "right.forward",
+        "reverse": false,
+        "swipe_to_frame_ms": 92,
+        "fps": 25.6,
+        "dropped": 0,
+        "total": 120,
+        "wall_s": 3.98
+      },
+      {
+        "move": "back",
+        "edge": "right.forward",
+        "reverse": true,
+        "swipe_to_frame_ms": 62,
+        "fps": 28.8,
+        "dropped": 0,
+        "total": 120,
+        "wall_s": 4
+      },
+      {
+        "move": "back",
+        "edge": "right",
+        "reverse": true,
+        "swipe_to_frame_ms": 83,
+        "fps": 29,
+        "dropped": 0,
+        "total": 120,
+        "wall_s": 4
+      }
+    ],
+    "errors": [],
+    "hud": "walk · hackathon · wan (wan3.0-video)\nnode start\nclip right (reversed) 854x480 @30fps 4s, 0.6 MB\ngen  wan3.0-video: 66.41 s wall, 62 s on GMI, $0.2\nlast back: swipe->frame 83 ms, 29 fps, dropped 0/120\nmoves 4, median swipe->frame 92 ms\nvideo 854x480   loaded 12 files 5.7 MB in 0.1 s\npage 14 fps (69.1 ms, worst 430)   393x659 @3x"
+  },
+  {
+    "day": "santa-cruz",
+    "set": "hailuo",
+    "device": "iPhone 15 Pro",
+    "engine": "WebKit (Playwright, software rendering)",
+    "ready_ms": 227,
+    "loaded_bytes": 10411734,
+    "load_ms": 103,
+    "page_fps": 0,
+    "moves": [
+      {
+        "move": "forward",
+        "edge": "forward",
+        "reverse": false,
+        "swipe_to_frame_ms": 266,
+        "fps": 22.2,
+        "dropped": 0,
+        "total": 141,
+        "wall_s": 5.85
+      },
+      {
+        "move": "back",
+        "edge": "forward",
+        "reverse": true,
+        "swipe_to_frame_ms": 161,
+        "fps": 23.7,
+        "dropped": 0,
+        "total": 141,
+        "wall_s": 5.85
+      },
+      {
+        "move": "left",
+        "edge": "left",
+        "reverse": false,
+        "swipe_to_frame_ms": 139,
+        "fps": 23.7,
+        "dropped": 0,
+        "total": 141,
+        "wall_s": 5.88
+      }
+    ],
+    "errors": [],
+    "hud": "walk · santa-cruz · hailuo (Minimax-Hailuo-2.3-Fast)\nnode left   path left\nclip left 1280x720 @24fps 5.88s, 2.1 MB\ngen  Minimax-Hailuo-2.3-Fast: 57.3 s wall, 53 s on GMI, $0.192\nlast left: swipe->frame 139 ms, 23.7 fps, dropped 0/141\nmoves 3, median swipe->frame 161 ms\nvideo 1280x720   loaded 6 files 10.4 MB in 0.1 s\npage 14 fps (73.5 ms, worst 449)   393x659 @3x"
+  },
+  {
+    "day": "santa-cruz",
+    "set": "wan",
+    "device": "iPhone 15 Pro",
+    "engine": "WebKit (Playwright, software rendering)",
+    "ready_ms": 270,
+    "loaded_bytes": 5019942,
+    "load_ms": 134,
+    "page_fps": 0,
+    "moves": [
+      {
+        "move": "right",
+        "edge": "right",
+        "reverse": false,
+        "swipe_to_frame_ms": 243,
+        "fps": 24,
+        "dropped": 0,
+        "total": 120,
+        "wall_s": 4
+      }
+    ],
+    "errors": [],
+    "hud": "walk · santa-cruz · wan (wan3.0-video)\nnode right   path right\nclip right 854x480 @30fps 4s, 0.9 MB\ngen  wan3.0-video: 82.74 s wall, 78 s on GMI, $0.2\nlast right: swipe->frame 243 ms, 24 fps, dropped 0/120\nmoves 1, median swipe->frame 243 ms\nvideo 854x480   loaded 6 files 5.0 MB in 0.1 s\npage 14 fps (71.7 ms, worst 408)   393x659 @3x"
+  }
+]
