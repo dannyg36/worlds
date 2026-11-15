@@ -17,6 +17,14 @@ export default function RootLayout() {
             name="index"
             options={{ title: "Worlds", headerLargeTitleEnabled: true }}
           />
+          <Stack.Screen
+            name="world/[id]"
+            options={{
+              headerTransparent: true,
+              headerTitle: "",
+              headerBackButtonDisplayMode: "minimal",
+            }}
+          />
         </Stack>
       </ThemeProvider>
     </ConvexProvider>
