@@ -49,14 +49,14 @@ export type WorldCardProps = {
   index?: number;
 };
 
-export function formatWorldDate(date: number) {
+export function formatWorldDate(date: number, long = true) {
   const d = new Date(date);
   const today = new Date();
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
   if (d.toDateString() === today.toDateString()) return "Tonight";
   if (d.toDateString() === yesterday.toDateString()) return "Last night";
-  return d.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+  return d.toLocaleDateString(undefined, long ? { weekday: "short", month: "short", day: "numeric" } : { month: "short", day: "numeric" });
 }
 
 export function WorldCard({
@@ -82,8 +82,67 @@ export function WorldCard({
   const forming = status !== undefined && status !== "ready" && status !== "failed";
   const meta = status ? STATUS[status] : undefined;
   const press = usePressScale(0.975);
-  const showArt = image !== undefined || status !== undefined;
+  const showArt = image !== undefined || forming;
   const words = caption ?? transcript;
+  const chip =
+    meta && status !== "ready" ? (
+      <GlassChip label={meta.label} dot={meta.dot} pulsing={forming} />
+    ) : author && !hero ? (
+      <GlassChip label={`from ${author}`} dot={color.lilac} />
+    ) : null;
+  const share = onToggleShare ? (
+    <GlassIconButton
+      size={hero ? 38 : 32}
+      icon={shared ? { ios: "person.2.fill", web: "group" } : { ios: "square.and.arrow.up", web: "ios_share" }}
+      tint={shared ? color.aurora : color.text}
+      accessibilityLabel={shared ? "Stop sharing with friends" : "Share with friends"}
+      onPress={onToggleShare}
+    />
+  ) : null;
+
+  const details = (
+    <>
+      <View style={styles.metaRow}>
+        <Text style={type.eyebrow} numberOfLines={1}>
+          {formatWorldDate(date, hero)}
+        </Text>
+        {author && hero ? (
+          <>
+            <View style={styles.metaDot} />
+            <Text style={[type.eyebrow, styles.author]} numberOfLines={1}>
+              from {author}
+            </Text>
+          </>
+        ) : null}
+      </View>
+      {title ? (
+        <Text style={hero ? type.cardTitle : type.cardTitleCompact} numberOfLines={2}>
+          {title}
+        </Text>
+      ) : showArt ? (
+        hero || !words ? (
+          <Text style={[hero ? type.cardTitle : type.cardTitleCompact, styles.untitled]}>Something is forming…</Text>
+        ) : null
+      ) : words ? (
+        <Text style={[styles.quote, !hero && styles.quoteCompact]} numberOfLines={hero ? 5 : 5}>
+          “{words}”
+        </Text>
+      ) : null}
+      {words && showArt && (hero || !title) ? (
+        <Text style={hero ? type.body : type.caption} numberOfLines={2}>
+          {words}
+        </Text>
+      ) : null}
+      {status === "failed" ? (
+        <View style={styles.failed}>
+          <Text style={[type.caption, { color: color.danger }]} numberOfLines={2}>
+            {error ?? "This world didn't take shape."}
+          </Text>
+          {onRetry ? <GlassButton label="Try again" onPress={onRetry} style={styles.retry} /> : null}
+        </View>
+      ) : null}
+    </>
+  );
 
   return (
     <Animated.View
@@ -116,77 +175,36 @@ export function WorldCard({
             {showArt ? (
               <View style={[styles.art, hero ? styles.artHero : styles.artCompact]}>
                 {image !== undefined ? (
-                  <Image
-                    source={image}
-                    style={StyleSheet.absoluteFill}
-                    contentFit="cover"
-                    transition={400}
-                  />
+                  <Image source={image} style={StyleSheet.absoluteFill} contentFit="cover" transition={400} />
                 ) : (
                   <Nebula colors={colors} animate={forming} />
                 )}
                 {status === "sculpting" && image !== undefined ? <Shimmer /> : null}
                 <View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.artFade]} />
-                <View style={styles.artTop}>
-                  {meta && status !== "ready" ? (
-                    <GlassChip label={meta.label} dot={meta.dot} pulsing={forming} />
-                  ) : (
-                    <View />
-                  )}
-                  {onToggleShare ? (
-                    <GlassIconButton
-                      size={hero ? 38 : 32}
-                      icon={shared ? { ios: "person.2.fill", web: "group" } : { ios: "square.and.arrow.up", web: "ios_share" }}
-                      tint={shared ? color.aurora : color.text}
-                      accessibilityLabel={shared ? "Stop sharing with friends" : "Share with friends"}
-                      onPress={onToggleShare}
-                    />
-                  ) : null}
+                <View style={[styles.topRow, styles.artTop]}>
+                  {chip ?? <View />}
+                  {share}
                 </View>
-                {forming && meta && hero ? <Progress step={meta.step} tint={meta.dot} /> : null}
+                <GlassSurface
+                  radius={hero ? radius.lg : radius.md}
+                  strong
+                  style={[styles.panel, hero ? styles.panelHero : styles.panelCompact]}
+                >
+                  {forming && meta && hero ? <Progress step={meta.step} tint={meta.dot} /> : null}
+                  {details}
+                </GlassSurface>
               </View>
-            ) : null}
-            <View style={[styles.body, hero ? styles.bodyHero : styles.bodyCompact, !showArt && styles.bodyQuote]}>
-              <View style={styles.metaRow}>
-                <Text style={type.eyebrow} numberOfLines={1}>
-                  {formatWorldDate(date)}
-                </Text>
-                {author ? (
-                  <>
-                    <View style={styles.metaDot} />
-                    <Text style={[type.eyebrow, styles.author]} numberOfLines={1}>
-                      from {author}
-                    </Text>
-                  </>
+            ) : (
+              <View style={[styles.body, hero ? styles.bodyHero : styles.bodyCompact]}>
+                {chip || share ? (
+                  <View style={styles.topRow}>
+                    {chip ?? <View />}
+                    {share}
+                  </View>
                 ) : null}
+                {details}
               </View>
-              {title ? (
-                <Text style={hero ? type.cardTitle : type.cardTitleCompact} numberOfLines={hero ? 2 : 2}>
-                  {title}
-                </Text>
-              ) : !showArt && words ? (
-                <Text style={[styles.quote, !hero && styles.quoteCompact]} numberOfLines={hero ? 5 : 4}>
-                  “{words}”
-                </Text>
-              ) : (
-                <Text style={[hero ? type.cardTitle : type.cardTitleCompact, styles.untitled]}>
-                  {forming ? "Something is forming…" : "Untitled day"}
-                </Text>
-              )}
-              {hero && (title || showArt) && words ? (
-                <Text style={type.body} numberOfLines={2}>
-                  {words}
-                </Text>
-              ) : null}
-              {status === "failed" ? (
-                <View style={styles.failed}>
-                  <Text style={[type.caption, { color: color.danger }]} numberOfLines={2}>
-                    {error ?? "This world didn't take shape."}
-                  </Text>
-                  {onRetry ? <GlassButton label="Try again" onPress={onRetry} style={styles.retry} /> : null}
-                </View>
-              ) : null}
-            </View>
+            )}
           </GlassSurface>
         </Pressable>
       </Animated.View>
@@ -277,37 +295,52 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(6, 8, 30, 0.6)",
   },
   artHero: {
-    aspectRatio: 1.05,
+    aspectRatio: 0.86,
   },
   artCompact: {
-    aspectRatio: 0.95,
+    aspectRatio: 0.68,
   },
   artFade: {
-    backgroundImage: "linear-gradient(180deg, rgba(8,8,26,0) 55%, rgba(12,10,34,0.55) 100%)",
+    backgroundImage: "linear-gradient(180deg, rgba(6,6,22,0.35) 0%, rgba(6,6,22,0) 22%, rgba(6,6,22,0) 50%, rgba(6,6,22,0.6) 100%)",
+  },
+  topRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
   },
   artTop: {
     position: "absolute",
     top: space.md,
     left: space.md,
     right: space.md,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
+  },
+  panel: {
+    position: "absolute",
+    gap: space.xs,
+  },
+  panelHero: {
+    left: space.sm + 2,
+    right: space.sm + 2,
+    bottom: space.sm + 2,
+    padding: space.lg,
+    paddingHorizontal: space.lg + 2,
+    gap: space.sm,
+  },
+  panelCompact: {
+    left: space.sm - 2,
+    right: space.sm - 2,
+    bottom: space.sm - 2,
+    padding: space.md - 2,
   },
   body: {
-    gap: space.sm,
+    gap: space.md,
   },
   bodyHero: {
     padding: space.xl,
-    paddingTop: space.lg,
   },
   bodyCompact: {
-    padding: space.md,
-    paddingTop: space.md,
-    gap: space.xs,
-  },
-  bodyQuote: {
-    paddingTop: space.xl,
+    padding: space.lg - 2,
+    gap: space.sm,
   },
   metaRow: {
     flexDirection: "row",
@@ -337,7 +370,6 @@ const styles = StyleSheet.create({
     color: color.textSecondary,
   },
   failed: {
-    marginTop: space.xs,
     gap: space.md,
   },
   retry: {
@@ -354,10 +386,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   orbSeedCore: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    backgroundColor: "rgba(255,255,255,0.9)",
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "rgba(255,255,255,0.75)",
   },
   shimmerClip: {
     overflow: "hidden",
@@ -366,12 +398,9 @@ const styles = StyleSheet.create({
     backgroundImage: "linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0) 70%)",
   },
   progress: {
-    position: "absolute",
-    left: space.lg,
-    right: space.lg,
-    bottom: space.md,
     flexDirection: "row",
     gap: 6,
+    marginBottom: space.xs,
   },
   progressSeg: {
     flex: 1,

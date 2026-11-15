@@ -28,6 +28,7 @@ type Feed = {
   canOpen: boolean;
   toggleShare?: (id: string) => void;
   retry?: (id: string) => void;
+  openFriends?: () => void;
 };
 
 function toFeedWorld(doc: Doc<"worlds"> & PipelineFields): FeedWorld {
@@ -56,8 +57,12 @@ function useLiveFeed(): Feed {
 
 const useFeed: () => Feed =
   process.env.EXPO_PUBLIC_WORLDS_FIXTURES === "1"
-    ? // eslint-disable-next-line @typescript-eslint/no-require-imports
-      () => ({ ...(require("@/dev/fixtures") as typeof import("@/dev/fixtures")).useFixtureWorlds(), canOpen: false })
+    ? () => ({
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        ...(require("@/dev/fixtures") as typeof import("@/dev/fixtures")).useFixtureWorlds(),
+        canOpen: false,
+        openFriends: () => {},
+      })
     : useLiveFeed;
 
 export default function HomeScreen() {
@@ -72,7 +77,7 @@ export default function HomeScreen() {
         worlds={feed.worlds}
         topInset={insets.top}
         bottomInset={orbSpace}
-        header={<HomeHeader count={feed.worlds?.length} />}
+        header={<HomeHeader count={feed.worlds?.length} onOpenFriends={feed.openFriends} />}
         onOpen={(world) =>
           feed.canOpen && world.image !== undefined
             ? () => router.push(`/world/${world.id}` as Href)

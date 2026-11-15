@@ -43,6 +43,7 @@ export function GlassSurface({
         <View
           style={[
             StyleSheet.absoluteFill,
+            shape,
             {
               backgroundColor: fill,
               backdropFilter: `blur(${strong ? blur.strong : blur.regular}px) saturate(170%)`,
@@ -60,9 +61,9 @@ export function GlassSurface({
         </>
       )}
       {tint && !liquidGlass ? (
-        <View pointerEvents="none" style={[StyleSheet.absoluteFill, { backgroundColor: tint }]} />
+        <View pointerEvents="none" style={[StyleSheet.absoluteFill, shape, { backgroundColor: tint }]} />
       ) : null}
-      <View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.highlight]} />
+      <View pointerEvents="none" style={[StyleSheet.absoluteFill, shape, styles.highlight]} />
       {hairline ? <View pointerEvents="none" style={[StyleSheet.absoluteFill, shape, styles.hairline]} /> : null}
       {children}
     </View>
