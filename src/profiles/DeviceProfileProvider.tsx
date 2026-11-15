@@ -15,13 +15,15 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
+import { Button } from "@/components/ui/Button";
+import { Pearl } from "@/components/ui/Pearl";
+import { layout, space, type } from "@/design/tokens";
 import { api } from "../../convex/_generated/api";
 import { readDeviceSecret, saveDeviceSecret } from "./deviceSecret";
 import { inviteCodeFromUrl } from "./invites";
 import { Onboarding } from "./Onboarding";
-import { Button, styles as ui, useSchemeColors } from "./ui";
 
 type DeviceAuth = {
   isLoading: boolean;
@@ -132,25 +134,31 @@ function ProfileGate({
   children: ReactNode;
   onRetry: () => void;
 }) {
-  const colors = useSchemeColors();
   const { isLoading, isAuthenticated } = useConvexAuth();
   const profile = useQuery(api.profiles.me, isAuthenticated ? {} : "skip");
   const inviteCode = inviteCodeFromUrl(useLinkingURL());
 
   if (!isLoading && !isAuthenticated) {
     return (
-      <View style={[styles.centered, { backgroundColor: colors.background }]}>
-        <Text style={[ui.body, styles.message, { color: colors.text }]}>
-          Couldn&apos;t reach worlds. Check your connection and try again.
-        </Text>
-        <Button title="Try again" color={colors.primary} onPress={onRetry} />
+      <View style={styles.centered}>
+        <View style={styles.message}>
+          <Text style={[type.headline, styles.text]}>
+            Couldn&apos;t reach worlds
+          </Text>
+          <Text style={[type.body, styles.text]}>
+            Check your connection and try again.
+          </Text>
+        </View>
+        <Button label="Try again" onPress={onRetry} style={styles.retry} />
       </View>
     );
   }
   if (profile === undefined) {
     return (
-      <View style={[styles.centered, { backgroundColor: colors.background }]}>
-        <ActivityIndicator />
+      <View style={styles.centered}>
+        <View accessible accessibilityRole="progressbar" accessibilityLabel="Loading">
+          <Pearl size={56} />
+        </View>
       </View>
     );
   }
@@ -163,11 +171,19 @@ function ProfileGate({
 const styles = StyleSheet.create({
   centered: {
     flex: 1,
+    alignItems: "center",
     justifyContent: "center",
-    gap: 16,
-    padding: 24,
+    gap: space.xxl,
+    padding: layout.gutter,
   },
   message: {
+    maxWidth: 360,
+    gap: space.sm,
+  },
+  text: {
     textAlign: "center",
+  },
+  retry: {
+    minWidth: 200,
   },
 });
