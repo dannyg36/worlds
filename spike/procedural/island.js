@@ -12,10 +12,11 @@ const PATH_HALF = 0.45;
 const PATH_OFF = 0.3; // path centreline sits this far outside the plot circle, so its inner edge is just inside it
 const LANDMARK_R = 1.6;
 const PLOT_EDGE = 0.95; // flat top reaches at least this far beyond every plot circle
-const PATH_EDGE = 1.25; // ...and this far beyond the path centreline
+const PATH_EDGE = 1.1; // ...and this far beyond the path centreline
 const WOBBLE = 0.08; // island outline noise (fraction of radius)
-const SEA_Y = -0.74;
-const FLOOR_Y = -1.0;
+const YS = 1.5; // vertical scale of the cliff and beach profile
+const SEA_Y = -0.74 * YS;
+const FLOOR_Y = -1.0 * YS;
 
 // Height profile beyond the flat top's edge: [distance past the edge, y, jitter amount]. Rows are shared between bands.
 const PROFILE = [
@@ -182,7 +183,7 @@ export function buildIsland(spec, ctx = {}) {
   }
   const path = samples.filter((_, i) => i % 3 === 0 || i === samples.length - 1).map((p) => [+p.x.toFixed(3), +p.z.toFixed(3)]);
 
-  // Island outline: radius(θ) = base * (1 + WOBBLE * n(θ)), with base just big enough to hold plots and path.
+  // Island outline: for each direction, how far the flat top must reach to hold the plots, the path and a filler margin.
   const wob = ringNoise(rand, [2, 3, 4, 5]);
   const ANG = 360;
   const req = new Float32Array(ANG);
@@ -197,11 +198,18 @@ export function buildIsland(spec, ctx = {}) {
     for (let i = 0; i < samples.length; i += 2) m = Math.max(m, far(ux, uz, samples[i].x, samples[i].z, PATH_EDGE));
     req[k] = m;
   }
-  let base = 0;
-  for (let k = 0; k < ANG; k++) base = Math.max(base, req[k] / (1 + WOBBLE * wob((k / ANG) * TAU)));
-  const topR = (t) => base * (1 + WOBBLE * wob(t));
+  // Hug the content: dilate the requirement, smooth it, wobble it, never dipping below the requirement.
+  const win = (arr, w, f) => Float32Array.from(arr, (_, k) => f(Array.from({ length: 2 * w + 1 }, (_, j) => arr[(k + j - w + ANG) % ANG])));
+  const dil = win(req, 15, (a) => Math.max(...a));
+  const smooth = win(dil, 22, (a) => a.reduce((s, x) => s + x, 0) / a.length);
+  const T0 = Float32Array.from(smooth, (v, k) => Math.max(v * (1 + WOBBLE * wob((k / ANG) * TAU)), req[k] + 0.1));
+  const T = win(T0, 4, (a) => a.reduce((s, x) => s + x, 0) / a.length);
+  const topR = (t) => {
+    const f = (((t / TAU) * ANG) % ANG + ANG) % ANG, k = Math.floor(f), u = f - k;
+    return T[k] * (1 - u) + T[(k + 1) % ANG] * u;
+  };
   let radius = 0;
-  for (let k = 0; k < ANG; k++) radius = Math.max(radius, topR((k / ANG) * TAU));
+  for (let k = 0; k < ANG; k++) radius = Math.max(radius, T[k]);
   const seaR = radius + 2.0;
 
   // ---------- terrain mesh (one geometry, vertex colours) ----------
@@ -257,7 +265,7 @@ export function buildIsland(spec, ctx = {}) {
     for (let s = 0; s < S; s++) {
       const t = (s / S) * TAU;
       const rr = k === 0 ? topR(t) : topR(t) + dr + j * jit[k](t);
-      const yy = k === 0 ? 0 : y + (k > 1 && k < 11 ? 0.025 * yJit[k](t) : 0);
+      const yy = k === 0 ? 0 : (y + (k > 1 && k < 11 ? 0.025 * yJit[k](t) : 0)) * YS;
       out.push([Math.sin(t) * rr, yy, Math.cos(t) * rr]);
     }
     return out;
@@ -269,7 +277,7 @@ export function buildIsland(spec, ctx = {}) {
         let c = C[key].clone();
         if (key === "beach" || key === "wet") {
           // Sand darkens toward the water.
-          const f = clamp01((y - -0.62) / (-0.97 - -0.62));
+          const f = clamp01((y / YS + 0.62) / (0.62 - 0.97));
           c = C.beach.clone().lerp(C.wet, f * f);
         }
         c.multiplyScalar(0.92 + n2(x * 0.9 + 17, z * 0.9 + (k0 * 13)) * 0.16);
@@ -369,9 +377,9 @@ export function buildIsland(spec, ctx = {}) {
   // ---------- wooden plinth (a tray whose lip rises just above the water) ----------
   {
     const R0 = seaR;
-    const prof = [[R0 - 0.02, SEA_Y + 0.02], [R0 + 0.06, SEA_Y + 0.12], [R0 + 0.22, SEA_Y + 0.13], [R0 + 0.3, SEA_Y + 0.04], [R0 + 0.32, -1.05]];
+    const prof = [[R0 - 0.02, SEA_Y + 0.02], [R0 + 0.06, SEA_Y + 0.12], [R0 + 0.22, SEA_Y + 0.13], [R0 + 0.3, SEA_Y + 0.04], [R0 + 0.32, FLOOR_Y - 0.1]];
     const tray = new THREE.Mesh(new THREE.LatheGeometry(prof.map(([r, y]) => new THREE.Vector2(r, y)), 128), mat("#7a4e2e", { rough: 0.7 }));
-    const band = new THREE.Mesh(new THREE.LatheGeometry([[R0 + 0.32, -1.05], [R0 + 0.36, -1.1], [R0 + 0.36, -1.5], [R0 + 0.3, -1.56], [0.01, -1.56]].map(([r, y]) => new THREE.Vector2(r, y)), 128), mat("#5c3a22", { rough: 0.75 }));
+    const band = new THREE.Mesh(new THREE.LatheGeometry([[R0 + 0.32, FLOOR_Y - 0.1], [R0 + 0.36, FLOOR_Y - 0.15], [R0 + 0.36, FLOOR_Y - 0.6], [R0 + 0.3, FLOOR_Y - 0.66], [0.01, FLOOR_Y - 0.66]].map(([r, y]) => new THREE.Vector2(r, y)), 128), mat("#5c3a22", { rough: 0.75 }));
     tray.name = "plinth"; band.name = "plinth-base";
     group.add(tray, band);
   }
@@ -450,7 +458,7 @@ export function buildIsland(spec, ctx = {}) {
     if (d <= 0) return 0;
     for (let k = 1; k < PROFILE.length; k++) {
       const [d0, y0] = PROFILE[k - 1], [d1, y1] = PROFILE[k];
-      if (d <= Math.max(d0, d1)) return y0 + (y1 - y0) * clamp01((d - d0) / ((d1 - d0) || 1));
+      if (d <= Math.max(d0, d1)) return (y0 + (y1 - y0) * clamp01((d - d0) / ((d1 - d0) || 1))) * YS;
     }
     return FLOOR_Y;
   }
