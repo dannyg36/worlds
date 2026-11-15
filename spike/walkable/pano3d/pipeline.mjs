@@ -3,6 +3,7 @@
 // -> scale-aligned fusion into one equirect distance map -> foreground mesh + inpainted background layer + walk grid
 // -> manifest entries the viewer loads. Every fal call goes through ../kit/fal.mjs (budget cap + ledger).
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -769,7 +770,7 @@ async function cmdPublish(day, args) {
     const e = info[m];
     want.add((e.prefix ?? "") + "depth.png");
     if (e.bg) { want.add(e.bg.tex); want.add(e.bg.depth); }
-    modes[key] = { kind: "depth", label, short, depth: (e.prefix ?? "") + "depth.png", depthInfo: e.depthInfo, edgeDeg: e.edgeDeg, walk: e.walk,
+    modes[key] = { kind: "depth", label, short, depth: (e.prefix ?? "") + "depth.png", depthInfo: e.depthInfo, edgeDeg: e.edgeDeg, walk: e.walk && { ...e.walk, radius: Number(args.radius || 1.25) },
       bg: e.bg && { tex: e.bg.tex, depth: e.bg.depth, depthInfo: e.bg.depthInfo, push: e.bg.push } };
   }
   for (const f of want) {
@@ -778,7 +779,12 @@ async function cmdPublish(day, args) {
     fs.copyFileSync(p, path.join(here, "assets", day, f));
     if (args.local) { files[f] = { url: files[f]?.bytes === bytes ? files[f].url : null, bytes }; continue; }
     if (files[f]?.bytes === bytes && files[f]?.url && !args.force) continue;
-    files[f] = { url: await upload(p), bytes };
+    let src = p;
+    if (f.endsWith(".jpg")) {
+      src = path.join(os.tmpdir(), "pano3d-" + day + "-" + f.replace(/\.jpg$/, ".jpeg"));
+      fs.copyFileSync(p, src);
+    }
+    files[f] = { url: await upload(src), bytes };
     console.log("uploaded " + f + " " + (bytes / 1e6).toFixed(2) + " MB");
   }
   for (const f of Object.keys(files)) if (!want.has(f)) delete files[f];

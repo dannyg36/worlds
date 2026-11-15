@@ -13,6 +13,9 @@ const hudEl = $("hud");
 const msgEl = $("msg");
 const setMsg = (t) => { msgEl.textContent = t; msgEl.style.display = t ? "" : "none"; };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const CAPTURE = qs.get("capture") === "1";
+let simNow = 0;
+const clock = () => (CAPTURE ? simNow : performance.now()) / 1000;
 
 const stats = { session: SESSION, day: DAY, mode: null, load: {}, assets: {}, mesh: {} };
 let manifest = null;
@@ -395,12 +398,11 @@ function tryMove(dx, dz) {
 
 // ---------- view toggle, scripted moves, demo ----------
 let view3d = true;
-let tagTimer = 0;
+let tagHideAt = 0;
 function flashTag(t) {
   const el = $("tagtext");
   el.textContent = t; el.classList.add("show");
-  clearTimeout(tagTimer);
-  tagTimer = setTimeout(() => el.classList.remove("show"), 1600);
+  tagHideAt = clock() + 1.6;
 }
 function setView3d(on) {
   view3d = on;
@@ -416,7 +418,7 @@ function runScript(keyframes) {
   const f = new THREE.Vector2(-Math.sin(yaw), -Math.cos(yaw)), r = new THREE.Vector2(Math.cos(yaw), -Math.sin(yaw));
   const base = { x: cam.x, z: cam.z, yaw, pitch };
   script = {
-    t0: performance.now() / 1000,
+    t0: clock(),
     keys: keyframes.map((k) => ({
       t: k.t,
       x: base.x + (k.fwd ?? 0) * f.x + (k.right ?? 0) * r.x,
@@ -563,7 +565,8 @@ function loop(now) {
   frames++;
   if (now - fpsT >= 1000) { fps = (frames * 1000) / (now - fpsT); frames = 0; fpsT = now; }
 
-  if (script) stepScript(now / 1000);
+  if (tagHideAt && clock() > tagHideAt) { tagHideAt = 0; $("tagtext").classList.remove("show"); }
+  if (script) stepScript(clock());
   else {
     let fwd = -stick.vy, str = stick.vx;
     if (keys.has("KeyW")) fwd += 1;
@@ -611,6 +614,19 @@ async function main() {
   }
   camY = floorY(cam.x, cam.z) + walk.eye;
   if (qs.get("view") === "pano") setView3d(false);
+  if (CAPTURE) {
+    window.__demo = demo;
+    let stepped = false;
+    window.__step = (ms) => {
+      if (!stepped) { stepped = true; last = simNow; }
+      simNow += ms;
+      loop(simNow);
+      return script ? 1 : 0;
+    };
+    window.__ready = true;
+    setMsg("");
+    return;
+  }
   renderer.setAnimationLoop(loop);
   if (qs.get("auto") === "demo") setTimeout(demo, 1200);
   if (qs.get("auto") === "rec") setTimeout(record, 1500);
