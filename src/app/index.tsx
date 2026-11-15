@@ -9,6 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import { RecordPearl } from "@/components/RecordPearl";
+import { StoriesTray } from "@/components/StoriesTray";
 import { IconButton } from "@/components/ui/IconButton";
 import { Pearl } from "@/components/ui/Pearl";
 import { color, layout, radius, space, type } from "@/design/tokens";
@@ -55,6 +56,14 @@ export default function HomeScreen() {
           />
         </Animated.View>
       )}
+      {people && !walking ? (
+        <StoriesTray
+          people={people}
+          top={insets.top}
+          onOpenPerson={(person) => router.push(`/stories/${person.id}`)}
+          onAddFriend={() => router.push("/friends")}
+        />
+      ) : null}
     </View>
   );
 }

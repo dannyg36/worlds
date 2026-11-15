@@ -1,4 +1,3 @@
-import * as Haptics from "expo-haptics";
 import { useEffect, useRef, useState } from "react";
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
@@ -7,6 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Icon } from "@/components/Icon";
 import { Button } from "@/components/ui/Button";
 import { Surface } from "@/components/ui/Surface";
+import { haptics } from "@/design/haptics";
 import { color, layout, radius, space, type } from "@/design/tokens";
 import { Aurora } from "@/world/aurora";
 import { auroraBase } from "@/world/color";
@@ -88,12 +88,12 @@ export function WorldStage({
             onReady={async () => {
               setReadyUrl(modelUrl);
               if (sawForming.current) {
-                void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+                haptics.success();
               }
             }}
             onError={async (message) => setModelError({ url: modelUrl, message })}
             onTap={async () => {
-              void Haptics.selectionAsync();
+              haptics.tap();
             }}
             onWalkingChange={async (value) => onWalkingChange(value)}
             dom={{
