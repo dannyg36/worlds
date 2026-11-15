@@ -15,8 +15,8 @@ const fmtS = (ms) => (ms == null ? "-" : (ms / 1000).toFixed(1) + "s");
 const short = (id) => (id || "").split("/").pop();
 
 const pcs = [];
-if (window.RTCPeerConnection) {
-  const NativePC = window.RTCPeerConnection;
+const NativePC = window.RTCPeerConnection;
+if (NativePC) {
   window.RTCPeerConnection = class extends NativePC {
     constructor(...args) {
       super(...args);
@@ -825,7 +825,32 @@ async function testSpin() {
   post("spin_probe", { curve, best_return: best, min_sim: minSim, snaps: [sa, sb] });
 }
 
+async function testIce() {
+  out("ICE probe: gather candidates with a public STUN server (no fal)");
+  const pc = new NativePC({ iceServers: [{ urls: "stun:stun.l.google.com:19302" }] });
+  pc.createDataChannel("probe");
+  const cands = [];
+  pc.onicecandidate = (e) => e.candidate && e.candidate.candidate && cands.push(e.candidate.candidate);
+  const t0 = now();
+  await pc.setLocalDescription(await pc.createOffer());
+  await new Promise((r) => {
+    const t = setTimeout(r, 6000);
+    pc.onicegatheringstatechange = () => pc.iceGatheringState === "complete" && (clearTimeout(t), r());
+  });
+  const types = {};
+  for (const c of cands) {
+    const typ = / typ (\w+)/.exec(c)?.[1] || "?";
+    const proto = (c.split(" ")[2] || "?").toLowerCase();
+    types[typ + "/" + proto] = (types[typ + "/" + proto] || 0) + 1;
+  }
+  pc.close();
+  const ms = Math.round(now() - t0);
+  out("  " + JSON.stringify(types) + " in " + ms + " ms");
+  post("ice_probe", { ice_types: types, candidates: cands.length, gather_ms: ms });
+}
+
 async function runTest(name) {
+  if (name === "ice") return testIce();
   if (!S.controlsEnabled) return out("start a world first");
   if (S.testing) return out("a test is running");
   S.testing = true;
@@ -865,6 +890,8 @@ async function end(reason) {
     } catch {}
   }
   if (S.mockTimer) clearInterval(S.mockTimer);
+  for (const pc of S.loopbackPcs || []) pc.close();
+  S.loopbackPcs = null;
   await post("session_end", summary);
   S.session = null;
   document.body.classList.remove("live");
@@ -887,6 +914,36 @@ function startReplay() {
   toast("Recorded session (live worlds need FAL_KEY on the server)", 3500);
 }
 
+async function loopback(stream) {
+  const a = new RTCPeerConnection();
+  const b = new RTCPeerConnection();
+  a.onicecandidate = (e) => e.candidate && b.addIceCandidate(e.candidate).catch(() => {});
+  b.onicecandidate = (e) => e.candidate && a.addIceCandidate(e.candidate).catch(() => {});
+  const got = new Promise((res) => (b.ontrack = (e) => res(e.streams[0] || new MediaStream([e.track]))));
+  for (const t of stream.getTracks()) a.addTrack(t, stream);
+  const tr = a.getTransceivers()[0];
+  const caps = window.RTCRtpSender?.getCapabilities?.("video");
+  if (caps && tr?.setCodecPreferences) {
+    const h264 = caps.codecs.filter((c) => /h264/i.test(c.mimeType));
+    try {
+      if (h264.length) tr.setCodecPreferences([...h264, ...caps.codecs.filter((c) => !/h264/i.test(c.mimeType))]);
+    } catch {}
+  }
+  await a.setLocalDescription(await a.createOffer());
+  await b.setRemoteDescription(a.localDescription);
+  await b.setLocalDescription(await b.createAnswer());
+  await a.setRemoteDescription(b.localDescription);
+  try {
+    const sender = a.getSenders()[0];
+    const p = sender.getParameters();
+    if (!p.encodings || !p.encodings.length) p.encodings = [{}];
+    p.encodings[0].maxBitrate = 8000000;
+    await sender.setParameters(p);
+  } catch {}
+  S.loopbackPcs = [a, b];
+  return got;
+}
+
 function startMock() {
   S.tClick = now();
   S.marks = {};
@@ -894,6 +951,9 @@ function startMock() {
   setMode("connecting");
   mark("state_live");
   const c = $("mockcanvas");
+  c.width = Number(q.get("w") || 960);
+  c.height = Number(q.get("h") || 540);
+  const mockFps = Number(q.get("fps") || 30);
   const ctx = c.getContext("2d");
   let yaw = 0;
   let pitch = 0;
@@ -959,9 +1019,18 @@ function startMock() {
     ctx.fillText("MOCK stream · yaw " + yaw.toFixed(0) + " · " + [...h].join(","), 16, 28);
   };
   draw();
-  S.mockTimer = setInterval(draw, 1000 / 30);
-  const stream = c.captureStream(30);
-  attachStream(stream);
+  S.mockTimer = setInterval(draw, 1000 / mockFps);
+  const stream = c.captureStream(mockFps);
+  if (q.get("loopback") === "1") {
+    mark("loopback_start");
+    loopback(stream).then((s2) => {
+      mark("loopback_track");
+      attachStream(s2);
+    }).catch((e) => {
+      S.lastError = "loopback: " + e.message;
+      attachStream(stream);
+    });
+  } else attachStream(stream);
   S.configured = true;
   mark("configured");
   startClock();

@@ -21,7 +21,7 @@
   <img id="poster" alt="" decoding="async">
   <video id="world" playsinline webkit-playsinline muted autoplay></video>
 </div>
-<canvas id="mockcanvas" width="960" height="540" hidden></canvas>
+<canvas id="mockcanvas" width="960" height="540" style="position:fixed;left:0;top:0;width:4px;height:4px;opacity:0.01;pointer-events:none"></canvas>
 <pre id="hud" aria-live="off"></pre>
 <div id="topbar">
   <button id="btn-hud" type="button">HUD</button>
@@ -51,6 +51,7 @@
   <button data-test="walk" type="button">Walk out and back</button>
   <button data-test="spin" type="button">Full turn</button>
   <button data-test="snap" type="button">Snapshot</button>
+  <button data-test="ice" type="button">ICE probe</button>
   <pre id="testout"></pre>
 </div>
 <script type="module" src="/app.js"></script>
