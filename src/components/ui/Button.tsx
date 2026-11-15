@@ -40,6 +40,7 @@ export function Button({
         accessibilityRole="button"
         accessibilityState={{ disabled: inactive, busy: loading }}
         disabled={inactive}
+        hitSlop={size === "small" ? 4 : undefined}
         onPressIn={press.onPressIn}
         onPressOut={press.onPressOut}
         onPress={() => {
