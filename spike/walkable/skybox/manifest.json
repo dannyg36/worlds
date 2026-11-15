@@ -1,0 +1,50 @@
+{
+  "note": "Assets for the skybox prototype. fetch-assets.mjs downloads every {file,url} entry into assets/. Entries without a url are local dev placeholders.",
+  "three": "0.187.0",
+  "days": {
+    "hackathon": {
+      "title": "The first world renders",
+      "short": "hackathon",
+      "pano_height": 1.6,
+      "pano_radius": 16,
+      "walk_radius": 6,
+      "island_radius_m": 6,
+      "default_pano": "sample",
+      "panos": [
+        {
+          "id": "sample",
+          "label": "Placeholder office (Poly Haven)",
+          "file": "_sample/pano-indoor.jpg",
+          "width": 2048,
+          "height": 1024
+        }
+      ],
+      "diorama": {
+        "file": "_sample/diorama.glb",
+        "label": "Placeholder diorama (three.js LittlestTokyo)"
+      }
+    },
+    "santa-cruz": {
+      "title": "Cliffs, surfers, sea lions",
+      "short": "santa cruz",
+      "pano_height": 1.6,
+      "pano_radius": 60,
+      "walk_radius": 14,
+      "island_radius_m": 8,
+      "default_pano": "sample",
+      "panos": [
+        {
+          "id": "sample",
+          "label": "Placeholder cliffside (Poly Haven)",
+          "file": "_sample/pano-outdoor.jpg",
+          "width": 2048,
+          "height": 1024
+        }
+      ],
+      "diorama": {
+        "file": "_sample/diorama.glb",
+        "label": "Placeholder diorama (three.js LittlestTokyo)"
+      }
+    }
+  }
+}
