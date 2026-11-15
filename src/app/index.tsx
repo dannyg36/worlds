@@ -26,7 +26,7 @@ export default function WorldsScreen() {
     setAdding(true);
     try {
       await addWorld({ transcript });
-      setTranscript("");
+      setTranscript((current) => (current === transcript ? "" : current));
     } catch (error) {
       Alert.alert(
         "Couldn't add your world",
