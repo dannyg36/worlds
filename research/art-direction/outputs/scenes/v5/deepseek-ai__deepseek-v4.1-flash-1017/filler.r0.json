@@ -1,0 +1,61 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "filler",
+ "rep": 0,
+ "latency_s": 2.02,
+ "usage": {
+  "prompt_tokens": 1788,
+  "completion_tokens": 323,
+  "total_tokens": 2111,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.0005544,
+ "format": "json_schema",
+ "spec": {
+  "status": "sparse",
+  "moment": "A quiet evening at home with nothing much to report, just a mug of tea and a small lamp on the windowsill.",
+  "elements": [
+   {
+    "name": "windowsill",
+    "kind": "place",
+    "look": "a narrow wooden windowsill at night, night-blue glass panes behind it"
+   },
+   {
+    "name": "mug of tea",
+    "kind": "object",
+    "look": "a simple warm cream mug with faint steam rising, a little larger than life"
+   },
+   {
+    "name": "small lamp",
+    "kind": "object",
+    "look": "a tiny round lamp glowing soft amber on the sill"
+   },
+   {
+    "name": "houseplant",
+    "kind": "object",
+    "look": "a small sleepy green plant in a terracotta pot, leaves drooping gently"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "clear",
+  "mood": "quiet calm",
+  "palette": [
+   "#2E3A55",
+   "#E8C98A",
+   "#C9B79C",
+   "#6E8B6A",
+   "#B5654A"
+  ],
+  "scene": "A narrow wooden windowsill sits on a small patch of floor, night-blue glass panes behind it. At the center a warm cream mug of tea steams gently, a little larger than life. To its left a tiny round lamp glows soft amber, and to the right a sleepy green houseplant leans in its terracotta pot. A folded gray blanket rests at the front edge, and the sill boards catch the lamp's warm light against the cool blue of the window.",
+  "title": "A Quiet Night",
+  "caption": "Nothing much happened today, and that was okay."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

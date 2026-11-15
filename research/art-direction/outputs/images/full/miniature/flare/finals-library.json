@@ -1,0 +1,12 @@
+{
+ "model": "flare",
+ "gmi_model": "gpt-image-2.5-flare-generate",
+ "style": "miniature",
+ "slug": "finals-library",
+ "latency_s": 21.37,
+ "server_s": 21,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_e0bf0847-2e96-4309-af7b-b072c47f0e67_80c931ec-cda9-401e-b283-c9cec8fdac1e.png",
+ "prompt": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A narrow stone sidewalk dusted with powdery white snow stretches from front to back. In the center, a small bundled figure in a dark navy coat and grey scarf walks forward, holding a steaming takeaway cup in mittened hands. Small footprints trail behind them in the fresh snow. To the left, a tall dark iron lamppost glows with soft amber light, illuminating the ground. At the back edge sits the dark brick fragment of a sleeping townhouse with snowy steps. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "e0bf0847-2e96-4309-af7b-b072c47f0e67"
+}

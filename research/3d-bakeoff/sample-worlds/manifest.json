@@ -1,0 +1,146 @@
+{
+  "hackathon": {
+    "model": "model.glb",
+    "concept": "concept.png",
+    "source": "stabilityai/stable-fast-3d",
+    "triangles": 22500,
+    "bytes": 1006368,
+    "textures": [
+      "BaseColor",
+      "Normal"
+    ],
+    "texture_px": 1024,
+    "size_xyz": [
+      1,
+      0.953,
+      0.853
+    ],
+    "generation_s": 8.943
+  },
+  "santa-cruz": {
+    "model": "model.glb",
+    "concept": "concept.png",
+    "source": "stabilityai/stable-fast-3d",
+    "triangles": 36580,
+    "bytes": 1607324,
+    "textures": [
+      "BaseColor",
+      "Normal"
+    ],
+    "texture_px": 1024,
+    "size_xyz": [
+      1,
+      0.888,
+      0.92
+    ],
+    "generation_s": 7.174
+  },
+  "rainy-monday": {
+    "model": "model.glb",
+    "concept": "concept.png",
+    "source": "stabilityai/stable-fast-3d",
+    "triangles": 24544,
+    "bytes": 1218656,
+    "textures": [
+      "BaseColor",
+      "Normal"
+    ],
+    "texture_px": 1024,
+    "size_xyz": [
+      1,
+      0.927,
+      0.865
+    ],
+    "generation_s": 62.448
+  },
+  "dolores-park": {
+    "model": "model.glb",
+    "concept": "concept.png",
+    "source": "stabilityai/stable-fast-3d",
+    "triangles": 24156,
+    "bytes": 1148768,
+    "textures": [
+      "BaseColor",
+      "Normal"
+    ],
+    "texture_px": 1024,
+    "size_xyz": [
+      1,
+      0.745,
+      0.884
+    ],
+    "generation_s": 27.223
+  },
+  "birthday-dinner": {
+    "model": "model.glb",
+    "concept": "concept.png",
+    "source": "stabilityai/stable-fast-3d",
+    "triangles": 29140,
+    "bytes": 1600372,
+    "textures": [
+      "BaseColor",
+      "Normal"
+    ],
+    "texture_px": 1024,
+    "size_xyz": [
+      1,
+      0.91,
+      0.765
+    ],
+    "generation_s": 4.038
+  },
+  "finals-library": {
+    "model": "model.glb",
+    "concept": "concept.png",
+    "source": "stabilityai/stable-fast-3d",
+    "triangles": 30592,
+    "bytes": 1542728,
+    "textures": [
+      "BaseColor",
+      "Normal"
+    ],
+    "texture_px": 1024,
+    "size_xyz": [
+      1,
+      0.791,
+      0.722
+    ],
+    "generation_s": 4.097
+  },
+  "mission-peak": {
+    "model": "model.glb",
+    "concept": "concept.png",
+    "source": "stabilityai/stable-fast-3d",
+    "triangles": 28960,
+    "bytes": 1189060,
+    "textures": [
+      "BaseColor",
+      "Normal"
+    ],
+    "texture_px": 1024,
+    "size_xyz": [
+      1,
+      0.795,
+      0.93
+    ],
+    "generation_s": 4.259
+  },
+  "farmers-market": {
+    "model": "model.glb",
+    "concept": "concept.png",
+    "source": "stabilityai/stable-fast-3d",
+    "triangles": 30204,
+    "bytes": 1446684,
+    "textures": [
+      "BaseColor",
+      "Normal"
+    ],
+    "texture_px": 1024,
+    "size_xyz": [
+      1,
+      0.787,
+      0.828
+    ],
+    "generation_s": 4.19
+  }
+}

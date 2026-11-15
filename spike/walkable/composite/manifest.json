@@ -1,0 +1,197 @@
+{
+  "note": "Every file the composite page needs. fetch-assets.mjs downloads each url to assets/<file> and checks bytes and sha256.",
+  "files": [
+    {
+      "file": "hackathon/cards/beanbag.depth.png",
+      "bytes": 18290,
+      "sha256": "c736a32b060de7c658046b6f3c3f57cceef08d96283d10d0c704436a89300b3d",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/e6f22516-b645-46a8-83f6-379a6b7ba9a2.png"
+    },
+    {
+      "file": "hackathon/cards/beanbag.png",
+      "bytes": 134908,
+      "sha256": "8a79aca342da050e048cc6aac95b079ec0b873b9c55a9373b9ed4f7d45636d35",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/7a2ab090-a622-4132-b061-5f1342efdd93.png"
+    },
+    {
+      "file": "hackathon/cards/cans.depth.png",
+      "bytes": 18935,
+      "sha256": "c3e1bf1d9ca5b4372b2fc4554c216c330c912a6b19e44895dbb3e29af34bb312",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/02a0a0ca-e48e-4d46-ae1f-60ed19441d43.png"
+    },
+    {
+      "file": "hackathon/cards/cans.png",
+      "bytes": 109616,
+      "sha256": "82514b176f28e7b86a7ca50339389269087db9c9262503858af7d3f607875817",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/28ae378d-d8e7-406f-a207-5e904e5350ad.png"
+    },
+    {
+      "file": "hackathon/cards/monitor.depth.png",
+      "bytes": 27091,
+      "sha256": "3728af58e2f7c753db24e5b933b16d5ab46f2909b9bc21c764a5d299150cb516",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/68e02782-f6f5-47b4-933b-2ab15c8c61a9.png"
+    },
+    {
+      "file": "hackathon/cards/monitor.png",
+      "bytes": 92886,
+      "sha256": "ff6d78697b6959446430fce114a3a80b0fe5c9eddec4104150c1343d2442dd82",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/e8f4eeb0-0372-40e5-b86d-31738cf70690.png"
+    },
+    {
+      "file": "hackathon/cards/person.depth.png",
+      "bytes": 26994,
+      "sha256": "dc4332c21b4db0151950ff5599acf3206f8533f5b3c5f3a626b36db64283faa3",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/b5486305-8644-4bf1-b55c-8b84ec35d6a2.png"
+    },
+    {
+      "file": "hackathon/cards/person.png",
+      "bytes": 137713,
+      "sha256": "022b12fd228b052d81a85620654f28d58519e2bd235d7aa04b75c0184f748837",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/7da34059-d7e8-4d60-ae13-b37dea7bb338.png"
+    },
+    {
+      "file": "hackathon/cards/pizza.depth.png",
+      "bytes": 20201,
+      "sha256": "fc880bcfe5f71602d5052f35dc85ad2ac2a519a6d1eac0e0025f85f949e52beb",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/0e1f8dc8-63e6-475d-86f2-c60305550009.png"
+    },
+    {
+      "file": "hackathon/cards/pizza.png",
+      "bytes": 90656,
+      "sha256": "78d67edfce5fd15a1de863818f3f98fdccc95ca92b60d98ce647798bb1ae6a2b",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/26e1a474-7514-4259-897d-a312c6acb0b9.png"
+    },
+    {
+      "file": "hackathon/cards/table.depth.png",
+      "bytes": 26492,
+      "sha256": "99b8e5fbe71e81ea102d2453aba7aae0b031729a2421db7ba1f82e5e73145d8e",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/9a237810-ea1f-49b2-85eb-326db5530b14.png"
+    },
+    {
+      "file": "hackathon/cards/table.png",
+      "bytes": 113909,
+      "sha256": "9e8aef45955fc35eb57caa3d63091ff7711ae3fe5b896462f7bd7054002cac3a",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/ab27abeb-cdcc-4fb0-a26a-027964607dcf.png"
+    },
+    {
+      "file": "hackathon/cards/whiteboard.depth.png",
+      "bytes": 16794,
+      "sha256": "3e2735eac17dc718288dc6584045640e16853f344ca8284c5fa347ccbe39bce0",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/2606328d-c238-435a-8544-01761cae02fe.png"
+    },
+    {
+      "file": "hackathon/cards/whiteboard.png",
+      "bytes": 80492,
+      "sha256": "a71d51b96f0be1635ad7df6f0ef241e3416acae0b3e9b27f1cd0af5fc1b9c933",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/d0e1d24a-c30d-4a1a-a73a-6610d525cfd0.png"
+    },
+    {
+      "file": "hackathon/cards/window.depth.png",
+      "bytes": 13943,
+      "sha256": "3bf2ef539ba4c5d762e9db461d0cf113219bc2ebce92519029b026de15327aab",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/f5bdc306-ddc8-47f9-8410-952353f03a76.png"
+    },
+    {
+      "file": "hackathon/cards/window.png",
+      "bytes": 95986,
+      "sha256": "aa52e2c6c16234a6d778e68bee06c212a3fed1201fd346418c5a1cbfb4978e83",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/70789a7e-429e-44f0-97a1-76b34b8a7d32.png"
+    },
+    {
+      "file": "hackathon/pano-4096.jpeg",
+      "bytes": 784682,
+      "sha256": "1606dad5d829e82b4f48e8012bb6bc9f2cd52bdfe77f61455260f2a7e913d474",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/e02f8dcd-0860-4dfc-aa79-ddbf3620ff67.jpeg"
+    },
+    {
+      "file": "santa-cruz/cards/bench.depth.png",
+      "bytes": 20225,
+      "sha256": "644a841f4eb692cebb51fd93c87ceb4422698628af7927a79af762f98afb3ee6",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/33f62198-4d45-4e6a-9aba-a550b80c8f06.png"
+    },
+    {
+      "file": "santa-cruz/cards/bench.png",
+      "bytes": 110632,
+      "sha256": "191c0da99bad237354d70c58714eef9c905b3b5aba00970aecbf782e5ca13b18",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/a6292369-eb1d-4562-89d5-2200ae7f964c.png"
+    },
+    {
+      "file": "santa-cruz/cards/bike.depth.png",
+      "bytes": 33650,
+      "sha256": "237baf5ea9daa266240a4f8ffd1f69d251f09d350231f4cfcc25c0a7a4eda1cd",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/c041ddb1-3e74-4fbb-b901-9b821dbb606a.png"
+    },
+    {
+      "file": "santa-cruz/cards/bike.png",
+      "bytes": 129113,
+      "sha256": "73501337fcf0447e49943b6d4ecd11d2438fc2a9e55481099118daec0e1a9e2a",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/f7107a83-3370-4868-aa9c-b32091fa4702.png"
+    },
+    {
+      "file": "santa-cruz/cards/chowder.depth.png",
+      "bytes": 22326,
+      "sha256": "c27d10b31d07213e7345b9522da2e3ca07a0c9f9246d9979792145042b27093d",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/4fd494e4-cc17-4876-81bf-63965c9b7555.png"
+    },
+    {
+      "file": "santa-cruz/cards/chowder.png",
+      "bytes": 83323,
+      "sha256": "166713e92ccbe3ea07feec9b6fd699956c147f951c88dcec8d2d473b9176d562",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/4e42df67-d67c-420f-a70d-2de736935ff8.png"
+    },
+    {
+      "file": "santa-cruz/cards/cypress.depth.png",
+      "bytes": 36235,
+      "sha256": "48c5830f6e9f8580a80e713cfdf74507a2216f8c583b13619da2dc2662926a02",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/b9d5981b-ec6f-44e5-a1f9-6467463a0ac0.png"
+    },
+    {
+      "file": "santa-cruz/cards/cypress.png",
+      "bytes": 175070,
+      "sha256": "e60c96d14c13afb75c8cd7d1d26d682552191fdc166b91291781733c0dfe63f3",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/02848e0c-b9d3-4179-ace3-5fba9a238eb9.png"
+    },
+    {
+      "file": "santa-cruz/cards/sealion.depth.png",
+      "bytes": 23389,
+      "sha256": "4d6b6de95c19a4a01bbc2d080fc3e0e21f50c62f5afa463fe6bdd070a8e7ba78",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/16e876ab-b9e8-4fc7-a22e-8237880b51c5.png"
+    },
+    {
+      "file": "santa-cruz/cards/sealion.png",
+      "bytes": 83316,
+      "sha256": "c625967da59171454fe97db80f1e8f900ed4aaccbd943e97b319593a1cabdfd9",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/7e4593ae-ae15-4803-a460-d883ec2bf271.png"
+    },
+    {
+      "file": "santa-cruz/cards/surfer.depth.png",
+      "bytes": 24306,
+      "sha256": "60ed41766d18fdcd0d762f3b0a44c3e91688c573129857f1d6afeaaecc652ac7",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/0b10c2f5-fefb-4f95-9344-97973435cd97.png"
+    },
+    {
+      "file": "santa-cruz/cards/surfer.png",
+      "bytes": 70244,
+      "sha256": "e31909f0956a9e5281385c99dba78d28e4f78840882de9af8efec7d0f3fe0800",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/edcd373b-aa8b-4b92-96f0-1804c14b7ac3.png"
+    },
+    {
+      "file": "santa-cruz/cards/wharf.depth.png",
+      "bytes": 19305,
+      "sha256": "7faa1e15cf30cc23f0d86edb1a41a82ef00d77faedf204ece433740ce5d4fd1f",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/11b99ee5-a629-4eb9-a56e-5f268b8d1eab.png"
+    },
+    {
+      "file": "santa-cruz/cards/wharf.png",
+      "bytes": 89101,
+      "sha256": "931d2c508e8062187b43bc68d9dc37ea57297dd604e539a43b4c87bd1a995497",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/347145a8-c2e9-48b1-a92b-75f4cd92b1a7.png"
+    },
+    {
+      "file": "santa-cruz/pano-4096.jpeg",
+      "bytes": 906477,
+      "sha256": "fcfde0e85643c480a0b6c0bda70ca30c26dffda296014a9127c9da528913833b",
+      "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/4641e39d-018f-4294-a1ea-ede87cce275a.jpeg"
+    }
+  ]
+}

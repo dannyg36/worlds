@@ -1,0 +1,66 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "birthday-dinner",
+ "rep": 1,
+ "latency_s": 3.76,
+ "usage": {
+  "completion_tokens": 430,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1802,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2232
+ },
+ "cost_usd": 0.002964,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "The waiters bringing out a tiramisu with a glittering sparkler to the patio table under string lights.",
+  "elements": [
+   {
+    "name": "tiramisu with sparkler",
+    "kind": "object",
+    "look": "a square dusted dessert topped with a glowing, glittering golden sparkler"
+   },
+   {
+    "name": "patio dining table",
+    "kind": "object",
+    "look": "a long wooden outdoor table crowded with bowls of pasta and wine glasses"
+   },
+   {
+    "name": "string lights",
+    "kind": "object",
+    "look": "warm glowing bulbs draped along an overhead wooden trellis"
+   },
+   {
+    "name": "waiter",
+    "kind": "person",
+    "look": "a figure in a white apron and dark shirt presenting the dessert"
+   },
+   {
+    "name": "birthday friend",
+    "kind": "person",
+    "look": "a smiling figure in a bright yellow dress seated at the table"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "clear",
+  "mood": "festive warmth",
+  "palette": [
+   "#231B2A",
+   "#D97724",
+   "#F4D06F",
+   "#8B263E",
+   "#4A6B5D"
+  ],
+  "scene": "A warm brick patio patch at night, flanked by dark leafy potted olive trees. In the center, a long wooden table is cluttered with red sauce pasta bowls and small glasses. A cheerful figure in a yellow dress sits beside two friends. A waiter in a crisp white apron stands presenting a tiramisu topped with a glittering gold sparkler that casts warm light across their faces. Overhead, glowing string lights crisscross a dark wooden trellis at the back edge.",
+  "title": "A Sparkler for Priya",
+  "caption": "We celebrated Priya with endless pasta and a sparkling tiramisu tonight."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

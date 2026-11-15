@@ -1,0 +1,559 @@
+[
+  {
+    "id": "gmi-h3d-i-normal-500k",
+    "provider": "gmi",
+    "model": "hunyuan-3d-pro",
+    "family": "gmi-hunyuan",
+    "price_usd": 0.375,
+    "mode": "image",
+    "image_key": "image_url",
+    "input": {
+      "generate_type": "Normal",
+      "face_count": 500000,
+      "enable_pbr": false
+    }
+  },
+  {
+    "id": "gmi-h3d-i-normal-150k",
+    "provider": "gmi",
+    "model": "hunyuan-3d-pro",
+    "family": "gmi-hunyuan",
+    "price_usd": 0.375,
+    "mode": "image",
+    "image_key": "image_url",
+    "input": {
+      "generate_type": "Normal",
+      "face_count": 150000,
+      "enable_pbr": false
+    }
+  },
+  {
+    "id": "gmi-h3d-i-normal-40k",
+    "provider": "gmi",
+    "model": "hunyuan-3d-pro",
+    "family": "gmi-hunyuan",
+    "price_usd": 0.375,
+    "mode": "image",
+    "image_key": "image_url",
+    "input": {
+      "generate_type": "Normal",
+      "face_count": 40000,
+      "enable_pbr": false
+    }
+  },
+  {
+    "id": "gmi-h3d-i-normal-500k-pbr",
+    "provider": "gmi",
+    "model": "hunyuan-3d-pro",
+    "family": "gmi-hunyuan",
+    "price_usd": 0.375,
+    "mode": "image",
+    "image_key": "image_url",
+    "input": {
+      "generate_type": "Normal",
+      "face_count": 500000,
+      "enable_pbr": true
+    }
+  },
+  {
+    "id": "gmi-h3d-i-lowpoly",
+    "provider": "gmi",
+    "model": "hunyuan-3d-pro",
+    "family": "gmi-hunyuan",
+    "price_usd": 0.375,
+    "mode": "image",
+    "image_key": "image_url",
+    "input": {
+      "generate_type": "LowPoly",
+      "enable_pbr": false
+    }
+  },
+  {
+    "id": "gmi-h3d-t-normal-500k",
+    "provider": "gmi",
+    "model": "hunyuan-3d-pro",
+    "family": "gmi-hunyuan",
+    "price_usd": 0.375,
+    "mode": "text",
+    "input": {
+      "generate_type": "Normal",
+      "face_count": 500000,
+      "enable_pbr": false
+    }
+  },
+  {
+    "id": "hy31-pro",
+    "provider": "fal",
+    "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "mode": "image",
+    "family": "hunyuan",
+    "image_key": "input_image_url",
+    "input": {
+      "generate_type": "Normal"
+    },
+    "price_usd": 0.375,
+    "glb_paths": [
+      "model_glb.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "hy31-pro-pbr",
+    "provider": "fal",
+    "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "mode": "image",
+    "family": "hunyuan",
+    "image_key": "input_image_url",
+    "input": {
+      "generate_type": "Normal",
+      "enable_pbr": true
+    },
+    "price_usd": 0.525,
+    "glb_paths": [
+      "model_glb.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "hy31-pro-80k",
+    "provider": "fal",
+    "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "mode": "image",
+    "family": "hunyuan",
+    "image_key": "input_image_url",
+    "input": {
+      "generate_type": "Normal",
+      "face_count": 80000
+    },
+    "price_usd": 0.525,
+    "glb_paths": [
+      "model_glb.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "hy31-rapid",
+    "provider": "fal",
+    "model": "fal-ai/hunyuan-3d/v3.1/rapid/image-to-3d",
+    "mode": "image",
+    "family": "hunyuan",
+    "image_key": "input_image_url",
+    "input": {},
+    "price_usd": 0.225,
+    "glb_paths": [
+      "model_glb.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "hy3",
+    "provider": "fal",
+    "model": "fal-ai/hunyuan3d-v3/image-to-3d",
+    "mode": "image",
+    "family": "hunyuan",
+    "image_key": "input_image_url",
+    "input": {
+      "generate_type": "Normal"
+    },
+    "price_usd": 0.375,
+    "glb_paths": [
+      "model_glb.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "hy3-lowpoly",
+    "provider": "fal",
+    "model": "fal-ai/hunyuan3d-v3/image-to-3d",
+    "mode": "image",
+    "family": "hunyuan",
+    "image_key": "input_image_url",
+    "input": {
+      "generate_type": "LowPoly"
+    },
+    "price_usd": 0.45,
+    "glb_paths": [
+      "model_glb.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "hy2-mini-turbo",
+    "provider": "fal",
+    "model": "fal-ai/hunyuan3d/v2/mini/turbo",
+    "mode": "image",
+    "family": "hunyuan",
+    "image_key": "input_image_url",
+    "input": {
+      "textured_mesh": true
+    },
+    "price_usd": 0.24,
+    "glb_paths": [
+      "model_mesh.url"
+    ]
+  },
+  {
+    "id": "hy2-turbo",
+    "provider": "fal",
+    "model": "fal-ai/hunyuan3d/v2/turbo",
+    "mode": "image",
+    "family": "hunyuan",
+    "image_key": "input_image_url",
+    "input": {
+      "textured_mesh": true
+    },
+    "price_usd": 0.42,
+    "glb_paths": [
+      "model_mesh.url"
+    ]
+  },
+  {
+    "id": "trellis",
+    "provider": "fal",
+    "model": "fal-ai/trellis",
+    "mode": "image",
+    "family": "trellis",
+    "image_key": "image_url",
+    "input": {},
+    "price_usd": 0.02,
+    "glb_paths": [
+      "model_mesh.url"
+    ]
+  },
+  {
+    "id": "trellis2-512",
+    "provider": "fal",
+    "model": "fal-ai/trellis-2",
+    "mode": "image",
+    "family": "trellis",
+    "image_key": "image_url",
+    "input": {
+      "resolution": "512"
+    },
+    "price_usd": 0.25,
+    "glb_paths": [
+      "model_glb.url"
+    ]
+  },
+  {
+    "id": "trellis2-1024",
+    "provider": "fal",
+    "model": "fal-ai/trellis-2",
+    "mode": "image",
+    "family": "trellis",
+    "image_key": "image_url",
+    "input": {
+      "resolution": "1024"
+    },
+    "price_usd": 0.3,
+    "glb_paths": [
+      "model_glb.url"
+    ]
+  },
+  {
+    "id": "trellis2-1536",
+    "provider": "fal",
+    "model": "fal-ai/trellis-2",
+    "mode": "image",
+    "family": "trellis",
+    "image_key": "image_url",
+    "input": {
+      "resolution": "1536"
+    },
+    "price_usd": 0.35,
+    "glb_paths": [
+      "model_glb.url"
+    ]
+  },
+  {
+    "id": "trellis2-512-lite",
+    "provider": "fal",
+    "model": "fal-ai/trellis-2",
+    "mode": "image",
+    "family": "trellis",
+    "image_key": "image_url",
+    "input": {
+      "resolution": "512",
+      "decimation_target": 60000,
+      "texture_size": "1024"
+    },
+    "price_usd": 0.25,
+    "glb_paths": [
+      "model_glb.url"
+    ]
+  },
+  {
+    "id": "trellis2-1024-lite",
+    "provider": "fal",
+    "model": "fal-ai/trellis-2",
+    "mode": "image",
+    "family": "trellis",
+    "image_key": "image_url",
+    "input": {
+      "resolution": "1024",
+      "decimation_target": 100000,
+      "texture_size": "2048"
+    },
+    "price_usd": 0.3,
+    "glb_paths": [
+      "model_glb.url"
+    ]
+  },
+  {
+    "id": "rodin25",
+    "provider": "fal",
+    "model": "fal-ai/hyper3d/rodin/v2.5",
+    "mode": "image",
+    "family": "rodin",
+    "image_key": "image_urls[]",
+    "input": {
+      "geometry_file_format": "glb"
+    },
+    "price_usd": 0.4,
+    "glb_paths": [
+      "model_mesh.url"
+    ]
+  },
+  {
+    "id": "rodin25-fast",
+    "provider": "fal",
+    "model": "fal-ai/hyper3d/rodin/v2.5/fast",
+    "mode": "image",
+    "family": "rodin",
+    "image_key": "image_urls[]",
+    "input": {
+      "geometry_file_format": "glb"
+    },
+    "price_usd": 0.1,
+    "glb_paths": [
+      "model_mesh.url"
+    ]
+  },
+  {
+    "id": "rodin25-fast-low",
+    "provider": "fal",
+    "model": "fal-ai/hyper3d/rodin/v2.5/fast",
+    "mode": "image",
+    "family": "rodin",
+    "image_key": "image_urls[]",
+    "input": {
+      "geometry_file_format": "glb",
+      "tier": "Gen-2.5-Low",
+      "quality_mesh_option": "20K Triangle"
+    },
+    "price_usd": 0.1,
+    "glb_paths": [
+      "model_mesh.url"
+    ]
+  },
+  {
+    "id": "tripo-h31",
+    "provider": "fal",
+    "model": "tripo3d/h3.1/image-to-3d",
+    "mode": "image",
+    "family": "tripo",
+    "image_key": "image_url",
+    "input": {
+      "texture": true,
+      "pbr": true
+    },
+    "price_usd": 0.3,
+    "glb_paths": [
+      "model_mesh.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "tripo-p1",
+    "provider": "fal",
+    "model": "tripo3d/p1/image-to-3d",
+    "mode": "image",
+    "family": "tripo",
+    "image_key": "image_url",
+    "input": {
+      "texture": true
+    },
+    "price_usd": 0.5,
+    "glb_paths": [
+      "model_mesh.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "tripo-p2",
+    "provider": "fal",
+    "model": "tripo3d/p2/image-to-3d",
+    "mode": "image",
+    "family": "tripo",
+    "image_key": "image_url",
+    "input": {
+      "texture": true,
+      "pbr": true,
+      "texture_quality": "standard"
+    },
+    "price_usd": 1.1,
+    "glb_paths": [
+      "model_mesh.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "tripo-v25",
+    "provider": "fal",
+    "model": "tripo3d/tripo/v2.5/image-to-3d",
+    "mode": "image",
+    "family": "tripo",
+    "image_key": "image_url",
+    "input": {
+      "texture": "standard"
+    },
+    "price_usd": 0.3,
+    "glb_paths": [
+      "model_mesh.url",
+      "pbr_model.url",
+      "base_model.url"
+    ]
+  },
+  {
+    "id": "meshy71",
+    "provider": "fal",
+    "model": "meshy/v7.1/image-to-3d",
+    "mode": "image",
+    "family": "meshy",
+    "image_key": "image_url",
+    "input": {
+      "should_texture": true
+    },
+    "price_usd": 1.2,
+    "glb_paths": [
+      "model_glb.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "meshy-t25",
+    "provider": "fal",
+    "model": "meshy/t2.5/image-to-3d",
+    "mode": "image",
+    "family": "meshy",
+    "image_key": "image_url",
+    "input": {
+      "should_texture": true
+    },
+    "price_usd": 0.6,
+    "glb_paths": [
+      "model_glb.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "meshy6",
+    "provider": "fal",
+    "model": "fal-ai/meshy/v6/image-to-3d",
+    "mode": "image",
+    "family": "meshy",
+    "image_key": "image_url",
+    "input": {
+      "should_texture": true
+    },
+    "price_usd": 0.8,
+    "glb_paths": [
+      "model_glb.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "hi3d21",
+    "provider": "fal",
+    "model": "hitem3d/hi3d/image-to-3d",
+    "mode": "image",
+    "family": "other",
+    "image_key": "image_url",
+    "input": {
+      "model": "hitem3dv2.1",
+      "resolution": "1536fast",
+      "enable_texture": true,
+      "enable_pbr": true
+    },
+    "price_usd": 0.5,
+    "glb_paths": [
+      "model_mesh.url"
+    ]
+  },
+  {
+    "id": "sam3d",
+    "provider": "fal",
+    "model": "fal-ai/sam-3/3d-objects",
+    "mode": "image",
+    "family": "other",
+    "image_key": "image_url",
+    "input": {
+      "prompt": "miniature diorama",
+      "export_textured_glb": true
+    },
+    "price_usd": 0.02,
+    "glb_paths": [
+      "model_glb.url"
+    ]
+  },
+  {
+    "id": "moge3",
+    "provider": "fal",
+    "model": "microsoft/moge-3",
+    "mode": "image",
+    "family": "other",
+    "image_key": "image_url",
+    "input": {
+      "export_glb": true,
+      "export_ply": false
+    },
+    "price_usd": 0.015,
+    "glb_paths": [
+      "model_mesh.url"
+    ]
+  },
+  {
+    "id": "t2d-rodin25-fast",
+    "provider": "fal",
+    "model": "fal-ai/hyper3d/rodin/v2.5/text-to-3d/fast",
+    "mode": "text",
+    "family": "text-to-3d",
+    "input": {
+      "geometry_file_format": "glb"
+    },
+    "price_usd": 0.1,
+    "glb_paths": [
+      "model_mesh.url"
+    ]
+  },
+  {
+    "id": "t2d-tripo-h31",
+    "provider": "fal",
+    "model": "tripo3d/h3.1/text-to-3d",
+    "mode": "text",
+    "family": "text-to-3d",
+    "input": {
+      "texture": true,
+      "pbr": true
+    },
+    "price_usd": 0.2,
+    "glb_paths": [
+      "model_mesh.url",
+      "model_urls.glb.url"
+    ]
+  },
+  {
+    "id": "t2d-hy31-rapid",
+    "provider": "fal",
+    "model": "fal-ai/hunyuan-3d/v3.1/rapid/text-to-3d",
+    "mode": "text",
+    "family": "text-to-3d",
+    "max_prompt_chars": 200,
+    "input": {},
+    "price_usd": 0.225,
+    "glb_paths": [
+      "model_glb.url",
+      "model_urls.glb.url"
+    ]
+  }
+]

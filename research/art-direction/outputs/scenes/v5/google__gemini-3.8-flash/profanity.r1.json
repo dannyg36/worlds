@@ -1,0 +1,60 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "profanity",
+ "rep": 1,
+ "latency_s": 3.06,
+ "usage": {
+  "completion_tokens": 392,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1809,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2201
+ },
+ "cost_usd": 0.0028267500000000003,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Eating gas station nachos inside the car in the rain after getting it back from the tow yard.",
+  "elements": [
+   {
+    "name": "compact car",
+    "kind": "object",
+    "look": "a small dark blue sedan with glistening wet windshield and glowing warm interior light"
+   },
+   {
+    "name": "gas station nachos",
+    "kind": "object",
+    "look": "a clear plastic tray heaped with golden tortilla chips, melted orange cheese, and sliced green jalapeños"
+   },
+   {
+    "name": "person in the car",
+    "kind": "person",
+    "look": "a small figure in a damp gray hooded jacket seated behind the steering wheel"
+   },
+   {
+    "name": "rainy asphalt parking lot",
+    "kind": "place",
+    "look": "a glistening dark wet patch of ground reflecting amber pole lights with small puddles"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "rainy",
+  "mood": "wry absurd",
+  "palette": [
+   "#1f2a38",
+   "#d9822b",
+   "#e0b034",
+   "#4a6274"
+  ],
+  "scene": "A patch of dark wet asphalt glistening with reflective puddles fills the ground. At the center sits a compact dark blue car with wet glossy panels, its cozy interior glowing with warm golden cabin light. Through the clear front window, a small figure in a damp gray hooded jacket sits holding a plastic tray piled high with golden nachos covered in bright orange melted cheese. At the back right edge stands a tall metal light pole casting a warm amber glow over the rain-slicked surface.",
+  "title": "Gas Station Nachos",
+  "caption": "Eating gas station nachos in my car like a raccoon."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

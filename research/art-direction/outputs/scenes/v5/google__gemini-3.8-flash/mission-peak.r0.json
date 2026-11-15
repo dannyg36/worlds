@@ -1,0 +1,66 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "mission-peak",
+ "rep": 0,
+ "latency_s": 4.66,
+ "usage": {
+  "completion_tokens": 470,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1797,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2267
+ },
+ "cost_usd": 0.00311025,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Reaching the summit of Mission Peak at sunrise beside the iconic metal pole with dad.",
+  "elements": [
+   {
+    "name": "weird metal pole",
+    "kind": "object",
+    "look": "a tall weathered metal landmark pole adorned with small metal sights"
+   },
+   {
+    "name": "dad",
+    "kind": "person",
+    "look": "a small figure in a tan sun hat and olive green hiking jacket"
+   },
+   {
+    "name": "me",
+    "kind": "person",
+    "look": "a small figure in a navy windbreaker leaning on hiking poles"
+   },
+   {
+    "name": "grazing cow",
+    "kind": "animal",
+    "look": "a small black-and-white spotted cow calmly nibbling grass"
+   },
+   {
+    "name": "ripe tomatoes",
+    "kind": "object",
+    "look": "two bright red heirloom garden tomatoes resting on a flat rock"
+   }
+  ],
+  "time_of_day": "dawn",
+  "weather": "clear",
+  "mood": "triumphant",
+  "palette": [
+   "#E88D67",
+   "#F4D06F",
+   "#5B8A72",
+   "#8D99AE",
+   "#C84B31"
+  ],
+  "scene": "A steep grassy hilltop patch glows in warm apricot dawn light. At the center stands a weathered metal pole on a rocky mound, with two bright red garden tomatoes resting on a boulder at its base. To the right, a father in an olive jacket and tan hat stands beside a hiker in a navy windbreaker holding walking sticks. Along the sloping left edge, a tiny black-and-white cow grazes on dew-touched golden-green grass.",
+  "title": "Sunrise on Mission Peak",
+  "caption": "We reached the pole at sunrise, then talked tomatoes all the way down."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

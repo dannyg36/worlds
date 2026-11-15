@@ -1,0 +1,42 @@
+[
+  {
+    "day": "hackathon",
+    "device": "iPhone 15 Pro",
+    "browser": "WebKit 27.2 (software GL)",
+    "pageLoadS": 0.214,
+    "firstSortedFrameS": 4.538,
+    "webgl": "Apple GPU",
+    "lookChange": 27.3,
+    "walkChange": 31.65,
+    "tapTogglesHud": true,
+    "hud": [
+      "worlds · splats · hackathon · Hackathon: CPU pano world (0.72M)",
+      "3 fps · 100.0 ms (p95 100.0) · sort – ms × 0.0/s",
+      "0.72M splats (0.72M active) · LoD off · dpr 2 · 786x1318",
+      "Apple GPU · webgl2 · maxTex 16384 · cores 4",
+      "8.2 MB · dl 0.09 s · init 0.32 s · first sorted frame 1.94 s",
+      "iOS UA but S3TC/BC textures exposed: GPU looks like a Mac (simulator?)"
+    ],
+    "consoleErrors": []
+  },
+  {
+    "day": "santa-cruz",
+    "device": "iPhone 15 Pro",
+    "browser": "WebKit 27.2 (software GL)",
+    "pageLoadS": 0.294,
+    "firstSortedFrameS": 2.431,
+    "webgl": "Apple GPU",
+    "lookChange": 26.15,
+    "walkChange": 10.92,
+    "tapTogglesHud": true,
+    "hud": [
+      "worlds · splats · santa-cruz · Santa Cruz: CPU pano world (0.72M)",
+      "3 fps · 100.0 ms (p95 100.0) · sort – ms × 0.0/s",
+      "0.72M splats (0.72M active) · LoD off · dpr 2 · 786x1318",
+      "Apple GPU · webgl2 · maxTex 16384 · cores 4",
+      "7.6 MB · dl 0.09 s · init 0.36 s · first sorted frame 1.97 s",
+      "iOS UA but S3TC/BC textures exposed: GPU looks like a Mac (simulator?)"
+    ],
+    "consoleErrors": []
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "name": "worlds-3d-bakeoff",
+  "private": true,
+  "type": "module",
+  "description": "Benchmark harness for fal.ai image-to-3D endpoints: run, inspect, render, optimize.",
+  "scripts": {
+    "concept": "node concept.mjs",
+    "run": "node run.mjs",
+    "inspect": "node inspect.mjs",
+    "render": "node render.mjs",
+    "optimize": "node optimize.mjs"
+  },
+  "dependencies": {
+    "@gltf-transform/core": "4.5.1",
+    "@gltf-transform/extensions": "4.5.1",
+    "@gltf-transform/functions": "4.5.1",
+    "draco3dgltf": "1.5.9",
+    "meshoptimizer": "1.3.0",
+    "playwright-core": "1.65.1",
+    "sharp": "0.35.5",
+    "three": "0.187.0"
+  }
+}

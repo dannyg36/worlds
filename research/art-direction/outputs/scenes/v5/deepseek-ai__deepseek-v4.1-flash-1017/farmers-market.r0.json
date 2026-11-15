@@ -1,0 +1,73 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "farmers-market",
+ "rep": 0,
+ "latency_s": 2.07,
+ "usage": {
+  "prompt_tokens": 1835,
+  "completion_tokens": 453,
+  "total_tokens": 2288,
+  "prompt_tokens_details": {
+   "cached_tokens": 256
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.00065646,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "Eating the ugly but delicious peach galette on the balcony at golden hour.",
+  "elements": [
+   {
+    "name": "peach galette",
+    "kind": "object",
+    "look": "a rustic, lopsided golden galette with sliced peaches and a browned, folded crust, a little larger than life"
+   },
+   {
+    "name": "purple carrots",
+    "kind": "object",
+    "look": "a bundle of long deep-purple carrots with green fronds, tied with twine"
+   },
+   {
+    "name": "peaches and sourdough",
+    "kind": "object",
+    "look": "three fuzzy orange peaches and a round crusty sourdough loaf in a paper bag"
+   },
+   {
+    "name": "balcony",
+    "kind": "place",
+    "look": "a small tiled balcony with a low railing and a little round table"
+   },
+   {
+    "name": "mom on a phone",
+    "kind": "object",
+    "look": "a phone propped against a mug, its screen glowing warm with a tiny colorful kitchen"
+   },
+   {
+    "name": "old roommate in a blue jacket",
+    "kind": "person",
+    "look": "a small simple figure in a blue jacket carrying a market tote, near the back edge"
+   }
+  ],
+  "time_of_day": "golden hour",
+  "weather": "clear",
+  "mood": "warm proud",
+  "palette": [
+   "#F0B45A",
+   "#E8D8B8",
+   "#7A4E8C",
+   "#6E8B5A",
+   "#C97B4A"
+  ],
+  "scene": "A small tiled balcony patch with a low railing and a round table at the center. On the table sits the lopsided peach galette, a little larger than life, beside a paper bag of peaches and a crusty sourdough loaf. A bundle of deep-purple carrots leans at the front edge. A phone propped against a mug glows warm at the right, showing a tiny colorful kitchen. Near the back edge a small figure in a blue jacket holds a market tote. Honey-gold light washes the tiles and railing.",
+  "title": "Galette at Golden Hour",
+  "caption": "Ugly galette, golden balcony light, and Mom on the phone — perfect. We made it together. Mom and I made an ugly galette and ate it in the golden light."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": [
+  "caption_words=30"
+ ]
+}

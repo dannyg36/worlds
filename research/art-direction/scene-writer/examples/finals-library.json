@@ -1,0 +1,50 @@
+{
+ "transcript": "Long one. Spent like eleven hours in the library cramming for the organic chem final. Green desk lamps, huge windows, and it started snowing outside around four. Jake brought me hot chocolate. Pretty sure I memorized every reaction. Walked home through the snow at midnight and it was dead quiet.",
+ "model": "google/gemini-3.8-flash",
+ "latency_s": 3.64,
+ "spec": {
+  "status": "ok",
+  "moment": "Walking home through the quiet snow at midnight after cramming in the library.",
+  "elements": [
+   {
+    "name": "snowy sidewalk",
+    "kind": "place",
+    "look": "a narrow stone sidewalk dusted with soft white snow"
+   },
+   {
+    "name": "streetlamp",
+    "kind": "object",
+    "look": "a dark iron lamppost casting a warm amber glow"
+   },
+   {
+    "name": "paper cup of hot chocolate",
+    "kind": "object",
+    "look": "a small warm takeaway cup held in mittens"
+   },
+   {
+    "name": "figure in winter coat",
+    "kind": "person",
+    "look": "a small figure bundled in a dark navy puffer coat and knitted scarf"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "snowy",
+  "mood": "quiet relief",
+  "palette": [
+   "#1b263b",
+   "#e0e1dd",
+   "#d4a373",
+   "#415a77",
+   "#fefae0"
+  ],
+  "scene": "A narrow stone sidewalk dusted with powdery white snow stretches from front to back. In the center, a small bundled figure in a dark navy coat and grey scarf walks forward, holding a steaming takeaway cup in mittened hands. Small footprints trail behind them in the fresh snow. To the left, a tall dark iron lamppost glows with soft amber light, illuminating the ground. At the back edge sits the dark brick fragment of a sleeping townhouse with snowy steps.",
+  "title": "Snow at Midnight",
+  "caption": "Walked home in the dead quiet after eleven hours of chemistry."
+ },
+ "image_prompts": {
+  "clay": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A narrow stone sidewalk dusted with powdery white snow stretches from front to back. In the center, a small bundled figure in a dark navy coat and grey scarf walks forward, holding a steaming takeaway cup in mittened hands. Small footprints trail behind them in the fresh snow. To the left, a tall dark iron lamppost glows with soft amber light, illuminating the ground. At the back edge sits the dark brick fragment of a sleeping townhouse with snowy steps. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "lowpoly": "A low-poly 3D floating island: a small chunk of land built from faceted, flat-shaded polygons with crisp edges, its rocky underside tapering to a point, hovering in empty space. On the island: A narrow stone sidewalk dusted with powdery white snow stretches from front to back. In the center, a small bundled figure in a dark navy coat and grey scarf walks forward, holding a steaming takeaway cup in mittened hands. Small footprints trail behind them in the fresh snow. To the left, a tall dark iron lamppost glows with soft amber light, illuminating the ground. At the back edge sits the dark brick fragment of a sleeping townhouse with snowy steps. Clean stylized game-asset look: every element, including people, furniture, food and plants, is built from flat-shaded faceted polygons in soft pastel colors, with no realistic textures. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "miniature": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A narrow stone sidewalk dusted with powdery white snow stretches from front to back. In the center, a small bundled figure in a dark navy coat and grey scarf walks forward, holding a steaming takeaway cup in mittened hands. Small footprints trail behind them in the fresh snow. To the left, a tall dark iron lamppost glows with soft amber light, illuminating the ground. At the back edge sits the dark brick fragment of a sleeping townhouse with snowy steps. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "vinyl": "A designer vinyl toy playset: glossy, smooth molded plastic in soft candy colors, rounded chunky shapes and cute collectible figures with oversized heads and molded hair, arranged on a rounded display base. In the playset: A narrow stone sidewalk dusted with powdery white snow stretches from front to back. In the center, a small bundled figure in a dark navy coat and grey scarf walks forward, holding a steaming takeaway cup in mittened hands. Small footprints trail behind them in the fresh snow. To the left, a tall dark iron lamppost glows with soft amber light, illuminating the ground. At the back edge sits the dark brick fragment of a sleeping townhouse with snowy steps. Premium collectible product shot with soft highlights and no harsh reflections. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless soft neutral background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+ }
+}

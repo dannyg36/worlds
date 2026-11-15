@@ -1,0 +1,71 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "birthday-dinner",
+ "rep": 0,
+ "latency_s": 2.16,
+ "usage": {
+  "prompt_tokens": 1834,
+  "completion_tokens": 422,
+  "total_tokens": 2256,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.0006339599999999999,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "The waiters bring out a tiramisu with a sparkler and sing to Priya on the string-lit patio.",
+  "elements": [
+   {
+    "name": "tiramisu with a sparkler",
+    "kind": "object",
+    "look": "a small square tiramisu dusted with cocoa on a white plate, a bright sparkler fizzing gold sparks from its top"
+   },
+   {
+    "name": "long table",
+    "kind": "object",
+    "look": "one long wooden table crowded with pasta bowls, red wine glasses and crumpled napkins"
+   },
+   {
+    "name": "string lights",
+    "kind": "object",
+    "look": "warm glowing bulbs strung in loose loops overhead across the patio"
+   },
+   {
+    "name": "Priya",
+    "kind": "person",
+    "look": "a small figure in a yellow dress leaning toward the sparkler, hands near her cheeks"
+   },
+   {
+    "name": "the friends",
+    "kind": "person",
+    "look": "two small simple figures in a blue shirt and a green sweater, seated at the table"
+   },
+   {
+    "name": "guitar on the pier",
+    "kind": "object",
+    "look": "a small wooden guitar resting on a plank pier at the back edge"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "clear",
+  "mood": "warm celebration",
+  "palette": [
+   "#2B2A4A",
+   "#F2B347",
+   "#C8452F",
+   "#E8D9BE",
+   "#6E8B74"
+  ],
+  "scene": "A small stone patio patch with a wooden patio edge at the back, warm string lights looping overhead. In the center a long table holds pasta bowls and red wine glasses, and a tiramisu with a fizzing gold sparkler sits before a small figure in a yellow dress; two friends in blue and green sit beside her. A waiter in a white apron stands at the left. At the back edge, a sliver of wooden pier with a small guitar leans against a post, lit gold by the lamps.",
+  "title": "A Sparkler for Priya",
+  "caption": "Tiramisu, a sparkler, and all eight of us singing off-key for Priya."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

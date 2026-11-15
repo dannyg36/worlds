@@ -71,6 +71,15 @@ export default function RootLayout() {
                 sheetGrabberVisible: true,
               }}
             />
+            <Stack.Screen
+              name="world/[id]"
+              options={{
+                headerTransparent: true,
+                headerTitle: "",
+                headerTintColor: "#FFFFFF",
+                headerBackButtonDisplayMode: "minimal",
+              }}
+            />
           </Stack>
         </View>
       </ThemeProvider>

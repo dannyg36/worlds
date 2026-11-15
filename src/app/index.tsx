@@ -4,6 +4,7 @@ import { Alert, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api } from "../../convex/_generated/api";
+import type { Id } from "../../convex/_generated/dataModel";
 import type { FunctionReturnType } from "convex/server";
 import { HeroOrb } from "@/components/HeroOrb";
 import { HomeHeader } from "@/components/HomeHeader";
@@ -52,6 +53,7 @@ function useLiveFeed(): Feed {
   const addWorld = useMutation(api.worlds.add);
   const shareWorld = useMutation(api.sharing.share);
   const unshareWorld = useMutation(api.sharing.unshare);
+  const retryWorld = useMutation(api.worlds.retry);
   return {
     worlds: docs?.map(toFeedWorld),
     add: (transcript) => addWorld({ transcript }),
@@ -62,6 +64,14 @@ function useLiveFeed(): Feed {
       (doc.shared ? unshareWorld : shareWorld)({ worldId: doc._id }).catch((error) =>
         Alert.alert(
           doc.shared ? "Couldn't stop sharing" : "Couldn't share your world",
+          error instanceof Error ? error.message : String(error),
+        ),
+      );
+    },
+    retry: (id) => {
+      retryWorld({ id: id as Id<"worlds"> }).catch((error) =>
+        Alert.alert(
+          "Couldn't retry your world",
           error instanceof Error ? error.message : String(error),
         ),
       );

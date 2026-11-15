@@ -1,0 +1,71 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "rambling",
+ "rep": 0,
+ "latency_s": 4.28,
+ "usage": {
+  "completion_tokens": 534,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1901,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2435
+ },
+ "cost_usd": 0.00342825,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Sending the purple V4 climbing route on the steep overhang at the bouldering gym.",
+  "elements": [
+   {
+    "name": "climbing wall overhang",
+    "kind": "place",
+    "look": "an angled light gray climbing wall jutting inward with geometric facets"
+   },
+   {
+    "name": "purple holds",
+    "kind": "object",
+    "look": "chunky vibrant purple resin climbing holds arranged in a steep route"
+   },
+   {
+    "name": "padded crash mat",
+    "kind": "place",
+    "look": "thick seamless dark blue gym floor padding"
+   },
+   {
+    "name": "chalk bag",
+    "kind": "object",
+    "look": "a small teal chalk bag sitting beside a dusting of white chalk on the mat"
+   },
+   {
+    "name": "climber",
+    "kind": "person",
+    "look": "a climber in a rust-orange tank top reaching high along the purple holds"
+   },
+   {
+    "name": "climbing partner",
+    "kind": "person",
+    "look": "a friend in a navy t-shirt looking up from the mat with raised arms"
+   }
+  ],
+  "time_of_day": "dusk",
+  "weather": "clear",
+  "mood": "triumphant",
+  "palette": [
+   "#8A3FFC",
+   "#D85A32",
+   "#1E293B",
+   "#F1F5F9",
+   "#0EA5E9"
+  ],
+  "scene": "A thick dark blue padded gym mat covers the floor. At the back edge rises an angled light gray climbing wall that overhangs steeply forward. Across the wall, a bold route of chunky purple resin holds climbs diagonally upward. In the center, clinging to the overhanging wall, a small climber in an orange tank top reaches triumphant toward the top hold. Below on the mat, a small figure in navy looks up with cheering arms. To the right rests a teal chalk bag beside a dusting of white powder.",
+  "title": "Purple V4 on the Overhang",
+  "caption": "I finally sent the purple V4 on the overhang, first try."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

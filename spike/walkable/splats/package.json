@@ -1,0 +1,12 @@
+{
+  "name": "walkable-splats-tools",
+  "private": true,
+  "type": "module",
+  "description": "Pipeline scripts for the splats spike (serve.mjs and fetch-assets.mjs need no dependencies).",
+  "dependencies": {
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "playwright": "1.65.1"
+  }
+}

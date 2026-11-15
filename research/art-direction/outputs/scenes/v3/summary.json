@@ -1,0 +1,26 @@
+{
+ "google/gemini-3.8-flash": {
+  "n": 30,
+  "errors": 0,
+  "p50_s": 4.38,
+  "max_s": 9.99,
+  "cost_usd": 0.0923,
+  "with_issues": 3
+ },
+ "openai/gpt-6-luna": {
+  "n": 30,
+  "errors": 0,
+  "p50_s": 7.32,
+  "max_s": 9.2,
+  "cost_usd": 0.0097,
+  "with_issues": 2
+ },
+ "deepseek-ai/deepseek-v4.1-flash-1017": {
+  "n": 30,
+  "errors": 0,
+  "p50_s": 1.88,
+  "max_s": 2.26,
+  "cost_usd": 0.0181,
+  "with_issues": 14
+ }
+}

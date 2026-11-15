@@ -1,0 +1,66 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "sad",
+ "rep": 0,
+ "latency_s": 2.26,
+ "usage": {
+  "prompt_tokens": 1828,
+  "completion_tokens": 406,
+  "total_tokens": 2234,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.00062136,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "Sitting with Mochi in the sunny backyard under the lemon tree before saying goodbye.",
+  "elements": [
+   {
+    "name": "Mochi",
+    "kind": "animal",
+    "look": "a small elderly cream-colored dog with soft floppy ears, lying calm and curled in a patch of sun"
+   },
+   {
+    "name": "lemon tree",
+    "kind": "place",
+    "look": "a low lemon tree with glossy green leaves and a few round yellow lemons, dappled shade beneath it"
+   },
+   {
+    "name": "sunny backyard grass",
+    "kind": "place",
+    "look": "a small patch of soft green lawn with warm golden light pooling across it"
+   },
+   {
+    "name": "woven blanket",
+    "kind": "object",
+    "look": "a soft pale blue blanket spread on the grass beside the dog"
+   },
+   {
+    "name": "two people",
+    "kind": "person",
+    "look": "two small seated figures, one in a rust-orange sweater and one in a soft grey cardigan, sitting close together on the grass"
+   }
+  ],
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "mood": "tender quiet",
+  "palette": [
+   "#E8C766",
+   "#7FA05A",
+   "#F2E3C2",
+   "#B96B45",
+   "#9FB8C9"
+  ],
+  "scene": "A small patch of soft green lawn fills the ground, warm afternoon sun pooling across it. At the center, a small elderly cream-colored dog lies curled on a pale blue blanket, a little larger than life. Just behind her, a low lemon tree with glossy leaves and a few round yellow lemons casts gentle dappled shade. Two small seated figures, one in a rust-orange sweater and one in a grey cardigan, sit close together on the grass at the front left, facing the dog. A single tall garden window of a house rises at the back edge, its glass glowing warm gold.",
+  "title": "Under the Lemon Tree",
+  "caption": "We sat with Mochi in the sun, under her lemon tree, one last time. "
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

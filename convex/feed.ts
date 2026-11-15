@@ -1,7 +1,7 @@
 import { query } from "./_generated/server";
-import { getProfile, listFriendTokenIdentifiers } from "./profiles";
-
-const FEED_SIZE = 50;
+import { listAccessibleWorlds } from "./access";
+import { getProfile } from "./profiles";
+import { present } from "./worlds";
 
 /** Your own worlds and the worlds your friends shared, newest first. */
 export const list = query({
@@ -12,29 +12,7 @@ export const list = query({
       return [];
     }
     const viewer = identity.tokenIdentifier;
-    const friends = await listFriendTokenIdentifiers(ctx, viewer);
-    const sources = await Promise.all([
-      ctx.db
-        .query("worlds")
-        .withIndex("by_ownerTokenIdentifier", (q) =>
-          q.eq("ownerTokenIdentifier", viewer),
-        )
-        .order("desc")
-        .take(FEED_SIZE),
-      ...friends.map((friend) =>
-        ctx.db
-          .query("worlds")
-          .withIndex("by_ownerTokenIdentifier_and_shared", (q) =>
-            q.eq("ownerTokenIdentifier", friend).eq("shared", true),
-          )
-          .order("desc")
-          .take(FEED_SIZE),
-      ),
-    ]);
-    const worlds = sources
-      .flat()
-      .sort((a, b) => b._creationTime - a._creationTime)
-      .slice(0, FEED_SIZE);
+    const worlds = await listAccessibleWorlds(ctx);
     const authors = new Map(
       await Promise.all(
         [...new Set(worlds.map((world) => world.ownerTokenIdentifier))].map(
@@ -43,13 +21,12 @@ export const list = query({
         ),
       ),
     );
-    return worlds.map((world) => ({
-      _id: world._id,
-      _creationTime: world._creationTime,
-      transcript: world.transcript,
-      shared: world.shared === true,
-      mine: world.ownerTokenIdentifier === viewer,
-      authorName: authors.get(world.ownerTokenIdentifier) ?? "Someone",
-    }));
+    return await Promise.all(
+      worlds.map(async (world) => ({
+        ...(await present(ctx, world)),
+        mine: world.ownerTokenIdentifier === viewer,
+        authorName: authors.get(world.ownerTokenIdentifier) ?? "Someone",
+      })),
+    );
   },
 });

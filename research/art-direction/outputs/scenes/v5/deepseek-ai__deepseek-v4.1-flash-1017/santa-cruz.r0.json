@@ -1,0 +1,73 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "santa-cruz",
+ "rep": 0,
+ "latency_s": 2.23,
+ "usage": {
+  "prompt_tokens": 1837,
+  "completion_tokens": 495,
+  "total_tokens": 2332,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.00068706,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "Eating clam chowder in a bread bowl on the wharf while sea lions bark below and surfers ride the waves in the afternoon sun.",
+  "elements": [
+   {
+    "name": "clam chowder in a bread bowl",
+    "kind": "object",
+    "look": "a round sourdough bowl filled with creamy white chowder, a wooden spoon resting in it, sitting on a weathered wooden table"
+   },
+   {
+    "name": "sea lions",
+    "kind": "animal",
+    "look": "three glossy brown sea lions with whiskered snouts, mouths open mid-bark, heaped on a floating wooden dock"
+   },
+   {
+    "name": "surfers",
+    "kind": "person",
+    "look": "a few tiny figures in dark wetsuits on bright boards, standing in the surf at the back edge"
+   },
+   {
+    "name": "rented bikes",
+    "kind": "object",
+    "look": "two cheerful red cruiser bikes leaning together"
+   },
+   {
+    "name": "Maya",
+    "kind": "person",
+    "look": "a small simple figure in a yellow sundress and sun hat, seated across the table"
+   },
+   {
+    "name": "wharf planks",
+    "kind": "place",
+    "look": "sun-warmed gray wooden planks with rope railings and weathered pilings at the edge"
+   }
+  ],
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "mood": "sunny salty",
+  "palette": [
+   "#E9C46A",
+   "#4A90A4",
+   "#8FB8C9",
+   "#C97B4A",
+   "#F2E3C6"
+  ],
+  "scene": "A sun-warmed wooden wharf patch with rope railings, the cream chowder in its bread bowl on a small table at the center, a wooden spoon in it. Maya in a yellow sundress sits across from it, and two red cruiser bikes lean at the left. At the right edge, three brown sea lions crowd a floating dock, mouths open. At the back edge, tiny wetsuited surfers stand in painted blue surf, and a low slice of pale cliff rises behind them. Afternoon light glows gold on the planks.",
+  "title": "Chowder on the Wharf",
+  "caption": "Fog burned off, sea lions yelling, chowder in a bread bowl with Maya."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": [
+  "name_in_scene:Maya"
+ ]
+}

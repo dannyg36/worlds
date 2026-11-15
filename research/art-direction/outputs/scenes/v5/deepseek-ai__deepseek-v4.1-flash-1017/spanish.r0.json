@@ -1,0 +1,71 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "spanish",
+ "rep": 0,
+ "latency_s": 1.99,
+ "usage": {
+  "prompt_tokens": 1828,
+  "completion_tokens": 440,
+  "total_tokens": 2268,
+  "prompt_tokens_details": {
+   "cached_tokens": 1536
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.00064584,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "Making tamales all afternoon with my grandmother in her kitchen while old boleros played on the radio.",
+  "elements": [
+   {
+    "name": "abuela",
+    "kind": "person",
+    "look": "a small elderly woman in a pale blue apron and a soft lilac cardigan, hair in a low bun, standing at the table folding corn husks"
+   },
+   {
+    "name": "tamales",
+    "kind": "object",
+    "look": "a plump stack of finished tamales wrapped in pale green corn husks, one open to show golden masa"
+   },
+   {
+    "name": "corn husks",
+    "kind": "object",
+    "look": "a loose fan of dry pale-green corn husks spread across a worn wooden table"
+   },
+   {
+    "name": "yellow flowers",
+    "kind": "object",
+    "look": "a bunch of bright yellow blooms wrapped in brown paper, a few petals fallen on the counter"
+   },
+   {
+    "name": "mangos",
+    "kind": "object",
+    "look": "three ripe mangos, one cut open showing orange flesh, in a small woven basket"
+   },
+   {
+    "name": "radio",
+    "kind": "object",
+    "look": "a small old radio with a warm glowing dial and a round speaker, on a shelf beside the stove"
+   }
+  ],
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "mood": "warm tender",
+  "palette": [
+   "#F2C14E",
+   "#E8A33D",
+   "#8FB573",
+   "#C9D9E3",
+   "#B5651D"
+  ],
+  "scene": "A small patch of warm terracotta kitchen floor with a worn wooden work table at its center, where a grandmother in a lilac cardigan and pale blue apron folds pale green corn husks beside a stack of finished tamales, one open to show golden masa. To the left a woven basket holds three mangos, one cut orange; at the front a paper-wrapped bunch of yellow flowers rests with loose petals on the counter. At the back edge a stove fragment and a shelf with a small radio glowing amber, afternoon sun falling in a warm stripe across the table.",
+  "title": "Tamales en la Cocina",
+  "caption": "Hicimos tamales toda la tarde mientras la radio cantaba boleros. "
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

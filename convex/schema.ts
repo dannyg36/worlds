@@ -1,11 +1,13 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { generationRuns, worldGenerationFields } from "./generation/tables";
 
 export default defineSchema({
   worlds: defineTable({
     ownerTokenIdentifier: v.string(),
     transcript: v.string(),
     shared: v.optional(v.boolean()),
+    ...worldGenerationFields,
   })
     .index("by_ownerTokenIdentifier", ["ownerTokenIdentifier"])
     .index("by_ownerTokenIdentifier_and_shared", [
@@ -29,4 +31,5 @@ export default defineSchema({
     "tokenIdentifier",
     "friendTokenIdentifier",
   ]),
+  generationRuns,
 });

@@ -1,0 +1,73 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "hackathon",
+ "rep": 0,
+ "latency_s": 2.24,
+ "usage": {
+  "prompt_tokens": 1837,
+  "completion_tokens": 422,
+  "total_tokens": 2259,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.0006344999999999999,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "The team's first world finally renders at sunset, and everyone screams around the crowded table by the window.",
+  "elements": [
+   {
+    "name": "the first rendered world",
+    "kind": "object",
+    "look": "a small glowing globe of tiny hills and trees hovering on a laptop screen, warm light spilling out"
+   },
+   {
+    "name": "the crowded table by the window",
+    "kind": "place",
+    "look": "a long wooden table pushed against a tall window, cluttered with laptops and cables"
+   },
+   {
+    "name": "the team",
+    "kind": "person",
+    "look": "three small simple figures in hoodies and t-shirts, one in a red cap, arms up mid-cheer"
+   },
+   {
+    "name": "slim silver energy-drink cans",
+    "kind": "object",
+    "look": "a cluster of tall slim silver cans, some tipped over, catching the sunset"
+   },
+   {
+    "name": "cold pizza",
+    "kind": "object",
+    "look": "an open cardboard box with a few pale slices on the floor at the front"
+   },
+   {
+    "name": "Danny",
+    "kind": "person",
+    "look": "a small figure in a blue sweater leaning over the table, one hand pointing at the screen"
+   }
+  ],
+  "time_of_day": "sunset",
+  "weather": "clear",
+  "mood": "electric relief",
+  "palette": [
+   "#F2A65A",
+   "#3B4A6B",
+   "#E8DCC8",
+   "#8C9BA5",
+   "#D94F3D"
+  ],
+  "scene": "A patch of grey office carpet holds a long wooden table pushed to a tall window at the back, orange sunset light pouring through it. At the center the table is crowded with laptops, one screen glowing with a tiny colorful world of hills and trees. Three small cheering figures in hoodies stand around it, one in a red cap, another in a blue sweater pointing. Slim silver cans scatter across the tabletop. At the front, an open pizza box with pale slices sits on the floor, its cardboard flaps folded back.",
+  "title": "First World Renders",
+  "caption": "We screamed when the first little world lit up at sunset. Cold pizza never tasted better."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": [
+  "caption_words=16"
+ ]
+}

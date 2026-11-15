@@ -1,0 +1,73 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "dolores-park",
+ "rep": 0,
+ "latency_s": 2.27,
+ "usage": {
+  "prompt_tokens": 1830,
+  "completion_tokens": 451,
+  "total_tokens": 2281,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.0006541199999999999,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "Sitting on the sunny park hill with my sister, splitting a burrito while Biscuit guards his tennis ball and frisbee players drift across the slope.",
+  "elements": [
+   {
+    "name": "Biscuit",
+    "kind": "animal",
+    "look": "a scruffy tan terrier-mix dog, ears perked, a slightly chewed yellow tennis ball held proudly in his mouth"
+   },
+   {
+    "name": "the burrito",
+    "kind": "object",
+    "look": "a fat foil-wrapped burrito split open in the middle, halves resting on a paper wrapper"
+   },
+   {
+    "name": "my sister",
+    "kind": "person",
+    "look": "a small simple figure in a red sweater sitting cross-legged on the grass"
+   },
+   {
+    "name": "the sunny park hill",
+    "kind": "place",
+    "look": "a rounded grassy hill with palm trees along the back edge and a strip of city rooftops beyond them"
+   },
+   {
+    "name": "frisbee players",
+    "kind": "person",
+    "look": "two tiny figures in blue and yellow shirts at the back edge of the hill, one arm raised toward a small white disc"
+   },
+   {
+    "name": "the tennis ball",
+    "kind": "object",
+    "look": "a bright yellow-green tennis ball, scuffed and slightly wet with dog slobber"
+   }
+  ],
+  "time_of_day": "morning",
+  "weather": "clear",
+  "mood": "lazy sunny",
+  "palette": [
+   "#8FC24A",
+   "#F2C94C",
+   "#D96B4A",
+   "#BFE3F0",
+   "#6B8F3E"
+  ],
+  "scene": "A rounded grassy hill fills a small patch of ground, palm trees and a low strip of pale city rooftops at the back edge. At the center a scruffy tan dog sits with a yellow tennis ball in his mouth, a fat split burrito on paper beside him. A small figure in a red sweater sits cross-legged on the grass at the right, and two tiny figures in blue and yellow toss a white disc at the back edge. Morning light warms the grass, wind-bent blades leaning across the slope.",
+  "title": "Biscuit on the Park Hill",
+  "caption": "Biscuit found a tennis ball and we split a burrito in the sun. Perfect lazy Sunday. "
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": [
+  "caption_words=16"
+ ]
+}

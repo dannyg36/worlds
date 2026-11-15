@@ -1,0 +1,73 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "mission-peak",
+ "rep": 0,
+ "latency_s": 2.24,
+ "usage": {
+  "prompt_tokens": 1829,
+  "completion_tokens": 394,
+  "total_tokens": 2223,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.0006128999999999999,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "Reaching the summit at sunrise with dad, standing by the odd metal pole after a steep climb.",
+  "elements": [
+   {
+    "name": "summit with the metal pole",
+    "kind": "place",
+    "look": "a bare rocky hilltop with one tall crooked grey metal pole standing at the center"
+   },
+   {
+    "name": "dad",
+    "kind": "person",
+    "look": "a small simple figure of a dad in a green cap and grey jacket"
+   },
+   {
+    "name": "cows",
+    "kind": "animal",
+    "look": "a few friendly brown-and-white cows grazing on the slope"
+   },
+   {
+    "name": "red diner booths",
+    "kind": "object",
+    "look": "a small fragment of a diner booth with glossy red seats at the back edge"
+   },
+   {
+    "name": "stack of pancakes",
+    "kind": "object",
+    "look": "a warm stack of pancakes with a pat of butter on a plate"
+   },
+   {
+    "name": "garden tomatoes",
+    "kind": "object",
+    "look": "a few plump red tomatoes resting in a small basket"
+   }
+  ],
+  "time_of_day": "sunset",
+  "weather": "clear",
+  "mood": "triumphant tired",
+  "palette": [
+   "#E8A25C",
+   "#C4572F",
+   "#6E8B5A",
+   "#8C99A6",
+   "#3F4A6B"
+  ],
+  "scene": "A small rocky hilltop patch of dry grass and stone, one tall crooked grey metal pole standing at its center. Below and around it the slope falls away, dotted with a few brown-and-white cows grazing. A dad in a green cap stands beside the pole, one small figure with arms up. At the back edge sits a fragment of a diner booth with glossy red seats, a plate of pancakes and a basket of red tomatoes. Warm orange sunset light glows on the stone and shines along the pole.",
+  "title": "The Pole at Sunrise",
+  "caption": "We made it to the top by sunrise, five stops and all. Good morning, Dad."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": [
+  "caption_words=15"
+ ]
+}
