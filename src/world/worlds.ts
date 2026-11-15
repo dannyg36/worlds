@@ -1,6 +1,7 @@
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 
 import { api } from "../../convex/_generated/api";
+import type { Id } from "../../convex/_generated/dataModel";
 import {
   fixtureWorldsEnabled,
   isFixtureWorldId,
@@ -52,13 +53,12 @@ export function useWorld(id: string): World | null | undefined {
 }
 
 export function useRetryWorld(): (id: string) => Promise<void> {
+  const retry = useMutation(api.worlds.retry);
   return async (id) => {
     if (isFixtureWorldId(id)) {
       return retryFixtureWorld(id);
     }
-    throw new Error(
-      "Retrying needs the generation pipeline, which hasn't shipped yet.",
-    );
+    await retry({ id: id as Id<"worlds"> });
   };
 }
 
