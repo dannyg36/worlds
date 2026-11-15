@@ -649,7 +649,9 @@ function surfboard(p, ctx) {
   const upright = p.upright === true || p.pose === "upright" || p.pose === "stand";
   // Sphere with its poles at nose and tail, so the deck has a clean centre line for a crisp stripe.
   const geo = SP(16, 24).rotateX(Math.PI / 2);
-  const P = geo.attributes.position;
+  const P = geo.attributes.position, ang = new Float32Array(P.count);
+  for (let i = 0; i < P.count; i++) ang[i] = Math.abs(Math.atan2(P.getX(i), P.getY(i)));
+  geo.setAttribute("ang", new THREE.BufferAttribute(ang, 1));
   for (let i = 0; i < P.count; i++) {
     let x = P.getX(i), y = P.getY(i), z = P.getZ(i);
     x *= z > 0 ? 1 - 0.5 * z * z : 1 - 0.15 * z * z;
@@ -657,11 +659,11 @@ function surfboard(p, ctx) {
     P.setXYZ(i, (x * Wd) / 2, (y * T) / 2 + 0.07 * Math.pow(Math.max(0, z), 4), (z * L) / 2);
   }
   geo.computeVertexNormals();
-  const flat = geo.toNonIndexed(), Q = flat.attributes.position, col = new Float32Array(Q.count * 3);
+  // Stripe = the two face columns either side of the deck's centre line.
+  const flat = geo.toNonIndexed(), A = flat.attributes.ang, col = new Float32Array(A.count * 3);
   const C = new THREE.Color(c), S = new THREE.Color("#f6f1e6");
-  for (let i = 0; i < Q.count; i += 3) {
-    const cx = (Q.getX(i) + Q.getX(i + 1) + Q.getX(i + 2)) / 3, cy = (Q.getY(i) + Q.getY(i + 1) + Q.getY(i + 2)) / 3;
-    const k = cy > 0 && Math.abs(cx) < Wd * 0.1 ? S : C;
+  for (let i = 0; i < A.count; i += 3) {
+    const k = Math.max(A.getX(i), A.getX(i + 1), A.getX(i + 2)) < 0.4 ? S : C;
     for (let j = 0; j < 3; j++) col.set([k.r, k.g, k.b], (i + j) * 3);
   }
   flat.setAttribute("color", new THREE.BufferAttribute(col, 3));

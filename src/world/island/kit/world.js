@@ -294,7 +294,8 @@ export async function createWorld(container, spec, opts = {}) {
     const make = registry[obj.type];
     let built;
     const ctx = {
-      rand: rng(Math.floor((obj.at?.[0] ?? 0) * 1000 + (obj.at?.[1] ?? 0) * 7919 + stats.objects * 31)),
+      // A cast member gets the same random details (cap colour, shoes, sleeves) in every vignette.
+      rand: obj.who ? rng([...String(obj.who)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7)) : rng(Math.floor((obj.at?.[0] ?? 0) * 1000 + (obj.at?.[1] ?? 0) * 7919 + stats.objects * 31)),
       time: spec.time,
       palette: spec.palette ?? [],
       cast,

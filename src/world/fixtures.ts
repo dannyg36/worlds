@@ -1,5 +1,13 @@
 import { useSyncExternalStore } from "react";
 
+import birthdayDinner from "./island/samples/birthday-dinner.json";
+import doloresPark from "./island/samples/dolores-park.json";
+import farmersMarket from "./island/samples/farmers-market.json";
+import finalsLibrary from "./island/samples/finals-library.json";
+import hackathon from "./island/samples/hackathon.json";
+import missionPeak from "./island/samples/mission-peak.json";
+import rainyMonday from "./island/samples/rainy-monday.json";
+import santaCruz from "./island/samples/santa-cruz.json";
 import type { World } from "./worlds";
 
 export const fixtureWorldsEnabled = process.env.EXPO_PUBLIC_FIXTURES === "1";
@@ -10,8 +18,16 @@ const khronos =
 type Fixture = Omit<World, "_creationTime"> & { daysAgo: number };
 
 // Island specs synced into ./island/samples by `npm run sync:island`, by fixture id.
-// Import each sample that exists, e.g. `"fixture-birthday-dinner": birthdayDinner`.
-const islands: Record<string, { title?: string; caption?: string }> = {};
+const islands: Record<string, { title?: string; caption?: string }> = {
+  "fixture-hackathon": hackathon,
+  "fixture-santa-cruz": santaCruz,
+  "fixture-rainy-monday": rainyMonday,
+  "fixture-dolores-park": doloresPark,
+  "fixture-birthday-dinner": birthdayDinner,
+  "fixture-finals-library": finalsLibrary,
+  "fixture-mission-peak": missionPeak,
+  "fixture-farmers-market": farmersMarket,
+};
 
 const days: Fixture[] = [
   {

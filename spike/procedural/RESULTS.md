@@ -1,3 +1,54 @@
+# Islands: a whole day as one island (current approach)
+
+Each world is now an island with 4 or 5 vignettes, one per moment of the day, in order, joined by a trail. The hero moment sits at the front, a landmark stands in the middle, and every empty patch of ground is filled automatically. The format and the scene writer's prompt are in `ISLAND.md`. Start with `results/sheet-islands.jpg`: 8 demo days from the front and from behind.
+
+## How a world is made
+1. **Outline:** Claude Opus 5.5 (`claude-opus-5-5`) writes the island outline from the voice note: title, caption, palette, time of day, biome, landmark, a cast with fixed looks, and 4 or 5 vignette briefs.
+2. **Vignettes:** one Claude call per vignette, all in parallel, places objects from the kit (75 types) and writes small three.js functions (`custom` objects) for details the kit lacks: sea lions, a cat drawn in latte foam, the Mission Peak pole, the Ferry Building clock tower.
+3. **Checks:** every vignette is validated, gets one repair call if it fails, and anything still invalid is dropped rather than failing the world.
+4. **Render:** `world.js` builds the island.
+   - **Terrain:** `island.js` builds the plots, trail, beach, cliffs and sea.
+   - **Vignettes:** each one is placed on its plot.
+   - **Filler:** `scatter.js` plants about 1,000 instanced items, in 12–27 draw calls.
+   - **Draw calls:** plain materials are baked into vertex colours and merged by material, so a full island is 360–790 draw calls including the shadow and AO passes. Without merging the hackathon island was 4,877.
+
+## Numbers
+**Writing a world with Claude Opus 5.5** (`island-gen.mjs`, measured):
+
+| Step | Time |
+| --- | --- |
+| Outline | 11–13 s |
+| Slowest vignette, all running in parallel | about 21 s |
+| Total | 33–48 s |
+
+- **Cost:** $0.25–0.32 per world; about 90% of it is output tokens.
+- **Prompt caching:** `ISLAND.md` is a 4.5k-token cached system prompt, so the parallel calls read it from cache.
+- **Gemini 3.8 Flash on GMI:** 25 s and $0.06, but it loses detail (one run dropped the eight diners).
+- **Parallel-call fix:** Node's built-in fetch ran the parallel calls one at a time over a shared HTTP/2 connection (90–105 s). `island-gen.mjs` forces HTTP/1.1. The Convex pipeline needs checking for the same thing after the first deploy.
+
+**Rendering:** 160–230 ms to build an island in headless Chrome on a Mac. Not yet measured on a real iPhone; the app uses `quality: "low"` (no GTAO or SMAA, half-resolution bloom).
+
+## In the app
+- **Pipeline** (`convex/pipeline.ts`): `dreaming` writes the island with Claude and stores it as `scene` (a JSON string) along with `title`, `caption` and `palette`. Then `painting` makes the feed thumbnail on GMI, and the world goes `ready`. A failed thumbnail no longer fails a world that has a scene. Sculpting (image-to-3D) is off.
+- **World screen** (`src/app/world/[id].tsx`): renders `IslandViewer` (`src/world/island-viewer.tsx`, an Expo DOM component around `createWorld`) as soon as `scene` exists, even before the thumbnail is done.
+- **Samples:** `src/world/fixtures.ts` gives all 8 sample days their island when `EXPO_PUBLIC_FIXTURES=1`.
+- **Sync:** `npm run sync:island` copies the kit and the demo islands into `src/world/island/` and regenerates `convex/generation/islandPrompt.ts` from `ISLAND.md`. Run it after changing anything in `spike/procedural`.
+
+## To turn on live generation
+```bash
+npx convex env set ANTHROPIC_API_KEY <key>     # GMI_API_KEY is still needed for the thumbnail
+npx convex dev --once                         # pushes functions and regenerates convex/_generated
+```
+Use your own dev deployment, not the one the team's phones use.
+
+## Known gaps
+- **No phone test yet:** FPS and memory on a real iPhone haven't been measured.
+- **Backs of buildings:** shop fronts are plain from behind, and back vignettes show their walls to the default camera until you orbit.
+- **Bright scenes:** noon beach scenes wash out a little.
+- **Cast colours:** a cast member's colours override per-vignette `skin`/`shirt` on purpose; for one-off looks (a sunburn), use a custom overlay.
+
+---
+
 # Procedural dioramas: an LLM writes the scene, three.js builds it
 
 Spike from 2026-11-15. The question: instead of turning a concept image into a mesh (image-to-3D melts small things and hallucinates the back), can an LLM write a scene spec that a kit of hand-made three.js parts renders as a dense, orbitable diorama, fast enough for the one-minute pipeline?

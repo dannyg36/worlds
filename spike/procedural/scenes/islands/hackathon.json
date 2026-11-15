@@ -30,7 +30,7 @@
       "shirt": "#c0392b",
       "pants": "#5a5a5a",
       "hair": "#151515",
-      "hairStyle": "cap"
+      "hairStyle": "curly"
     },
     {
       "name": "teammate-1",
@@ -87,7 +87,7 @@
           "name": "redBullDolly",
           "at": [
             -0.75,
-            -0.75
+            -0.7
           ],
           "rot": 25,
           "code": "const g = k.group();\nconst steel = k.mat('#c3c7ce', { metal: 0.6, rough: 0.35 }), tyre = k.mat('#222226');\nconst blue = k.mat('#1d3f94'), silver = k.mat('#d9dde3', { metal: 0.3, rough: 0.4 });\nconst red = k.mat('#d4213d'), yel = k.mat('#f2c230');\nfor (const x of [-0.2, 0.2]) k.put(g, k.cyl(0.018, 0.018, 1.25, steel), x, 0.66, -0.19);\nk.put(g, k.tube([[-0.2, 1.26, -0.19], [0, 1.36, -0.21], [0.2, 1.26, -0.19]], 0.018, steel), 0, 0, 0);\nk.put(g, k.box(0.46, 0.03, 0.3, steel), 0, 0.03, -0.02);\nfor (const x of [-0.27, 0.27]) k.put(g, k.cyl(0.1, 0.1, 0.06, tyre), x, 0.1, -0.2, 0, 0, Math.PI / 2);\nfor (let i = 0; i < 4; i++) {\n  const y = 0.15 + i * 0.25, tilt = (k.rand() - 0.5) * 0.12;\n  k.put(g, k.rbox(0.42, 0.24, 0.3, i % 2 ? silver : blue, 0.02), 0, y, -0.02, 0, tilt, 0);\n  k.put(g, k.cyl(0.055, 0.055, 0.012, yel), 0.05, y, 0.135, Math.PI / 2, 0, 0);\n  k.put(g, k.box(0.16, 0.05, 0.012, red), -0.06, y - 0.02, 0.14, 0, 0, 0.1);\n}\nreturn g;"
@@ -96,8 +96,8 @@
           "type": "custom",
           "name": "sandwichBoard",
           "at": [
-            1.35,
-            0.3
+            1.3,
+            0.45
           ],
           "rot": -25,
           "code": "const g = k.group();\nconst wood = k.mat('#9a6a44'), slate = k.mat('#2e3430'), chalk = k.mat('#f4f1e6'), orange = k.mat('#f26522');\nfor (const s of [1, -1]) {\n  const p = k.group();\n  k.put(g, p, 0, 0.44, 0.11 * s, -0.22 * s, s < 0 ? Math.PI : 0, 0);\n  k.put(p, k.rbox(0.58, 0.9, 0.04, wood, 0.02), 0, 0, 0);\n  k.put(p, k.box(0.48, 0.66, 0.012, slate), 0, -0.05, 0.022);\n  k.put(p, k.box(0.18, 0.18, 0.016, orange), 0, 0.15, 0.03);\n  k.put(p, k.box(0.032, 0.07, 0.02, chalk), 0, 0.12, 0.035);\n  k.put(p, k.box(0.03, 0.07, 0.02, chalk), -0.026, 0.175, 0.035, 0, 0, 0.6);\n  k.put(p, k.box(0.03, 0.07, 0.02, chalk), 0.026, 0.175, 0.035, 0, 0, -0.6);\n  for (let i = 0; i < 3; i++) k.put(p, k.box(0.34 - i * 0.07, 0.022, 0.016, chalk), -i * 0.02, -0.04 - i * 0.09, 0.03);\n  k.put(p, k.box(0.12, 0.05, 0.016, k.mat('#f2c230')), 0.12, -0.3, 0.03, 0, 0, 0.1);\n}\nreturn g;"
@@ -108,28 +108,28 @@
           "pose": "walk",
           "holding": "phone",
           "at": [
-            0.1,
-            -0.2
+            0.15,
+            0.35
           ],
-          "rot": 160
+          "rot": 165
         },
         {
           "type": "person",
           "who": "teammate-1",
           "pose": "wave",
           "at": [
-            0.75,
-            -0.9
+            0.7,
+            -0.85
           ],
-          "rot": -20
+          "rot": -15
         },
         {
           "type": "person",
           "who": "teammate-2",
           "pose": "walk",
           "at": [
-            1.25,
-            -0.45
+            1.15,
+            -0.25
           ],
           "rot": -140
         },
@@ -155,7 +155,7 @@
           "type": "bike",
           "at": [
             2,
-            -0.35
+            -0.45
           ],
           "rot": 8,
           "color": "#1d3f94"
@@ -163,17 +163,17 @@
         {
           "type": "bike",
           "at": [
-            1.75,
-            -0.95
+            -2.05,
+            0.55
           ],
-          "rot": 14,
+          "rot": -10,
           "color": "#f26522"
         },
         {
           "type": "lamp-post",
           "at": [
-            1.85,
-            0.95
+            1.9,
+            0.9
           ],
           "height": 2.6
         },
@@ -182,9 +182,9 @@
           "id": "bench",
           "at": [
             -1.25,
-            0.55
+            1.15
           ],
-          "rot": 70,
+          "rot": 35,
           "length": 1,
           "color": "#2f4a3a"
         },
@@ -192,7 +192,7 @@
           "type": "backpack",
           "on": "bench",
           "at": [
-            0.15,
+            0.18,
             0
           ],
           "color": "#1d3f94"
@@ -209,51 +209,43 @@
         {
           "type": "hydrant",
           "at": [
-            -0.9,
-            1.55
+            1.2,
+            1.6
           ],
           "color": "#d4213d"
         },
         {
-          "type": "bin",
-          "at": [
-            -2.05,
-            0.6
-          ],
-          "color": "#2f4f6f"
-        },
-        {
           "type": "traffic-cone",
           "at": [
-            0.75,
-            1.65
+            0.3,
+            2
           ]
         },
         {
           "type": "potted-plant",
           "at": [
-            0.45,
+            0.4,
             -1.15
           ],
           "kind": "succulent",
           "size": 0.5
         },
         {
-          "type": "street-sign",
-          "at": [
-            -0.25,
-            1.9
-          ],
-          "kind": "arrow",
-          "rot": 15
-        },
-        {
           "type": "glass",
           "at": [
-            0.3,
-            0.9
+            -0.35,
+            1.35
           ],
           "drink": "red-bull"
+        },
+        {
+          "type": "bush",
+          "at": [
+            -0.6,
+            2.05
+          ],
+          "size": 0.45,
+          "flowers": "#f2c230"
         }
       ]
     },
@@ -268,16 +260,29 @@
           "type": "room",
           "at": [
             0,
-            -0.5
+            -0.2
           ],
           "size": [
-            3.4,
-            2.4
+            3.3,
+            3
           ],
           "floor": "wood",
           "wall": "#efe7da",
           "window": false,
           "door": false
+        },
+        {
+          "type": "rug",
+          "at": [
+            -0.2,
+            -0.1
+          ],
+          "size": [
+            1.9,
+            1.2
+          ],
+          "color": "#c9b79c",
+          "pattern": "plain"
         },
         {
           "type": "custom",
@@ -303,7 +308,7 @@
           "pose": "wave",
           "at": [
             -0.8,
-            -0.35
+            -0.2
           ],
           "rot": 62
         },
@@ -313,7 +318,7 @@
           "pose": "wave",
           "at": [
             0.4,
-            -0.3
+            -0.15
           ],
           "rot": -62
         },
@@ -377,8 +382,8 @@
         {
           "type": "shelf",
           "at": [
-            -1.42,
-            -0.5
+            -1.38,
+            -0.45
           ],
           "rot": 90,
           "size": [
@@ -393,16 +398,15 @@
           "name": "crumpledSchemas",
           "at": [
             -0.05,
-            0.6
+            0.8
           ],
           "code": "const g = k.group(), T = k.THREE;\nconst paper = k.mat('#f4f1e6', { rough: 0.9 }), yellow = k.mat('#f7e9a8', { rough: 0.9 });\nconst spots = [[0, 0], [0.22, 0.12], [-0.18, 0.2], [0.35, -0.1], [-0.32, -0.05], [0.08, 0.32], [-0.05, -0.22]];\nspots.forEach(([x, z], i) => {\n  const b = new T.Mesh(new T.IcosahedronGeometry(0.055 + k.rand() * 0.02, 0), i % 3 ? paper : yellow);\n  k.put(g, b, x, 0.05, z, k.rand() * 3, k.rand() * 3, k.rand() * 3);\n});\nreturn g;"
         },
         {
           "type": "bin",
-          "id": "bin",
           "at": [
             0.85,
-            0.75
+            0.9
           ],
           "color": "#2f4f6f"
         },
@@ -410,8 +414,8 @@
           "type": "stool",
           "id": "stool",
           "at": [
-            1.45,
-            -0.15
+            1.4,
+            0.05
           ],
           "color": "#f26522"
         },
@@ -428,8 +432,8 @@
         {
           "type": "potted-plant",
           "at": [
-            -1.3,
-            0.55
+            -1.25,
+            0.75
           ],
           "kind": "olive",
           "size": 0.8
@@ -438,23 +442,23 @@
           "type": "glass",
           "at": [
             -0.6,
-            0.95
+            1.2
           ],
           "drink": "red-bull"
         },
         {
           "type": "glass",
           "at": [
-            1.55,
-            0.55
+            1.5,
+            0.75
           ],
           "drink": "red-bull"
         },
         {
           "type": "backpack",
           "at": [
-            -1,
-            1.05
+            -0.95,
+            1.4
           ],
           "color": "#c0392b",
           "rot": 30
@@ -463,7 +467,7 @@
           "type": "book",
           "at": [
             0.45,
-            1.1
+            1.5
           ],
           "open": true,
           "color": "#1d3f94"
@@ -481,11 +485,11 @@
           "type": "room",
           "at": [
             0,
-            -0.55
+            -0.05
           ],
           "size": [
-            4.2,
-            3
+            4.4,
+            4
           ],
           "floor": "wood",
           "wall": "#efe7da",
@@ -496,17 +500,17 @@
           "type": "custom",
           "name": "sunsetWindow",
           "at": [
-            0.15,
+            0.8,
             -1.94
           ],
-          "code": "const g = k.group();\nconst W = 2.1, y0 = 0.72, frame = k.mat('#f4efe6');\nconst bands = [['#ffd36e', 0, 0.28], ['#ff9a4a', 0.28, 0.34], ['#f2667a', 0.62, 0.34], ['#8a5fa8', 0.96, 0.32]];\nfor (const [c, b, h] of bands) k.put(g, k.box(W, h, 0.02, k.glowMat(c, 1.15)), 0, y0 + b + h / 2, 0);\nk.put(g, k.cyl(0.26, 0.26, 0.02, k.glowMat('#fff2c0', 2.6)), 0.5, y0 + 0.3, 0.012, Math.PI / 2, 0, 0);\nconst city = k.mat('#4a2f55');\nlet x = -W / 2 + 0.08;\nwhile (x < W / 2 - 0.08) {\n  const w = 0.1 + k.rand() * 0.14, h = 0.08 + k.rand() * 0.32;\n  k.put(g, k.box(w, h, 0.02, city), x + w / 2, y0 + h / 2, 0.022);\n  x += w + 0.01;\n}\nfor (const s of [-1, 1]) {\n  k.put(g, k.rbox(0.09, 1.42, 0.1, frame, 0.02), (W / 2 + 0.03) * s, y0 + 0.65, 0.03);\n  k.put(g, k.rbox(0.05, 1.3, 0.06, frame, 0.015), (W / 6) * s, y0 + 0.65, 0.04);\n}\nk.put(g, k.rbox(W + 0.16, 0.09, 0.1, frame, 0.02), 0, y0 + 1.33, 0.03);\nk.put(g, k.rbox(W + 0.24, 0.07, 0.2, frame, 0.02), 0, y0 - 0.03, 0.08);\nk.put(g, k.rbox(W, 0.04, 0.06, frame, 0.015), 0, y0 + 0.7, 0.04);\nk.addLight([0, 1.5, 0.8], '#ff9a5a', 2.2, 5);\nreturn g;"
+          "code": "const g = k.group();\nconst W = 1.7, y0 = 0.72, frame = k.mat('#f4efe6');\nconst bands = [['#ffd36e', 0, 0.28], ['#ff9a4a', 0.28, 0.34], ['#f2667a', 0.62, 0.34], ['#8a5fa8', 0.96, 0.32]];\nfor (const [c, b, h] of bands) k.put(g, k.box(W, h, 0.02, k.glowMat(c, 1.15)), 0, y0 + b + h / 2, 0);\nk.put(g, k.cyl(0.22, 0.22, 0.02, k.glowMat('#fff2c0', 2.6)), 0.35, y0 + 0.3, 0.012, Math.PI / 2, 0, 0);\nconst city = k.mat('#4a2f55');\nlet x = -W / 2 + 0.08;\nwhile (x < W / 2 - 0.08) {\n  const w = 0.1 + k.rand() * 0.14, h = 0.08 + k.rand() * 0.32;\n  k.put(g, k.box(w, h, 0.02, city), x + w / 2, y0 + h / 2, 0.022);\n  x += w + 0.01;\n}\nfor (const s of [-1, 1]) {\n  k.put(g, k.rbox(0.09, 1.42, 0.1, frame, 0.02), (W / 2 + 0.03) * s, y0 + 0.65, 0.03);\n  k.put(g, k.rbox(0.05, 1.3, 0.06, frame, 0.015), (W / 6) * s, y0 + 0.65, 0.04);\n}\nk.put(g, k.rbox(W + 0.16, 0.09, 0.1, frame, 0.02), 0, y0 + 1.33, 0.03);\nk.put(g, k.rbox(W + 0.24, 0.07, 0.2, frame, 0.02), 0, y0 - 0.03, 0.08);\nk.put(g, k.rbox(W, 0.04, 0.06, frame, 0.015), 0, y0 + 0.7, 0.04);\nk.addLight([0, 1.5, 0.8], '#ff9a5a', 2.2, 5);\nreturn g;"
         },
         {
           "type": "table",
           "id": "t",
           "at": [
-            0,
-            -0.85
+            0.3,
+            -0.75
           ],
           "size": [
             2.4,
@@ -622,8 +626,8 @@
         {
           "type": "chair",
           "at": [
-            -1,
-            -1.7
+            -0.75,
+            -1.65
           ],
           "rot": 15,
           "color": "#2d2d2d"
@@ -631,8 +635,8 @@
         {
           "type": "chair",
           "at": [
-            1,
-            -1.7
+            1.35,
+            -1.65
           ],
           "rot": -15,
           "color": "#2d2d2d"
@@ -640,8 +644,8 @@
         {
           "type": "chair",
           "at": [
-            -1.6,
-            -0.85
+            -1.35,
+            -0.75
           ],
           "rot": 90,
           "color": "#2d2d2d"
@@ -650,8 +654,8 @@
           "type": "custom",
           "name": "tippedChair",
           "at": [
-            0.6,
-            0.35
+            0.75,
+            1
           ],
           "rot": -20,
           "code": "const g = k.group();\nk.put(g, k.part('chair', { color: '#2d2d2d' }), 0, 0.23, 0, -Math.PI / 2 + 0.06, 0, 0);\nreturn g;"
@@ -661,8 +665,8 @@
           "who": "teammate-1",
           "pose": "cheer",
           "at": [
-            -0.42,
-            -1.52
+            -0.15,
+            -1.45
           ],
           "rot": 0
         },
@@ -671,8 +675,8 @@
           "who": "teammate-2",
           "pose": "cheer",
           "at": [
-            0.45,
-            -1.52
+            0.8,
+            -1.45
           ],
           "rot": 0
         },
@@ -681,8 +685,8 @@
           "who": "Danny",
           "pose": "cheer",
           "at": [
-            1.65,
-            -0.7
+            1.9,
+            -0.55
           ],
           "rot": -70
         },
@@ -691,8 +695,8 @@
           "who": "me",
           "pose": "cheer",
           "at": [
-            -0.5,
-            0.3
+            -0.4,
+            0.95
           ],
           "rot": 15
         },
@@ -700,8 +704,8 @@
           "type": "custom",
           "name": "canTower",
           "at": [
-            1.75,
-            0.55
+            1.5,
+            1.5
           ],
           "rot": -25,
           "code": "const g = k.group(), T = k.THREE;\nconst blue = k.mat('#1d3f94', { metal: 0.35, rough: 0.35 }), silv = k.mat('#d6dbe3', { metal: 0.6, rough: 0.3 }), red = k.mat('#d4213d');\nconst r = 0.042, h = 0.15, n = 6;\nconst body = new T.CylinderGeometry(r, r, h * 0.55, 12), top = new T.CylinderGeometry(r * 0.88, r, h * 0.45, 12), dot = new T.CylinderGeometry(r * 0.45, r * 0.45, 0.006, 8);\nfor (let row = 0; row < n; row++) {\n  for (let i = 0; i < n - row; i++) {\n    const c = k.group();\n    k.put(g, c, (i - (n - row - 1) / 2) * r * 2.08, row * h, 0, 0, (k.rand() - 0.5) * 0.8, 0);\n    k.put(c, new T.Mesh(body, blue), 0, h * 0.275, 0);\n    k.put(c, new T.Mesh(top, silv), 0, h * 0.775, 0);\n    k.put(c, new T.Mesh(dot, red), 0, h * 0.72, r * 0.97, Math.PI / 2, 0, 0);\n  }\n}\nreturn g;"
@@ -709,8 +713,8 @@
         {
           "type": "backpack",
           "at": [
-            -1.75,
-            0.3
+            -1.55,
+            1.1
           ],
           "color": "#1d3f94",
           "rot": 40
@@ -719,7 +723,7 @@
           "type": "backpack",
           "at": [
             2,
-            -0.2
+            0.3
           ],
           "color": "#2f8f5b",
           "rot": -60
@@ -727,24 +731,24 @@
         {
           "type": "glass",
           "at": [
-            1.05,
-            0.85
+            0.85,
+            1.85
           ],
           "drink": "red-bull"
         },
         {
           "type": "glass",
           "at": [
-            -1.2,
-            0.95
+            0.2,
+            2.1
           ],
           "drink": "red-bull"
         },
         {
           "type": "potted-plant",
           "at": [
-            -1.7,
-            -1.6
+            -1.75,
+            -1.55
           ],
           "kind": "olive",
           "size": 0.9
@@ -753,7 +757,7 @@
           "type": "bin",
           "id": "bin",
           "at": [
-            1.75,
+            2,
             -1.55
           ],
           "color": "#2f4f6f"
@@ -774,17 +778,17 @@
       "moment": "Too tired for chairs, we sit on the carpet and eat cold pizza while the world still glows on a laptop.",
       "hero": false,
       "size": "medium",
-      "surface": "carpet",
+      "surface": "wood",
       "objects": [
         {
           "type": "room",
           "at": [
             0,
-            -0.5
+            -0.2
           ],
           "size": [
-            3.4,
-            2.4
+            3.3,
+            3
           ],
           "floor": "carpet",
           "wall": "#efe7da",
@@ -805,7 +809,7 @@
           "type": "rug",
           "at": [
             0.1,
-            0.15
+            0.35
           ],
           "size": [
             2.4,
@@ -820,7 +824,7 @@
           "pose": "sit",
           "at": [
             -0.25,
-            -0.62
+            -0.55
           ],
           "rot": 0,
           "y": -0.5
@@ -831,7 +835,7 @@
           "pose": "sit",
           "at": [
             0.6,
-            -0.62
+            -0.55
           ],
           "rot": -10,
           "y": -0.5,
@@ -843,7 +847,7 @@
           "pose": "sit",
           "at": [
             -1.05,
-            0.05
+            0.25
           ],
           "rot": 75,
           "y": -0.5
@@ -854,7 +858,7 @@
           "pose": "sit",
           "at": [
             1.25,
-            0.1
+            0.3
           ],
           "rot": -75,
           "y": -0.5
@@ -863,7 +867,7 @@
           "type": "pizza-box",
           "at": [
             -0.1,
-            0.15
+            0.35
           ],
           "rot": 10,
           "open": true
@@ -872,7 +876,7 @@
           "type": "pizza-box",
           "at": [
             0.5,
-            0.5
+            0.75
           ],
           "rot": -25,
           "open": true
@@ -909,10 +913,11 @@
           "type": "custom",
           "name": "coldPizza",
           "at": [
-            0.4,
-            1.05
+            0.3,
+            1.45
           ],
           "rot": 20,
+          "scale": 1.6,
           "code": "const g = k.group(), T = k.THREE;\nconst cheese = k.mat('#efc35a'), crust = k.mat('#c88a3e'), pep = k.mat('#b5342a');\nk.put(g, k.box(0.36, 0.004, 0.34, k.mat('#f4f1ea')), 0, 0.002, 0, 0, 0.3, 0);\nconst slice = (x, z, ry, n) => {\n  const s = k.group();\n  k.put(g, s, x, 0.004, z, 0, ry, 0);\n  k.put(s, new T.Mesh(new T.CylinderGeometry(0.22, 0.22, 0.018, 6, 1, false, -0.3, 0.6), cheese), 0, 0.009, 0);\n  k.put(s, new T.Mesh(new T.TorusGeometry(0.21, 0.02, 5, 8, 0.6), crust), 0, 0.02, 0, -Math.PI / 2, 0, -Math.PI / 2 - 0.3);\n  for (let i = 0; i < n; i++) k.put(s, k.cyl(0.022, 0.022, 0.006, pep), (k.rand() - 0.5) * 0.06, 0.02, 0.07 + i * 0.045);\n};\nslice(-0.1, -0.08, 0.4, 3);\nslice(0.08, -0.1, -0.5, 2);\nk.put(g, new T.Mesh(new T.TorusGeometry(0.21, 0.02, 5, 8, 0.5), crust), 0.05, 0.02, 0.32, -Math.PI / 2, 0, 2.2);\nreturn g;"
         },
         {
@@ -920,7 +925,7 @@
           "name": "crushedCans",
           "at": [
             -0.75,
-            0.9
+            1.15
           ],
           "code": "const g = k.group(), T = k.THREE;\nconst blue = k.mat('#1d3f94', { metal: 0.35, rough: 0.35 }), silv = k.mat('#d6dbe3', { metal: 0.6, rough: 0.3 });\nconst can = (x, z, ry, squash) => {\n  const c = k.group();\n  k.put(g, c, x, 0.042 * squash, z, Math.PI / 2, ry, 0);\n  k.put(c, new T.Mesh(new T.CylinderGeometry(0.042, 0.042, 0.08, 12), blue), 0, -0.035, 0);\n  k.put(c, new T.Mesh(new T.CylinderGeometry(0.038, 0.042, 0.07, 12), silv), 0, 0.04, 0);\n  c.scale.set(1, 1, squash);\n};\ncan(0, 0, 0.4, 1);\ncan(0.15, 0.1, 1.9, 1);\ncan(-0.14, 0.12, -0.7, 0.45);\ncan(0.05, -0.15, 2.6, 0.5);\ncan(-0.2, -0.1, 1.2, 1);\nreturn g;"
         },
@@ -928,8 +933,8 @@
           "type": "custom",
           "name": "floorLaptop",
           "at": [
-            1.45,
-            0.75
+            1.4,
+            1
           ],
           "rot": -40,
           "code": "const g = k.group(), T = k.THREE;\nconst shell = k.mat('#b9bec6', { metal: 0.5, rough: 0.35 });\nk.put(g, k.rbox(0.42, 0.024, 0.3, shell, 0.01), 0, 0.012, 0);\nk.put(g, k.box(0.36, 0.004, 0.13, k.mat('#2a2c31')), 0, 0.026, -0.04);\nconst lid = k.group();\nk.put(g, lid, 0, 0.024, -0.15, -0.28, 0, 0);\nk.put(lid, k.rbox(0.42, 0.28, 0.016, shell, 0.008), 0, 0.14, -0.008);\nk.put(lid, k.box(0.38, 0.24, 0.004, k.glowMat('#3d7be0', 1.4)), 0, 0.14, 0.002);\nk.put(lid, k.box(0.38, 0.08, 0.005, k.glowMat('#22b5c8', 1.4)), 0, 0.06, 0.003);\nk.put(lid, new T.Mesh(new T.CircleGeometry(0.08, 14, 0, Math.PI), k.glowMat('#7ed957', 1.8)), 0, 0.09, 0.006);\nk.put(lid, k.cone(0.02, 0.05, k.glowMat('#2f9e57', 1.8)), -0.03, 0.15, 0.008);\nk.put(lid, k.box(0.03, 0.025, 0.01, k.glowMat('#fff1d6', 2)), 0.03, 0.135, 0.008);\nk.addLight([0, 0.25, 0.2], '#7fd0ff', 0.9, 2);\nreturn g;"
@@ -956,7 +961,7 @@
           "type": "plate",
           "at": [
             -0.5,
-            0.55
+            0.8
           ],
           "food": "pizza"
         },
@@ -964,7 +969,7 @@
           "type": "plate",
           "at": [
             0.95,
-            -0.4
+            -0.2
           ],
           "food": "pizza"
         },
@@ -972,7 +977,7 @@
           "type": "bottle",
           "at": [
             0.05,
-            0.75
+            1.05
           ],
           "color": "#9fd3e6"
         },
@@ -980,7 +985,7 @@
           "type": "glass",
           "at": [
             -0.45,
-            -0.25
+            -0.05
           ],
           "drink": "red-bull"
         },
@@ -988,7 +993,7 @@
           "type": "glass",
           "at": [
             0.95,
-            0.45
+            0.7
           ],
           "drink": "red-bull"
         },
@@ -996,10 +1001,52 @@
           "type": "backpack",
           "at": [
             -1.35,
-            0.8
+            1
           ],
           "color": "#1d3f94",
           "rot": -20
+        },
+        {
+          "type": "pizza-box",
+          "at": [
+            -0.35,
+            1.85
+          ],
+          "rot": -30,
+          "open": true
+        },
+        {
+          "type": "glass",
+          "at": [
+            1.1,
+            1.6
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "at": [
+            -1,
+            1.7
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1.9,
+            0.2
+          ],
+          "kind": "succulent",
+          "size": 0.5
+        },
+        {
+          "type": "mug",
+          "at": [
+            0.9,
+            2
+          ],
+          "color": "#f26522"
         }
       ]
     }
