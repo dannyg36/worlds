@@ -23,6 +23,7 @@ const state = {
   day: params.get("day") || "hackathon",
   mode: params.get("mode") === "stand" ? "stand" : "orbit",
   scale: params.get("scale") === "life" ? "life" : "table",
+  dio: params.get("dio") === "glb" ? "glb" : "card",
   hud: params.get("hud") !== "0",
 };
 
@@ -289,6 +290,33 @@ async function loadDiorama(d) {
   const topY = estimateTop(holder, footprint, size.y);
   world.add(holder);
   return { meta: d, holder, footprint, height: size.y, topY, mixer, stats, bytes: buf.byteLength, ms: { fetch: t1 - t0, parse: t2 - t1 } };
+}
+
+async function loadCard(c) {
+  const t0 = performance.now();
+  const res = await fetch(assetUrl(c.file));
+  if (!res.ok) throw new Error("card " + c.file + ": HTTP " + res.status + " (run fetch-assets.mjs)");
+  const blob = await res.blob();
+  const t1 = performance.now();
+  const objectUrl = URL.createObjectURL(blob);
+  let tex;
+  try {
+    tex = await texLoader.loadAsync(objectUrl);
+  } finally {
+    URL.revokeObjectURL(objectUrl);
+  }
+  const t2 = performance.now();
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  const { width: w, height: h } = tex.image;
+  const card = new THREE.Mesh(
+    new THREE.PlaneGeometry(1, h / w).translate(0, h / w / 2, 0),
+    new THREE.MeshBasicMaterial({ map: tex, transparent: true, alphaTest: 0.05, toneMapped: false, side: THREE.DoubleSide }),
+  );
+  const holder = new THREE.Group();
+  holder.add(card);
+  world.add(holder);
+  return { meta: c, holder, card, footprint: 1, height: h / w, topY: 0, mixer: null, stats: { meshes: 1, tris: 2, verts: 4, textures: ["map " + w + "x" + h], textureBytes: w * h * 4 * 1.33 }, bytes: blob.size, ms: { fetch: t1 - t0, parse: t2 - t1 } };
 }
 
 function dayNumber(key, fallback) {
@@ -747,7 +775,7 @@ function updateHud() {
     "calls " + info.render.calls + " · tris " + (info.render.triangles / 1000).toFixed(1) + "k · tex " + info.memory.textures,
   ];
   if (pano) lines.push("pano " + pano.meta.id + " " + pano.width + "x" + pano.height + " " + kb(pano.bytes), "  fetch " + Math.round(pano.ms.fetch) + " dec " + Math.round(pano.ms.decode) + " pmrem " + Math.round(pano.ms.pmrem) + " up " + Math.round(pano.firstRenderMs ?? 0) + " ms");
-  if (dio) lines.push("glb " + kb(dio.bytes) + " · " + (dio.stats.tris / 1000).toFixed(0) + "k tris", "  fetch " + Math.round(dio.ms.fetch) + " parse " + Math.round(dio.ms.parse) + " ms · " + (dio.stats.textures[0] || "no tex"));
+  if (dio) lines.push((dio.card ? "card " : "glb ") + kb(dio.bytes) + " · " + (dio.stats.tris / 1000).toFixed(0) + "k tris", "  fetch " + Math.round(dio.ms.fetch) + " parse " + Math.round(dio.ms.parse) + " ms · " + (dio.stats.textures[0] || "no tex"));
   lines.push("TTFF " + (metrics.ttff ? (metrics.ttff / 1000).toFixed(2) + " s" : "…") + " · compile " + (metrics.compileMs ?? "…") + " ms · GPU~" + estGpuMB().toFixed(0) + " MB");
   lines.push(state.mode + (state.mode === "stand" ? "/" + state.scale : "") + " · gyro " + (gyro.active ? "on " + gyro.events : "off") + " · boot " + session.boots + (recording ? " · REC" : ""));
   $("hud").textContent = lines.join("\n");
@@ -826,6 +854,7 @@ function frame(now) {
   if (tour) updateTour(now);
   if (state.mode === "orbit") orbit.update();
   else updateStand(Math.min(dt, 100) / 1000);
+  if (dio.card) dio.card.rotation.y = Math.atan2(camera.position.x - dio.holder.position.x, camera.position.z - dio.holder.position.z);
   const r0 = performance.now();
   renderer.render(scene, camera);
   const r1 = performance.now();
@@ -853,7 +882,7 @@ async function main() {
   buildDayLinks();
   $("loading").textContent = "Loading " + (dayCfg.title || state.day) + "…";
   const wanted = params.get("pano") || dayCfg.default_pano || dayCfg.panos[0].id;
-  const [_, d] = await Promise.all([switchPano(wanted), loadDiorama(dayCfg.diorama)]);
+  const [_, d] = await Promise.all([switchPano(wanted), state.dio === "card" && dayCfg.card ? loadCard(dayCfg.card) : loadDiorama(dayCfg.diorama)]);
   dio = d;
   setMode(state.mode);
   $("loading").classList.remove("done");

@@ -147,6 +147,19 @@ def control(path, out, hfov=90, yaw=0, pitch=0, W=2048):
     save(canvas, out)
 
 
+def cutout(path, out, size=1024, margin=0.02):
+    img = Image.open(path).convert("RGBA")
+    a = np.asarray(img)[..., 3]
+    ys, xs = np.where(a > 8)
+    pad = int(max(img.size) * margin)
+    box = (max(0, xs.min() - pad), max(0, ys.min() - pad), min(img.width, xs.max() + 1 + pad), min(img.height, ys.max() + 1))
+    img = img.crop(box)
+    k = size / max(img.size)
+    img = img.resize((round(img.width * k), round(img.height * k)), Image.LANCZOS)
+    img.save(out, optimize=True)
+    return {"file": out, "size": [img.width, img.height], "crop": [int(v) for v in box]}
+
+
 def tojpg(path, out, width=None, quality=88):
     img = Image.open(path).convert("RGB")
     if width and img.width != width:
@@ -162,6 +175,7 @@ if __name__ == "__main__":
     a = sub.add_parser("sheet"); a.add_argument("file"); a.add_argument("out"); a.add_argument("--label")
     a = sub.add_parser("roll"); a.add_argument("file"); a.add_argument("out"); a.add_argument("--mask"); a.add_argument("--band", type=int, default=160)
     a = sub.add_parser("control"); a.add_argument("file"); a.add_argument("out"); a.add_argument("--hfov", type=float, default=90); a.add_argument("--yaw", type=float, default=0); a.add_argument("--pitch", type=float, default=0); a.add_argument("--width", type=int, default=2048)
+    a = sub.add_parser("cutout"); a.add_argument("file"); a.add_argument("out"); a.add_argument("--size", type=int, default=1024)
     a = sub.add_parser("tojpg"); a.add_argument("file"); a.add_argument("out"); a.add_argument("--width", type=int); a.add_argument("--quality", type=int, default=88)
     args = ap.parse_args()
     if args.cmd == "metrics":
@@ -172,5 +186,7 @@ if __name__ == "__main__":
         roll(args.file, args.out, args.mask, args.band)
     elif args.cmd == "control":
         control(args.file, args.out, args.hfov, args.yaw, args.pitch, args.width)
+    elif args.cmd == "cutout":
+        print(json.dumps(cutout(args.file, args.out, args.size)))
     elif args.cmd == "tojpg":
         print(json.dumps(tojpg(args.file, args.out, args.width, args.quality)))

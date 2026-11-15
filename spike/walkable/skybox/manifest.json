@@ -9,26 +9,132 @@
       "pano_radius": 16,
       "walk_radius": 6,
       "island_radius_m": 6,
-      "default_pano": "sample",
+      "default_pano": "upscale-seamfix-gpt",
       "panos": [
         {
-          "id": "sample",
-          "label": "Placeholder office (Poly Haven)",
-          "file": "_sample/pano-indoor.jpg",
-          "width": 2048,
-          "height": 1024
+          "id": "upscale-seamfix-gpt",
+          "label": "GPT 2.5 flare + seam fix + bria 2x upscale (4K, default)",
+          "file": "hackathon/pano-upscale-seamfix-gpt.jpeg",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/a28d13e7-f35c-40fc-a333-f3b3ed363dbb.jpeg",
+          "bytes": 1063912,
+          "width": 4096,
+          "height": 2048,
+          "endpoint": "bria-image-increase-resolution",
+          "est_cost_usd": 0.02,
+          "latency_s": 8.68,
+          "queue_wait_s": 0.96,
+          "request_id": "59a34c57-62ab-4dfb-bcf3-28b80884e021",
+          "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_59a34c57-62ab-4dfb-bcf3-28b80884e02154ff1e9a-b52a-4612-a413-0367e183dced.png",
+          "source_bytes": 10816308,
+          "seam_ratio": 2.99,
+          "pole_detail": [
+            0.02,
+            0.03
+          ]
         },
         {
-          "id": "sample-4k",
-          "label": "Placeholder office 4K",
-          "file": "_sample/pano-indoor-4k.jpg",
+          "id": "seamfix-gpt",
+          "label": "GPT 2.5 flare + bria-genfill seam fix",
+          "file": "hackathon/pano-seamfix-gpt.jpeg",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/e7096092-bfe1-46af-8d61-06f360e0ea7a.jpeg",
+          "bytes": 387454,
+          "width": 2048,
+          "height": 1024,
+          "endpoint": "bria-genfill",
+          "est_cost_usd": 0.04,
+          "latency_s": 25.79,
+          "queue_wait_s": 0.7,
+          "request_id": "99088098-eebe-4895-bd9b-5c367e292408",
+          "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_99088098-eebe-4895-bd9b-5c367e29240876cd232b-b833-47e3-af87-9d7b3488474a.png",
+          "source_bytes": 3007328,
+          "seam_ratio": 1.28,
+          "pole_detail": [
+            0.03,
+            0.04
+          ]
+        },
+        {
+          "id": "gpt",
+          "label": "GPT Image 2.5 flare (text, control)",
+          "file": "hackathon/pano-gpt.jpeg",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/84c9d7dd-9e92-40a7-a409-e41e6295e5e9.jpeg",
+          "bytes": 376039,
+          "width": 2048,
+          "height": 1024,
+          "endpoint": "gpt-image-2.5-flare-generate",
+          "est_cost_usd": 0.028,
+          "latency_s": 24.54,
+          "queue_wait_s": 24.54,
+          "request_id": "cdfe1649-a258-43bb-8d0e-a3e22d28ca79",
+          "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_cdfe1649-a258-43bb-8d0e-a3e22d28ca79_e5d585be-a908-455c-a39a-6c95200f267d.png",
+          "source_bytes": 3204854,
+          "seam_ratio": 8.41,
+          "pole_detail": [
+            0.03,
+            0.04
+          ]
+        },
+        {
+          "id": "seedream-text",
+          "label": "Seedream 5.0 lite (text, root's pick)",
+          "file": "hackathon/pano-seedream-text.jpeg",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/af1b58a8-afc8-495e-a4c5-139a7af1c977.jpeg",
+          "bytes": 879967,
           "width": 4096,
-          "height": 2048
+          "height": 2048,
+          "endpoint": "seedream-5.0-lite",
+          "est_cost_usd": 0,
+          "latency_s": 166.76,
+          "queue_wait_s": 166.76,
+          "request_id": "3a17cd8f-6021-4420-af25-dced6c24718e",
+          "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a17cd8f-6021-4420-af25-dced6c24718eb7bff6fe-a6cc-4c2d-a8bf-7c6ab8cfba4a.png",
+          "source_bytes": 10748297,
+          "paid_by": "root",
+          "seam_ratio": 5.76,
+          "pole_detail": [
+            0.02,
+            0.3
+          ]
+        },
+        {
+          "id": "seedream-ref",
+          "label": "Seedream 5.0 lite (eye-referenced)",
+          "file": "hackathon/pano-seedream-ref.jpeg",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/28a770e8-2488-4d31-ac20-71472ac0100b.jpeg",
+          "bytes": 996767,
+          "width": 4096,
+          "height": 2048,
+          "endpoint": "seedream-5.0-lite",
+          "est_cost_usd": 0,
+          "latency_s": 79.62,
+          "queue_wait_s": 79.62,
+          "request_id": "561754fa-cba4-4176-a3d5-50db793aabd2",
+          "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_561754fa-cba4-4176-a3d5-50db793aabd2fe5373c8-fee2-4c98-9f00-d8a1e1dc9af0.png",
+          "source_bytes": 11498767,
+          "paid_by": "root",
+          "seam_ratio": 5.65,
+          "pole_detail": [
+            0.05,
+            0.1
+          ]
         }
       ],
       "diorama": {
         "file": "_sample/diorama.glb",
-        "label": "Placeholder diorama (three.js LittlestTokyo)"
+        "url": "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r170/examples/models/gltf/LittlestTokyo.glb",
+        "label": "Free sample GLB stand-in (three.js LittlestTokyo); no day GLB while GMI 3D is down"
+      },
+      "card": {
+        "file": "hackathon/card.png",
+        "label": "Concept image cutout (billboard stand-in for the diorama GLB)",
+        "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/af5c23d0-9975-4a4a-a3e5-cc1b4c374045.png",
+        "bytes": 1044270,
+        "width": 891,
+        "height": 1024,
+        "endpoint": "bria-image-remove-background",
+        "est_cost_usd": 0.018,
+        "latency_s": 9.73,
+        "request_id": "9da564be-ede8-4b09-bc92-0c076f5570c1"
       }
     },
     "santa-cruz": {
@@ -38,26 +144,132 @@
       "pano_radius": 60,
       "walk_radius": 14,
       "island_radius_m": 8,
-      "default_pano": "sample",
+      "default_pano": "upscale-seamfix-gpt",
       "panos": [
         {
-          "id": "sample",
-          "label": "Placeholder cliffside (Poly Haven)",
-          "file": "_sample/pano-outdoor.jpg",
-          "width": 2048,
-          "height": 1024
+          "id": "upscale-seamfix-gpt",
+          "label": "GPT 2.5 flare + seam fix + bria 2x upscale (4K, default)",
+          "file": "santa-cruz/pano-upscale-seamfix-gpt.jpeg",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/f940d80a-c59e-40ad-b5fa-21f90091e9b3.jpeg",
+          "bytes": 1658697,
+          "width": 4096,
+          "height": 2048,
+          "endpoint": "bria-image-increase-resolution",
+          "est_cost_usd": 0.02,
+          "latency_s": 8.37,
+          "queue_wait_s": 0.66,
+          "request_id": "a5aefba3-ffc5-4a45-a35c-596443f51175",
+          "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_a5aefba3-ffc5-4a45-a35c-596443f51175f09b8b13-e066-4cf5-b7ed-29209c731644.png",
+          "source_bytes": 13115395,
+          "seam_ratio": 1.82,
+          "pole_detail": [
+            0.0,
+            0.06
+          ]
         },
         {
-          "id": "sample-4k",
-          "label": "Placeholder cliffside 4K",
-          "file": "_sample/pano-outdoor-4k.jpg",
+          "id": "seamfix-gpt",
+          "label": "GPT 2.5 flare + bria-genfill seam fix",
+          "file": "santa-cruz/pano-seamfix-gpt.jpeg",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/49c84981-f9cc-446d-abf9-533140712e13.jpeg",
+          "bytes": 565913,
+          "width": 2048,
+          "height": 1024,
+          "endpoint": "bria-genfill",
+          "est_cost_usd": 0.04,
+          "latency_s": 25.81,
+          "queue_wait_s": 0.75,
+          "request_id": "02ffd007-c5e2-46fa-bceb-c7d66965ef6f",
+          "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_02ffd007-c5e2-46fa-bceb-c7d66965ef6fb4e90b23-aa59-4551-b8b1-ea13e2b57dd2.png",
+          "source_bytes": 3668251,
+          "seam_ratio": 1.09,
+          "pole_detail": [
+            0.01,
+            0.05
+          ]
+        },
+        {
+          "id": "gpt",
+          "label": "GPT Image 2.5 flare (text, control)",
+          "file": "santa-cruz/pano-gpt.jpeg",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/aeeec49c-75af-425e-9d11-3085d0121fff.jpeg",
+          "bytes": 565258,
+          "width": 2048,
+          "height": 1024,
+          "endpoint": "gpt-image-2.5-flare-generate",
+          "est_cost_usd": 0.028,
+          "latency_s": 20.85,
+          "queue_wait_s": 20.85,
+          "request_id": "54b506c2-305c-41cd-9fdf-7882e352079b",
+          "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_54b506c2-305c-41cd-9fdf-7882e352079b_f2ab776f-2dc7-4790-9934-45d7aacfd7f7.png",
+          "source_bytes": 3759863,
+          "seam_ratio": 3.16,
+          "pole_detail": [
+            0.01,
+            0.05
+          ]
+        },
+        {
+          "id": "seedream-text",
+          "label": "Seedream 5.0 lite (text, root's pick)",
+          "file": "santa-cruz/pano-seedream-text.jpeg",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/784c66f4-b646-4ef0-867e-b368c06e329b.jpeg",
+          "bytes": 1144108,
           "width": 4096,
-          "height": 2048
+          "height": 2048,
+          "endpoint": "seedream-5.0-lite",
+          "est_cost_usd": 0,
+          "latency_s": 67.1,
+          "queue_wait_s": 67.1,
+          "request_id": "ac8d810a-868c-400a-8f44-3311e8df3552",
+          "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_ac8d810a-868c-400a-8f44-3311e8df35527e4b4469-a952-48bd-aa36-12585c8f0732.png",
+          "source_bytes": 12018209,
+          "paid_by": "root",
+          "seam_ratio": 12.69,
+          "pole_detail": [
+            0.02,
+            0.34
+          ]
+        },
+        {
+          "id": "seedream-ref",
+          "label": "Seedream 5.0 lite (eye-referenced)",
+          "file": "santa-cruz/pano-seedream-ref.jpeg",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/5f119524-11fd-4536-87de-62b196579337.jpeg",
+          "bytes": 945421,
+          "width": 4096,
+          "height": 2048,
+          "endpoint": "seedream-5.0-lite",
+          "est_cost_usd": 0,
+          "latency_s": 104.87,
+          "queue_wait_s": 104.87,
+          "request_id": "f4d0ad2c-6dc1-4948-988a-d5c3081aa370",
+          "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_f4d0ad2c-6dc1-4948-988a-d5c3081aa370bd6d6d98-2e16-4aa1-8276-e754b9c13bcd.png",
+          "source_bytes": 11088560,
+          "paid_by": "root",
+          "seam_ratio": 7.51,
+          "pole_detail": [
+            0.02,
+            0.05
+          ]
         }
       ],
       "diorama": {
         "file": "_sample/diorama.glb",
-        "label": "Placeholder diorama (three.js LittlestTokyo)"
+        "url": "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r170/examples/models/gltf/LittlestTokyo.glb",
+        "label": "Free sample GLB stand-in (three.js LittlestTokyo); no day GLB while GMI 3D is down"
+      },
+      "card": {
+        "file": "santa-cruz/card.png",
+        "label": "Concept image cutout (billboard stand-in for the diorama GLB)",
+        "url": "https://storage.googleapis.com/gmi-video-assests-prod/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/upload/e566b359-10ff-448e-91ea-ff6e22324932.png",
+        "bytes": 1190917,
+        "width": 1001,
+        "height": 1024,
+        "endpoint": "bria-image-remove-background",
+        "est_cost_usd": 0.018,
+        "latency_s": 10.34,
+        "request_id": "9bbb6a11-c2d1-48cb-bdb9-fb07e71e988a"
       }
     }
   }
