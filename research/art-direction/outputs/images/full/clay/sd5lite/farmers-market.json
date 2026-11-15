@@ -1,0 +1,12 @@
+{
+ "model": "sd5lite",
+ "gmi_model": "seedream-5.0-lite",
+ "style": "clay",
+ "slug": "farmers-market",
+ "latency_s": 58.5,
+ "server_s": 37,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3e6fc184-420f-42f9-a724-2effd7bc8928d56191c1-78bb-42ba-924a-93f938b97839.png",
+ "prompt": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A wooden balcony floor is bathed in warm honey-toned light. In the center, a rustic outdoor bistro table holds a warm, imperfect peach galette on a ceramic plate, slightly larger than life. Beside it sits a small propped smartphone glowing with gentle light. To the left rests a paper tote filled with large deep-purple carrots and a round sourdough loaf. A black wrought-iron railing with tiny potted basil plants lines the back edge, catching the long golden rays of late sun. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "3e6fc184-420f-42f9-a724-2effd7bc8928"
+}

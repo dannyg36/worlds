@@ -1,0 +1,55 @@
+{
+ "transcript": "Went to the Saturday farmers market at the Ferry Building. Bought peaches, sourdough, and these giant purple carrots. Ran into my old roommate Leo. Then spent the afternoon making a peach galette with my mom over FaceTime. It came out ugly but really good. Ate it on the balcony at golden hour.",
+ "model": "google/gemini-3.8-flash",
+ "latency_s": 3.32,
+ "spec": {
+  "status": "ok",
+  "moment": "Eating the homemade peach galette on the balcony during golden hour.",
+  "elements": [
+   {
+    "name": "peach galette",
+    "kind": "object",
+    "look": "A rustic, uneven golden-brown galette filled with warm baked peach slices."
+   },
+   {
+    "name": "purple carrots",
+    "kind": "object",
+    "look": "A bundle of oversized deep purple carrots tied with twine in a paper market tote."
+   },
+   {
+    "name": "sourdough loaf",
+    "kind": "object",
+    "look": "A crusty round sourdough boule dusted with flour."
+   },
+   {
+    "name": "balcony railing",
+    "kind": "place",
+    "look": "A warm iron balcony railing lined with small potted herbs."
+   },
+   {
+    "name": "smartphone on a stand",
+    "kind": "object",
+    "look": "A small phone propped on the table, its screen glowing with warm golden light."
+   }
+  ],
+  "time_of_day": "golden hour",
+  "weather": "clear",
+  "mood": "content",
+  "palette": [
+   "#F4A261",
+   "#E76F51",
+   "#5A2A42",
+   "#E9C46A",
+   "#264653"
+  ],
+  "scene": "A wooden balcony floor is bathed in warm honey-toned light. In the center, a rustic outdoor bistro table holds a warm, imperfect peach galette on a ceramic plate, slightly larger than life. Beside it sits a small propped smartphone glowing with gentle light. To the left rests a paper tote filled with large deep-purple carrots and a round sourdough loaf. A black wrought-iron railing with tiny potted basil plants lines the back edge, catching the long golden rays of late sun.",
+  "title": "Golden Hour Galette",
+  "caption": "It turned out ugly, but eating it on the balcony was perfect."
+ },
+ "image_prompts": {
+  "clay": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A wooden balcony floor is bathed in warm honey-toned light. In the center, a rustic outdoor bistro table holds a warm, imperfect peach galette on a ceramic plate, slightly larger than life. Beside it sits a small propped smartphone glowing with gentle light. To the left rests a paper tote filled with large deep-purple carrots and a round sourdough loaf. A black wrought-iron railing with tiny potted basil plants lines the back edge, catching the long golden rays of late sun. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "lowpoly": "A low-poly 3D floating island: a small chunk of land built from faceted, flat-shaded polygons with crisp edges, its rocky underside tapering to a point, hovering in empty space. On the island: A wooden balcony floor is bathed in warm honey-toned light. In the center, a rustic outdoor bistro table holds a warm, imperfect peach galette on a ceramic plate, slightly larger than life. Beside it sits a small propped smartphone glowing with gentle light. To the left rests a paper tote filled with large deep-purple carrots and a round sourdough loaf. A black wrought-iron railing with tiny potted basil plants lines the back edge, catching the long golden rays of late sun. Clean stylized game-asset look: every element, including people, furniture, food and plants, is built from flat-shaded faceted polygons in soft pastel colors, with no realistic textures. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "miniature": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A wooden balcony floor is bathed in warm honey-toned light. In the center, a rustic outdoor bistro table holds a warm, imperfect peach galette on a ceramic plate, slightly larger than life. Beside it sits a small propped smartphone glowing with gentle light. To the left rests a paper tote filled with large deep-purple carrots and a round sourdough loaf. A black wrought-iron railing with tiny potted basil plants lines the back edge, catching the long golden rays of late sun. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "vinyl": "A designer vinyl toy playset: glossy, smooth molded plastic in soft candy colors, rounded chunky shapes and cute collectible figures with oversized heads and molded hair, arranged on a rounded display base. In the playset: A wooden balcony floor is bathed in warm honey-toned light. In the center, a rustic outdoor bistro table holds a warm, imperfect peach galette on a ceramic plate, slightly larger than life. Beside it sits a small propped smartphone glowing with gentle light. To the left rests a paper tote filled with large deep-purple carrots and a round sourdough loaf. A black wrought-iron railing with tiny potted basil plants lines the back edge, catching the long golden rays of late sun. Premium collectible product shot with soft highlights and no harsh reflections. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless soft neutral background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+ }
+}

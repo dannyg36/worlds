@@ -1,0 +1,12 @@
+{
+ "model": "sd5lite",
+ "gmi_model": "seedream-5.0-lite",
+ "style": "lowpoly",
+ "slug": "birthday-dinner",
+ "latency_s": 60.85,
+ "server_s": 28,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_f2ff9a61-d79e-4029-a874-893bd2a5697fb0ac8cac-3889-4d3e-8e2b-23ee8cccc907.png",
+ "prompt": "A low-poly 3D floating island: a small chunk of land built from faceted, flat-shaded polygons with crisp edges, its rocky underside tapering to a point, hovering in empty space. On the island: A warm outdoor patio of terracotta tile is bounded by a low ivy-draped brick wall at the back. Overhead, crisscrossing strands of glowing bulb string lights cast amber light across the scene. At the center, a long wooden dining table is laden with pasta plates and glassware. On the left, a small figure in a dark shirt and white apron sets down a square tiramisu topped with a fizzing, bright golden sparkler. Three friends in colorful sweaters sit around the table, leaning forward in delight. Clean stylized game-asset look with simple geometric shapes, soft pastel gradients and tiny low-poly figures. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "f2ff9a61-d79e-4029-a874-893bd2a5697f"
+}

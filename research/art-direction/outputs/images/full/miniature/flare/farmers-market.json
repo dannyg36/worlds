@@ -1,0 +1,12 @@
+{
+ "model": "flare",
+ "gmi_model": "gpt-image-2.5-flare-generate",
+ "style": "miniature",
+ "slug": "farmers-market",
+ "latency_s": 28.74,
+ "server_s": 20,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_af5615c1-a2d0-4973-8704-6a153988851e_14a06e8c-978a-4db8-8375-eb56cefcdc7a.png",
+ "prompt": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A wooden balcony floor is bathed in warm honey-toned light. In the center, a rustic outdoor bistro table holds a warm, imperfect peach galette on a ceramic plate, slightly larger than life. Beside it sits a small propped smartphone glowing with gentle light. To the left rests a paper tote filled with large deep-purple carrots and a round sourdough loaf. A black wrought-iron railing with tiny potted basil plants lines the back edge, catching the long golden rays of late sun. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "af5615c1-a2d0-4973-8704-6a153988851e"
+}

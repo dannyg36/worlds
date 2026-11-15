@@ -1,0 +1,12 @@
+{
+ "model": "flare",
+ "gmi_model": "gpt-image-2.5-flare-generate",
+ "style": "lowpoly",
+ "slug": "rainy-monday",
+ "latency_s": 26.6,
+ "server_s": 27,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_c2e5763c-49e5-4190-964d-b3aae0987969_ebb0adbd-cc7f-4a52-9b4e-ee580b70b5a4.png",
+ "prompt": "A low-poly 3D floating island: a small chunk of land built from faceted, flat-shaded polygons with crisp edges, its rocky underside tapering to a point, hovering in empty space. On the island: A warm wooden cafe floor with wet footprints leading from the doorway. At center, an oversized ceramic cup sits on a small round bistro table, filled with milky coffee and foam shaped into a tiny cat face. Leaning against the table leg lies a dark umbrella, blown inside out with glistening rain droplets on its fabric. At the back edge stands a slice of wooden counter with a barista in a dark green apron beside a silver espresso machine. Soft amber light glows from an overhead pendant lamp. Clean stylized game-asset look: every element, including people, furniture, food and plants, is built from flat-shaded faceted polygons in soft pastel colors, with no realistic textures. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "c2e5763c-49e5-4190-964d-b3aae0987969"
+}

@@ -1,0 +1,12 @@
+{
+ "model": "sd5lite",
+ "gmi_model": "seedream-5.0-lite",
+ "style": "clay",
+ "slug": "mission-peak",
+ "latency_s": 60.32,
+ "server_s": 31,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_b7df7df1-11a2-4037-a6b3-ef6fe0dfa82c9d81f928-4057-447c-939f-db0ca8aa83a1.png",
+ "prompt": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A steep grassy hilltop patch glows in warm apricot dawn light. At the center stands a weathered metal pole on a rocky mound, with two bright red garden tomatoes resting on a boulder at its base. To the right, a father in an olive jacket and tan hat stands beside a hiker in a navy windbreaker holding walking sticks. Along the sloping left edge, a tiny black-and-white cow grazes on dew-touched golden-green grass. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "b7df7df1-11a2-4037-a6b3-ef6fe0dfa82c"
+}

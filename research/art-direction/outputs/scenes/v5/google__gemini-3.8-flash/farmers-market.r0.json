@@ -1,0 +1,66 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "farmers-market",
+ "rep": 0,
+ "latency_s": 3.32,
+ "usage": {
+  "completion_tokens": 483,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1798,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2281
+ },
+ "cost_usd": 0.0031597500000000002,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Eating the homemade peach galette on the balcony during golden hour.",
+  "elements": [
+   {
+    "name": "peach galette",
+    "kind": "object",
+    "look": "A rustic, uneven golden-brown galette filled with warm baked peach slices."
+   },
+   {
+    "name": "purple carrots",
+    "kind": "object",
+    "look": "A bundle of oversized deep purple carrots tied with twine in a paper market tote."
+   },
+   {
+    "name": "sourdough loaf",
+    "kind": "object",
+    "look": "A crusty round sourdough boule dusted with flour."
+   },
+   {
+    "name": "balcony railing",
+    "kind": "place",
+    "look": "A warm iron balcony railing lined with small potted herbs."
+   },
+   {
+    "name": "smartphone on a stand",
+    "kind": "object",
+    "look": "A small phone propped on the table, its screen glowing with warm golden light."
+   }
+  ],
+  "time_of_day": "golden hour",
+  "weather": "clear",
+  "mood": "content",
+  "palette": [
+   "#F4A261",
+   "#E76F51",
+   "#5A2A42",
+   "#E9C46A",
+   "#264653"
+  ],
+  "scene": "A wooden balcony floor is bathed in warm honey-toned light. In the center, a rustic outdoor bistro table holds a warm, imperfect peach galette on a ceramic plate, slightly larger than life. Beside it sits a small propped smartphone glowing with gentle light. To the left rests a paper tote filled with large deep-purple carrots and a round sourdough loaf. A black wrought-iron railing with tiny potted basil plants lines the back edge, catching the long golden rays of late sun.",
+  "title": "Golden Hour Galette",
+  "caption": "It turned out ugly, but eating it on the balcony was perfect."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

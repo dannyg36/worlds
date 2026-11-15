@@ -1,0 +1,65 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "dolores-park",
+ "rep": 1,
+ "latency_s": 4.37,
+ "usage": {
+  "completion_tokens": 470,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1795,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2265
+ },
+ "cost_usd": 0.00310875,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Splitting a burrito on the sunny park hill while Biscuit guards his tennis ball.",
+  "elements": [
+   {
+    "name": "Biscuit",
+    "kind": "animal",
+    "look": "a happy golden dog proudly holding a bright neon yellow tennis ball in his mouth"
+   },
+   {
+    "name": "Sister",
+    "kind": "person",
+    "look": "a person in a denim jacket sitting cross-legged on the grass"
+   },
+   {
+    "name": "Myself",
+    "kind": "person",
+    "look": "a person in a warm cream sweater lounging on the grass"
+   },
+   {
+    "name": "Burrito",
+    "kind": "object",
+    "look": "a foil-wrapped burrito cut in half on top of crinkled brown paper"
+   },
+   {
+    "name": "Dolores Park Hill",
+    "kind": "place",
+    "look": "a grassy sloping green lawn with a couple of slender palm trees"
+   }
+  ],
+  "time_of_day": "morning",
+  "weather": "clear",
+  "mood": "lazy contentment",
+  "palette": [
+   "#4a7c39",
+   "#f4c430",
+   "#5b8296",
+   "#c8b598"
+  ],
+  "scene": "A lush grassy hillside slopes gently from back to front, dotted with a pair of slender palm trees at the back right. In the center, two figures sit picnic-style: one in a cream sweater and one in a denim jacket, sharing a halved foil-wrapped burrito on butcher paper. Beside them sits a joyful golden dog clamping an oversized neon yellow tennis ball in his jaws. At the back edge, two tiny figures toss a red disc across the lawn under bright morning sun.",
+  "title": "Lazy Sunday with Biscuit",
+  "caption": "Split a burrito on the hill while Biscuit hoarded his tennis ball."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

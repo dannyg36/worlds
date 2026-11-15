@@ -1,0 +1,73 @@
+32 images, est 0.77 USD, spent so far 0.82
+  429 seedream-5.0-lite img:sd5lite:lowpoly:dolores-park: waiting 30s
+  500 gpt-image-2.5-flare-generate img:flare:vinyl:dolores-park: retrying
+flare      felt       dolores-park      19.66s
+flare      paper      dolores-park      21.33s
+flare      vinyl      dolores-park      29.69s
+sd5lite    vinyl      dolores-park      32.86s
+  429 seedream-5.0-lite img:sd5lite:paper:dolores-park: waiting 27s
+sd5lite    miniature  dolores-park      34.91s
+  429 seedream-5.0-lite img:sd5lite:felt:dolores-park: waiting 25s
+flare      voxel      dolores-park      17.39s
+  500 gpt-image-2.5-flare-generate img:flare:lowpoly:birthday-dinner: retrying
+flare      painted    dolores-park      20.81s
+  500 gpt-image-2.5-flare-generate img:flare:lowpoly:birthday-dinner: retrying
+flare      clay       birthday-dinner   18.09s
+sd5lite    lowpoly    dolores-park      58.89s
+  429 seedream-5.0-lite img:sd5lite:painted:dolores-park: waiting 1s
+  429 seedream-5.0-lite img:sd5lite:felt:dolores-park: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:painted:dolores-park: waiting 28s
+flare      miniature  birthday-dinner   21.48s
+  500 gpt-image-2.5-flare-generate img:flare:lowpoly:birthday-dinner: retrying
+flare      vinyl      birthday-dinner   23.79s
+flare      paper      birthday-dinner   20.36s
+  429 seedream-5.0-lite img:sd5lite:felt:dolores-park: waiting 29s
+flare      felt       birthday-dinner   21.13s
+sd5lite    paper      dolores-park      60.88s
+  429 seedream-5.0-lite img:sd5lite:voxel:dolores-park: waiting 26s
+flare      painted    birthday-dinner   24.05s
+flare      voxel      birthday-dinner   16.93s
+flare      lowpoly    birthday-dinner   72.26s
+  429 seedream-5.0-lite img:sd5lite:voxel:dolores-park: waiting 29s
+sd5lite    painted    dolores-park      62.60s
+  429 seedream-5.0-lite img:sd5lite:clay:birthday-dinner: waiting 28s
+sd5lite    felt       dolores-park     113.38s
+  429 seedream-5.0-lite img:sd5lite:lowpoly:birthday-dinner: waiting 2s
+  429 seedream-5.0-lite img:sd5lite:clay:birthday-dinner: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:lowpoly:birthday-dinner: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:clay:birthday-dinner: waiting 29s
+sd5lite    voxel      dolores-park      89.34s
+  429 seedream-5.0-lite img:sd5lite:miniature:birthday-dinner: waiting 27s
+sd5lite    lowpoly    birthday-dinner   60.85s
+  429 seedream-5.0-lite img:sd5lite:vinyl:birthday-dinner: waiting 0s
+  429 seedream-5.0-lite img:sd5lite:miniature:birthday-dinner: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:vinyl:birthday-dinner: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:vinyl:birthday-dinner: waiting 29s
+sd5lite    clay       birthday-dinner  127.15s
+  429 seedream-5.0-lite img:sd5lite:paper:birthday-dinner: waiting 21s
+  429 seedream-5.0-lite img:sd5lite:vinyl:birthday-dinner: waiting 29s
+sd5lite    miniature  birthday-dinner   89.01s
+  429 seedream-5.0-lite img:sd5lite:felt:birthday-dinner: waiting 28s
+  429 seedream-5.0-lite img:sd5lite:felt:birthday-dinner: waiting 29s
+sd5lite    paper      birthday-dinner   62.00s
+  429 seedream-5.0-lite img:sd5lite:painted:birthday-dinner: waiting 19s
+  429 seedream-5.0-lite img:sd5lite:painted:birthday-dinner: waiting 29s
+sd5lite    vinyl      birthday-dinner  123.54s
+  429 seedream-5.0-lite img:sd5lite:voxel:birthday-dinner: waiting 27s
+  429 seedream-5.0-lite img:sd5lite:painted:birthday-dinner: waiting 29s
+sd5lite    felt       birthday-dinner   91.97s
+sd5lite    painted    birthday-dinner  142.65s
+sd5lite    voxel      birthday-dinner  122.14s
+{
+ "flare": {
+  "n": 16,
+  "p50": 21.165,
+  "max": 72.26
+ },
+ "sd5lite": {
+  "n": 16,
+  "p50": 75.805,
+  "max": 142.65
+ }
+}
+errors: 0; ledger total 1.52 USD

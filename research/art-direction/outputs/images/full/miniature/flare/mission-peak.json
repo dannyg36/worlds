@@ -1,0 +1,12 @@
+{
+ "model": "flare",
+ "gmi_model": "gpt-image-2.5-flare-generate",
+ "style": "miniature",
+ "slug": "mission-peak",
+ "latency_s": 22.98,
+ "server_s": 23,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_47324654-a804-4488-83f2-b184b75b6c1f_110dbf2c-950b-444b-983e-321abd49f53f.png",
+ "prompt": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A steep grassy hilltop patch glows in warm apricot dawn light. At the center stands a weathered metal pole on a rocky mound, with two bright red garden tomatoes resting on a boulder at its base. To the right, a father in an olive jacket and tan hat stands beside a hiker in a navy windbreaker holding walking sticks. Along the sloping left edge, a tiny black-and-white cow grazes on dew-touched golden-green grass. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "47324654-a804-4488-83f2-b184b75b6c1f"
+}

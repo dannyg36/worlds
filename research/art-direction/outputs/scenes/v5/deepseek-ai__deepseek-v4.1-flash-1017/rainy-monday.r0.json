@@ -1,0 +1,68 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "rainy-monday",
+ "rep": 0,
+ "latency_s": 2.18,
+ "usage": {
+  "prompt_tokens": 1832,
+  "completion_tokens": 410,
+  "total_tokens": 2242,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.0006249599999999999,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "Sitting under the skylight at home with a hot bowl of ramen while the rain drums overhead.",
+  "elements": [
+   {
+    "name": "skylight",
+    "kind": "place",
+    "look": "one tall square window set into a slanted roof, streaked with rain, glowing warm amber from inside"
+   },
+   {
+    "name": "ramen bowl",
+    "kind": "object",
+    "look": "a steaming ceramic bowl of noodles in golden broth with a soft-boiled egg and green onions, steam curling up"
+   },
+   {
+    "name": "cat latte",
+    "kind": "object",
+    "look": "a small cream-colored cup of latte with a cat face drawn in the foam, sitting on a wooden counter"
+   },
+   {
+    "name": "flipped umbrella",
+    "kind": "object",
+    "look": "a small blue umbrella turned inside out, spokes up, dripping onto wet pavement"
+   },
+   {
+    "name": "rainy street",
+    "kind": "place",
+    "look": "a wet city sidewalk with glossy puddles reflecting warm shop-window light"
+   }
+  ],
+  "time_of_day": "dusk",
+  "weather": "rainy",
+  "mood": "cozy",
+  "palette": [
+   "#3B4A5A",
+   "#E8A24C",
+   "#C9D6DF",
+   "#6B8C7B",
+   "#8A5A3B"
+  ],
+  "scene": "A wet city sidewalk patch at dusk, glossy puddles shining under warm shop-window light. A small blue umbrella lies flipped inside out at the front left, dripping. At the center a wooden counter holds a cream cup of latte with a cat drawn in the foam, a little larger than life. Behind it rises a slanted roof with one tall square skylight glowing amber, rain streaking the glass. Under the skylight sits a steaming bowl of ramen on a low table, a small figure in a rust sweater curled beside it.",
+  "title": "Ramen Under the Skylight",
+  "caption": "Rain on the skylight, ramen in my hands, a cat in my coffee. Good enough Monday. "
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": [
+  "caption_words=16"
+ ]
+}

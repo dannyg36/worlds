@@ -1,0 +1,49 @@
+{
+ "transcript": "Rainy Monday. Missed the bus so I walked to work and my umbrella flipped inside out twice. Stopped at the little coffee place on Valencia and the barista drew a cat in my latte. Whole afternoon was meetings, then I cooked ramen at home and listened to the rain on the skylight.",
+ "model": "google/gemini-3.8-flash",
+ "latency_s": 5.38,
+ "spec": {
+  "status": "ok",
+  "moment": "Stopping at the little coffee shop on Valencia where the barista drew a cat in the latte foam.",
+  "elements": [
+   {
+    "name": "latte with foam cat",
+    "kind": "object",
+    "look": "a wide ceramic mug holding a warm latte topped with delicate cat face foam art"
+   },
+   {
+    "name": "flipped umbrella",
+    "kind": "object",
+    "look": "a dark rain umbrella blown inside out, resting wet against a chair leg"
+   },
+   {
+    "name": "coffee shop counter",
+    "kind": "place",
+    "look": "a warm wooden cafe counter with steam rising from a shiny espresso machine"
+   },
+   {
+    "name": "barista",
+    "kind": "person",
+    "look": "a figure in a deep green apron standing behind the counter"
+   }
+  ],
+  "time_of_day": "morning",
+  "weather": "rainy",
+  "mood": "cozy relief",
+  "palette": [
+   "#c48a52",
+   "#3d5236",
+   "#e8d8c8",
+   "#4a5568"
+  ],
+  "scene": "A warm wooden cafe floor with wet footprints leading from the doorway. At center, an oversized ceramic cup sits on a small round bistro table, filled with milky coffee and foam shaped into a tiny cat face. Leaning against the table leg lies a dark umbrella, blown inside out with glistening rain droplets on its fabric. At the back edge stands a slice of wooden counter with a barista in a dark green apron beside a silver espresso machine. Soft amber light glows from an overhead pendant lamp.",
+  "title": "A Cat in the Foam",
+  "caption": "The barista drew a cat in my latte after the wind wrecked my umbrella."
+ },
+ "image_prompts": {
+  "clay": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A warm wooden cafe floor with wet footprints leading from the doorway. At center, an oversized ceramic cup sits on a small round bistro table, filled with milky coffee and foam shaped into a tiny cat face. Leaning against the table leg lies a dark umbrella, blown inside out with glistening rain droplets on its fabric. At the back edge stands a slice of wooden counter with a barista in a dark green apron beside a silver espresso machine. Soft amber light glows from an overhead pendant lamp. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "lowpoly": "A low-poly 3D floating island: a small chunk of land built from faceted, flat-shaded polygons with crisp edges, its rocky underside tapering to a point, hovering in empty space. On the island: A warm wooden cafe floor with wet footprints leading from the doorway. At center, an oversized ceramic cup sits on a small round bistro table, filled with milky coffee and foam shaped into a tiny cat face. Leaning against the table leg lies a dark umbrella, blown inside out with glistening rain droplets on its fabric. At the back edge stands a slice of wooden counter with a barista in a dark green apron beside a silver espresso machine. Soft amber light glows from an overhead pendant lamp. Clean stylized game-asset look: every element, including people, furniture, food and plants, is built from flat-shaded faceted polygons in soft pastel colors, with no realistic textures. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "miniature": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A warm wooden cafe floor with wet footprints leading from the doorway. At center, an oversized ceramic cup sits on a small round bistro table, filled with milky coffee and foam shaped into a tiny cat face. Leaning against the table leg lies a dark umbrella, blown inside out with glistening rain droplets on its fabric. At the back edge stands a slice of wooden counter with a barista in a dark green apron beside a silver espresso machine. Soft amber light glows from an overhead pendant lamp. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "vinyl": "A designer vinyl toy playset: glossy, smooth molded plastic in soft candy colors, rounded chunky shapes and cute collectible figures with oversized heads and molded hair, arranged on a rounded display base. In the playset: A warm wooden cafe floor with wet footprints leading from the doorway. At center, an oversized ceramic cup sits on a small round bistro table, filled with milky coffee and foam shaped into a tiny cat face. Leaning against the table leg lies a dark umbrella, blown inside out with glistening rain droplets on its fabric. At the back edge stands a slice of wooden counter with a barista in a dark green apron beside a silver espresso machine. Soft amber light glows from an overhead pendant lamp. Premium collectible product shot with soft highlights and no harsh reflections. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless soft neutral background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+ }
+}

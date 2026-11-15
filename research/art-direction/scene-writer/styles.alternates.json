@@ -1,0 +1,26 @@
+{
+  "paper": {
+    "name": "Papercraft pop-up",
+    "lead": "A papercraft pop-up diorama: a tiny world built from layered cut paper and folded cardstock, with crisp paper edges, subtle paper grain and soft shadows between layers, standing on a round paper base. In the diorama:",
+    "look": "Handmade, delicate and precise, like a pop-up book page come to life.",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  "felt": {
+    "name": "Needle-felted wool",
+    "lead": "A needle-felted wool diorama: a tiny cozy world made of soft fuzzy felted wool with rounded shapes and tiny felt figures, on a round felted base. In the diorama:",
+    "look": "Soft, tactile and cozy, with visible wool fibers.",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  "painted": {
+    "name": "Hand-painted cozy game",
+    "lead": "A stylized hand-painted 3D diorama like a cozy indie game: chunky exaggerated shapes, soft painterly textures with visible brush strokes and warm bounced light, on a small round platform of earth. On the platform:",
+    "look": "Storybook warmth, simple readable shapes and tiny stylized figures.",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless pale cream background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  "voxel": {
+    "name": "Voxel world",
+    "lead": "A voxel-art diorama: a tiny world built entirely from small uniform cubes with crisp blocky shapes and clean colors, on a square block base. On the base:",
+    "look": "Clean, chunky and playful, every shape made of visible cubes.",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  }
+}

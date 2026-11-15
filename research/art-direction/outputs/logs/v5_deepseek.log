@@ -1,0 +1,26 @@
+deepseek-ai/deepseek-v4.1-flash-1017     birthday-dinner  r0  2.16s out=422 issues=[]
+deepseek-ai/deepseek-v4.1-flash-1017     rainy-monday     r0  2.18s out=410 issues=['caption_words=16']
+deepseek-ai/deepseek-v4.1-flash-1017     finals-library   r0  2.17s out=414 issues=[]
+deepseek-ai/deepseek-v4.1-flash-1017     hackathon        r0  2.24s out=422 issues=['caption_words=16']
+deepseek-ai/deepseek-v4.1-flash-1017     santa-cruz       r0  2.23s out=495 issues=['name_in_scene:Maya']
+deepseek-ai/deepseek-v4.1-flash-1017     dolores-park     r0  2.27s out=451 issues=['caption_words=16']
+deepseek-ai/deepseek-v4.1-flash-1017     empty            r0  1.79s out=316 issues=[]
+deepseek-ai/deepseek-v4.1-flash-1017     filler           r0  2.02s out=323 issues=[]
+deepseek-ai/deepseek-v4.1-flash-1017     farmers-market   r0  2.07s out=453 issues=['caption_words=30']
+deepseek-ai/deepseek-v4.1-flash-1017     mission-peak     r0  2.24s out=394 issues=['caption_words=15']
+deepseek-ai/deepseek-v4.1-flash-1017     sad              r0  2.26s out=406 issues=[]
+deepseek-ai/deepseek-v4.1-flash-1017     rambling         r0  2.40s out=449 issues=['caption_words=20']
+deepseek-ai/deepseek-v4.1-flash-1017     profanity        r0  1.76s out=386 issues=[]
+deepseek-ai/deepseek-v4.1-flash-1017     injection        r0  1.74s out=426 issues=['caption_words=16']
+deepseek-ai/deepseek-v4.1-flash-1017     spanish          r0  1.99s out=440 issues=[]
+{
+ "deepseek-ai/deepseek-v4.1-flash-1017": {
+  "n": 15,
+  "errors": 0,
+  "p50_s": 2.17,
+  "max_s": 2.4,
+  "cost_usd": 0.0094,
+  "with_issues": 8
+ }
+}
+ledger total so far: 1.619 USD

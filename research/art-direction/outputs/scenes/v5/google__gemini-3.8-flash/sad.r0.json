@@ -1,0 +1,60 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "sad",
+ "rep": 0,
+ "latency_s": 4.01,
+ "usage": {
+  "completion_tokens": 396,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1797,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2193
+ },
+ "cost_usd": 0.00283275,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Sitting together in the backyard in the warm sun under the lemon tree.",
+  "elements": [
+   {
+    "name": "lemon tree",
+    "kind": "place",
+    "look": "a small leafy fruit tree with bright yellow lemons"
+   },
+   {
+    "name": "Mochi",
+    "kind": "animal",
+    "look": "an elderly cream-colored small dog resting comfortably"
+   },
+   {
+    "name": "garden blanket",
+    "kind": "object",
+    "look": "a soft woven cream and faded blue outdoor blanket"
+   },
+   {
+    "name": "fallen lemons",
+    "kind": "object",
+    "look": "a few bright yellow lemons resting in the grass"
+   }
+  ],
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "mood": "tender",
+  "palette": [
+   "#F4D03F",
+   "#7DCEA0",
+   "#FAD7A0",
+   "#85929E"
+  ],
+  "scene": "A warm patch of green lawn bathed in soft golden sunlight. At the back, a leafy lemon tree branches outward, dotted with yellow lemons and casting gentle dappled shade. In the center, an elderly cream-colored small dog rests peacefully curled up on a soft woven blanket. Two small figures in muted sweaters sit gently on the blanket beside her. A few fallen yellow lemons rest quietly in the grass near the front edge, glowing warmly in the afternoon light.",
+  "title": "Under the Lemon Tree",
+  "caption": "We sat with Mochi in her favorite sunny spot."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

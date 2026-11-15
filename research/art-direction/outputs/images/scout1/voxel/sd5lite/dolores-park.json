@@ -1,0 +1,12 @@
+{
+ "model": "sd5lite",
+ "gmi_model": "seedream-5.0-lite",
+ "style": "voxel",
+ "slug": "dolores-park",
+ "latency_s": 89.34,
+ "server_s": 32,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_7d6b41ee-0cd7-4f40-83f0-6dcd5368b92607a8a79b-37cc-47ea-9953-d2d179e95cf9.png",
+ "prompt": "A voxel-art diorama: a tiny world built entirely from small uniform cubes with crisp blocky shapes and clean colors, on a square block base. On the base: A sunlit patch of grassy green hill slopes gently downward. At the center, two simple seated figures in casual morning clothes relax on a red-striped picnic blanket with a halved foil-wrapped burrito between them. Just in front, a scruffy tan dog happily guards an oversized bright neon-yellow tennis ball between his front paws. Two tall palm trees stand at the back right corner, while far in the background a tiny plastic disc hovers near distant tiny park-goers under clear morning light. Clean, chunky and playful, every shape made of visible cubes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "7d6b41ee-0cd7-4f40-83f0-6dcd5368b926"
+}

@@ -1,0 +1,55 @@
+{
+ "transcript": "Took the day off and drove to Santa Cruz with Maya. Foggy in the morning but it cleared up around noon. We rented bikes, rode along the cliffs, saw like a hundred surfers. Got clam chowder in a bread bowl on the wharf and watched the sea lions yelling at each other. Sunburnt now.",
+ "model": "google/gemini-3.8-flash",
+ "latency_s": 6.69,
+ "spec": {
+  "status": "ok",
+  "moment": "Eating clam chowder in bread bowls on the wooden wharf while watching sea lions below.",
+  "elements": [
+   {
+    "name": "wooden wharf",
+    "kind": "place",
+    "look": "weathered gray-brown timber deck with heavy wooden railings"
+   },
+   {
+    "name": "bread bowls",
+    "kind": "object",
+    "look": "two round sourdough bread bowls steaming with creamy clam chowder on a picnic table"
+   },
+   {
+    "name": "sea lions",
+    "kind": "animal",
+    "look": "two sleek brown sea lions lounging on wooden crossbeams beneath the pier deck"
+   },
+   {
+    "name": "rental bikes",
+    "kind": "object",
+    "look": "two colorful beach cruiser bikes leaning together against the wharf railing"
+   },
+   {
+    "name": "Maya and me",
+    "kind": "person",
+    "look": "two figures in bright windbreakers and sun-reddened cheeks leaning over the rail"
+   }
+  ],
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "mood": "sun-drenched breezy",
+  "palette": [
+   "#8B5A2B",
+   "#F4D06F",
+   "#4A7C59",
+   "#2E6F9E",
+   "#D97443"
+  ],
+  "scene": "A weathered wooden wharf deck bathed in bright coastal afternoon sun. At the center, two round sourdough bread bowls of clam chowder sit on a rustic picnic bench. Leaning over the sturdy wooden railing are two figures in windbreakers, peering down at two plump brown sea lions perched on timber beams below. On the left, two colorful cruiser bikes rest against the rail. The sun casts sharp, warm shadows across the splintered gray planks.",
+  "title": "Chowder on the Wharf",
+  "caption": "Ate hot chowder on the pier while the sea lions yelled."
+ },
+ "image_prompts": {
+  "clay": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A weathered wooden wharf deck bathed in bright coastal afternoon sun. At the center, two round sourdough bread bowls of clam chowder sit on a rustic picnic bench. Leaning over the sturdy wooden railing are two figures in windbreakers, peering down at two plump brown sea lions perched on timber beams below. On the left, two colorful cruiser bikes rest against the rail. The sun casts sharp, warm shadows across the splintered gray planks. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "lowpoly": "A low-poly 3D floating island: a small chunk of land built from faceted, flat-shaded polygons with crisp edges, its rocky underside tapering to a point, hovering in empty space. On the island: A weathered wooden wharf deck bathed in bright coastal afternoon sun. At the center, two round sourdough bread bowls of clam chowder sit on a rustic picnic bench. Leaning over the sturdy wooden railing are two figures in windbreakers, peering down at two plump brown sea lions perched on timber beams below. On the left, two colorful cruiser bikes rest against the rail. The sun casts sharp, warm shadows across the splintered gray planks. Clean stylized game-asset look: every element, including people, furniture, food and plants, is built from flat-shaded faceted polygons in soft pastel colors, with no realistic textures. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "miniature": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A weathered wooden wharf deck bathed in bright coastal afternoon sun. At the center, two round sourdough bread bowls of clam chowder sit on a rustic picnic bench. Leaning over the sturdy wooden railing are two figures in windbreakers, peering down at two plump brown sea lions perched on timber beams below. On the left, two colorful cruiser bikes rest against the rail. The sun casts sharp, warm shadows across the splintered gray planks. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "vinyl": "A designer vinyl toy playset: glossy, smooth molded plastic in soft candy colors, rounded chunky shapes and cute collectible figures with oversized heads and molded hair, arranged on a rounded display base. In the playset: A weathered wooden wharf deck bathed in bright coastal afternoon sun. At the center, two round sourdough bread bowls of clam chowder sit on a rustic picnic bench. Leaning over the sturdy wooden railing are two figures in windbreakers, peering down at two plump brown sea lions perched on timber beams below. On the left, two colorful cruiser bikes rest against the rail. The sun casts sharp, warm shadows across the splintered gray planks. Premium collectible product shot with soft highlights and no harsh reflections. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless soft neutral background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+ }
+}

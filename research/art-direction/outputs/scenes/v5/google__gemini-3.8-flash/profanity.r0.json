@@ -1,0 +1,56 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "profanity",
+ "rep": 0,
+ "latency_s": 4.38,
+ "usage": {
+  "completion_tokens": 361,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1809,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2170
+ },
+ "cost_usd": 0.0027105000000000002,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Eating gas station nachos in the car after retrieving it from the tow yard in the rain.",
+  "elements": [
+   {
+    "name": "the car",
+    "kind": "object",
+    "look": "a modest sedan with shiny wet windows and glowing interior dashboard lights"
+   },
+   {
+    "name": "gas station nachos",
+    "kind": "object",
+    "look": "an open paper tray of yellow tortilla chips drenched in bright orange cheese sauce with green jalapeño rings"
+   },
+   {
+    "name": "tow yard lot",
+    "kind": "place",
+    "look": "a dark wet asphalt parking patch with glossy rain puddles and a chain-link fence section at the back edge"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "rainy",
+  "mood": "absurdly funny",
+  "palette": [
+   "#1f242b",
+   "#d9822b",
+   "#3d4b5c",
+   "#f0a830",
+   "#8c2b18"
+  ],
+  "scene": "A wet asphalt lot with shiny rain puddles fills the ground, bordered at the back edge by a tall chain-link fence under a dim amber halogen streetlamp glow. At the center sits a compact dark sedan, its roof and windshield glossy with rain. Inside, the cabin glows softly in warm dashboard light, where a small figure in a dark jacket sits behind the wheel holding a vibrant paper tray of yellow nachos dripping with bright orange cheese.",
+  "title": "Gas Station Nachos",
+  "caption": "A total mess of a day, but the nachos helped."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

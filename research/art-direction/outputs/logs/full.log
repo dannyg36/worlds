@@ -1,0 +1,129 @@
+64 images, est 1.54 USD, spent so far 1.62
+  429 seedream-5.0-lite img:sd5lite:clay:dolores-park: waiting 30s
+  500 gpt-image-2.5-flare-generate img:flare:miniature:dolores-park: retrying
+  500 gpt-image-2.5-flare-generate img:flare:clay:dolores-park: retrying
+  500 gpt-image-2.5-flare-generate img:flare:lowpoly:dolores-park: retrying
+  500 gpt-image-2.5-flare-generate img:flare:miniature:dolores-park: retrying
+  500 gpt-image-2.5-flare-generate img:flare:lowpoly:dolores-park: retrying
+flare      clay       dolores-park      28.21s
+sd5lite    lowpoly    dolores-park      30.18s
+  429 seedream-5.0-lite img:sd5lite:clay:dolores-park: waiting 29s
+sd5lite    miniature  dolores-park      37.82s
+  429 seedream-5.0-lite img:sd5lite:clay:birthday-dinner: waiting 22s
+flare      miniature  dolores-park      43.76s
+flare      lowpoly    dolores-park      43.84s
+flare      vinyl      dolores-park      20.48s
+  429 seedream-5.0-lite img:sd5lite:clay:birthday-dinner: waiting 29s
+sd5lite    vinyl      dolores-park      36.50s
+  429 seedream-5.0-lite img:sd5lite:lowpoly:birthday-dinner: waiting 23s
+flare      lowpoly    birthday-dinner   23.01s
+  500 gpt-image-2.5-flare-generate img:flare:vinyl:birthday-dinner: retrying
+flare      clay       birthday-dinner   24.62s
+  500 gpt-image-2.5-flare-generate img:flare:clay:farmers-market: retrying
+  500 gpt-image-2.5-flare-generate img:flare:vinyl:birthday-dinner: retrying
+  500 gpt-image-2.5-flare-generate img:flare:clay:farmers-market: retrying
+flare      miniature  birthday-dinner   27.99s
+  500 gpt-image-2.5-flare-generate img:flare:lowpoly:farmers-market: retrying
+  429 seedream-5.0-lite img:sd5lite:lowpoly:birthday-dinner: waiting 29s
+sd5lite    clay       dolores-park     103.41s
+  429 seedream-5.0-lite img:sd5lite:miniature:birthday-dinner: waiting 17s
+flare      lowpoly    farmers-market    28.50s
+  500 gpt-image-2.5-flare-generate img:flare:miniature:farmers-market: retrying
+flare      vinyl      birthday-dinner   47.88s
+flare      clay       farmers-market    46.55s
+  500 gpt-image-2.5-flare-generate img:flare:clay:santa-cruz: retrying
+  429 seedream-5.0-lite img:sd5lite:miniature:birthday-dinner: waiting 29s
+sd5lite    clay       birthday-dinner   86.46s
+  429 seedream-5.0-lite img:sd5lite:vinyl:birthday-dinner: waiting 25s
+flare      miniature  farmers-market    28.74s
+flare      vinyl      farmers-market    21.52s
+flare      clay       santa-cruz        22.06s
+  500 gpt-image-2.5-flare-generate img:flare:vinyl:santa-cruz: retrying
+flare      lowpoly    santa-cruz        13.27s
+  429 seedream-5.0-lite img:sd5lite:vinyl:birthday-dinner: waiting 29s
+flare      miniature  santa-cruz        20.67s
+sd5lite    lowpoly    birthday-dinner   92.54s
+  429 seedream-5.0-lite img:sd5lite:clay:farmers-market: waiting 20s
+flare      vinyl      santa-cruz        25.53s
+flare      lowpoly    mission-peak      20.12s
+  429 seedream-5.0-lite img:sd5lite:vinyl:birthday-dinner: waiting 29s
+flare      miniature  mission-peak      22.98s
+  500 gpt-image-2.5-flare-generate img:flare:clay:hackathon: retrying
+sd5lite    miniature  birthday-dinner   84.97s
+  429 seedream-5.0-lite img:sd5lite:lowpoly:farmers-market: waiting 21s
+flare      vinyl      mission-peak      26.06s
+  429 seedream-5.0-lite img:sd5lite:lowpoly:farmers-market: waiting 29s
+flare      clay       hackathon         29.66s
+  500 gpt-image-2.5-flare-generate img:flare:miniature:hackathon: retrying
+sd5lite    clay       farmers-market    58.50s
+  429 seedream-5.0-lite img:sd5lite:miniature:farmers-market: waiting 22s
+flare      lowpoly    hackathon         21.24s
+  500 gpt-image-2.5-flare-generate img:flare:vinyl:hackathon: retrying
+  429 seedream-5.0-lite img:sd5lite:miniature:farmers-market: waiting 29s
+sd5lite    vinyl      birthday-dinner  117.41s
+  429 seedream-5.0-lite img:sd5lite:vinyl:farmers-market: waiting 28s
+flare      miniature  hackathon         26.50s
+flare      vinyl      hackathon         30.26s
+flare      clay       finals-library    17.92s
+  429 seedream-5.0-lite img:sd5lite:vinyl:farmers-market: waiting 29s
+flare      lowpoly    finals-library    19.59s
+sd5lite    lowpoly    farmers-market    87.11s
+  429 seedream-5.0-lite img:sd5lite:clay:santa-cruz: waiting 24s
+flare      miniature  finals-library    21.37s
+flare      clay       mission-peak     146.81s
+flare      vinyl      finals-library    21.29s
+  429 seedream-5.0-lite img:sd5lite:vinyl:farmers-market: waiting 29s
+sd5lite    miniature  farmers-market    82.90s
+  429 seedream-5.0-lite img:sd5lite:lowpoly:santa-cruz: waiting 29s
+flare      clay       rainy-monday      24.74s
+flare      miniature  rainy-monday      19.84s
+flare      vinyl      rainy-monday      13.35s
+flare      lowpoly    rainy-monday      26.60s
+  429 seedream-5.0-lite img:sd5lite:vinyl:farmers-market: waiting 29s
+sd5lite    clay       santa-cruz        59.66s
+  429 seedream-5.0-lite img:sd5lite:miniature:santa-cruz: waiting 25s
+  429 seedream-5.0-lite img:sd5lite:vinyl:farmers-market: waiting 28s
+sd5lite    lowpoly    santa-cruz        68.02s
+  429 seedream-5.0-lite img:sd5lite:vinyl:santa-cruz: waiting 21s
+  429 seedream-5.0-lite img:sd5lite:vinyl:santa-cruz: waiting 28s
+sd5lite    miniature  santa-cruz        56.60s
+  429 seedream-5.0-lite img:sd5lite:clay:mission-peak: waiting 28s
+sd5lite    vinyl      farmers-market   177.35s
+  429 seedream-5.0-lite img:sd5lite:lowpoly:mission-peak: waiting 1s
+  429 seedream-5.0-lite img:sd5lite:lowpoly:mission-peak: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:vinyl:santa-cruz: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:vinyl:santa-cruz: waiting 29s
+sd5lite    clay       mission-peak      60.32s
+  429 seedream-5.0-lite img:sd5lite:miniature:mission-peak: waiting 27s
+sd5lite    lowpoly    mission-peak      55.93s
+  429 seedream-5.0-lite img:sd5lite:vinyl:mission-peak: waiting 5s
+  429 seedream-5.0-lite img:sd5lite:miniature:mission-peak: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:vinyl:mission-peak: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:miniature:mission-peak: waiting 29s
+sd5lite    vinyl      santa-cruz       142.51s
+  429 seedream-5.0-lite img:sd5lite:clay:hackathon: waiting 28s
+  429 seedream-5.0-lite img:sd5lite:miniature:mission-peak: waiting 29s
+sd5lite    vinyl      mission-peak      67.22s
+  429 seedream-5.0-lite img:sd5lite:lowpoly:hackathon: waiting 27s
+  429 seedream-5.0-lite img:sd5lite:lowpoly:hackathon: waiting 29s
+sd5lite    clay       hackathon         68.41s
+  429 seedream-5.0-lite img:sd5lite:miniature:hackathon: waiting 20s
+  429 seedream-5.0-lite img:sd5lite:miniature:hackathon: waiting 29s
+sd5lite    miniature  mission-peak     153.04s
+  429 seedream-5.0-lite img:sd5lite:vinyl:hackathon: waiting 24s
+  429 seedream-5.0-lite img:sd5lite:miniature:hackathon: waiting 29s
+sd5lite    lowpoly    hackathon         88.37s
+  429 seedream-5.0-lite img:sd5lite:clay:finals-library: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:miniature:hackathon: waiting 29s
+sd5lite    vinyl      hackathon         56.13s
+  429 seedream-5.0-lite img:sd5lite:lowpoly:finals-library: waiting 28s
+  429 seedream-5.0-lite img:sd5lite:miniature:hackathon: waiting 29s
+sd5lite    clay       finals-library    60.82s
+  429 seedream-5.0-lite img:sd5lite:miniature:finals-library: waiting 28s
+sd5lite    lowpoly    finals-library    58.33s
+  429 seedream-5.0-lite img:sd5lite:miniature:finals-library: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:miniature:hackathon: waiting 29s
+  429 seedream-5.0-lite img:sd5lite:miniature:finals-library: waiting 29s
+sd5lite    vinyl      finals-library    34.06s
+  429 seedream-5.0-lite img:sd5lite:clay:rainy-monday: waiting 25s
+  429 seedream-5.0-lite img:sd5lite:clay:rainy-monday: waiting 29s

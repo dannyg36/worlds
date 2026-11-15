@@ -1,0 +1,118 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "moment",
+    "elements",
+    "time_of_day",
+    "weather",
+    "mood",
+    "palette",
+    "scene",
+    "title",
+    "caption",
+    "image_prompt",
+    "style"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "sparse",
+        "empty"
+      ]
+    },
+    "moment": {
+      "type": "string"
+    },
+    "elements": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "kind",
+          "look"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "place",
+              "person",
+              "animal",
+              "object"
+            ]
+          },
+          "look": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "time_of_day": {
+      "type": "string",
+      "enum": [
+        "dawn",
+        "morning",
+        "midday",
+        "afternoon",
+        "golden hour",
+        "sunset",
+        "dusk",
+        "night"
+      ]
+    },
+    "weather": {
+      "type": "string",
+      "enum": [
+        "clear",
+        "partly cloudy",
+        "overcast",
+        "foggy",
+        "rainy",
+        "stormy",
+        "snowy",
+        "windy"
+      ]
+    },
+    "mood": {
+      "type": "string"
+    },
+    "palette": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 5,
+      "items": {
+        "type": "string",
+        "pattern": "^#[0-9A-Fa-f]{6}$"
+      }
+    },
+    "scene": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string"
+    },
+    "image_prompt": {
+      "type": "string",
+      "description": "Filled by buildImagePrompt(spec, style): style lead + scene + style look + composition guard. Not requested from the LLM."
+    },
+    "style": {
+      "type": "string",
+      "description": "House style id used for image_prompt."
+    }
+  },
+  "title": "worlds scene spec"
+}
