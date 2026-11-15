@@ -28,7 +28,10 @@ slugs.forEach((slug, dayIndex) => {
 
 const planned = jobs.reduce((sum, job) => sum + job.candidate.price_usd, 0);
 console.log("jobs " + jobs.length + ", planned $" + planned.toFixed(2) + ", ledger $" + ledgerTotal().toFixed(2) + ", cap $" + cap);
-if (args["dry-run"]) process.exit(0);
+if (args["dry-run"]) {
+  for (const candidate of candidates) console.log(candidate.id, candidate.endpoint, JSON.stringify(buildInput(candidate, slugs[0])));
+  process.exit(0);
+}
 if (ledgerTotal() + planned > cap) throw new Error("planned spend would pass the cap");
 
 function buildInput(candidate, slug) {
