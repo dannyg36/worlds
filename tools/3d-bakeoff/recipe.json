@@ -1,0 +1,16 @@
+{
+  "template": "A single miniature tabletop diorama of {scene}. Everything sits on one compact square base, and the whole diorama is centered with empty margin around it, seen from a three-quarter isometric angle about 30 degrees above. Soft, even, neutral studio lighting with no harsh shadows. Plain light grey seamless background. No text, no lettering, no border.",
+  "model": "blackforestlabs/flux-3/klein/text-to-image",
+  "input": {
+    "image_size": {
+      "width": 1024,
+      "height": 1024
+    },
+    "enable_prompt_expansion": false,
+    "output_format": "png",
+    "num_images": 1,
+    "seed": 7
+  },
+  "price_usd": 0.009,
+  "notes": "Neutral recipe for 3D reconstruction: one object, centered, 3/4 isometric view, plain light background, no text. The art-style thread owns style; keep this neutral."
+}
