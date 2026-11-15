@@ -6,6 +6,7 @@ import { useState } from "react";
 import {
   ActivityIndicator,
   Linking,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -20,6 +21,7 @@ import { type SpeechError, useSpeechToText } from "@/hooks/use-speech-to-text";
 import { api } from "../../convex/_generated/api";
 
 const MAX_SECONDS = 20;
+const canRecord = Platform.OS !== "web";
 const sampleClip = require("@/assets/audio/sample-day.wav");
 
 const SPEECH_ERRORS: Record<
@@ -89,7 +91,7 @@ export default function RecordScreen() {
   const { source } = useLocalSearchParams<{ source?: string }>();
   const addWorld = useMutation(api.worlds.add);
   const { isWebSocketConnected } = useConvexConnectionState();
-  const [draft, setDraft] = useState<string | null>(null);
+  const [draft, setDraft] = useState<string | null>(canRecord ? null : "");
   const [saving, setSaving] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
   const speech = useSpeechToText({
@@ -121,11 +123,13 @@ export default function RecordScreen() {
   }
 
   const subtitle =
-    draft !== null
-      ? "Check your words, then make your world."
-      : speech.status === "idle"
-        ? `Talk for up to ${MAX_SECONDS} seconds. We'll turn it into a world you can explore.`
-        : "Listening. Tap stop when you're done.";
+    draft === ""
+      ? "Type a few lines about your day."
+      : draft !== null
+        ? "Check your words, then make your world."
+        : speech.status === "idle"
+          ? `Talk for up to ${MAX_SECONDS} seconds. We'll turn it into a world you can explore.`
+          : "Listening. Tap stop when you're done.";
 
   return (
     <ScrollView
@@ -234,17 +238,23 @@ export default function RecordScreen() {
               {saving ? "Making your world…" : "Make my world"}
             </Text>
           </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            disabled={saving}
-            onPress={record}
-            style={styles.secondaryButton}
-          >
-            <SymbolView name={icons.mic} size={16} tintColor={colors.primary} />
-            <Text style={[styles.secondaryLabel, { color: colors.primary }]}>
-              Record again
-            </Text>
-          </Pressable>
+          {canRecord && (
+            <Pressable
+              accessibilityRole="button"
+              disabled={saving}
+              onPress={record}
+              style={styles.secondaryButton}
+            >
+              <SymbolView
+                name={icons.mic}
+                size={16}
+                tintColor={colors.primary}
+              />
+              <Text style={[styles.secondaryLabel, { color: colors.primary }]}>
+                Record again
+              </Text>
+            </Pressable>
+          )}
         </>
       ) : speech.status === "idle" ? (
         <>
