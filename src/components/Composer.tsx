@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 
 import { GlassButton } from "@/components/glass/GlassButton";
+import { GlassField } from "@/components/glass/GlassField";
 import { GlassSheet } from "@/components/glass/GlassSheet";
 import { Icon } from "@/components/Icon";
 import { haptics } from "@/design/haptics";
-import { color, fontFamily, radius, space, type } from "@/design/tokens";
+import { space, type } from "@/design/tokens";
 
 export function Composer({
   visible,
@@ -42,20 +43,14 @@ export function Composer({
         <Text style={type.title}>How was your day?</Text>
         <Text style={type.caption}>Tell it like you would to a friend. A few sentences is plenty.</Text>
       </View>
-      <View style={styles.field}>
-        <TextInput
-          value={transcript}
-          onChangeText={setTranscript}
-          placeholder="Woke up to rain, finally finished the deck, dumplings with Maya…"
-          placeholderTextColor={color.textTertiary}
-          accessibilityLabel="Describe your day"
-          multiline
-          autoFocus
-          keyboardAppearance="dark"
-          selectionColor={color.lilac}
-          style={styles.input}
-        />
-      </View>
+      <GlassField
+        value={transcript}
+        onChangeText={setTranscript}
+        placeholder="Woke up to rain, finally finished the deck, dumplings with Maya…"
+        accessibilityLabel="Describe your day"
+        multiline
+        autoFocus
+      />
       <GlassButton
         variant="primary"
         label={saving ? "Sending to the dream…" : "Make my world"}
@@ -71,22 +66,4 @@ const styles = StyleSheet.create({
   head: {
     gap: space.xs,
   },
-  field: {
-    borderRadius: radius.md,
-    borderCurve: "continuous",
-    backgroundColor: "rgba(255,255,255,0.05)",
-    borderWidth: StyleSheet.hairlineWidth * 2,
-    borderColor: color.hairline,
-    padding: space.lg,
-  },
-  input: {
-    minHeight: 120,
-    maxHeight: 220,
-    fontFamily: fontFamily.system,
-    fontSize: 18,
-    lineHeight: 26,
-    color: color.text,
-    textAlignVertical: "top",
-    outlineStyle: "none",
-  } as object,
 });

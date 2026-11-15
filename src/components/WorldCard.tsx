@@ -21,11 +21,11 @@ import { color, motion, radius, space, type } from "@/design/tokens";
 export type WorldStatus = "queued" | "dreaming" | "painting" | "sculpting" | "ready" | "failed";
 
 const STATUS: Record<WorldStatus, { label: string; dot: string; step: number }> = {
-  queued: { label: "Waiting to dream", dot: color.textTertiary, step: 0 },
-  dreaming: { label: "Dreaming", dot: color.lilac, step: 1 },
-  painting: { label: "Painting", dot: color.rose, step: 2 },
-  sculpting: { label: "Sculpting", dot: color.aurora, step: 3 },
-  ready: { label: "Ready", dot: color.aurora, step: 4 },
+  queued: { label: "Waiting to dream", dot: color.mist, step: 0 },
+  dreaming: { label: "Dreaming", dot: color.mint, step: 1 },
+  painting: { label: "Painting", dot: color.mint, step: 2 },
+  sculpting: { label: "Sculpting", dot: color.mint, step: 3 },
+  ready: { label: "Ready", dot: color.mint, step: 4 },
   failed: { label: "Didn't form", dot: color.danger, step: 0 },
 };
 
@@ -135,7 +135,7 @@ export function WorldCard({
       ) : null}
       {status === "failed" ? (
         <View style={styles.failed}>
-          <Text style={[type.caption, { color: color.danger }]} numberOfLines={2}>
+          <Text style={[type.caption, { color: color.danger }]}>
             {error ?? "This world didn't take shape."}
           </Text>
           {onRetry ? <GlassButton label="Try again" onPress={onRetry} style={styles.retry} /> : null}
@@ -222,6 +222,10 @@ function Nebula({ colors, animate }: { colors: string[]; animate: boolean }) {
   const drift = useAnimatedStyle(() => ({
     transform: [{ scale: 1.15 + t.value * 0.25 }, { rotate: `${t.value * 28}deg` }],
   }));
+  const seed = useAnimatedStyle(() => ({
+    opacity: 0.7 + t.value * 0.3,
+    transform: [{ scale: 0.85 + t.value * 0.35 }],
+  }));
   const [a, b, c = a] = colors;
   return (
     <View style={[StyleSheet.absoluteFill, styles.nebulaBase]}>
@@ -238,9 +242,15 @@ function Nebula({ colors, animate }: { colors: string[]; animate: boolean }) {
           drift,
         ]}
       />
-      <View style={styles.orbSeed}>
-        <View style={[styles.orbSeedCore, { boxShadow: `0 0 40px 12px ${withAlpha(a, 0.55)}` }]} />
-      </View>
+      <Animated.View style={[styles.orbSeed, seed]}>
+        <View
+          style={[
+            styles.orbSeedHalo,
+            { backgroundImage: `radial-gradient(circle, ${withAlpha("#FFFFFF", 0.5)} 0%, ${withAlpha(a, 0.45)} 30%, ${withAlpha(a, 0)} 70%)` },
+          ]}
+        />
+        <View style={[styles.orbSeedCore, { boxShadow: `0 0 18px 6px ${withAlpha(a, 0.9)}, 0 0 4px 1px #FFFFFF` }]} />
+      </Animated.View>
     </View>
   );
 }
@@ -381,15 +391,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   orbSeed: {
-    ...StyleSheet.absoluteFill,
+    position: "absolute",
+    top: "32%",
+    width: 120,
+    height: 120,
     alignItems: "center",
     justifyContent: "center",
   },
+  orbSeedHalo: {
+    ...StyleSheet.absoluteFill,
+    borderRadius: 60,
+  },
   orbSeedCore: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: "rgba(255,255,255,0.75)",
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: "#FFFFFF",
   },
   shimmerClip: {
     overflow: "hidden",

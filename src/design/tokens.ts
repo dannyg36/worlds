@@ -7,6 +7,8 @@ export const color = {
   violet: "#8B6CFF",
   lilac: "#C9B8FF",
   aurora: "#5BE3D4",
+  mint: "#7CF6E4",
+  mist: "#C8C4F0",
   ember: "#FF9A7A",
   rose: "#FF7EB6",
   text: "#F5F3FF",

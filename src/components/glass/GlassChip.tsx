@@ -23,7 +23,7 @@ export function GlassChip({
   const pulse = useSharedValue(1);
   useEffect(() => {
     pulse.set(pulsing
-      ? withRepeat(withTiming(0.25, { duration: 900, easing: Easing.inOut(Easing.sin) }), -1, true)
+      ? withRepeat(withTiming(0.5, { duration: 900, easing: Easing.inOut(Easing.sin) }), -1, true)
       : 1);
   }, [pulsing, pulse]);
   const dotStyle = useAnimatedStyle(() => ({ opacity: pulse.value }));
@@ -33,7 +33,7 @@ export function GlassChip({
       <View style={styles.row}>
         {dot ? (
           <Animated.View
-            style={[styles.dot, { backgroundColor: dot, boxShadow: `0 0 8px ${dot}` }, dotStyle]}
+            style={[styles.dot, { backgroundColor: dot, boxShadow: `0 0 10px 1px ${dot}` }, dotStyle]}
           />
         ) : null}
         <Text style={type.chip}>{label}</Text>

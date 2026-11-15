@@ -61,7 +61,9 @@ export function HeroOrb({ onPress, label = "Tell me about your day" }: { onPress
           </View>
         </Pressable>
       </Animated.View>
-      <Text style={styles.label}>{label}</Text>
+      <GlassSurface radius={radius.pill} strong style={styles.labelPill}>
+        <Text style={styles.label}>{label}</Text>
+      </GlassSurface>
     </Animated.View>
   );
 }
@@ -71,7 +73,11 @@ const size = layout.orb;
 const styles = StyleSheet.create({
   wrap: {
     alignItems: "center",
-    gap: space.md,
+    gap: space.xs,
+  },
+  labelPill: {
+    paddingHorizontal: space.lg,
+    paddingVertical: space.sm - 1,
   },
   hit: {
     width: size + 40,
@@ -106,7 +112,8 @@ const styles = StyleSheet.create({
   },
   label: {
     ...type.caption,
-    color: color.textSecondary,
-    letterSpacing: 0.3,
+    fontWeight: "600",
+    color: color.text,
+    letterSpacing: 0.2,
   },
 });

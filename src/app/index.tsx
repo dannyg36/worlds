@@ -90,7 +90,7 @@ export default function HomeScreen() {
             : undefined
         }
       />
-      <View pointerEvents="none" style={[styles.fade, { height: orbSpace + space.xxl }]} />
+      <View pointerEvents="none" style={[styles.fade, { height: orbSpace + space.xxxl }]} />
       <View pointerEvents="box-none" style={[styles.orbDock, { paddingBottom: insets.bottom + space.md }]}>
         <HeroOrb onPress={() => setComposing(true)} />
       </View>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundImage: "linear-gradient(180deg, rgba(10,8,30,0) 0%, rgba(10,8,30,0.72) 55%, rgba(8,6,24,0.95) 100%)",
+    backgroundImage: "linear-gradient(180deg, rgba(10,8,30,0) 0%, rgba(10,8,30,0.82) 42%, rgba(7,6,22,0.97) 72%, rgba(5,5,18,1) 100%)",
   },
   orbDock: {
     position: "absolute",
