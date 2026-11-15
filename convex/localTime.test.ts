@@ -66,6 +66,18 @@ describe("nextLocalTime", () => {
   });
 });
 
+describe("wall times skipped by daylight saving", () => {
+  test("move forward past the gap instead of firing early", () => {
+    const twoThirty = 2 * 60 + 30;
+    expect(
+      iso(nextLocalTime(at("2027-03-14T05:00:00Z"), "America/New_York", twoThirty)),
+    ).toBe("2027-03-14T07:30:00.000Z");
+    expect(
+      iso(nextLocalTime(at("2027-03-27T12:00:00Z"), "Europe/London", 60 + 30, "2027-03-27")),
+    ).toBe("2027-03-28T01:30:00.000Z");
+  });
+});
+
 describe("local days", () => {
   test("uses the device's calendar date, not UTC's", () => {
     const lateEvening = at("2026-11-16T07:30:00Z");

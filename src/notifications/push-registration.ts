@@ -1,6 +1,8 @@
 import * as Crypto from "expo-crypto";
 import {
   AndroidImportance,
+  type DevicePushToken,
+  getDevicePushTokenAsync,
   getExpoPushTokenAsync,
   getPermissionsAsync,
   IosAuthorizationStatus,
@@ -40,6 +42,8 @@ export const pushSupported = Platform.OS === "ios" || Platform.OS === "android";
 let installId: Promise<string> | undefined;
 let state: PushState = { status: pushSupported ? "checking" : "unsupported" };
 const listeners = new Set<() => void>();
+let queue: Promise<unknown> = Promise.resolve();
+let registeredDeviceToken: DevicePushToken["data"] | undefined;
 
 export function getInstallId() {
   installId ??= loadInstallId().catch((error) => {
@@ -77,18 +81,33 @@ function setState(next: PushState) {
   }
 }
 
-export async function syncPushRegistration({
-  register,
-  unregister,
-  prompt,
-  reminderMinutes,
-}: {
+function serialized<T>(task: () => Promise<T>) {
+  const run = queue.then(task);
+  queue = run.catch(() => {});
+  return run;
+}
+
+export function syncPushRegistration(options: {
   register: Register;
   unregister: Unregister;
   prompt: boolean;
   reminderMinutes?: number;
+  devicePushToken?: DevicePushToken;
 }) {
-  if (!pushSupported) {
+  return serialized(() => sync(options));
+}
+
+async function sync({
+  register,
+  unregister,
+  prompt,
+  reminderMinutes,
+  devicePushToken,
+}: Parameters<typeof syncPushRegistration>[0]) {
+  if (
+    !pushSupported ||
+    (devicePushToken && devicePushToken.data === registeredDeviceToken)
+  ) {
     return;
   }
   try {
@@ -96,22 +115,29 @@ export async function syncPushRegistration({
     if (prompt) {
       await SecureStore.deleteItemAsync(OPTED_OUT_KEY);
     } else if (await SecureStore.getItemAsync(OPTED_OUT_KEY)) {
+      registeredDeviceToken = undefined;
+      await unregister({ installId: id });
       setState({ status: "off" });
       return;
     }
     const permission = await notificationPermission(prompt);
     if (permission !== "granted") {
+      registeredDeviceToken = undefined;
       await unregister({ installId: id });
       setState({ status: permission });
       return;
     }
-    const { data: token } = await getExpoPushTokenAsync();
+    const deviceToken = devicePushToken ?? (await getDevicePushTokenAsync());
+    const { data: token } = await getExpoPushTokenAsync({
+      devicePushToken: deviceToken,
+    });
     await register({
       installId: id,
       token,
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       reminderMinutes,
     });
+    registeredDeviceToken = deviceToken.data;
     setState({ status: "on" });
   } catch (error) {
     setState({
@@ -121,10 +147,13 @@ export async function syncPushRegistration({
   }
 }
 
-export async function turnOffPush(unregister: Unregister) {
-  await SecureStore.setItemAsync(OPTED_OUT_KEY, "true");
-  await unregister({ installId: await getInstallId() });
-  setState({ status: "off" });
+export function turnOffPush(unregister: Unregister) {
+  return serialized(async () => {
+    registeredDeviceToken = undefined;
+    await SecureStore.setItemAsync(OPTED_OUT_KEY, "true");
+    await unregister({ installId: await getInstallId() });
+    setState({ status: "off" });
+  });
 }
 
 async function notificationPermission(prompt: boolean) {

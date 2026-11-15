@@ -32,15 +32,20 @@ export function PushNotifications() {
     if (!pushSupported) {
       return;
     }
-    const sync = () =>
-      syncPushRegistration({ register, unregister, prompt: false });
+    const sync = (devicePushToken?: Notifications.DevicePushToken) =>
+      syncPushRegistration({
+        register,
+        unregister,
+        prompt: false,
+        devicePushToken,
+      });
     void sync();
     const appState = AppState.addEventListener("change", (next) => {
       if (next === "active") {
         void sync();
       }
     });
-    const tokens = Notifications.addPushTokenListener(() => void sync());
+    const tokens = Notifications.addPushTokenListener((token) => void sync(token));
     return () => {
       appState.remove();
       tokens.remove();

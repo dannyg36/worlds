@@ -51,7 +51,8 @@ function offset(time: number, timeZone: string) {
 
 function toUtc(wallTime: number, timeZone: string) {
   const guess = wallTime - offset(wallTime, timeZone);
-  return wallTime - offset(guess, timeZone);
+  const time = wallTime - offset(guess, timeZone);
+  return wallClock(time, timeZone) === wallTime ? time : Math.max(guess, time);
 }
 
 function localDay(time: number, timeZone: string) {
