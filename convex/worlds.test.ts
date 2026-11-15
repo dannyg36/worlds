@@ -98,3 +98,50 @@ test("retry leaves ready and generating worlds alone and starts worlds made befo
     "This world is already ready.",
   );
 });
+
+/** Stores a file the way an upload would, with the given bytes and content type. */
+async function storeFile(t: ReturnType<typeof signedInTest>, text: string, type: string) {
+  return await t.run(async (ctx) => ctx.storage.store(new Blob([text], { type })));
+}
+
+test("generateUploadUrl needs a signed-in user", async () => {
+  await expect(
+    convexTest(schema, modules).mutation(api.worlds.generateUploadUrl, {}),
+  ).rejects.toThrow("Sign in to add photos.");
+  expect(await signedInTest().mutation(api.worlds.generateUploadUrl, {})).toEqual(
+    expect.any(String),
+  );
+});
+
+test("add keeps the photos in order and get returns their URLs", async () => {
+  const t = signedInTest();
+  const photos = [
+    await storeFile(t, "first photo", "image/jpeg"),
+    await storeFile(t, "second photo", "image/png"),
+  ];
+  const id = await t.mutation(api.worlds.add, { transcript: "A day.", photos });
+
+  expect(await t.run(async (ctx) => (await ctx.db.get("worlds", id))?.photos)).toEqual(photos);
+  const urls = await t.run(async (ctx) =>
+    Promise.all(photos.map((photo) => ctx.storage.getUrl(photo))),
+  );
+  expect((await t.query(api.worlds.get, { id }))?.photos).toEqual(urls);
+});
+
+test("add rejects photos that aren't images, are too big, or are too many", async () => {
+  const t = signedInTest();
+  const notAnImage = await storeFile(t, "hello", "text/plain");
+  const tooBig = await storeFile(t, "x".repeat(4 * 1024 * 1024), "image/jpeg");
+  for (const photo of [notAnImage, tooBig]) {
+    await expect(
+      t.mutation(api.worlds.add, { transcript: "A day.", photos: [photo] }),
+    ).rejects.toThrow("Photos need to be JPEG, PNG, GIF or WebP images under 3.75 MB.");
+  }
+  const seven = [];
+  for (let index = 0; index < 7; index++) {
+    seven.push(await storeFile(t, `photo ${index}`, "image/jpeg"));
+  }
+  await expect(
+    t.mutation(api.worlds.add, { transcript: "A day.", photos: seven }),
+  ).rejects.toThrow("Add up to 6 photos.");
+});

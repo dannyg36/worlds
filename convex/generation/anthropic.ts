@@ -5,10 +5,15 @@ import { ProviderError } from "./provider";
 export const CLAUDE_MODEL = "claude-opus-5-5";
 const MAX_TOKENS = 16_000;
 
+export type ImageType = Anthropic.Beta.BetaBase64ImageSource["media_type"];
+/** A base64 image, sent after its label and before the user text. */
+export type ClaudeImage = { label: string; mediaType: ImageType; data: string };
+
 export type ClaudeRequest = {
   model: string;
   system: string;
   user: string;
+  images?: ClaudeImage[];
   effort: "low" | "medium";
 };
 
@@ -18,7 +23,7 @@ export type ClaudeRequest = {
  * max_tokens throws instead of returning partial text.
  */
 export async function claudeText(
-  { model, system, user, effort }: ClaudeRequest,
+  { model, system, user, images = [], effort }: ClaudeRequest,
   { timeoutMs, signal }: { timeoutMs: number; signal?: AbortSignal },
 ): Promise<string> {
   if (!env.ANTHROPIC_API_KEY) {
@@ -45,7 +50,22 @@ export async function claudeText(
           system: [
             { type: "text", text: system, cache_control: { type: "ephemeral" } },
           ],
-          messages: [{ role: "user", content: user }],
+          messages: [
+            {
+              role: "user",
+              content: images.length
+                ? [
+                    ...images.flatMap(
+                      ({ label, mediaType, data }): Anthropic.Beta.BetaContentBlockParam[] => [
+                        { type: "text", text: label },
+                        { type: "image", source: { type: "base64", media_type: mediaType, data } },
+                      ],
+                    ),
+                    { type: "text", text: user },
+                  ]
+                : user,
+            },
+          ],
         },
         { signal },
       )
