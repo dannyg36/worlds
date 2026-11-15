@@ -14,7 +14,7 @@ export const SCENE = {
     "A tiny office corner with one long table by the window, Red Bull cans, and a glowing laptop at sunset.",
 };
 
-type Step = keyof typeof models;
+type Step = "dreaming" | "painting" | "sculpting";
 const STEPS: Step[] = ["dreaming", "painting", "sculpting"];
 
 export type Outcome =

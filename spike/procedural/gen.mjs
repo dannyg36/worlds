@@ -11,7 +11,7 @@ import { execFileSync } from "node:child_process";
 import { appendFileSync, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, dirname, extname, join, relative, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseArgs } from "node:util";
 import { formatStats, validate } from "./validate.mjs";
 
@@ -90,7 +90,7 @@ function parseCli(argv) {
   };
 }
 
-function readTranscript(day) {
+export function readTranscript(day) {
   const days = {};
   for (const section of readFileSync(DAYS, "utf8").split(/^## /m).slice(1)) {
     const [slug, ...body] = section.split("\n");
@@ -176,7 +176,7 @@ function redactImages(body) {
 
 // ---------- HTTP ----------
 
-class ProviderError extends Error {}
+export class ProviderError extends Error {}
 
 // Returns parsed JSON, or the Response itself when `raw` is set and the status is OK.
 async function gmi(url, { method = "GET", body, timeoutMs, raw = false }) {
@@ -212,7 +212,7 @@ async function gmi(url, { method = "GET", body, timeoutMs, raw = false }) {
 
 // ---------- cost ----------
 
-function llmPrices(model) {
+export function llmPrices(model) {
   try {
     const entry = JSON.parse(readFileSync(LLM_CATALOG, "utf8")).data.find((m) => m.id === model);
     const p = entry?.pricing;
@@ -221,7 +221,7 @@ function llmPrices(model) {
   return null;
 }
 
-function callCost(prices, usage) {
+export function callCost(prices, usage) {
   if (!prices || !usage) return null;
   const cached = usage.prompt_tokens_details?.cached_tokens ?? 0;
   return (
@@ -231,7 +231,7 @@ function callCost(prices, usage) {
   );
 }
 
-const money = (usd) => (usd == null ? "unknown" : `$${usd.toFixed(4)}`);
+export const money = (usd) => (usd == null ? "unknown" : `$${usd.toFixed(4)}`);
 
 // ---------- steps ----------
 
@@ -265,7 +265,7 @@ async function paint(day, transcript, outPath) {
 
 let plainChat = false; // set once a model rejects JSON mode or reasoning_effort
 
-async function chat(model, messages) {
+export async function chat(model, messages) {
   const t0 = Date.now();
   const { response_format, reasoning_effort, stream_options, ...plain } = chatBody(model, messages);
   let response;
@@ -339,7 +339,7 @@ function estimateUsage(messages, content) {
   return { prompt_tokens: Math.round(chars / 4) + images * 258, completion_tokens: Math.round(content.length / 4), estimated: true };
 }
 
-function parseSpec(content, finish) {
+export function parseSpec(content, finish) {
   const fenced = content.match(/```(?:json)?\s*([\s\S]*?)```/);
   let text = fenced ? fenced[1] : content;
   const start = text.indexOf("{");
@@ -488,7 +488,10 @@ async function main() {
   if (errors.length) process.exit(1);
 }
 
-main().catch((error) => {
-  console.error(`gen.mjs: ${error.message}`);
-  process.exit(1);
-});
+// Importable: island-gen.mjs reuses the GMI chat path.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
+    console.error(`gen.mjs: ${error.message}`);
+    process.exit(1);
+  });
+}

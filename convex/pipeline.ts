@@ -19,7 +19,7 @@ type TaskRef = { runId: Id<"generationRuns">; step: Step; attempt: number };
 
 const STEP_LABELS: Record<Step, string> = {
   dreaming: "Writing the scene",
-  painting: "Painting the concept image",
+  painting: "Painting the thumbnail",
   sculpting: "Sculpting the 3D model",
 };
 const ACTIVE_STEPS: Step[] = ["dreaming", "painting", "sculpting"];
@@ -37,7 +37,11 @@ const taskArgs = {
 const requestArgs = { ...taskArgs, requestId: v.string() };
 
 const stepOutput = v.union(
-  v.object({ step: v.literal("dreaming"), scene }),
+  v.object({
+    step: v.literal("dreaming"),
+    scene,
+    island: v.optional(v.string()),
+  }),
   v.object({
     step: v.literal("painting"),
     imageUrl: v.string(),
@@ -79,6 +83,7 @@ export async function startGeneration(
     title: undefined,
     caption: undefined,
     palette: undefined,
+    scene: undefined,
     imageStorageId: undefined,
     modelStorageId: undefined,
     error: undefined,
@@ -360,6 +365,7 @@ export const completeTask = internalMutation({
           title: output.scene.title,
           caption: output.scene.caption,
           palette: output.scene.palette,
+          scene: output.island,
         });
         await ctx.scheduler.runAfter(0, internal.pipeline.runStep, {
           runId,
@@ -367,6 +373,14 @@ export const completeTask = internalMutation({
         });
         break;
       case "painting":
+        if (!models.sculpt) {
+          await updateTask(ctx, run, task, done, {
+            imageSourceUrl: output.imageUrl,
+            ...readyRun(run, durations, now),
+          });
+          await markReady(ctx, world, { imageStorageId: output.storageId });
+          break;
+        }
         await updateTask(ctx, run, task, done, {
           step: "sculpting",
           stepStartedAt: now,
@@ -383,20 +397,8 @@ export const completeTask = internalMutation({
         });
         break;
       case "sculpting":
-        await updateTask(ctx, run, task, done, {
-          step: "ready",
-          durations: { ...durations, total: now - run.startedAt },
-          finishedAt: now,
-        });
-        await ctx.db.patch("worlds", world._id, {
-          status: "ready",
-          modelStorageId: output.storageId,
-        });
-        await ctx.scheduler.runAfter(
-          0,
-          internal.notifications.worldStatusChanged,
-          { worldId: world._id, status: "ready", title: world.title },
-        );
+        await updateTask(ctx, run, task, done, readyRun(run, durations, now));
+        await markReady(ctx, world, { modelStorageId: output.storageId });
         break;
     }
     return true;
@@ -428,7 +430,7 @@ export const watchdog = internalMutation({
       for (const run of runs) {
         if (now - run.startedAt > RUN_DEADLINE_MS) {
           await failRun(ctx, run, "Generation took too long.");
-        } else if (now - run.touchedAt > STALL_MS) {
+        } else if (now - run.touchedAt > stallMs(run, step)) {
           await revive(ctx, run, step, now);
         }
       }
@@ -436,6 +438,18 @@ export const watchdog = internalMutation({
     return null;
   },
 });
+
+/**
+ * How long a run can go untouched before the watchdog steps in. Polled
+ * requests touch the run every few seconds; a request answered in one call
+ * (the island writer runs for minutes) touches it only when it starts.
+ */
+function stallMs(run: Run, step: Step) {
+  const waiting = run.tasks.find(
+    (task) => task.step === step && !task.outcome && !task.requestId,
+  );
+  return waiting ? models[step].timeoutMs + STALL_MS : STALL_MS;
+}
 
 async function revive(ctx: MutationCtx, run: Run, step: Step, now: number) {
   const task = run.tasks.find(
@@ -505,8 +519,10 @@ async function storeOutput(
   result: unknown,
 ): Promise<Infer<typeof stepOutput>> {
   switch (step) {
-    case "dreaming":
-      return { step, scene: models.dreaming.output(result) };
+    case "dreaming": {
+      const { scene, island } = models.dreaming.output(result);
+      return island === undefined ? { step, scene } : { step, scene, island };
+    }
     case "painting": {
       const imageUrl = models.painting.output(result);
       const storageId = await ctx.storage.store(await download(imageUrl));
@@ -555,8 +571,42 @@ async function failTaskIn(
   }
 }
 
+function readyRun(run: Run, durations: Run["durations"], now: number) {
+  return {
+    step: "ready" as const,
+    durations: { ...durations, total: now - run.startedAt },
+    finishedAt: now,
+  };
+}
+
+async function markReady(
+  ctx: MutationCtx,
+  world: Doc<"worlds">,
+  files: { imageStorageId?: Id<"_storage">; modelStorageId?: Id<"_storage"> },
+) {
+  await ctx.db.patch("worlds", world._id, { status: "ready", ...files });
+  await ctx.scheduler.runAfter(0, internal.notifications.worldStatusChanged, {
+    worldId: world._id,
+    status: "ready",
+    title: world.title,
+  });
+}
+
 async function failRun(ctx: MutationCtx, run: Run, error: string) {
   const now = Date.now();
+  const world = await ctx.db.get("worlds", run.worldId);
+  if (world?.runId === run._id && world.scene !== undefined) {
+    // The island is already viewable; a missing thumbnail or model doesn't fail it.
+    console.warn(`World ${world._id} is ready without its last step: ${error}`);
+    await ctx.db.patch("generationRuns", run._id, {
+      tasks: run.tasks,
+      ...readyRun(run, run.durations, now),
+      error,
+      touchedAt: now,
+    });
+    await markReady(ctx, world, {});
+    return;
+  }
   await ctx.db.patch("generationRuns", run._id, {
     tasks: run.tasks,
     step: "failed",
@@ -564,7 +614,6 @@ async function failRun(ctx: MutationCtx, run: Run, error: string) {
     finishedAt: now,
     touchedAt: now,
   });
-  const world = await ctx.db.get("worlds", run.worldId);
   if (world?.runId === run._id) {
     await ctx.db.patch("worlds", world._id, { status: "failed", error });
     await ctx.scheduler.runAfter(0, internal.notifications.worldStatusChanged, {

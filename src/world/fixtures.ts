@@ -9,7 +9,11 @@ const khronos =
 
 type Fixture = Omit<World, "_creationTime"> & { daysAgo: number };
 
-const fixtures: Fixture[] = [
+// Island specs synced into ./island/samples by `npm run sync:island`, by fixture id.
+// Import each sample that exists, e.g. `"fixture-birthday-dinner": birthdayDinner`.
+const islands: Record<string, { title?: string; caption?: string }> = {};
+
+const days: Fixture[] = [
   {
     _id: "fixture-hackathon",
     daysAgo: 0,
@@ -106,6 +110,20 @@ const fixtures: Fixture[] = [
     modelUrl: `${khronos}/Avocado/glTF-Binary/Avocado.glb`,
   },
 ];
+const fixtures = days.map(withIsland);
+
+function withIsland(fixture: Fixture): Fixture {
+  const island = islands[fixture._id];
+  if (!island) {
+    return fixture;
+  }
+  return {
+    ...fixture,
+    title: island.title ?? fixture.title,
+    caption: island.caption ?? fixture.caption,
+    scene: JSON.stringify(island),
+  };
+}
 
 const launchedAt = Date.now();
 const day = 24 * 60 * 60 * 1000;
@@ -146,13 +164,14 @@ function form(id: string) {
     palette: undefined,
     imageUrl: undefined,
     modelUrl: undefined,
+    scene: undefined,
     error: undefined,
   });
-  const { title, caption, palette, imageUrl, modelUrl } = fixture;
+  const { title, caption, palette, imageUrl, modelUrl, scene } = fixture;
   timers.set(id, [
     setTimeout(() => update(id, { status: "dreaming" }), 2500),
     setTimeout(
-      () => update(id, { status: "painting", title, caption, palette }),
+      () => update(id, { status: "painting", title, caption, palette, scene }),
       7000,
     ),
     setTimeout(() => update(id, { status: "sculpting", imageUrl }), 12000),

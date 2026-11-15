@@ -60,7 +60,7 @@ export default function IslandViewer({
 
     try {
       createWorld(host, JSON.parse(sceneJson), {
-        pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+        quality: "low",
         onReady: () => {
           if (!disposed) {
             void eventsRef.current.onReady();
@@ -105,15 +105,16 @@ export default function IslandViewer({
   );
 }
 
-// Fit the island into the band between the header and the info card: shift the
-// view centre and widen the frustum so the visible band sees what the full screen would.
+// createWorld frames the island for a square view. Fit that square into the band
+// between the header and the info card: centre the view on the band and widen the
+// frustum (zoom < 1) until the square's width and height both fit.
 function layout(world: WorldHandle, host: HTMLElement, insets: Insets) {
   const width = Math.max(1, host.clientWidth);
   const height = Math.max(1, host.clientHeight);
   world.setSize(width, height);
   const { camera } = world;
-  camera.aspect = width / height;
-  camera.zoom = Math.max(0.3, (height - insets.top - insets.bottom) / height);
+  const band = height - insets.top - insets.bottom;
+  camera.zoom = Math.min(1, Math.max(0.3, Math.min(band, width) / height));
   camera.setViewOffset(
     width,
     height,

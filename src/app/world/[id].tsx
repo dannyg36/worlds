@@ -102,6 +102,7 @@ function WorldScene({ world }: { world: World }) {
     (scene !== undefined
       ? !viewerReady
       : isForming(world) || (modelUrl !== undefined && !viewerReady));
+  const canWalk = viewerReady && modelUrl !== undefined;
   const insetTop = insets.top + 52;
   const insetBottom = walking ? insets.bottom : insets.bottom + cardHeight + 16;
 
@@ -135,8 +136,7 @@ function WorldScene({ world }: { world: World }) {
     <View style={[styles.screen, { backgroundColor: auroraBase(palette) }]}>
       <Stack.Screen
         options={{
-          headerRight:
-            viewerReady && modelUrl
+          headerRight: canWalk
             ? () => (
                 <Pressable
                   accessibilityRole="button"
