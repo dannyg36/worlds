@@ -3,7 +3,7 @@ import {
   InstrumentSerif_400Regular_Italic,
   useFonts,
 } from "@expo-google-fonts/instrument-serif";
-import { ConvexReactClient } from "convex/react";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { DarkTheme, Stack, ThemeProvider } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
@@ -19,6 +19,9 @@ SplashScreen.preventAutoHideAsync();
 const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
   unsavedChangesWarning: false,
 });
+
+const ProfileGate =
+  process.env.EXPO_PUBLIC_WORLDS_FIXTURES === "1" ? ConvexProvider : DeviceProfileProvider;
 
 export const unstable_settings = {
   anchor: "index",
@@ -50,7 +53,7 @@ export default function RootLayout() {
     <View style={styles.root}>
       <Backdrop />
       <StatusBar style="light" />
-      <DeviceProfileProvider client={convex}>
+      <ProfileGate client={convex}>
         <ThemeProvider value={theme}>
           <Stack
             screenOptions={{
@@ -74,7 +77,7 @@ export default function RootLayout() {
             />
           </Stack>
         </ThemeProvider>
-      </DeviceProfileProvider>
+      </ProfileGate>
     </View>
   );
 }
