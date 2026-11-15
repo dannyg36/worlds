@@ -1,0 +1,2282 @@
+[
+ {
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/part",
+  "category": "3d-to-3d",
+  "name": "Hunyuan 3D Part Splitter",
+  "status": "active",
+  "date": "2026-01-27",
+  "retires": null,
+  "price": "Your request will cost $0.45 per generation. For $1.00, you can run this model 2 times.",
+  "inputs": [
+   "input_file_url"
+  ],
+  "outputs": [
+   "result_files"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/smart-topology",
+  "category": "3d-to-3d",
+  "name": "Hunyuan 3D Smart Topology",
+  "status": "active",
+  "date": "2026-01-27",
+  "retires": null,
+  "price": "Your request will cost $0.75 per generation. For $1.00, you can run this model 1 time.",
+  "inputs": [
+   "input_file_url",
+   "input_file_type",
+   "polygon_type",
+   "face_level"
+  ],
+  "outputs": [
+   "model_glb",
+   "model_urls"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan-part",
+  "category": "3d-to-3d",
+  "name": "Hunyuan Part",
+  "status": "deprecated",
+  "date": "2025-10-08",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "fal-ai/meshy/rigging",
+  "category": "3d-to-3d",
+  "name": "Meshy Rigging",
+  "status": "active",
+  "date": "2026-05-19",
+  "retires": null,
+  "price": "$0.20 per request. +$0.12 when enable_animation=true ($0.32 total).",
+  "inputs": [
+   "model_url",
+   "height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "animation_glb",
+   "animation_fbx",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/meshy/rigging/multi-animation",
+  "category": "3d-to-3d",
+  "name": "Meshy Rigging Multi Animation",
+  "status": "active",
+  "date": "2026-06-12",
+  "retires": null,
+  "price": "$0.20 per request. +$0.12 per animation clip in `animation_action_ids` (e.g. 3 clips = $0.56 total).",
+  "inputs": [
+   "model_url",
+   "height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "animation_action_ids",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/sam-3/3d-align",
+  "category": "3d-to-3d",
+  "name": "Sam 3",
+  "status": "active",
+  "date": "2025-12-02",
+  "retires": null,
+  "price": "Your request will cost $0.02 per unit.",
+  "inputs": [
+   "image_url",
+   "body_mesh_url",
+   "body_mask_url",
+   "object_mesh_url",
+   "focal_length"
+  ],
+  "outputs": [
+   "body_mesh_ply",
+   "model_glb",
+   "visualization",
+   "metadata",
+   "scene_glb"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/trellis-2/retexture",
+  "category": "3d-to-3d",
+  "name": "Trellis 2",
+  "status": "active",
+  "date": "2026-03-02",
+  "retires": null,
+  "price": "Your request will cost $0.20 for 512p resolution, $0.24 for 1024p resolution and above.",
+  "inputs": [
+   "image_url",
+   "mesh_url",
+   "seed",
+   "resolution",
+   "tex_slat_guidance_strength",
+   "tex_slat_guidance_rescale",
+   "tex_slat_guidance_interval_start",
+   "tex_slat_guidance_interval_end",
+   "tex_slat_sampling_steps",
+   "tex_slat_rescale_t",
+   "texture_size"
+  ],
+  "outputs": [
+   "model_glb"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/ultrashape",
+  "category": "3d-to-3d",
+  "name": "Ultrashape",
+  "status": "deprecated",
+  "date": "2026-01-06",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "hitem3d/hi3d/multicolor",
+  "category": "3d-to-3d",
+  "name": "Hi3D 3D to Multicolor",
+  "status": "active",
+  "date": "2026-07-31",
+  "retires": null,
+  "price": "Your request will cost $0.4 per generation.",
+  "inputs": [
+   "mesh_url",
+   "number_of_colors",
+   "export_format",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "thumbnail"
+  ]
+ },
+ {
+  "endpoint": "hitem3d/hi3d/split",
+  "category": "3d-to-3d",
+  "name": "Hi3D 3D Part Splitter",
+  "status": "active",
+  "date": "2026-07-31",
+  "retires": null,
+  "price": "Your request will cost $0.4 per generation.",
+  "inputs": [
+   "mesh_url",
+   "model",
+   "part",
+   "joint",
+   "level",
+   "export_format",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "thumbnail"
+  ]
+ },
+ {
+  "endpoint": "hitem3d/hi3d/texture",
+  "category": "3d-to-3d",
+  "name": "Hi3D Texture",
+  "status": "active",
+  "date": "2026-07-31",
+  "retires": null,
+  "price": "Your request is billed at $0.02 per credit.",
+  "inputs": [
+   "image_url",
+   "mesh_url",
+   "model",
+   "resolution",
+   "export_format",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "thumbnail"
+  ]
+ },
+ {
+  "endpoint": "hyper3d/rigging",
+  "category": "3d-to-3d",
+  "name": "Hyper3D Rigging",
+  "status": "active",
+  "date": "2026-11-11",
+  "retires": null,
+  "price": "Your request will cost $0.2 per request.",
+  "inputs": [
+   "model_url",
+   "bone_template",
+   "image_url",
+   "skinning_method",
+   "hierarchy",
+   "skeleton_description",
+   "animation_presets",
+   "animation_urls",
+   "in_place",
+   "geometry_file_format"
+  ],
+  "outputs": [
+   "model_mesh",
+   "rigged_character_glb",
+   "animations",
+   "fbx_file",
+   "additional_files",
+   "textures"
+  ]
+ },
+ {
+  "endpoint": "meshy/n1/retexture",
+  "category": "3d-to-3d",
+  "name": "Meshy N1 Retexture",
+  "status": "active",
+  "date": "2026-11-05",
+  "retires": null,
+  "price": "Your request will cost $0.30 per retextured model.",
+  "inputs": [
+   "model_url",
+   "image_style_url",
+   "multiview_image_urls",
+   "enable_original_uv",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "text_style_prompt",
+   "image_style_url"
+  ]
+ },
+ {
+  "endpoint": "meshy/rigging",
+  "category": "3d-to-3d",
+  "name": "Meshy Rigging",
+  "status": "active",
+  "date": "2026-11-10",
+  "retires": null,
+  "price": "$0.20 per request. +$0.12 when enable_animation=true ($0.32 total).",
+  "inputs": [
+   "model_url",
+   "height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "animation_glb",
+   "animation_fbx",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "meshy/rigging/multi-animation",
+  "category": "3d-to-3d",
+  "name": "Meshy Rigging Multi Animation",
+  "status": "active",
+  "date": "2026-11-10",
+  "retires": null,
+  "price": "$0.20 per request. +$0.12 per animation clip in `animation_action_ids` (e.g. 3 clips = $0.56 total).",
+  "inputs": [
+   "model_url",
+   "height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "animation_action_ids",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "meshy/v6-lite/retexture",
+  "category": "3d-to-3d",
+  "name": "Meshy 6 Lite Retexture",
+  "status": "active",
+  "date": "2026-10-06",
+  "retires": null,
+  "price": "Your request will cost $0.30 per retextured model. PBR maps are included at no extra cost.",
+  "inputs": [
+   "model_url",
+   "text_style_prompt",
+   "image_style_url",
+   "texture_resolution",
+   "enable_original_uv",
+   "enable_pbr",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "text_style_prompt",
+   "image_style_url"
+  ]
+ },
+ {
+  "endpoint": "meshy/v6/retexture",
+  "category": "3d-to-3d",
+  "name": "Meshy 6 Retexture",
+  "status": "active",
+  "date": "2026-10-14",
+  "retires": null,
+  "price": "Your request will cost $0.30 per retextured model at 2K or 4K resolution, or $0.45 at 8K resolution. PBR maps are included at no extra cost.",
+  "inputs": [
+   "model_url",
+   "text_style_prompt",
+   "image_style_url",
+   "texture_resolution",
+   "enable_original_uv",
+   "enable_pbr",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "text_style_prompt",
+   "image_style_url"
+  ]
+ },
+ {
+  "endpoint": "meshy/v7/retexture",
+  "category": "3d-to-3d",
+  "name": "Meshy 7 Retexture",
+  "status": "active",
+  "date": "2026-10-14",
+  "retires": null,
+  "price": "Your request will cost $0.30 per retextured model at 2K or 4K resolution, or $0.45 at 8K resolution. PBR maps are included at no extra cost.",
+  "inputs": [
+   "model_url",
+   "text_style_prompt",
+   "image_style_url",
+   "texture_resolution",
+   "enable_original_uv",
+   "enable_pbr",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "text_style_prompt",
+   "image_style_url"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/tripo/remesh",
+  "category": "3d-to-3d",
+  "name": "Tripo3D Remesh",
+  "status": "active",
+  "date": "2026-08-06",
+  "retires": null,
+  "price": "$0.01 per units",
+  "inputs": [
+   "mesh_url",
+   "quad",
+   "face_limit",
+   "bake",
+   "part_names"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_urls",
+   "rendered_image",
+   "task_id"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/tripo/segment",
+  "category": "3d-to-3d",
+  "name": "Tripo3D Segment",
+  "status": "active",
+  "date": "2026-08-06",
+  "retires": null,
+  "price": "$0.01 per units",
+  "inputs": [
+   "mesh_url"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_urls",
+   "part_names",
+   "rendered_image"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Hunyuan 3D Pro Image to 3D",
+  "status": "active",
+  "date": "2026-01-27",
+  "retires": null,
+  "price": "Your request will cost $0.375 per generation. For $1.00, you can run this model 2 times. Enabling PBR materials adds $0.15. Using multi-view images adds $0.15. Custom face count adds $0.15.",
+  "inputs": [
+   "input_image_url",
+   "back_image_url",
+   "left_image_url",
+   "right_image_url",
+   "top_image_url",
+   "bottom_image_url",
+   "left_front_image_url",
+   "right_front_image_url",
+   "generate_type",
+   "enable_pbr",
+   "face_count"
+  ],
+  "outputs": [
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/rapid/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Hunyuan 3D Rapid Image to 3D",
+  "status": "active",
+  "date": "2026-01-27",
+  "retires": null,
+  "price": "Your request will cost $0.225 per generation. For $1.00, you can run this model 4 times. Base generation (text or image to 3D) costs $0.225. Enabling PBR materials adds $0.15.",
+  "inputs": [
+   "input_image_url",
+   "enable_pbr",
+   "enable_geometry"
+  ],
+  "outputs": [
+   "model_glb",
+   "material_mtl",
+   "texture",
+   "thumbnail",
+   "model_urls"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan3d-v21",
+  "category": "image-to-3d",
+  "name": "Hunyuan 3D 2.1",
+  "status": "deprecated",
+  "date": "2025-06-14",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "fal-ai/hunyuan3d-v3/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Hunyuan3d V3",
+  "status": "active",
+  "date": "2025-12-16",
+  "retires": null,
+  "price": "Billing is calculated per generation: $0.225 for Geometry, $0.375 for Normal, or $0.45 for LowPoly. Where available, PBR materials, multi-view images, and a custom face count each add $0.15. For example, a Normal generation with PBR materials costs $0.525.",
+  "inputs": [
+   "input_image_url",
+   "enable_safety_checker",
+   "back_image_url",
+   "left_image_url",
+   "right_image_url",
+   "enable_pbr",
+   "face_count",
+   "generate_type",
+   "polygon_type"
+  ],
+  "outputs": [
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan3d-v3/sketch-to-3d",
+  "category": "image-to-3d",
+  "name": "Hunyuan3d V3",
+  "status": "deprecated",
+  "date": "2025-12-16",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "fal-ai/hunyuan3d/v2",
+  "category": "image-to-3d",
+  "name": "Hunyuan3D",
+  "status": "active",
+  "date": "2025-03-20",
+  "retires": null,
+  "price": "$0.16 per generations",
+  "inputs": [
+   "input_image_url",
+   "seed",
+   "num_inference_steps",
+   "guidance_scale",
+   "octree_resolution",
+   "textured_mesh"
+  ],
+  "outputs": [
+   "model_mesh",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan3d/v2/mini",
+  "category": "image-to-3d",
+  "name": "Hunyuan3D",
+  "status": "active",
+  "date": "2025-03-20",
+  "retires": null,
+  "price": "$0.1 per generations",
+  "inputs": [
+   "input_image_url",
+   "seed",
+   "num_inference_steps",
+   "guidance_scale",
+   "octree_resolution",
+   "textured_mesh"
+  ],
+  "outputs": [
+   "model_mesh",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan3d/v2/mini/turbo",
+  "category": "image-to-3d",
+  "name": "Hunyuan3D",
+  "status": "active",
+  "date": "2025-03-20",
+  "retires": null,
+  "price": "$0.08 per generations",
+  "inputs": [
+   "input_image_url",
+   "seed",
+   "num_inference_steps",
+   "guidance_scale",
+   "octree_resolution",
+   "textured_mesh"
+  ],
+  "outputs": [
+   "model_mesh",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan3d/v2/multi-view",
+  "category": "image-to-3d",
+  "name": "Hunyuan3D",
+  "status": "active",
+  "date": "2025-03-20",
+  "retires": null,
+  "price": "$0.16 per generations",
+  "inputs": [
+   "front_image_url",
+   "back_image_url",
+   "left_image_url",
+   "seed",
+   "num_inference_steps",
+   "guidance_scale",
+   "octree_resolution",
+   "textured_mesh"
+  ],
+  "outputs": [
+   "model_mesh",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan3d/v2/multi-view/turbo",
+  "category": "image-to-3d",
+  "name": "Hunyuan3D",
+  "status": "active",
+  "date": "2025-03-20",
+  "retires": null,
+  "price": "$0.14 per generations",
+  "inputs": [
+   "front_image_url",
+   "back_image_url",
+   "left_image_url",
+   "seed",
+   "num_inference_steps",
+   "guidance_scale",
+   "octree_resolution",
+   "textured_mesh"
+  ],
+  "outputs": [
+   "model_mesh",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan3d/v2/turbo",
+  "category": "image-to-3d",
+  "name": "Hunyuan3D",
+  "status": "active",
+  "date": "2025-03-20",
+  "retires": null,
+  "price": "$0.14 per generations",
+  "inputs": [
+   "input_image_url",
+   "seed",
+   "num_inference_steps",
+   "guidance_scale",
+   "octree_resolution",
+   "textured_mesh"
+  ],
+  "outputs": [
+   "model_mesh",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan_world/image-to-world",
+  "category": "image-to-3d",
+  "name": "Hunyuan World",
+  "status": "active",
+  "date": "2025-07-28",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "fal-ai/hyper3d/rodin",
+  "category": "image-to-3d",
+  "name": "Hyper3D Rodin",
+  "status": "active",
+  "date": "2024-12-16",
+  "retires": null,
+  "price": "$0.4 per generations",
+  "inputs": [
+   "prompt",
+   "input_image_urls",
+   "condition_mode",
+   "seed",
+   "geometry_file_format",
+   "material",
+   "quality",
+   "use_hyper",
+   "tier",
+   "TAPose",
+   "bbox_condition",
+   "addons"
+  ],
+  "outputs": [
+   "model_mesh",
+   "seed",
+   "textures"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hyper3d/rodin/v2",
+  "category": "image-to-3d",
+  "name": "Hyper3d",
+  "status": "active",
+  "date": "2025-09-26",
+  "retires": null,
+  "price": "$0.4 per generations",
+  "inputs": [
+   "prompt",
+   "input_image_urls",
+   "use_original_alpha",
+   "seed",
+   "geometry_file_format",
+   "material",
+   "quality_mesh_option",
+   "TAPose",
+   "bbox_condition",
+   "addons",
+   "preview_render"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_meshes",
+   "seed",
+   "textures"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hyper3d/rodin/v2.5",
+  "category": "image-to-3d",
+  "name": "Hyper3D - Rodin V2.5 - Image to 3D",
+  "status": "active",
+  "date": "2026-05-28",
+  "retires": null,
+  "price": "Your request will cost $0.4 per generation. If HighPack is added to the `addons`, it will cost an additional $0.8 per generation.",
+  "inputs": [
+   "prompt",
+   "image_urls",
+   "tier",
+   "use_original_alpha",
+   "seed",
+   "geometry_file_format",
+   "material",
+   "quality_mesh_option",
+   "texture_mode",
+   "enable_creative_mode",
+   "hd_texture",
+   "texture_delight",
+   "is_micro",
+   "TAPose",
+   "bbox_condition",
+   "addons",
+   "preview_render",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_meshes",
+   "seed",
+   "textures"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hyper3d/rodin/v2.5/fast",
+  "category": "image-to-3d",
+  "name": "Hyper3D - Rodin V2.5 - Image to 3D - Fast",
+  "status": "active",
+  "date": "2026-06-05",
+  "retires": null,
+  "price": "Your request will cost $0.1 per generation.",
+  "inputs": [
+   "image_urls",
+   "tier",
+   "prompt",
+   "use_original_alpha",
+   "seed",
+   "geometry_file_format",
+   "material",
+   "quality_mesh_option",
+   "texture_mode",
+   "enable_creative_mode",
+   "hd_texture",
+   "texture_delight",
+   "is_micro",
+   "TAPose",
+   "bbox_condition",
+   "preview_render",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_meshes",
+   "seed",
+   "textures"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/meshy/v6-preview/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Meshy 6 Preview",
+  "status": "active",
+  "date": "2025-10-06",
+  "retires": null,
+  "price": "$0.8 per generations",
+  "inputs": [
+   "image_url",
+   "model_type",
+   "topology",
+   "target_polycount",
+   "symmetry_mode",
+   "should_remesh",
+   "should_texture",
+   "texture_model",
+   "enable_pbr",
+   "pose_mode",
+   "texture_prompt",
+   "texture_image_url",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/meshy/v6/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Meshy 6",
+  "status": "active",
+  "date": "2026-02-09",
+  "retires": null,
+  "price": "$0.8 per generations",
+  "inputs": [
+   "image_url",
+   "model_type",
+   "topology",
+   "target_polycount",
+   "symmetry_mode",
+   "should_remesh",
+   "should_texture",
+   "texture_model",
+   "enable_pbr",
+   "pose_mode",
+   "texture_prompt",
+   "texture_image_url",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/meshy/v6/multi-image-to-3d",
+  "category": "image-to-3d",
+  "name": "Meshy 6 - Multi Image To 3D",
+  "status": "deprecated",
+  "date": "2026-04-23",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "fal-ai/omnipart",
+  "category": "image-to-3d",
+  "name": "Omnipart",
+  "status": "deprecated",
+  "date": "2025-10-29",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "fal-ai/pixal3d",
+  "category": "image-to-3d",
+  "name": "Pixal3d",
+  "status": "active",
+  "date": "2026-05-13",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "fal-ai/pshuman",
+  "category": "image-to-3d",
+  "name": "Pshuman",
+  "status": "deprecated",
+  "date": "2025-09-13",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "fal-ai/reconviagen-0.5",
+  "category": "image-to-3d",
+  "name": "ReconViaGen 0.5",
+  "status": "active",
+  "date": "2026-04-07",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "fal-ai/sam-3/3d-body",
+  "category": "image-to-3d",
+  "name": "Sam 3",
+  "status": "active",
+  "date": "2025-12-02",
+  "retires": null,
+  "price": "Your request will cost $0.02 per unit.",
+  "inputs": [
+   "image_url",
+   "mask_url",
+   "export_meshes",
+   "include_3d_keypoints",
+   "include_mhr_params"
+  ],
+  "outputs": [
+   "model_glb",
+   "visualization",
+   "meshes",
+   "metadata"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/sam-3/3d-objects",
+  "category": "image-to-3d",
+  "name": "Sam 3",
+  "status": "active",
+  "date": "2025-12-02",
+  "retires": null,
+  "price": "Your request will cost $0.02 per unit.",
+  "inputs": [
+   "enable_safety_checker",
+   "image_url",
+   "mask_urls",
+   "prompt",
+   "point_prompts",
+   "box_prompts",
+   "seed",
+   "pointmap_url",
+   "detection_threshold",
+   "export_textured_glb"
+  ],
+  "outputs": [
+   "gaussian_splat",
+   "model_glb",
+   "metadata",
+   "individual_splats",
+   "individual_glbs",
+   "artifacts_zip"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/trellis",
+  "category": "image-to-3d",
+  "name": "Trellis",
+  "status": "active",
+  "date": "2024-12-13",
+  "retires": null,
+  "price": "$0.02 per generations",
+  "inputs": [
+   "image_url",
+   "seed",
+   "ss_guidance_strength",
+   "ss_sampling_steps",
+   "slat_guidance_strength",
+   "slat_sampling_steps",
+   "mesh_simplify",
+   "texture_size"
+  ],
+  "outputs": [
+   "model_mesh",
+   "timings"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/trellis-2",
+  "category": "image-to-3d",
+  "name": "Trellis 2",
+  "status": "active",
+  "date": "2025-12-17",
+  "retires": null,
+  "price": "Your request will cost $0.25 for 512p resolution, $0.30 for 1024p resolution and $0.35 for 1536p resolution.",
+  "inputs": [
+   "seed",
+   "resolution",
+   "ss_guidance_strength",
+   "ss_guidance_rescale",
+   "ss_guidance_interval_start",
+   "ss_guidance_interval_end",
+   "ss_sampling_steps",
+   "ss_rescale_t",
+   "shape_slat_guidance_strength",
+   "shape_slat_guidance_rescale",
+   "shape_slat_guidance_interval_start",
+   "shape_slat_guidance_interval_end",
+   "shape_slat_sampling_steps",
+   "shape_slat_rescale_t",
+   "tex_slat_guidance_strength",
+   "tex_slat_guidance_rescale",
+   "tex_slat_guidance_interval_start",
+   "tex_slat_guidance_interval_end",
+   "tex_slat_sampling_steps",
+   "tex_slat_rescale_t",
+   "decimation_target",
+   "texture_size",
+   "remesh",
+   "remesh_band",
+   "remesh_project",
+   "uv_unwrap_angle_threshold_deg",
+   "uv_unwrap_refine_iterations",
+   "uv_unwrap_global_iterations",
+   "uv_unwrap_smooth_strength",
+   "image_url"
+  ],
+  "outputs": [
+   "model_glb"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/trellis-2-lora",
+  "category": "image-to-3d",
+  "name": "TRELLIS.2 LoRA Inference",
+  "status": "deprecated",
+  "date": "2026-06-23",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "fal-ai/trellis/multi",
+  "category": "image-to-3d",
+  "name": "Trellis",
+  "status": "active",
+  "date": "2025-05-02",
+  "retires": null,
+  "price": "$0.02 per",
+  "inputs": [
+   "image_urls",
+   "seed",
+   "ss_guidance_strength",
+   "ss_sampling_steps",
+   "slat_guidance_strength",
+   "slat_sampling_steps",
+   "mesh_simplify",
+   "texture_size",
+   "multiimage_algo"
+  ],
+  "outputs": [
+   "model_mesh",
+   "timings"
+  ]
+ },
+ {
+  "endpoint": "hitem3d/hi3d/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Hi3D Image to 3D",
+  "status": "active",
+  "date": "2026-07-31",
+  "retires": null,
+  "price": "Your request is billed at $0.02 per credit. Total cost is a sum of geometry, texture, and PBR credits, where geometry credits scale with resolution, texture is fixed at 10 credits, and PBR (v2.0 and above) is fixed at 5 credits. On v1.5, your request will cost $0.30 (512), $0.40 (1024), $0.60 (1536), or $0.80 (1536pro). On v2.0, it will cost $0.70 (1536) or $0.90 (1536pro). On v2.1, it will cost $0.50 (1536_fast) or $0.90 (1536pro). Portrait generations cost $0.60 (1536) on v1.5, $0.90 (1536pro) on v2.0, and $0.50 (1536pro_fast) or $0.90 (1536pro) on v2.1.",
+  "inputs": [
+   "model",
+   "resolution",
+   "enable_texture",
+   "enable_pbr",
+   "face_count",
+   "export_format",
+   "enable_safety_checker",
+   "image_url"
+  ],
+  "outputs": [
+   "model_mesh",
+   "thumbnail"
+  ]
+ },
+ {
+  "endpoint": "hitem3d/hi3d/multi-view-to-3d",
+  "category": "image-to-3d",
+  "name": "Hi3D Multiview to 3D",
+  "status": "active",
+  "date": "2026-07-31",
+  "retires": null,
+  "price": "Your request is billed at $0.02 per credit. Total cost is a sum of geometry, texture, and PBR credits, where geometry credits scale with resolution, texture is fixed at 10 credits, and PBR (v2.0 and above) is fixed at 5 credits. On v1.5, your request will cost $0.30 (512), $0.40 (1024), $0.60 (1536), or $0.80 (1536pro). On v2.0, it will cost $0.70 (1536) or $0.90 (1536pro). On v2.1, it will cost $0.50 (1536_fast) or $0.90 (1536pro). Portrait generations cost $0.60 (1536) on v1.5, $0.90 (1536pro) on v2.0, and $0.50 (1536pro_fast) or $0.90 (1536pro) on v2.1.",
+  "inputs": [
+   "model",
+   "resolution",
+   "enable_texture",
+   "enable_pbr",
+   "face_count",
+   "export_format",
+   "enable_safety_checker",
+   "front_image_url",
+   "back_image_url",
+   "left_image_url",
+   "right_image_url"
+  ],
+  "outputs": [
+   "model_mesh",
+   "thumbnail"
+  ]
+ },
+ {
+  "endpoint": "hitem3d/hi3d/v3.0/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Hi3D Image to 3D",
+  "status": "active",
+  "date": "2026-08-19",
+  "retires": null,
+  "price": "Your request is billed at $0.02 per credit. Total cost is a sum of geometry, texture, and PBR credits, where geometry credits scale with resolution, texture is fixed at 10 credits, and PBR is fixed at 5 credits. On v3.0, your request will cost $2.10 (2048\u00b3quality) or $9.10 (2048\u00b3master).",
+  "inputs": [
+   "model",
+   "resolution",
+   "enable_texture",
+   "enable_pbr",
+   "face_count",
+   "export_format",
+   "enable_safety_checker",
+   "image_url",
+   "shading"
+  ],
+  "outputs": [
+   "model_mesh",
+   "thumbnail"
+  ]
+ },
+ {
+  "endpoint": "hitem3d/hi3d/v3.0/multi-view-to-3d",
+  "category": "image-to-3d",
+  "name": "Hi3D Multiview to 3D",
+  "status": "active",
+  "date": "2026-08-19",
+  "retires": null,
+  "price": "Your request is billed at $0.02 per credit. Total cost is a sum of geometry, texture, and PBR credits, where geometry credits scale with resolution, texture is fixed at 10 credits, and PBR is fixed at 5 credits. On v3.0, your request will cost $2.10 (2048\u00b3quality) or $9.10 (2048\u00b3master).",
+  "inputs": [
+   "model",
+   "resolution",
+   "enable_texture",
+   "enable_pbr",
+   "face_count",
+   "export_format",
+   "enable_safety_checker",
+   "front_image_url",
+   "back_image_url",
+   "left_image_url",
+   "right_image_url",
+   "shading"
+  ],
+  "outputs": [
+   "model_mesh",
+   "thumbnail"
+  ]
+ },
+ {
+  "endpoint": "meshy/relief",
+  "category": "image-to-3d",
+  "name": "Meshy Relief",
+  "status": "active",
+  "date": "2026-11-05",
+  "retires": null,
+  "price": "Your request will cost $0.80 per generation.",
+  "inputs": [
+   "image_url",
+   "variant",
+   "should_generate_model",
+   "size_mm",
+   "carving_mode",
+   "carving_depth_mm",
+   "remove_base",
+   "removal_threshold",
+   "base_thickness_mm",
+   "bend_mode",
+   "bend_axis",
+   "bend_angle",
+   "mesh_resolution",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "depth_map",
+   "model_glb",
+   "model_urls",
+   "thumbnail"
+  ]
+ },
+ {
+  "endpoint": "meshy/t2.5/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Meshy T2.5 Image to 3D",
+  "status": "active",
+  "date": "2026-11-06",
+  "retires": null,
+  "price": "Billing is calculated per generation. An untextured mesh costs $0.20, and a textured mesh costs $0.60; PBR maps and the choice of texture model are included at no extra charge. Optional auto-rigging adds $0.20, and animation adds $0.12 per call. A textured model with auto-rigging and animation costs $0.92. Failed requests are not billed. For $10 you can generate 50 untextured meshes or 16 textured meshes.",
+  "inputs": [
+   "image_url",
+   "target_polycount",
+   "should_texture",
+   "texture_model",
+   "enable_pbr",
+   "pose_mode",
+   "texture_prompt",
+   "texture_image_url",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "meshy/t2/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Meshy T2 Image to 3D",
+  "status": "active",
+  "date": "2026-11-06",
+  "retires": null,
+  "price": "Billing is calculated per generation. An untextured mesh costs $0.20, and a textured mesh costs $0.60; PBR maps and the choice of texture model are included at no extra charge. Optional auto-rigging adds $0.20, and animation adds $0.12 per call. A textured model with auto-rigging and animation costs $0.92. Failed requests are not billed. For $10 you can generate 50 untextured meshes or 16 textured meshes.",
+  "inputs": [
+   "image_url",
+   "target_polycount",
+   "should_texture",
+   "texture_model",
+   "enable_pbr",
+   "pose_mode",
+   "texture_prompt",
+   "texture_image_url",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "meshy/v7.1/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Meshy 7.1 Image to 3D",
+  "status": "active",
+  "date": "2026-09-19",
+  "retires": null,
+  "price": "A base model without textures costs $0.80. Adding textures brings the total to $1.20. Optional auto-rigging adds $0.20, and animation adds $0.12 per call. A textured model with auto-rigging and animation costs $1.52.",
+  "inputs": [
+   "image_url",
+   "model_type",
+   "topology",
+   "target_polycount",
+   "symmetry_mode",
+   "should_remesh",
+   "should_texture",
+   "texture_model",
+   "enable_pbr",
+   "pose_mode",
+   "texture_prompt",
+   "texture_image_url",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker",
+   "geometry_resolution"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "meshy/v7.1/multi-image-to-3d",
+  "category": "image-to-3d",
+  "name": "Meshy 7.1 Multi Image to 3D",
+  "status": "active",
+  "date": "2026-09-19",
+  "retires": null,
+  "price": "A base model without textures costs $0.80. Adding textures brings the total to $1.20. Optional auto-rigging adds $0.20, and animation adds $0.12 per call. A textured model with auto-rigging and animation costs $1.52.",
+  "inputs": [
+   "image_urls",
+   "topology",
+   "target_polycount",
+   "symmetry_mode",
+   "should_remesh",
+   "should_texture",
+   "texture_model",
+   "enable_pbr",
+   "pose_mode",
+   "texture_prompt",
+   "texture_image_url",
+   "texture_image_urls",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker",
+   "geometry_resolution"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "meshy/v7/image-to-3d",
+  "category": "image-to-3d",
+  "name": "V7 Image to 3D",
+  "status": "active",
+  "date": "2026-08-11",
+  "retires": "2026-12-31T08:00:00.000Z",
+  "price": "A base model with no texture costs $0.80. Adding textures brings it to $1.20, and enabling ultra mode raises it to $1.40 for a fully textured, ultra-quality model. Optional auto-rigging adds $0.20, and animation adds $0.12 per call.",
+  "inputs": [
+   "image_url",
+   "model_type",
+   "topology",
+   "target_polycount",
+   "symmetry_mode",
+   "should_remesh",
+   "should_texture",
+   "texture_model",
+   "enable_pbr",
+   "pose_mode",
+   "texture_prompt",
+   "texture_image_url",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker",
+   "geometry_resolution"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "meshy/v7/multi-image-to-3d",
+  "category": "image-to-3d",
+  "name": "V7 Multi Image to 3D",
+  "status": "active",
+  "date": "2026-08-11",
+  "retires": "2026-12-31T08:00:00.000Z",
+  "price": "A textured model generated from multiple input images costs $1.20, or $1.40 with ultra mode enabled. Optional auto-rigging adds $0.20, and animation adds $0.12 per call.",
+  "inputs": [
+   "image_urls",
+   "topology",
+   "target_polycount",
+   "symmetry_mode",
+   "should_remesh",
+   "should_texture",
+   "texture_model",
+   "enable_pbr",
+   "pose_mode",
+   "texture_prompt",
+   "texture_image_url",
+   "texture_image_urls",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker",
+   "geometry_resolution"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "microsoft/moge-2",
+  "category": "image-to-3d",
+  "name": "MoGe-2",
+  "status": "active",
+  "date": "2026-11-05",
+  "retires": null,
+  "price": "Billing is calculated per megapixel of the input image, rounded up to the next whole megapixel, with a minimum of 1 megapixel per request. Each megapixel costs $0.01. A 1600\u00d71067 image (1.7 MP) costs $0.02, a 1920\u00d71080 image (2.1 MP) costs $0.03, and the largest supported input, 2048\u00d72048 (4.2 MP), costs $0.05. The checkpoint choice does not change the price. Depth, normal and mask maps, camera intrinsics and the optional GLB mesh and PLY point cloud are included. For $1 you can process about 50 images at 1600\u00d71067.",
+  "inputs": [
+   "image_url",
+   "model",
+   "resolution_level",
+   "fov_x",
+   "apply_mask",
+   "edge_threshold",
+   "export_glb",
+   "export_ply",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "point_cloud",
+   "depth_map",
+   "normal_map",
+   "mask",
+   "fov_x",
+   "fov_y",
+   "intrinsics"
+  ]
+ },
+ {
+  "endpoint": "microsoft/moge-3",
+  "category": "image-to-3d",
+  "name": "MoGe-3",
+  "status": "active",
+  "date": "2026-11-05",
+  "retires": null,
+  "price": "Billing is calculated per megapixel of the input image, rounded up to the next whole megapixel, with a minimum of 1 megapixel per request. Each megapixel costs $0.015. A 1600\u00d71067 image (1.7 MP) costs $0.03, a 1920\u00d71080 image (2.1 MP) costs $0.045, and the largest supported input, 2048\u00d72048 (4.2 MP), costs $0.075. Depth, normal and mask maps, camera intrinsics and the optional GLB mesh and PLY point cloud are included. For $1 you can process about 33 images at 1600\u00d71067.",
+  "inputs": [
+   "image_url",
+   "resolution_level",
+   "num_refinement_steps",
+   "fov_x",
+   "apply_mask",
+   "edge_threshold",
+   "export_glb",
+   "export_ply",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "point_cloud",
+   "depth_map",
+   "normal_map",
+   "mask",
+   "fov_x",
+   "fov_y",
+   "intrinsics"
+  ]
+ },
+ {
+  "endpoint": "speridlabs/idol",
+  "category": "image-to-3d",
+  "name": "Sperid Labs Idol",
+  "status": "active",
+  "date": "2026-10-30",
+  "retires": null,
+  "price": "$0.1 per generations",
+  "inputs": [
+   "image_url",
+   "image_type",
+   "num_gaussians",
+   "num_inference_steps",
+   "guidance_scale",
+   "seed",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_glb",
+   "preprocessed_image",
+   "camera",
+   "num_gaussians",
+   "seed",
+   "timings"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/h3.1/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Tripo H3.1 Image to 3D",
+  "status": "active",
+  "date": "2026-04-07",
+  "retires": null,
+  "price": "Your request will cost $0.20 (without textures), $0.30 (with standard textures), or $0.40 (with HD textures), plus an additional $0.20 for detailed geometry and $0.05 for quad mesh if selected.",
+  "inputs": [
+   "image_url",
+   "face_limit",
+   "texture",
+   "pbr",
+   "model_seed",
+   "texture_seed",
+   "texture_quality",
+   "geometry_quality",
+   "texture_alignment",
+   "auto_size",
+   "orientation",
+   "quad",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_urls",
+   "rendered_image",
+   "task_id"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/h3.1/multiview-to-3d",
+  "category": "image-to-3d",
+  "name": "Tripo H3.1 Multiview to 3D",
+  "status": "active",
+  "date": "2026-04-07",
+  "retires": null,
+  "price": "Your request will cost $0.20 (without textures), $0.30 (with standard textures), or $0.40 (with HD textures), plus an additional $0.20 for detailed geometry and $0.05 for quad mesh if selected.",
+  "inputs": [
+   "image_urls",
+   "face_limit",
+   "texture",
+   "pbr",
+   "model_seed",
+   "texture_seed",
+   "texture_quality",
+   "geometry_quality",
+   "texture_alignment",
+   "auto_size",
+   "orientation",
+   "quad",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_urls",
+   "rendered_image",
+   "task_id"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/p1/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Tripo P1 Image to 3D",
+  "status": "active",
+  "date": "2026-04-07",
+  "retires": null,
+  "price": "Your request will cost $0.40 (without textures) or $0.50 (with textures).",
+  "inputs": [
+   "image_url",
+   "face_limit",
+   "texture",
+   "model_seed",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_urls",
+   "rendered_image",
+   "task_id"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/p2/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Tripo P2 Image to 3D",
+  "status": "active",
+  "date": "2026-09-20",
+  "retires": null,
+  "price": "Billing is calculated per generated 3D model. Each request costs $1.00 without textures, $1.10 with fast or standard textures, $1.20 with detailed textures, or $1.30 with extreme textures. PBR enables textures and uses the selected texture rate. Quad topology adds no extra charge. For example, 10 models with standard textures cost $11.00. To generate without textures, set both texture and pbr to false.",
+  "inputs": [
+   "image_url",
+   "face_limit",
+   "texture",
+   "pbr",
+   "model_seed",
+   "texture_seed",
+   "texture_quality",
+   "texture_version",
+   "delight",
+   "auto_size",
+   "export_uv",
+   "export_orientation",
+   "quad",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_urls",
+   "rendered_image",
+   "task_id"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/tripo/v2.5/image-to-3d",
+  "category": "image-to-3d",
+  "name": "Tripo3D",
+  "status": "active",
+  "date": "2025-04-25",
+  "retires": null,
+  "price": "Your request will cost $0.20 (without textures), $0.30 (with standard textures), or $0.40 (with HD textures), plus an additional $0.05 each for Style and quad options if selected.",
+  "inputs": [
+   "seed",
+   "face_limit",
+   "pbr",
+   "texture",
+   "texture_seed",
+   "auto_size",
+   "quad",
+   "texture_alignment",
+   "orientation",
+   "image_url"
+  ],
+  "outputs": [
+   "task_id",
+   "model_mesh",
+   "base_model",
+   "pbr_model",
+   "rendered_image"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/tripo/v2.5/multiview-to-3d",
+  "category": "image-to-3d",
+  "name": "Tripo3D",
+  "status": "active",
+  "date": "2025-06-18",
+  "retires": null,
+  "price": "Your request will cost $0.20 (without textures), $0.30 (with standard textures), or $0.40 (with HD textures), plus an additional $0.05 each for Style and quad options if selected.",
+  "inputs": [
+   "seed",
+   "face_limit",
+   "pbr",
+   "texture",
+   "texture_seed",
+   "auto_size",
+   "quad",
+   "texture_alignment",
+   "orientation",
+   "front_image_url",
+   "left_image_url",
+   "back_image_url",
+   "right_image_url"
+  ],
+  "outputs": [
+   "task_id",
+   "model_mesh",
+   "base_model",
+   "pbr_model",
+   "rendered_image"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/triposplat",
+  "category": "image-to-3d",
+  "name": "Triposplat",
+  "status": "active",
+  "date": "2026-06-03",
+  "retires": null,
+  "price": "",
+  "inputs": [],
+  "outputs": []
+ },
+ {
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Hunyuan 3D Pro Text to 3D",
+  "status": "active",
+  "date": "2026-01-27",
+  "retires": null,
+  "price": "Your request will cost $0.375 per generation. For $1.00, you can run this model 2 times. Enabling PBR materials adds $0.15. Using multi-view images adds $0.15. Custom face count adds $0.15.",
+  "inputs": [
+   "prompt",
+   "generate_type",
+   "enable_pbr",
+   "face_count"
+  ],
+  "outputs": [
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/rapid/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Hunyuan 3d",
+  "status": "active",
+  "date": "2026-01-29",
+  "retires": null,
+  "price": "Your request will cost $0.225 per generation. For $1.00, you can run this model 4 times. Base generation (text or image to 3D) costs $0.225. Enabling PBR materials adds $0.15.",
+  "inputs": [
+   "prompt",
+   "enable_pbr",
+   "enable_geometry"
+  ],
+  "outputs": [
+   "model_obj",
+   "material_mtl",
+   "texture",
+   "thumbnail",
+   "model_urls"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan-motion",
+  "category": "text-to-3d",
+  "name": "Hunyuan Motion [1B]",
+  "status": "active",
+  "date": "2025-12-30",
+  "retires": null,
+  "price": "$0.08 per generations",
+  "inputs": [
+   "prompt",
+   "seed",
+   "duration",
+   "guidance_scale",
+   "output_format"
+  ],
+  "outputs": [
+   "fbx_file",
+   "motion_json",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan-motion/fast",
+  "category": "text-to-3d",
+  "name": "Hunyuan Motion [0.46B]",
+  "status": "active",
+  "date": "2025-12-30",
+  "retires": null,
+  "price": "$0.06 per generations",
+  "inputs": [
+   "prompt",
+   "seed",
+   "duration",
+   "guidance_scale",
+   "output_format"
+  ],
+  "outputs": [
+   "fbx_file",
+   "motion_json",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hunyuan3d-v3/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Hunyuan3d V3",
+  "status": "active",
+  "date": "2025-12-16",
+  "retires": null,
+  "price": "Billing is calculated per generation: $0.225 for Geometry, $0.375 for Normal, or $0.45 for LowPoly. Where available, PBR materials, multi-view images, and a custom face count each add $0.15. For example, a Normal generation with PBR materials costs $0.525.",
+  "inputs": [
+   "prompt",
+   "enable_safety_checker",
+   "enable_pbr",
+   "face_count",
+   "generate_type",
+   "polygon_type"
+  ],
+  "outputs": [
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "seed"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hyper3d/rodin/v2.5/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Hyper3D - Rodin V2.5 - Text to 3D",
+  "status": "active",
+  "date": "2026-05-28",
+  "retires": null,
+  "price": "Your request will cost $0.4 per generation. If HighPack is added to the `addons`, it will cost an additional $0.8 per generation.",
+  "inputs": [
+   "prompt",
+   "tier",
+   "seed",
+   "geometry_file_format",
+   "material",
+   "quality_mesh_option",
+   "texture_mode",
+   "enable_creative_mode",
+   "hd_texture",
+   "texture_delight",
+   "is_micro",
+   "TAPose",
+   "bbox_condition",
+   "addons",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_meshes",
+   "seed",
+   "textures"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/hyper3d/rodin/v2.5/text-to-3d/fast",
+  "category": "text-to-3d",
+  "name": "Hyper3D - Rodin V2.5 - Text to 3D - Fast",
+  "status": "active",
+  "date": "2026-06-05",
+  "retires": null,
+  "price": "Your request will cost $0.1 per generation.",
+  "inputs": [
+   "prompt",
+   "tier",
+   "seed",
+   "geometry_file_format",
+   "material",
+   "quality_mesh_option",
+   "texture_mode",
+   "enable_creative_mode",
+   "hd_texture",
+   "texture_delight",
+   "is_micro",
+   "TAPose",
+   "bbox_condition",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_meshes",
+   "seed",
+   "textures"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/meshy/v6-preview/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Meshy 6 Preview",
+  "status": "active",
+  "date": "2025-10-06",
+  "retires": null,
+  "price": "$0.8 per generations",
+  "inputs": [
+   "prompt",
+   "mode",
+   "seed",
+   "model_type",
+   "topology",
+   "target_polycount",
+   "should_remesh",
+   "symmetry_mode",
+   "enable_pbr",
+   "pose_mode",
+   "enable_prompt_expansion",
+   "texture_prompt",
+   "texture_image_url",
+   "texture_model",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "prompt",
+   "actual_prompt",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "fal-ai/meshy/v6/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Meshy 6",
+  "status": "active",
+  "date": "2026-02-09",
+  "retires": null,
+  "price": "$0.8 per generations",
+  "inputs": [
+   "prompt",
+   "mode",
+   "seed",
+   "model_type",
+   "topology",
+   "target_polycount",
+   "should_remesh",
+   "symmetry_mode",
+   "enable_pbr",
+   "pose_mode",
+   "enable_prompt_expansion",
+   "texture_prompt",
+   "texture_image_url",
+   "texture_model",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "prompt",
+   "actual_prompt",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "meshy/t2.5/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Meshy T2.5 Text to 3D",
+  "status": "active",
+  "date": "2026-11-06",
+  "retires": null,
+  "price": "Billing is calculated per generation. Preview mode, which returns the untextured mesh, costs $0.20, and full mode, which also textures it, costs $0.60; PBR maps and the choice of texture model are included at no extra charge. Optional auto-rigging adds $0.20, and animation adds $0.12 per call. A full-mode model with auto-rigging and animation costs $0.92. Failed requests are not billed. For $10 you can generate 50 preview meshes or 16 textured meshes.",
+  "inputs": [
+   "prompt",
+   "mode",
+   "seed",
+   "target_polycount",
+   "enable_pbr",
+   "pose_mode",
+   "enable_prompt_expansion",
+   "texture_prompt",
+   "texture_image_url",
+   "texture_model",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "prompt",
+   "actual_prompt",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "meshy/t2/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Meshy T2 Text to 3D",
+  "status": "active",
+  "date": "2026-11-06",
+  "retires": null,
+  "price": "Billing is calculated per generation. Preview mode, which returns the untextured mesh, costs $0.20, and full mode, which also textures it, costs $0.60; PBR maps and the choice of texture model are included at no extra charge. Optional auto-rigging adds $0.20, and animation adds $0.12 per call. A full-mode model with auto-rigging and animation costs $0.92. Failed requests are not billed. For $10 you can generate 50 preview meshes or 16 textured meshes.",
+  "inputs": [
+   "prompt",
+   "mode",
+   "seed",
+   "target_polycount",
+   "enable_pbr",
+   "pose_mode",
+   "enable_prompt_expansion",
+   "texture_prompt",
+   "texture_image_url",
+   "texture_model",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "prompt",
+   "actual_prompt",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "meshy/v7.1/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Meshy 7.1 Text to 3D",
+  "status": "active",
+  "date": "2026-09-19",
+  "retires": null,
+  "price": "A base model without textures costs $0.80. Adding textures brings the total to $1.20. Optional auto-rigging adds $0.20, and animation adds $0.12 per call. A textured model with auto-rigging and animation costs $1.52.",
+  "inputs": [
+   "prompt",
+   "mode",
+   "seed",
+   "model_type",
+   "topology",
+   "target_polycount",
+   "should_remesh",
+   "symmetry_mode",
+   "enable_pbr",
+   "pose_mode",
+   "enable_prompt_expansion",
+   "texture_prompt",
+   "texture_image_url",
+   "texture_model",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker",
+   "geometry_resolution"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "prompt",
+   "actual_prompt",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "meshy/v7/text-to-3d",
+  "category": "text-to-3d",
+  "name": "V7 Text to 3D",
+  "status": "active",
+  "date": "2026-08-24",
+  "retires": "2026-12-31T08:00:00.000Z",
+  "price": "A base model with no texture costs $0.80. Adding textures brings it to $1.20, and enabling ultra mode raises it to $1.40 for a fully textured, ultra-quality model. Optional auto-rigging adds $0.20, and animation adds $0.12 per call.",
+  "inputs": [
+   "prompt",
+   "mode",
+   "seed",
+   "model_type",
+   "topology",
+   "target_polycount",
+   "should_remesh",
+   "symmetry_mode",
+   "enable_pbr",
+   "pose_mode",
+   "enable_prompt_expansion",
+   "texture_prompt",
+   "texture_image_url",
+   "texture_model",
+   "enable_rigging",
+   "rigging_height_meters",
+   "skeleton_template",
+   "include_fingers",
+   "enable_animation",
+   "animation_action_id",
+   "enable_safety_checker",
+   "geometry_resolution"
+  ],
+  "outputs": [
+   "animation_glb",
+   "animation_fbx",
+   "model_glb",
+   "thumbnail",
+   "model_urls",
+   "texture_urls",
+   "seed",
+   "prompt",
+   "actual_prompt",
+   "rigged_character_glb",
+   "rigged_character_fbx",
+   "basic_animations",
+   "rig_task_id"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/h3.1/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Tripo H3.1 Text to 3D",
+  "status": "active",
+  "date": "2026-04-07",
+  "retires": null,
+  "price": "Your request will cost $0.10 (without textures), $0.20 (with standard textures), or $0.30 (with HD textures), plus an additional $0.20 for detailed geometry and $0.05 for quad mesh if selected.",
+  "inputs": [
+   "prompt",
+   "negative_prompt",
+   "face_limit",
+   "texture",
+   "pbr",
+   "model_seed",
+   "image_seed",
+   "texture_seed",
+   "texture_quality",
+   "geometry_quality",
+   "auto_size",
+   "quad",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_urls",
+   "rendered_image",
+   "task_id"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/p1/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Tripo P1 Text to 3D",
+  "status": "active",
+  "date": "2026-04-07",
+  "retires": null,
+  "price": "$0.01 per credits",
+  "inputs": [
+   "prompt",
+   "face_limit",
+   "texture",
+   "model_seed",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_urls",
+   "rendered_image",
+   "task_id"
+  ]
+ },
+ {
+  "endpoint": "tripo3d/p2/text-to-3d",
+  "category": "text-to-3d",
+  "name": "Tripo P2 Text to 3D",
+  "status": "active",
+  "date": "2026-09-20",
+  "retires": null,
+  "price": "Billing is calculated per generated 3D model. Each request costs $1.00 without textures, $1.10 with fast or standard textures, $1.20 with detailed textures, or $1.30 with extreme textures. PBR enables textures and uses the selected texture rate. Quad topology adds no extra charge. For example, 10 models with standard textures cost $11.00. To generate without textures, set both texture and pbr to false.",
+  "inputs": [
+   "prompt",
+   "negative_prompt",
+   "image_seed",
+   "model_seed",
+   "face_limit",
+   "texture",
+   "pbr",
+   "texture_seed",
+   "texture_quality",
+   "texture_version",
+   "delight",
+   "auto_size",
+   "export_uv",
+   "export_orientation",
+   "quad",
+   "enable_safety_checker"
+  ],
+  "outputs": [
+   "model_mesh",
+   "model_urls",
+   "rendered_image",
+   "task_id"
+  ]
+ }
+]

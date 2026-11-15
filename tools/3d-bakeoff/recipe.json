@@ -1,0 +1,13 @@
+{
+  "template": "A single miniature tabletop diorama of {scene}. Everything sits on one compact square base, and the whole diorama is centered with empty margin around it, seen from a three-quarter isometric angle about 30 degrees above. Soft, even, neutral studio lighting with no harsh shadows. Plain light grey seamless background. No text, no lettering, no border.",
+  "provider": "gmi",
+  "model": "gpt-image-2.5-flare-generate",
+  "input": {
+    "size": "1024x1024",
+    "quality": "low",
+    "output_format": "png",
+    "background": "opaque"
+  },
+  "price_usd": 0.006,
+  "notes": "Neutral recipe for 3D reconstruction: one object, centered, 3/4 isometric view, plain light background, no text. The art-direction thread owns style; keep this neutral. quality low took 9 s and looked nearly identical to medium (21 s, $0.013)."
+}
