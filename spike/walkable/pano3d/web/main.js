@@ -90,8 +90,42 @@ async function loadTexture(name) {
   return p;
 }
 
+async function decodePackedPng(buf) {
+  const dv = new DataView(buf);
+  let off = 8, w = 0, h = 0, depth = 0, type = 0;
+  const idat = [];
+  while (off < buf.byteLength) {
+    const len = dv.getUint32(off), tag = String.fromCharCode(...new Uint8Array(buf, off + 4, 4));
+    if (tag === "IHDR") { w = dv.getUint32(off + 8); h = dv.getUint32(off + 12); depth = dv.getUint8(off + 16); type = dv.getUint8(off + 17); }
+    else if (tag === "IDAT") idat.push(new Uint8Array(buf, off + 8, len));
+    else if (tag === "IEND") break;
+    off += 12 + len;
+  }
+  if (depth !== 8 || type !== 2) throw new Error("depth png must be 8-bit RGB");
+  const raw = new Uint8Array(await new Response(new Blob(idat).stream().pipeThrough(new DecompressionStream("deflate"))).arrayBuffer());
+  const stride = w * 3, px = new Uint8Array(stride * h);
+  for (let y = 0, p = 0; y < h; y++) {
+    const f = raw[p++], row = y * stride;
+    for (let x = 0; x < stride; x++, p++) {
+      const a = x >= 3 ? px[row + x - 3] : 0, b = y ? px[row - stride + x] : 0, c = x >= 3 && y ? px[row - stride + x - 3] : 0;
+      let v = raw[p];
+      if (f === 1) v += a;
+      else if (f === 2) v += b;
+      else if (f === 3) v += (a + b) >> 1;
+      else if (f === 4) { const pa = Math.abs(b - c), pb = Math.abs(a - c), pc = Math.abs(a + b - 2 * c); v += pa <= pb && pa <= pc ? a : pb <= pc ? b : c; }
+      px[row + x] = v;
+    }
+  }
+  const u16 = new Uint16Array(w * h);
+  for (let i = 0; i < w * h; i++) u16[i] = (px[i * 3] << 8) | px[i * 3 + 1];
+  return u16;
+}
+
 async function loadDepth(name, info) {
-  const u16 = new Uint16Array(await fetchAsset(name));
+  const buf = await fetchAsset(name);
+  const t = performance.now();
+  const u16 = name.endsWith(".png") ? await decodePackedPng(buf) : new Uint16Array(buf);
+  stats.load["decode " + name] = Math.round(performance.now() - t);
   const k = (info.lnMax - info.lnMin) / 65535;
   const out = new Float32Array(u16.length);
   for (let i = 0; i < u16.length; i++) out[i] = u16[i] ? Math.exp(info.lnMin + u16[i] * k) : 0;
@@ -127,7 +161,7 @@ function buildSphereGeometry(dist, w, h, { edgeDeg = 86, scale = 1, cut = true }
     }
   }
   const cosMax = Math.cos((edgeDeg * Math.PI) / 180);
-  const idx = new Uint32Array((rows - 1) * w * 6);
+  const idx = new Uint32Array((rows - 1) * w * 6), edge = [];
   let n = 0, dropped = 0;
   const tri = (a, b, c) => {
     if (!ok[a] || !ok[b] || !ok[c]) { dropped++; return; }
@@ -138,7 +172,7 @@ function buildSphereGeometry(dist, w, h, { edgeDeg = 86, scale = 1, cut = true }
       const nX = e1y * e2z - e1z * e2y, nY = e1z * e2x - e1x * e2z, nZ = e1x * e2y - e1y * e2x;
       const cX = ax + (e1x + e2x) / 3, cY = ay + (e1y + e2y) / 3, cZ = az + (e1z + e2z) / 3;
       const nn = Math.sqrt((nX * nX + nY * nY + nZ * nZ) * (cX * cX + cY * cY + cZ * cZ));
-      if (!(Math.abs(nX * cX + nY * cY + nZ * cZ) >= cosMax * nn)) { dropped++; return; }
+      if (!(Math.abs(nX * cX + nY * cY + nZ * cZ) >= cosMax * nn)) { dropped++; edge.push(a, b, c); return; }
     }
     idx[n++] = a; idx[n++] = b; idx[n++] = c;
   };
@@ -152,7 +186,15 @@ function buildSphereGeometry(dist, w, h, { edgeDeg = 86, scale = 1, cut = true }
   g.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
   g.setIndex(new THREE.BufferAttribute(idx.subarray(0, n), 1));
   g.computeBoundingSphere();
-  return { geometry: g, verts: nv, tris: n / 3, dropped };
+  let edgeGeometry = null;
+  if (edge.length) {
+    edgeGeometry = new THREE.BufferGeometry();
+    edgeGeometry.setAttribute("position", g.getAttribute("position"));
+    edgeGeometry.setAttribute("uv", g.getAttribute("uv"));
+    edgeGeometry.setIndex(new THREE.BufferAttribute(Uint32Array.from(edge), 1));
+    edgeGeometry.boundingSphere = g.boundingSphere;
+  }
+  return { geometry: g, edgeGeometry, verts: nv, tris: n / 3, dropped };
 }
 
 function sphereMesh(tex, radius, w = 256, h = 128) {
@@ -180,10 +222,12 @@ function applyTransform(obj, tf) {
   if (tf.position) obj.position.set(...tf.position);
 }
 
+let edgeMesh = null;
 async function loadMode(key) {
   const def = dayDef.modes[key];
   if (!def) throw new Error("no mode " + key + " for " + DAY);
   disposeGroup(worldGroup);
+  edgeMesh = null;
   stats.mode = key;
   stats.mesh = {};
   const t0 = performance.now();
@@ -196,7 +240,12 @@ async function loadMode(key) {
     const [tex, depth] = await Promise.all([panoTexP, loadDepth(def.depth, def.depthInfo)]);
     const t1 = performance.now();
     const fg = buildSphereGeometry(depth.dist, depth.w, depth.h, { edgeDeg: Number(qs.get("edge")) || def.edgeDeg || 86, cut: qs.get("cut") !== "0" });
-    worldGroup.add(new THREE.Mesh(fg.geometry, new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide })));
+    const fgMat = new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide });
+    worldGroup.add(new THREE.Mesh(fg.geometry, fgMat));
+    if (fg.edgeGeometry) {
+      edgeMesh = new THREE.Mesh(fg.edgeGeometry, fgMat);
+      worldGroup.add(edgeMesh);
+    }
     stats.mesh = { grid: depth.w + "x" + depth.h, verts: fg.verts, tris: fg.tris, cut: fg.dropped };
     if (def.bg && qs.get("bg") !== "0") {
       const [btex, bd] = await Promise.all([loadTexture(def.bg.tex), loadDepth(def.bg.depth, def.bg.depthInfo)]);
@@ -533,6 +582,7 @@ function loop(now) {
   const targetY = floorY(cam.x, cam.z) + walk.eye;
   camY += (targetY - camY) * Math.min(1, dt * 10);
   camera.position.set(cam.x, camY + scriptBob, cam.z);
+  if (edgeMesh) edgeMesh.visible = Math.hypot(cam.x, cam.z) < 0.1 && Math.abs(camY + scriptBob) < 0.1;
   camera.rotation.set(pitch, yaw, 0);
   panoGroup.position.copy(camera.position);
   renderer.render(scene, camera);
@@ -553,7 +603,13 @@ async function main() {
   pitch = ((dayDef.startPitch || 0) * Math.PI) / 180;
   const mode = qs.get("mode") && dayDef.modes[qs.get("mode")] ? qs.get("mode") : dayDef.defaultMode || Object.keys(dayDef.modes)[0];
   await loadMode(mode);
-  camY = floorY(0, 0) + walk.eye;
+  if (qs.get("yaw")) yaw = (Number(qs.get("yaw")) * Math.PI) / 180;
+  if (qs.get("pitch")) pitch = (Number(qs.get("pitch")) * Math.PI) / 180;
+  if (qs.get("pos")) {
+    const [x, z] = qs.get("pos").split(",").map(Number);
+    cam.set(x || 0, 0, z || 0);
+  }
+  camY = floorY(cam.x, cam.z) + walk.eye;
   if (qs.get("view") === "pano") setView3d(false);
   renderer.setAnimationLoop(loop);
   if (qs.get("auto") === "demo") setTimeout(demo, 1200);

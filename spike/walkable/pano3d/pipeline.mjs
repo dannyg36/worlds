@@ -6,7 +6,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
-import { run, upload, spent } from "../kit/fal.mjs";
+import { spent } from "../kit/ledger.mjs";
+import { upload } from "../kit/gmi.mjs";
+const falRun = async (opts) => (await import("../kit/fal.mjs")).run(opts);
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const APPROACH = "pano3d";
@@ -135,7 +137,7 @@ async function cmdMoge(day, args) {
     while (queue.length) {
       const v = queue.shift();
       try {
-        const { data, entry } = await run({
+        const { data, entry } = await falRun({
           approach: APPROACH, endpoint: "microsoft/moge-3", estCostUsd: est, label: day + "-view" + String(v.i).padStart(2, "0"),
           outDir: path.join(dir, "moge"),
           input: { image_url: v.url, fov_x: v.fov, resolution_level: 9, num_refinement_steps: 3, apply_mask: true, export_glb: false, export_ply: true },
@@ -203,6 +205,12 @@ function percentile(arr, p) {
 }
 
 async function viewDepth(v) {
+  if (v.moge.local) {
+    const S = v.S, raw = fs.readFileSync(v.moge.depth);
+    const depth = new Float32Array(raw.buffer.slice(raw.byteOffset, raw.byteOffset + raw.byteLength));
+    const mask = await sharp(v.moge.mask).greyscale().raw().toBuffer();
+    return { depth, mask, S, glConv: false, points: S * S, hits: depth.reduce((c, d) => c + (d > 0 ? 1 : 0), 0), b: basis(v.yaw, v.pitch), F: S / 2 / Math.tan((v.fov * D2R) / 2) };
+  }
   const ply = v.moge.files.find((f) => f.key === "point_cloud");
   const maskF = v.moge.files.find((f) => f.key === "mask");
   const pts = parsePly(fs.readFileSync(ply.path));
@@ -238,6 +246,8 @@ async function viewDepth(v) {
 async function cmdFuse(day, args) {
   const dir = outDir(day);
   const vj = readJson(path.join(dir, "views.json"));
+  const key = args.src || "moge";
+  vj.views = vj.views.map((v) => ({ ...v, moge: v[key] }));
   const W = Number(args.w || 1024), H = W / 2, N = W * H;
   const t0 = performance.now();
   const vds = [];
@@ -348,7 +358,9 @@ async function cmdFuse(day, args) {
     load_ms: tLoad, fuse_ms: ms(t0) - tLoad, moge_wall_s: vj.moge_wall_s, split_ms: vj.split_ms, upload_ms: vj.upload_ms,
   };
   console.log(JSON.stringify(fuse));
-  await finish(day, dist, W, H, { method: "moge3-fused", fuse, eye, edgeDeg: Number(args.edge || 86) });
+  fuse.depth_source = key === "da2" ? vj.da2_local : vj.moge_local ? vj.moge_local : "fal microsoft/moge-3";
+  const method = key === "da2" ? "da2-fused" : vj.moge_local ? "moge2-fused" : "moge3-fused";
+  await finish(day, dist, W, H, { method, fuse, eye, edgeDeg: Number(args.edge || 86), prefix: key === "da2" ? "da2f_" : "" });
 }
 
 function fillHoles(dist, W, H) {
@@ -489,6 +501,12 @@ function walkGrid(dist, W, H, eye, n = 41, extent = 4) {
   return { n, extent, cell: +cell.toFixed(4), floor: Array.from(floor, (v) => +v.toFixed(3)), blocked: Array.from(dil), free_cells: free };
 }
 
+async function writePacked(u16buf, w, h, file) {
+  const u = new Uint16Array(u16buf.buffer, u16buf.byteOffset, w * h), rgb = Buffer.alloc(w * h * 3);
+  for (let i = 0; i < w * h; i++) { rgb[i * 3] = u[i] >> 8; rgb[i * 3 + 1] = u[i] & 255; }
+  await sharp(rgb, { raw: { width: w, height: h, channels: 3 } }).png({ compressionLevel: 9, adaptiveFiltering: true }).toFile(file);
+}
+
 function turbo(t) {
   t = Math.min(1, Math.max(0, t));
   const r = 34.61 + t * (1172.33 - t * (10793.56 - t * (33300.12 - t * (38394.49 - t * 14825.05))));
@@ -509,10 +527,11 @@ async function finish(day, dist, W, H, { method, fuse = {}, eye = 1.6, edgeDeg =
   const t = performance.now();
   const enc = encodeU16(dist);
   fs.writeFileSync(path.join(dir, prefix + "depth.u16"), enc.buf);
+  await writePacked(enc.buf, W, H, path.join(dir, prefix + "depth.png"));
   await depthPreview(dist, W, H, path.join(dir, prefix + "depth_preview.png"));
   const info = readJson(path.join(dir, "info.json"), {});
-  const entry = { method, depthInfo: { w: W, h: H, lnMin: enc.lnMin, lnMax: enc.lnMax }, edgeDeg, fuse };
-  if (!prefix) {
+  const entry = { method, prefix, depthInfo: { w: W, h: H, lnMin: enc.lnMin, lnMax: enc.lnMax }, edgeDeg, fuse };
+  {
     const lnD = new Float32Array(W * H);
     for (let p = 0; p < W * H; p++) lnD[p] = Math.log(dist[p]);
     const r = Math.round((40 * W) / 1024);
@@ -538,7 +557,7 @@ async function finish(day, dist, W, H, { method, fuse = {}, eye = 1.6, edgeDeg =
     const filled = pushPull(rgb, wgt, W, H);
     const out = Buffer.alloc(W * H * 3);
     for (let q = 0; q < W * H * 3; q++) out[q] = Math.max(0, Math.min(255, Math.round(filled[q])));
-    await sharp(out, { raw: { width: W, height: H, channels: 3 } }).jpeg({ quality: 85 }).toFile(path.join(dir, "bg.jpg"));
+    await sharp(out, { raw: { width: W, height: H, channels: 3 } }).jpeg({ quality: 85 }).toFile(path.join(dir, prefix + "bg.jpg"));
     const bw = W / 2, bh = H / 2, bgDist = new Float32Array(bw * bh);
     for (let j = 0; j < bh; j++) for (let i = 0; i < bw; i++) {
       let s = 0;
@@ -546,14 +565,16 @@ async function finish(day, dist, W, H, { method, fuse = {}, eye = 1.6, edgeDeg =
       bgDist[j * bw + i] = Math.exp(s / 4);
     }
     const benc = encodeU16(bgDist);
-    fs.writeFileSync(path.join(dir, "bg.u16"), benc.buf);
-    entry.bg = { tex: "bg.jpg", depth: "bg.u16", depthInfo: { w: bw, h: bh, lnMin: benc.lnMin, lnMax: benc.lnMax }, push: 1.03, masked_px_pct: +((100 * masked) / (W * H)).toFixed(1), maxfilter_px: r };
-    info.walk = { radius: 2.5, eye, grid: walkGrid(dist, W, H, eye) };
+    fs.writeFileSync(path.join(dir, prefix + "bg.u16"), benc.buf);
+    await writePacked(benc.buf, bw, bh, path.join(dir, prefix + "bgdepth.png"));
+    entry.bg = { tex: prefix + "bg.jpg", depth: prefix + "bgdepth.png", depthInfo: { w: bw, h: bh, lnMin: benc.lnMin, lnMax: benc.lnMax }, push: 1.03, masked_px_pct: +((100 * masked) / (W * H)).toFixed(1), maxfilter_px: r };
+    entry.walk = { radius: 2.5, eye, grid: walkGrid(dist, W, H, eye) };
+    if (!prefix) info.walk = entry.walk;
     entry.post_ms = ms(t);
   }
   info[method] = entry;
   writeJson(path.join(dir, "info.json"), info);
-  console.log(method + ": depth " + W + "x" + H + " ln[" + enc.lnMin.toFixed(2) + "," + enc.lnMax.toFixed(2) + "] post " + ms(t) + " ms" + (info.walk ? " walk free cells " + info.walk.grid.free_cells : ""));
+  console.log(method + ": depth " + W + "x" + H + " ln[" + enc.lnMin.toFixed(2) + "," + enc.lnMax.toFixed(2) + "] post " + ms(t) + " ms walk free cells " + entry.walk.grid.free_cells);
 }
 
 // ---------------------------------------------------------------- synthetic dev depth (no fal)
@@ -578,7 +599,7 @@ async function cmdDa2(day, args) {
   const dir = outDir(day);
   const src = readJson(path.join(dir, "source.json"));
   const panoUrl = args.url || src.pano_source;
-  const { data, entry } = await run({ approach: APPROACH, endpoint: "fal-ai/image-preprocessors/depth-anything/v2", estCostUsd: 0, label: day + "-da2-equirect", outDir: path.join(dir, "da2"), input: { image_url: panoUrl } });
+  const { data, entry } = await falRun({ approach: APPROACH, endpoint: "fal-ai/image-preprocessors/depth-anything/v2", estCostUsd: 0, label: day + "-da2-equirect", outDir: path.join(dir, "da2"), input: { image_url: panoUrl } });
   const W = Number(args.w || 1024), H = W / 2;
   const img = await sharp(path.resolve(process.cwd(), entry.files[0].local)).greyscale().resize(W, H, { fit: "fill" }).raw({ depth: "ushort" }).toBuffer().catch(() => null)
     ?? await sharp(path.resolve(process.cwd(), entry.files[0].local)).greyscale().resize(W, H, { fit: "fill" }).raw().toBuffer();
@@ -587,7 +608,7 @@ async function cmdDa2(day, args) {
   const arr = img.length === W * H * 2 ? new Uint16Array(img.buffer, img.byteOffset, W * H) : img;
   for (let p = 0; p < W * H; p++) q[p] = arr[p] / maxv;
   const info = readJson(path.join(dir, "info.json"), {});
-  const ref = info["moge3-fused"];
+  const ref = info["moge3-fused"] ?? info["moge2-fused"];
   const refU = new Uint16Array(fs.readFileSync(path.join(dir, "depth.u16")).buffer.slice(0));
   const k = (ref.depthInfo.lnMax - ref.depthInfo.lnMin) / 65535;
   let sxx = 0, sx = 0, sy = 0, sxy = 0, n = 0;
@@ -604,12 +625,31 @@ async function cmdDa2(day, args) {
   await finish(day, dist, W, H, { method: "da2-equirect", prefix: "da2_", fuse: { endpoint_latency_s: entry.latency_s, align: "scale+shift in inverse depth to the MoGe-3 fused map", a: +a.toFixed(4), b: +b.toFixed(4), source_px: data.image?.width + "x" + data.image?.height } });
 }
 
+async function cmdDa2eq(day, args) {
+  const dir = outDir(day);
+  const meta = readJson(path.join(dir, "da2_equirect.json"));
+  const raw = fs.readFileSync(path.join(dir, "da2_equirect.f32"));
+  const W = meta.w, H = meta.h;
+  const d0 = new Float32Array(raw.buffer.slice(raw.byteOffset, raw.byteOffset + raw.byteLength));
+  const ys = [];
+  for (let j = 0; j < H; j++) {
+    const lat = (0.5 - (j + 0.5) / H) * Math.PI;
+    if (lat > -65 * D2R) continue;
+    for (let i = 0; i < W; i += 2) ys.push(-d0[j * W + i] * Math.sin(lat));
+  }
+  const eye = Number(args.eye || 1.6), camH = percentile(ys, 0.5), scale = eye / camH;
+  const farD = Number(args.far || 80);
+  const dist = new Float32Array(W * H);
+  for (let p = 0; p < W * H; p++) dist[p] = Math.min(farD, Math.max(0.2, d0[p] * scale));
+  await finish(day, dist, W, H, { method: "da2-equirect", prefix: "da2e_", eye, edgeDeg: Number(args.edge || 86), fuse: { ...meta, raw_camera_height_m: +camH.toFixed(3), scale_to_eye: +scale.toFixed(3), far_m: farD } });
+}
+
 async function cmdEye(day, args) {
   const dir = outDir(day);
   if (!args.image) throw new Error("--image <eye-level image url> required");
   const meta = await sharp(Buffer.from(await (await fetch(args.image)).arrayBuffer())).metadata();
   const mp = Math.max(1, Math.ceil((meta.width * meta.height) / 1e6));
-  const { data, entry } = await run({ approach: APPROACH, endpoint: "microsoft/moge-3", estCostUsd: 0.015 * mp, label: day + "-moge3-eye", outDir: path.join(dir, "eye"),
+  const { data, entry } = await falRun({ approach: APPROACH, endpoint: "microsoft/moge-3", estCostUsd: 0.015 * mp, label: day + "-moge3-eye", outDir: path.join(dir, "eye"),
     input: { image_url: args.image, resolution_level: 9, num_refinement_steps: 3, apply_mask: true, export_glb: true, export_ply: false } });
   const info = readJson(path.join(dir, "info.json"), {});
   info.eye = { image: args.image, px: meta.width + "x" + meta.height, fov_x: data.fov_x, fov_y: data.fov_y, latency_s: entry.latency_s, files: entry.files.map((f) => ({ key: f.key, path: f.local && path.resolve(process.cwd(), f.local), bytes: f.bytes, url: f.url })) };
@@ -625,7 +665,7 @@ async function cmdHunyuan(day, args) {
     "santa-cruz": { labels_fg1: "bicycles, bench, cypress trees", labels_fg2: "wharf, sea lions, surfers", classes: "outdoor" },
   };
   const input = { image_url: args.url || src.pano_source, ...(presets[day] ?? { labels_fg1: "people", labels_fg2: "trees", classes: "outdoor" }), export_drc: !!args.drc };
-  const { data, entry } = await run({ approach: APPROACH, endpoint: "fal-ai/hunyuan_world/image-to-world", estCostUsd: 0.3, label: day + "-hunyuan-world" + (args.drc ? "-drc" : ""), outDir: path.join(dir, "hunyuan"), input, logs: true });
+  const { data, entry } = await falRun({ approach: APPROACH, endpoint: "fal-ai/hunyuan_world/image-to-world", estCostUsd: 0.3, label: day + "-hunyuan-world" + (args.drc ? "-drc" : ""), outDir: path.join(dir, "hunyuan"), input, logs: true });
   console.log(JSON.stringify({ data, entry }, null, 2));
 }
 
@@ -676,7 +716,7 @@ async function cmdGlb(day, args) {
   await MeshoptEncoder.ready;
   const dir = outDir(day);
   const info = readJson(path.join(dir, "info.json"));
-  const e = info[args.method || "moge3-fused"];
+  const e = info[args.method || ["moge3-fused", "moge2-fused", "synthetic-box"].find((m) => info[m])];
   const t = performance.now();
   const doc = new Document();
   const buffer = doc.createBuffer();
@@ -716,7 +756,22 @@ async function cmdPublish(day, args) {
   const manifest = readJson(manifestPath, { note: "", days: {} });
   const prev = manifest.days[day] ?? {};
   const files = { ...(prev.files ?? {}) };
-  const want = (args.files ? String(args.files).split(",") : ["pano.jpg", "depth.u16", "bg.jpg", "bg.u16", "world.glb", "da2_depth.u16", "eye.glb"]).filter((f) => fs.existsSync(path.join(dir, f)));
+  const methods = [
+    ["moge2-fused", "depth", "MoGe-2 ViT-L on 14 crops (CPU), fused", "MoGe×14"],
+    ["moge3-fused", "depth", "MoGe-3 on 14 crops (fal), fused", "MoGe3×14"],
+    ["da2-fused", "da2f", "Depth Anything V2 metric-S on 14 crops (CPU), fused", "DA2×14"],
+    ["da2-equirect", "da2e", "Depth Anything V2 metric-S one-shot on the equirect", "DA2 1-shot"],
+    ["synthetic-box", "synthetic", "synthetic box depth (dev)", "box"],
+  ].filter(([m]) => info[m]);
+  const want = new Set(["pano.jpg"]);
+  const modes = {};
+  for (const [m, key, label, short] of methods) {
+    const e = info[m];
+    want.add((e.prefix ?? "") + "depth.png");
+    if (e.bg) { want.add(e.bg.tex); want.add(e.bg.depth); }
+    modes[key] = { kind: "depth", label, short, depth: (e.prefix ?? "") + "depth.png", depthInfo: e.depthInfo, edgeDeg: e.edgeDeg, walk: e.walk,
+      bg: e.bg && { tex: e.bg.tex, depth: e.bg.depth, depthInfo: e.bg.depthInfo, push: e.bg.push } };
+  }
   for (const f of want) {
     const p = path.join(dir, f), bytes = fs.statSync(p).size;
     fs.mkdirSync(path.join(here, "assets", day), { recursive: true });
@@ -726,21 +781,15 @@ async function cmdPublish(day, args) {
     files[f] = { url: await upload(p), bytes };
     console.log("uploaded " + f + " " + (bytes / 1e6).toFixed(2) + " MB");
   }
-  const modes = { ...(prev.modes ?? {}) };
-  const main = info["moge3-fused"] ?? info["synthetic-box"];
-  const mainKey = info["moge3-fused"] ? "depth" : "synthetic";
-  if (main) modes[mainKey] = { kind: "depth", label: info["moge3-fused"] ? "MoGe-3 fused depth mesh" : "synthetic box depth (dev)", short: mainKey === "depth" ? "MoGe×14" : "box", depth: "depth.u16", depthInfo: main.depthInfo, edgeDeg: main.edgeDeg, bg: main.bg && { tex: main.bg.tex, depth: main.bg.depth, depthInfo: main.bg.depthInfo, push: main.bg.push } };
-  if (files["world.glb"]) modes.glb = { kind: "glb", label: "same mesh baked to GLB (meshopt)", short: "GLB", file: "world.glb", fill: false };
-  if (info["da2-equirect"] && files["da2_depth.u16"]) modes.da2 = { kind: "depth", label: "Depth Anything v2 one-shot on equirect", short: "DA2", depth: "da2_depth.u16", depthInfo: info["da2-equirect"].depthInfo, edgeDeg: info["da2-equirect"].edgeDeg };
-  if (files["eye.glb"]) modes.eye = { kind: "glb", label: "MoGe-3 single eye-level image (2.5D)", short: "eye", file: "eye.glb", fill: false };
+  for (const f of Object.keys(files)) if (!want.has(f)) delete files[f];
   manifest.days[day] = {
-    ...prev,
     title: scenes.days[day]?.title ?? day,
+    ...(day === "sample" ? { dev: true } : {}),
     pano: "pano.jpg",
-    defaultMode: prev.defaultMode ?? mainKey,
+    pano_source: readJson(path.join(dir, "source.json"), {}).pano_source,
+    defaultMode: Object.keys(modes)[0],
     startYaw: prev.startYaw ?? 0,
-    startPitch: prev.startPitch ?? -5,
-    walk: info.walk,
+    startPitch: prev.startPitch ?? -8,
     files,
     modes,
   };
@@ -756,7 +805,7 @@ for (let i = 1; i < argv.length; i++) {
   const k = argv[i].slice(2), v = argv[i + 1] && !argv[i + 1].startsWith("--") ? argv[++i] : true;
   args[k] = v;
 }
-const cmds = { prep: cmdPrep, views: cmdViews, moge: cmdMoge, fuse: cmdFuse, synthetic: cmdSynthetic, da2: cmdDa2, eye: cmdEye, hunyuan: cmdHunyuan, glb: cmdGlb, publish: cmdPublish };
+const cmds = { da2eq: cmdDa2eq, prep: cmdPrep, views: cmdViews, moge: cmdMoge, fuse: cmdFuse, synthetic: cmdSynthetic, da2: cmdDa2, eye: cmdEye, hunyuan: cmdHunyuan, glb: cmdGlb, publish: cmdPublish };
 if (!cmds[cmd] || !args.day) {
   console.log("usage: node pipeline.mjs <" + Object.keys(cmds).join("|") + "> --day <day> [...]");
   process.exit(cmd ? 1 : 0);
