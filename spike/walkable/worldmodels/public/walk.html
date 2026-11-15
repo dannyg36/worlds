@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<title>worlds · walk your day (branching clips)</title>
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/walk.css">
+</head>
+<body>
+<div id="stage">
+  <img id="poster" alt="" decoding="async">
+  <video id="va" class="clip" playsinline webkit-playsinline muted preload="auto"></video>
+  <video id="vb" class="clip" playsinline webkit-playsinline muted preload="auto"></video>
+</div>
+<pre id="hud" aria-live="off"></pre>
+<div id="topbar">
+  <select id="set" aria-label="Model"></select>
+  <button id="btn-hud" type="button">HUD</button>
+  <button id="btn-fit" type="button">Fill</button>
+</div>
+<div id="hint" hidden></div>
+<div id="arrows">
+  <button class="arrow up" data-move="forward" type="button">&#8593; walk</button>
+  <button class="arrow left" data-move="left" type="button">&#8630; left</button>
+  <button class="arrow down" data-move="back" type="button">&#8595; back</button>
+  <button class="arrow right" data-move="right" type="button">right &#8631;</button>
+</div>
+<div id="loading">
+  <div class="card">
+    <div class="eyebrow">Tonight's world</div>
+    <h1 id="title">Loading your day…</h1>
+    <p id="sub"></p>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+</div>
+<script type="module" src="/walk.js"></script>
+</body>
+</html>
