@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "convex/react";
-import { Link, Stack, useTheme } from "expo-router";
+import { Link, router, Stack, useTheme } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -154,6 +155,18 @@ export default function WorldsScreen() {
           </View>
         )}
       />
+      <Pressable
+        accessibilityRole="button"
+        onPress={() => router.push("/record")}
+        style={[styles.recordButton, { backgroundColor: colors.primary }]}
+      >
+        <SymbolView
+          name={{ ios: "mic.fill", android: "mic", web: "mic" }}
+          size={20}
+          tintColor="#FFFFFF"
+        />
+        <Text style={styles.buttonLabel}>Record your day</Text>
+      </Pressable>
     </>
   );
 }
@@ -163,6 +176,7 @@ const secondaryText = "#8E8E93";
 const styles = StyleSheet.create({
   content: {
     padding: 16,
+    paddingBottom: 120,
     gap: 12,
   },
   card: {
@@ -181,6 +195,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 12,
     paddingVertical: 12,
+  },
+  recordButton: {
+    position: "absolute",
+    bottom: 40,
+    alignSelf: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    borderRadius: 999,
+    paddingHorizontal: 24,
+    paddingVertical: 16,
+    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.2)",
   },
   buttonLabel: {
     color: "#FFFFFF",

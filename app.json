@@ -34,7 +34,14 @@
           "imageWidth": 76
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "worlds listens while you talk about your day so it can turn your words into a world.",
+          "speechRecognitionPermission": "worlds turns what you say into text so it can build a world from your day."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
