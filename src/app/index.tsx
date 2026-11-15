@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "convex/react";
-import { router, useTheme } from "expo-router";
+import { Link, router, Stack, useTheme } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import {
@@ -14,11 +14,14 @@ import {
 } from "react-native";
 
 import { api } from "../../convex/_generated/api";
+import type { Id } from "../../convex/_generated/dataModel";
 
 export default function WorldsScreen() {
   const { colors } = useTheme();
-  const worlds = useQuery(api.worlds.list);
+  const worlds = useQuery(api.feed.list);
   const addWorld = useMutation(api.worlds.add);
+  const shareWorld = useMutation(api.sharing.share);
+  const unshareWorld = useMutation(api.sharing.unshare);
   const [transcript, setTranscript] = useState("");
   const [adding, setAdding] = useState(false);
   const canAdd = transcript.trim().length > 0 && !adding;
@@ -38,8 +41,31 @@ export default function WorldsScreen() {
     }
   }
 
+  async function toggleShared(worldId: Id<"worlds">, shared: boolean) {
+    try {
+      await (shared ? unshareWorld : shareWorld)({ worldId });
+    } catch (error) {
+      Alert.alert(
+        shared ? "Couldn't stop sharing" : "Couldn't share your world",
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+
   return (
     <>
+      <Stack.Screen
+        options={{
+          headerRight: () => (
+            <Link
+              href="/friends"
+              style={[styles.headerLink, { color: colors.primary }]}
+            >
+              Friends
+            </Link>
+          ),
+        }}
+      />
       <FlatList
         data={worlds ?? []}
         keyExtractor={(world) => world._id}
@@ -96,6 +122,7 @@ export default function WorldsScreen() {
             ]}
           >
             <Text style={styles.date}>
+              {item.mine ? "" : `${item.authorName} · `}
               {new Date(item._creationTime).toLocaleString(undefined, {
                 weekday: "short",
                 month: "short",
@@ -107,6 +134,24 @@ export default function WorldsScreen() {
             <Text style={[styles.transcript, { color: colors.text }]}>
               {item.transcript}
             </Text>
+            {item.mine && (
+              <View style={styles.shareRow}>
+                <Text style={styles.date}>
+                  {item.shared
+                    ? "Shared with your friends"
+                    : "Only you can see this"}
+                </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  hitSlop={8}
+                  onPress={() => toggleShared(item._id, item.shared)}
+                >
+                  <Text style={[styles.shareAction, { color: colors.primary }]}>
+                    {item.shared ? "Unshare" : "Share"}
+                  </Text>
+                </Pressable>
+              </View>
+            )}
           </View>
         )}
       />
@@ -176,6 +221,18 @@ const styles = StyleSheet.create({
   transcript: {
     fontSize: 17,
     lineHeight: 24,
+  },
+  shareRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  shareAction: {
+    fontSize: 15,
+    fontWeight: "600",
+  },
+  headerLink: {
+    fontSize: 17,
   },
   empty: {
     color: secondaryText,

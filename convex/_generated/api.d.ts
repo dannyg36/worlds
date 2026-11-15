@@ -8,8 +8,14 @@
  * @module
  */
 
+import type * as deviceAuth from "../deviceAuth.js";
+import type * as feed from "../feed.js";
+import type * as friends from "../friends.js";
 import type * as memory from "../memory.js";
 import type * as memoryCheck from "../memoryCheck.js";
+import type * as profiles from "../profiles.js";
+import type * as sha256 from "../sha256.js";
+import type * as sharing from "../sharing.js";
 import type * as worlds from "../worlds.js";
 
 import type {
@@ -19,8 +25,14 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  deviceAuth: typeof deviceAuth;
+  feed: typeof feed;
+  friends: typeof friends;
   memory: typeof memory;
   memoryCheck: typeof memoryCheck;
+  profiles: typeof profiles;
+  sha256: typeof sha256;
+  sharing: typeof sharing;
   worlds: typeof worlds;
 }>;
 
