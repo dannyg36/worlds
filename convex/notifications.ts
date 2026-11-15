@@ -188,8 +188,8 @@ export const worldStatusChanged = internalMutation({
     title: v.optional(v.string()),
   },
   handler: async (ctx, { worldId, status, title }) => {
-    const owner = (await ctx.db.get("worlds", worldId))?.ownerTokenIdentifier;
-    if (!owner) {
+    const world = await ctx.db.get("worlds", worldId);
+    if (!world) {
       return null;
     }
     const notice = await ctx.db
@@ -205,7 +205,7 @@ export const worldStatusChanged = internalMutation({
     const devices = await ctx.db
       .query("pushTokens")
       .withIndex("by_ownerTokenIdentifier", (q) =>
-        q.eq("ownerTokenIdentifier", owner),
+        q.eq("ownerTokenIdentifier", world.ownerTokenIdentifier),
       )
       .take(MAX_DEVICES_PER_OWNER);
     if (devices.length === 0) {

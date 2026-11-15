@@ -117,7 +117,7 @@ async function nextReminder(t: Test, installId: string) {
   return new Date((await device(t, installId))!.nextReminderAt).toISOString();
 }
 
-async function addWorld(t: Test, iso: string, owner?: string) {
+async function addWorld(t: Test, iso: string, owner: string) {
   vi.setSystemTime(new Date(iso));
   return await t.run((ctx) =>
     ctx.db.insert("worlds", {
@@ -174,7 +174,6 @@ describe("nightly reminder", () => {
 
     await addWorld(t, "2026-11-16T07:30:00Z", "owner-a");
     await addWorld(t, "2026-11-16T20:00:00Z", "owner-b");
-    await addWorld(t, "2026-11-16T21:00:00Z");
     await runCron(t, "2026-11-17T05:00:00Z");
     expect(recipients()).toEqual([tokenOf("phone")]);
 
@@ -298,11 +297,12 @@ describe("world status notifications", () => {
     ]);
   });
 
-  test("stays quiet for a world with no owner", async () => {
+  test("stays quiet when the owner has no registered device", async () => {
     const t = convexTest(schema, modules);
     await register(t, "anonymous");
-    const worldId = await addWorld(t, "2026-11-16T04:00:00Z");
-    await changed(t, worldId, "ready", "Nobody's World");
+    await register(t.withIdentity({ tokenIdentifier: "owner-b" }), "stranger");
+    const worldId = await addWorld(t, "2026-11-16T04:00:00Z", "owner-a");
+    await changed(t, worldId, "ready", "Nobody's Phone");
     expect(expo.sendRequests).toEqual([]);
   });
 });
