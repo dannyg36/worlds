@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>webgl bake</title>
+<style>html,body{margin:0;height:100%;background:#1b1b2a;overflow:hidden;touch-action:none}canvas{display:block;width:100%;height:100%}
+#hud{position:fixed;top:60px;left:10px;right:10px;color:#fff;font:600 15px -apple-system,system-ui;white-space:pre;text-shadow:0 1px 2px #000;pointer-events:none}
+#btns{position:fixed;bottom:40px;left:0;right:0;display:flex;gap:8px;justify-content:center}
+button{font:600 15px -apple-system;padding:10px 14px;border-radius:12px;border:0;background:#fff3;color:#fff}</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/"}}</script>
+</head><body><div id="hud">booting</div><div id="btns"></div>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+const base='https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/';
+const models={DamagedHelmet:3.8,BoomBox:10.6,Corset:13.5};
+const q=new URLSearchParams(location.search); const dprCap=parseFloat(q.get('dpr')||'2');
+const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,dprCap)); renderer.setSize(innerWidth,innerHeight);
+renderer.toneMapping=THREE.ACESFilmicToneMapping; document.body.appendChild(renderer.domElement);
+const scene=new THREE.Scene(); scene.background=new THREE.Color('#1b1b2a');
+scene.environment=new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(),0.04).texture;
+const dl=new THREE.DirectionalLight(0xffffff,1.5); dl.position.set(3,5,2); scene.add(dl);
+const camera=new THREE.PerspectiveCamera(40,innerWidth/innerHeight,0.01,100); camera.position.set(0,0.3,3);
+const controls=new OrbitControls(camera,renderer.domElement); controls.enableDamping=true; controls.autoRotate=true; controls.autoRotateSpeed=1.5;
+let current=null,state='idle',loadMs=0,t0=0,firstFrame=false,name='';
+const hud=document.getElementById('hud');
+let frames=[],minFps=Infinity,winStart=0,winFrames=0;
+function load(n){ if(current){scene.remove(current);} state='loading'; name=n; t0=performance.now(); firstFrame=false; minFps=Infinity; frames=[];
+ new GLTFLoader().load(base+n+'/glTF-Binary/'+n+'.glb',g=>{current=g.scene; const box=new THREE.Box3().setFromObject(current); const s=box.getSize(new THREE.Vector3()).length(); const c=box.getCenter(new THREE.Vector3()); current.position.sub(c); const k=2/s; current.scale.setScalar(k); current.position.multiplyScalar(k); scene.add(current); state='ready'; },
+ p=>{ state='loading '+(p.total?Math.round(100*p.loaded/p.total)+'%':p.loaded);},e=>{state='error '+e;});}
+const btns=document.getElementById('btns'); for(const n in models){const b=document.createElement('button'); b.textContent=n; b.onclick=()=>load(n); btns.appendChild(b);}
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+function tick(now){ requestAnimationFrame(tick); controls.update(); renderer.render(scene,camera);
+ if(state==='ready'&&!firstFrame){firstFrame=true;loadMs=Math.round(performance.now()-t0); winStart=now; winFrames=0;}
+ frames.push(now); while(frames.length&&now-frames[0]>2000)frames.shift();
+ const avg=frames.length>1?((frames.length-1)/((frames[frames.length-1]-frames[0])/1000)):0;
+ if(firstFrame){winFrames++; if(now-winStart>=1000){const f=winFrames*1000/(now-winStart); if(now-t0>loadMs+1500)minFps=Math.min(minFps,f); winStart=now; winFrames=0;}}
+ hud.textContent=name+' ('+(models[name]||'')+' MB)\nstate: '+state+'\nload: '+loadMs+' ms\nfps avg2s: '+avg.toFixed(1)+'  min1s: '+(minFps===Infinity?'-':minFps.toFixed(1))+'\ndpr '+renderer.getPixelRatio()+' buffer '+renderer.domElement.width+'x'+renderer.domElement.height+'\n'+renderer.getContext().getParameter(renderer.getContext().VERSION);
+}
+requestAnimationFrame(tick); load(q.get('m')||'DamagedHelmet');
+</script></body></html>
