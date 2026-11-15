@@ -16,7 +16,8 @@ import {
   auroraGlows,
   lightness,
   mix,
-  saturation,
+  tone,
+  vividness,
 } from "@/world/color";
 
 type Props = {
@@ -127,7 +128,7 @@ html, body, #root {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(130% 95% at 50% 45%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.32) 100%);
+  background: radial-gradient(130% 95% at 50% 45%, rgba(70, 60, 48, 0) 60%, rgba(70, 60, 48, 0.07) 100%);
 }
 .world-joystick {
   position: absolute;
@@ -136,11 +137,11 @@ html, body, #root {
   width: 132px;
   height: 132px;
   border-radius: 66px;
-  background: rgba(255, 255, 255, 0.16);
-  -webkit-backdrop-filter: blur(18px) saturate(1.6);
-  backdrop-filter: blur(18px) saturate(1.6);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  background: rgba(252, 251, 248, 0.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05), 0 24px 44px -24px rgba(0, 0, 0, 0.34);
   touch-action: none;
   opacity: 0;
   transform: scale(0.85);
@@ -155,8 +156,8 @@ html, body, #root {
   width: 58px;
   height: 58px;
   border-radius: 29px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  background: radial-gradient(circle at 36% 30%, #FFFFFF 0%, #FBFAF7 45%, #ECEAE4 100%);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.12), 0 10px 20px -6px rgba(0, 0, 0, 0.32);
   transition: transform 180ms ease;
 }
 .world-joystick.dragging .world-joystick-knob { transition: none; }
@@ -204,7 +205,7 @@ void main() {
   float y = direction.y;
   vec3 color = y > 0.0
     ? mix(uHorizon, uZenith, pow(smoothstep(0.0, 0.8, y), 0.55))
-    : mix(uHorizon, uFloor, smoothstep(0.0, 0.16, -y));
+    : mix(uHorizon, uFloor, smoothstep(0.0, 0.3, -y));
   for (int i = 0; i < 3; i++) {
     float lobe = pow(max(dot(direction, normalize(glowDirections[i])), 0.0), 5.0);
     color = mix(color, uGlows[i], lobe * smoothstep(-0.08, 0.12, y) * 0.6);
@@ -297,7 +298,7 @@ float revealLine = mix(uRevealRange.x, uRevealRange.y, uReveal);
 float revealDistance = vRevealPosition.y + (revealNoise(vRevealPosition * 7.0) - 0.5) * 0.22 - revealLine;
 if (revealDistance > 0.0) discard;
 float revealEdge = 1.0 - smoothstep(0.0, 0.07, -revealDistance);
-gl_FragColor.rgb = mix(gl_FragColor.rgb, uRevealColor * 2.4, revealEdge);
+gl_FragColor.rgb = mix(gl_FragColor.rgb, linearToOutputTexel(vec4(uRevealColor, 1.0)).rgb, revealEdge);
 `;
 
 const textureSlots = [
@@ -363,7 +364,7 @@ function createViewer(
   let pixelRatio = Math.min(window.devicePixelRatio || 1, 3);
   renderer.setPixelRatio(pixelRatio);
   renderer.toneMapping = THREE.NeutralToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 1;
   const canvas = renderer.domElement;
   host.appendChild(canvas);
 
@@ -373,7 +374,7 @@ function createViewer(
   const pmrem = new THREE.PMREMGenerator(renderer);
   const environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   scene.environment = environment;
-  scene.environmentIntensity = 0.8;
+  scene.environmentIntensity = 0.85;
 
   const colors = {
     zenith: new THREE.Color(),
@@ -385,10 +386,10 @@ function createViewer(
     accent: new THREE.Color(),
   };
 
-  const hemisphere = new THREE.HemisphereLight(0xffffff, 0x000000, 0.5);
-  const sun = new THREE.DirectionalLight(0xfff1e0, 2);
+  const hemisphere = new THREE.HemisphereLight(0xffffff, 0x000000, 0.45);
+  const sun = new THREE.DirectionalLight(0xfff1e0, 2.2);
   sun.position.set(2.5, 4, 3);
-  const rim = new THREE.DirectionalLight(0xffffff, 2.4);
+  const rim = new THREE.DirectionalLight(0xffffff, 1);
   const rimDirection = new THREE.Vector3();
   scene.add(hemisphere, sun, rim);
 
@@ -595,22 +596,20 @@ function createViewer(
     const lightest = [...palette].sort(
       (a, b) => lightness(b) - lightness(a),
     )[0];
-    const vividness = (hex: string) =>
-      saturation(hex) * (1 - Math.abs(lightness(hex) - 0.55));
     const accent = [...palette].sort((a, b) => vividness(b) - vividness(a))[0];
-    colors.zenith.set(mix(base, "#000000", 0.25));
-    colors.horizon.set(mix(base, glows[0], 0.2));
+    colors.zenith.set(mix(base, "#FFFFFF", 0.8));
+    colors.horizon.set(mix(mix(base, "#FFFFFF", 0.6), glows[0], 0.14));
     colors.floor.set(base);
-    colors.pool.set(mix(mix(base, "#FFFFFF", 0.16), lightest, 0.08));
+    colors.pool.set(mix(base, "#FFFFFF", 0.72));
     colors.glows.forEach((color, index) =>
-      color.set(mix(base, glows[index % glows.length], 0.42)),
+      color.set(mix(base, glows[index % glows.length], 0.6)),
     );
-    colors.shadow.set(mix(base, "#000000", 0.7));
-    colors.accent.set(mix(accent, "#FFFFFF", 0.2));
-    rim.color.set(mix(accent, "#FFFFFF", 0.45));
-    hemisphere.color.set(mix(lightest, "#FFFFFF", 0.5));
+    colors.shadow.set(mix(base, "#2E2822", 0.9));
+    colors.accent.set(tone(accent, 0.68, 0.8));
+    rim.color.set(mix(glows[0], "#FFFFFF", 0.5));
+    hemisphere.color.set(mix(lightest, "#FFFFFF", 0.6));
     hemisphere.groundColor.copy(colors.floor);
-    (ripple.material as THREE.MeshBasicMaterial).color.copy(colors.accent);
+    (ripple.material as THREE.MeshBasicMaterial).color.set(tone(accent, 0.42));
     document.body.style.backgroundColor = base;
     if (model && revealDone) {
       renderContactShadow();
@@ -775,7 +774,7 @@ function createViewer(
     const previousAlpha = renderer.getClearAlpha();
     const previousToneMapping = renderer.toneMapping;
     renderer.toneMapping = THREE.NoToneMapping;
-    renderer.setClearColor(0x000000, 0);
+    renderer.setClearColor(colors.shadow, 0);
     scene.overrideMaterial = contactMaterial;
     shadowCamera.layers.set(1);
     renderer.setRenderTarget(shadowTarget);

@@ -10,6 +10,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { color } from "@/design/tokens";
 import { auroraBase, auroraGlows, withAlpha } from "@/world/color";
 
 const drifts = [
@@ -32,15 +33,15 @@ export function Aurora({ palette }: { palette: string[] }) {
           { backgroundColor: auroraBase(palette) },
         ]}
       >
-        {glows.map((color, index) => (
-          <Glow key={index} color={color} index={index} />
+        {glows.map((tint, index) => (
+          <Glow key={index} tint={tint} index={index} />
         ))}
       </Animated.View>
     </View>
   );
 }
 
-function Glow({ color, index }: { color: string; index: number }) {
+function Glow({ tint, index }: { tint: string; index: number }) {
   const { width, height } = useWindowDimensions();
   const drift = drifts[index % drifts.length];
   const phase = useSharedValue(0);
@@ -76,7 +77,7 @@ function Glow({ color, index }: { color: string; index: number }) {
           height: size,
           left: width / 2 + drift.x * width - size / 2,
           top: height / 2 + drift.y * height - size / 2 - height * 0.15,
-          backgroundImage: `radial-gradient(circle at center, ${withAlpha(color, 0.55)} 0%, ${withAlpha(color, 0.18)} 38%, ${withAlpha(color, 0)} 70%)`,
+          backgroundImage: `radial-gradient(circle at center, ${withAlpha(tint, 0.6)} 0%, ${withAlpha(tint, 0.22)} 38%, ${withAlpha(tint, 0)} 70%)`,
         },
         style,
       ]}
@@ -86,7 +87,7 @@ function Glow({ color, index }: { color: string; index: number }) {
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: "#05040C",
+    backgroundColor: color.pearl,
     overflow: "hidden",
   },
   glow: {
