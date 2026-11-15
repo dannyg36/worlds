@@ -32,6 +32,7 @@ type Env = {
   readonly CONVEX_SITE_URL: string;
   readonly FAL_KEY: string | undefined;
   readonly GMI_API_KEY: string | undefined;
+  readonly SUPERMEMORY_API_KEY: string | undefined;
 };
 
 /**

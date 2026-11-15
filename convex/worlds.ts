@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import type { Doc } from "./_generated/dataModel";
+import { internal } from "./_generated/api";
 import { mutation, query, type QueryCtx } from "./_generated/server";
 import { getAccessibleWorld, listAccessibleWorlds } from "./access";
 import { startGeneration } from "./pipeline";
@@ -36,6 +37,10 @@ export const add = mutation({
     }
     const id = await ctx.db.insert("worlds", { transcript });
     await startGeneration(ctx, id);
+    await ctx.scheduler.runAfter(0, internal.memory.remember, {
+      worldId: id,
+      transcript,
+    });
     return id;
   },
 });

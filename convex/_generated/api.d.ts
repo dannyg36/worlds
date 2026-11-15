@@ -17,6 +17,8 @@ import type * as generation_provider from "../generation/provider.js";
 import type * as generation_scene from "../generation/scene.js";
 import type * as generation_sceneWriterPrompt from "../generation/sceneWriterPrompt.js";
 import type * as generation_tables from "../generation/tables.js";
+import type * as memory from "../memory.js";
+import type * as memoryCheck from "../memoryCheck.js";
 import type * as pipeline from "../pipeline.js";
 import type * as worlds from "../worlds.js";
 
@@ -36,6 +38,8 @@ declare const fullApi: ApiFromModules<{
   "generation/scene": typeof generation_scene;
   "generation/sceneWriterPrompt": typeof generation_sceneWriterPrompt;
   "generation/tables": typeof generation_tables;
+  memory: typeof memory;
+  memoryCheck: typeof memoryCheck;
   pipeline: typeof pipeline;
   worlds: typeof worlds;
 }>;
