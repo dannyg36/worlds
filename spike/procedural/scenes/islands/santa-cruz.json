@@ -1,0 +1,1073 @@
+{
+  "title": "Sunburnt in Santa Cruz",
+  "caption": "Fog on the drive in, rental bikes on West Cliff, a hundred surfers, chowder and yelling sea lions.",
+  "palette": [
+    "#2f7f9a",
+    "#f2d59b",
+    "#e8734a",
+    "#8a5a3c"
+  ],
+  "time": "noon",
+  "biome": "beach",
+  "landmark": {
+    "type": "tree",
+    "kind": "pine",
+    "height": 5
+  },
+  "cast": [
+    {
+      "name": "me",
+      "skin": "#ebc39b",
+      "shirt": "#4f86c6",
+      "pants": "#c9b48a",
+      "hair": "#3b2a1e",
+      "hairStyle": "short"
+    },
+    {
+      "name": "Maya",
+      "skin": "#c98e62",
+      "shirt": "#e8734a",
+      "pants": "#2f3a4f",
+      "hair": "#1f1410",
+      "hairStyle": "long"
+    }
+  ],
+  "vignettes": [
+    {
+      "title": "Fog on the drive in",
+      "moment": "We pull into a cliffside lookout and the ocean is just a wall of grey.",
+      "hero": false,
+      "size": "medium",
+      "surface": "asphalt",
+      "objects": [
+        {
+          "type": "car",
+          "kind": "hatch",
+          "color": "#e2b84a",
+          "at": [
+            -0.5,
+            -1.3
+          ],
+          "rot": 90,
+          "scale": 0.7,
+          "id": "our-car"
+        },
+        {
+          "type": "tree",
+          "kind": "pine",
+          "height": 3,
+          "at": [
+            -0.9,
+            -2.15
+          ]
+        },
+        {
+          "type": "tree",
+          "kind": "pine",
+          "height": 2.6,
+          "at": [
+            1.95,
+            -1.2
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "morning-fog-bank",
+          "at": [
+            0,
+            -0.4
+          ],
+          "code": "const g=k.group(), T=k.THREE; const geo=new T.SphereGeometry(1,12,8); const m=k.mat('#f3f5f7',{transparent:true,opacity:0.36}); const P=[[-1.6,0.5,-0.5,0.75],[-0.8,0.8,-1.2,0.9],[0.4,0.6,-1.4,0.85],[1.4,0.9,-0.9,0.75],[-1.3,1.4,-0.2,0.55],[0.8,1.6,-0.6,0.6],[1.7,0.4,0.5,0.45],[-1.8,0.35,0.9,0.4],[0.0,1.9,-1.1,0.65],[-0.4,0.22,1.7,0.35]]; for(const [x,y,z,r] of P){ const s=new T.Mesh(geo,m); s.scale.set(r*1.35,r*0.5,r); s.castShadow=false; k.put(g,s,x,y,z); } return g;"
+        },
+        {
+          "type": "bench",
+          "length": 1.2,
+          "at": [
+            1.1,
+            -0.3
+          ],
+          "id": "lookout-bench"
+        },
+        {
+          "type": "custom",
+          "name": "two-coffees-to-go",
+          "at": [
+            -0.35,
+            0
+          ],
+          "on": "lookout-bench",
+          "code": "const g=k.group(); k.put(g,k.rbox(0.28,0.04,0.15,k.mat('#b48a5a'),0.01),0,0.02,0); const cup=k.lathe([[0,0],[0.034,0],[0.045,0.13],[0,0.13]],k.mat('#f3efe6')); for(const x of [-0.065,0.065]){ k.put(g,cup.clone(),x,0.03,0); k.put(g,k.cyl(0.043,0.04,0.05,k.mat('#8a5a3c')),x,0.09,0); k.put(g,k.cyl(0.047,0.047,0.016,k.mat('#ffffff')),x,0.165,0); } return g;"
+        },
+        {
+          "type": "person",
+          "who": "Maya",
+          "pose": "stand",
+          "at": [
+            -0.3,
+            0.6
+          ],
+          "rot": 20
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "stand",
+          "holding": "phone",
+          "at": [
+            0.55,
+            0.5
+          ],
+          "rot": -10
+        },
+        {
+          "type": "backpack",
+          "color": "#3f6b4f",
+          "at": [
+            -0.8,
+            1.05
+          ],
+          "rot": 30
+        },
+        {
+          "type": "custom",
+          "name": "gull-on-a-post",
+          "at": [
+            1.75,
+            0.95
+          ],
+          "rot": -30,
+          "code": "const g=k.group(), T=k.THREE; const sg=new T.SphereGeometry(1,10,7); k.put(g,k.cyl(0.06,0.07,0.9,k.mat('#8a6a4a')),0,0.45,0); const w=k.mat('#f4f4f0'), gr=k.mat('#9aa3ad'), yl=k.mat('#f2c230'), ink=k.mat('#111111'); const m=(mat,x,y,z,sx,sy,sz)=>{const o=new T.Mesh(sg,mat); o.scale.set(sx,sy,sz); k.put(g,o,x,y,z);}; m(w,0,1.02,0,0.09,0.08,0.15); m(w,0,1.12,0.1,0.06,0.06,0.06); m(gr,0.07,1.04,-0.02,0.03,0.05,0.14); m(gr,-0.07,1.04,-0.02,0.03,0.05,0.14); k.put(g,k.cone(0.016,0.07,yl),0,1.11,0.18,Math.PI/2,0,0); m(ink,0.035,1.14,0.14,0.01,0.01,0.01); m(ink,-0.035,1.14,0.14,0.01,0.01,0.01); for(const s of [-1,1]) k.put(g,k.cyl(0.008,0.008,0.08,yl),s*0.03,0.94,0); return g;"
+        },
+        {
+          "type": "fence",
+          "length": 1.4,
+          "color": "#8a6a4a",
+          "at": [
+            -1.75,
+            1
+          ],
+          "rot": 60
+        },
+        {
+          "type": "street-sign",
+          "kind": "arrow",
+          "at": [
+            -2.1,
+            -0.3
+          ],
+          "rot": 20
+        },
+        {
+          "type": "bin",
+          "color": "#3d5a6b",
+          "at": [
+            2.1,
+            -0.55
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.5,
+          "flowers": "#e46aa8",
+          "at": [
+            -2,
+            0.35
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.4,
+          "flowers": "#f2c94c",
+          "at": [
+            1,
+            1.9
+          ]
+        },
+        {
+          "type": "flower-bed",
+          "size": [
+            1,
+            0.45
+          ],
+          "flowers": [
+            "#e46aa8",
+            "#f2c94c"
+          ],
+          "at": [
+            0,
+            1.95
+          ]
+        },
+        {
+          "type": "rock",
+          "size": 0.35,
+          "at": [
+            -1.05,
+            1.9
+          ]
+        },
+        {
+          "type": "rock",
+          "size": 0.4,
+          "at": [
+            2.15,
+            0.2
+          ]
+        },
+        {
+          "type": "lamp-post",
+          "height": 2.4,
+          "at": [
+            1.2,
+            -1.95
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Rental bikes, sun out",
+      "moment": "The fog burns off right as we wheel two blue cruisers out of the rental shop.",
+      "hero": false,
+      "size": "medium",
+      "surface": "cobblestone",
+      "objects": [
+        {
+          "type": "shop-front",
+          "width": 2.8,
+          "kind": "market",
+          "color": "#f2e3c6",
+          "awning": [
+            "#2f7f9a",
+            "#f4efe4"
+          ],
+          "at": [
+            0,
+            -1.9
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "fog-lifting-off",
+          "at": [
+            0,
+            -0.6
+          ],
+          "code": "const g=k.group(), T=k.THREE; const geo=new T.SphereGeometry(1,12,8); const m=k.mat('#f6f8fa',{transparent:true,opacity:0.3}); for(const [x,y,z,r] of [[-1.3,2.9,-0.6,0.6],[-0.2,3.2,-0.9,0.75],[1.0,3.0,-0.5,0.6],[1.8,2.6,0.2,0.4],[-1.9,2.5,0.3,0.4]]){ const s=new T.Mesh(geo,m); s.scale.set(r*1.6,r*0.38,r); s.castShadow=false; k.put(g,s,x,y,z); } return g;"
+        },
+        {
+          "type": "custom",
+          "name": "rental-bike-rack",
+          "at": [
+            -1.2,
+            -0.95
+          ],
+          "code": "const g=k.group(); const steel=k.mat('#b9bec6',{metal:0.6,rough:0.3}); for(const x0 of [-0.7,-0.2,0.3]) k.put(g,k.tube([[x0,0,0],[x0,0.42,0],[x0+0.05,0.58,0],[x0+0.2,0.64,0],[x0+0.35,0.58,0],[x0+0.4,0.42,0],[x0+0.4,0,0]],0.022,steel),0,0,0); k.put(g,k.box(1.5,0.03,0.08,steel),0,0.015,0); k.put(g,k.cyl(0.02,0.02,1.0,steel),-0.82,0.5,0); const sign=k.box(0.34,0.24,0.02,k.mat('#2f7f9a')); k.put(g,sign,-0.82,1.05,0.02); const chalk=k.mat('#f6f1e4'); for(const x of [-0.07,0.07]) k.put(g,k.torus(0.045,0.008,chalk),-0.82+x,1.01,0.035); k.put(g,k.box(0.2,0.025,0.01,chalk),-0.82,1.12,0.035); return g;"
+        },
+        {
+          "type": "bike",
+          "color": "#3aa0d8",
+          "at": [
+            -1.7,
+            -0.6
+          ],
+          "rot": 90
+        },
+        {
+          "type": "bike",
+          "color": "#3aa0d8",
+          "at": [
+            -1.2,
+            -0.6
+          ],
+          "rot": 90
+        },
+        {
+          "type": "bike",
+          "color": "#e85d3f",
+          "at": [
+            -0.7,
+            -0.6
+          ],
+          "rot": 90
+        },
+        {
+          "type": "counter",
+          "size": [
+            0.9,
+            0.5
+          ],
+          "color": "#2f7f9a",
+          "at": [
+            1.35,
+            -0.95
+          ],
+          "id": "rental-desk"
+        },
+        {
+          "type": "custom",
+          "name": "rental-helmets",
+          "at": [
+            0,
+            0
+          ],
+          "on": "rental-desk",
+          "code": "const g=k.group(); for(const [c,x] of [['#e85d3f',-0.18],['#3aa0d8',0.18]]){ const h=k.group(); const d=k.lathe([[0.13,0],[0.128,0.05],[0.11,0.1],[0.07,0.135],[0,0.145]],k.mat(c,{rough:0.4})); d.scale.set(1,1,1.25); k.put(h,d,0,0,0); for(const vx of [-0.05,0,0.05]) k.put(h,k.box(0.018,0.02,0.22,k.mat('#2b2b2b')),vx,0.128,0); k.put(h,k.torus(0.125,0.006,k.mat('#222222')),0,0.005,0,Math.PI/2,0,0); k.put(g,h,x,0,0,0,x*2,0); } return g;"
+        },
+        {
+          "type": "book",
+          "color": "#f2c94c",
+          "open": true,
+          "on": "rental-desk",
+          "at": [
+            0.3,
+            0.08
+          ]
+        },
+        {
+          "type": "person",
+          "pose": "wave",
+          "shirt": "#2f7f9a",
+          "pants": "#2d2d3a",
+          "hairStyle": "cap",
+          "at": [
+            1.35,
+            -1.45
+          ]
+        },
+        {
+          "type": "bike",
+          "color": "#3aa0d8",
+          "at": [
+            0.5,
+            0.45
+          ]
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "walk",
+          "at": [
+            0.3,
+            -0.1
+          ],
+          "rot": 90
+        },
+        {
+          "type": "person",
+          "who": "Maya",
+          "pose": "cheer",
+          "at": [
+            -0.6,
+            0.85
+          ],
+          "rot": 15
+        },
+        {
+          "type": "backpack",
+          "color": "#3f6b4f",
+          "at": [
+            -1.05,
+            1.35
+          ],
+          "rot": -20
+        },
+        {
+          "type": "custom",
+          "name": "chalk-a-frame-sign",
+          "at": [
+            1.6,
+            1
+          ],
+          "rot": -20,
+          "code": "const g=k.group(); const wood=k.mat('#7a5232'), slate=k.mat('#2b2f2e'), chalk=k.mat('#f4f1e8'); for(const s of [1,-1]){ const p=k.group(); k.put(p,k.box(0.5,0.72,0.03,wood),0,0,0); k.put(p,k.box(0.42,0.6,0.012,slate),0,0,s*0.02); if(s===1){ for(const x of [-0.1,0.1]) k.put(p,k.torus(0.07,0.009,chalk),x,-0.12,0.03); k.put(p,k.tube([[-0.1,-0.12,0.03],[-0.02,0.0,0.03],[0.1,-0.12,0.03]],0.007,chalk),0,0,0); k.put(p,k.box(0.3,0.03,0.006,chalk),0,0.18,0.03); k.put(p,k.box(0.22,0.03,0.006,chalk),0,0.1,0.03); } k.put(g,p,0,0.35,s*0.11,-s*0.16,0,0); } return g;"
+        },
+        {
+          "type": "potted-plant",
+          "kind": "flowers",
+          "flowers": "#e46aa8",
+          "at": [
+            -1.95,
+            -1.35
+          ]
+        },
+        {
+          "type": "potted-plant",
+          "kind": "succulent",
+          "at": [
+            2.05,
+            -0.3
+          ]
+        },
+        {
+          "type": "lamp-post",
+          "height": 2.4,
+          "at": [
+            -2.15,
+            0
+          ]
+        },
+        {
+          "type": "bin",
+          "color": "#3d5a6b",
+          "at": [
+            -1.9,
+            1
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.4,
+          "flowers": "#e46aa8",
+          "at": [
+            -1.2,
+            1.9
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.45,
+          "flowers": "#f2c94c",
+          "at": [
+            0.6,
+            2.05
+          ]
+        }
+      ]
+    },
+    {
+      "title": "A hundred surfers",
+      "moment": "Riding West Cliff past the lighthouse while what feels like a hundred surfers wait for waves below.",
+      "hero": false,
+      "size": "large",
+      "surface": "water",
+      "objects": [
+        {
+          "type": "custom",
+          "name": "west-cliff-and-lighthouse",
+          "at": [
+            0,
+            -1.8
+          ],
+          "code": "const g=k.group(), T=k.THREE; const sand=k.mat('#c79a62'), band=k.mat('#a8794a'), path=k.mat('#dcc79c'), grass=k.mat('#7a9a4a'), pink=k.mat('#e0609e'), rockM=k.mat('#8f7a66'); k.put(g,k.rbox(3.8,0.7,1.2,sand,0.12),0,0.35,0); k.put(g,k.box(3.78,0.07,1.22,band),0,0.22,0); k.put(g,k.box(3.78,0.05,1.22,band),0,0.48,0); k.put(g,k.rbox(3.7,0.05,0.48,path,0.02),0,0.71,0.06); k.put(g,k.rbox(3.7,0.05,0.3,grass,0.02),0,0.71,-0.42); const lo=new T.SphereGeometry(1,7,5); for(let i=0;i<9;i++){ const m=new T.Mesh(lo,i%3===0?pink:grass); m.scale.set(0.17,0.07,0.1); k.put(g,m,-1.72+i*0.43,0.73,0.5); } for(let i=0;i<7;i++){ const r=new T.Mesh(lo,rockM); const s=0.15+k.rand()*0.15; r.scale.set(s*1.3,s,s); k.put(g,r,-1.65+i*0.55,0.08,0.62+k.rand()*0.1); } const brick=k.mat('#a3472f'), white=k.mat('#f2efe8'); k.put(g,k.box(0.42,1.3,0.42,brick),-1.55,1.35,-0.34); k.put(g,k.box(0.56,0.06,0.56,white),-1.55,2.03,-0.34); k.put(g,k.cyl(0.15,0.15,0.24,k.glowMat('#fff3c4',1.2)),-1.55,2.18,-0.34); k.put(g,k.cone(0.21,0.2,k.mat('#2e3338')),-1.55,2.4,-0.34); k.put(g,k.box(0.18,0.32,0.02,k.mat('#5a3a28')),-1.55,0.86,-0.12); return g;"
+        },
+        {
+          "type": "tree",
+          "kind": "pine",
+          "height": 2.4,
+          "at": [
+            1.5,
+            -2.25
+          ],
+          "y": 0.72
+        },
+        {
+          "type": "bush",
+          "size": 0.3,
+          "flowers": "#e0609e",
+          "at": [
+            -1.1,
+            -2.3
+          ],
+          "y": 0.72
+        },
+        {
+          "type": "bench",
+          "length": 1,
+          "at": [
+            -0.4,
+            -2.2
+          ],
+          "y": 0.72
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "shirt": "#f2f2f2",
+          "pants": "#5a4a3a",
+          "hairStyle": "bald",
+          "at": [
+            -0.4,
+            -2.2
+          ],
+          "y": 0.72
+        },
+        {
+          "type": "bike",
+          "color": "#3aa0d8",
+          "at": [
+            0.7,
+            -1.75
+          ],
+          "y": 0.73
+        },
+        {
+          "type": "person",
+          "who": "Maya",
+          "pose": "sit",
+          "at": [
+            0.54,
+            -1.75
+          ],
+          "y": 1.15,
+          "rot": 90
+        },
+        {
+          "type": "bike",
+          "color": "#3aa0d8",
+          "at": [
+            -0.6,
+            -1.75
+          ],
+          "y": 0.73
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            -0.76,
+            -1.75
+          ],
+          "y": 1.15,
+          "rot": 90
+        },
+        {
+          "type": "person",
+          "pose": "stand",
+          "holding": "phone",
+          "shirt": "#c0392b",
+          "pants": "#2d2d3a",
+          "hairStyle": "curly",
+          "at": [
+            1.75,
+            -1.6
+          ],
+          "y": 0.72,
+          "rot": 10
+        },
+        {
+          "type": "custom",
+          "name": "surfers-on-the-crests",
+          "at": [
+            0,
+            0.3
+          ],
+          "code": "const g=k.group(), T=k.THREE; const sea=k.mat('#2b8fa6',{rough:0.3}), foam=k.mat('#f4fbfb',{rough:0.5}), suit=k.mat('#1c2126'), skin=k.mat('#c99a72'); const crest=(z,w,ph)=>{ const p=[]; for(let i=0;i<=6;i++) p.push([-w+2*w*i/6,0,z+Math.sin(i*1.3+ph)*0.1]); const t=k.tube(p,0.12,sea); t.scale.set(1,0.75,1); k.put(g,t,0,0.04,0); k.put(g,k.tube(p.map(([x,y,zz])=>[x,0.13,zz+0.06]),0.045,foam),0,0.04,0); }; crest(-0.4,2.2,0); crest(0.8,1.9,1.7); const G={leg:new T.CapsuleGeometry(0.035,0.2,2,6),torso:new T.CapsuleGeometry(0.065,0.17,2,6),arm:new T.CapsuleGeometry(0.025,0.44,2,6),head:new T.SphereGeometry(0.055,8,6),board:new T.BoxGeometry(0.15,0.03,0.68)}; const add=(p,geo,m,x,y,z,rx=0,ry=0,rz=0)=>k.put(p,new T.Mesh(geo,m),x,y,z,rx,ry,rz); const rider=(x,z,ry,c)=>{ const s=k.group(); add(s,G.board,k.mat(c),0,0.02,0); add(s,G.leg,suit,0,0.17,0.09,-0.25); add(s,G.leg,suit,0,0.17,-0.09,0.25); add(s,G.torso,suit,0,0.42,0,0,0,0.25); add(s,G.arm,suit,0.03,0.5,0,Math.PI/2); add(s,G.head,skin,0.06,0.62,0); k.put(g,s,x,0.1,z,0.12,ry,0); }; rider(-1.3,-0.22,-Math.PI/2,'#f2c94c'); rider(0.9,-0.25,-Math.PI/2+0.3,'#ffffff'); rider(-0.2,0.98,-Math.PI/2-0.2,'#e8734a'); return g;"
+        },
+        {
+          "type": "custom",
+          "name": "the-hundred-surfer-lineup",
+          "at": [
+            0,
+            0.6
+          ],
+          "code": "const g=k.group(), T=k.THREE; const suit=k.mat('#1d2226'), skin=k.mat('#c99a72'), foam=k.mat('#ffffff',{transparent:true,opacity:0.6}); const cols=['#f4efe4','#f2c94c','#e8734a','#7cc6d6','#ffffff']; const torso=new T.CapsuleGeometry(0.07,0.16,2,6), head=new T.SphereGeometry(0.06,6,5), board=new T.BoxGeometry(0.16,0.035,0.72), ring=new T.TorusGeometry(0.2,0.012,3,10); for(let i=0;i<16;i++){ const a=k.rand()*Math.PI*2, r=0.45+k.rand()*1.75; const s=k.group(); s.add(new T.Mesh(board,k.mat(cols[i%5]))); const b=new T.Mesh(torso,suit); b.position.set(0,0.14,0.05); s.add(b); const h=new T.Mesh(head,skin); h.position.set(0,0.33,0.06); s.add(h); const f=new T.Mesh(ring,foam); f.rotation.x=Math.PI/2; s.add(f); k.put(g,s,Math.cos(a)*r*1.15,0.03,Math.sin(a)*r*0.55,0,k.rand()*Math.PI*2,0); } return g;"
+        },
+        {
+          "type": "rock",
+          "size": 0.5,
+          "at": [
+            -2.4,
+            -0.9
+          ]
+        },
+        {
+          "type": "rock",
+          "size": 0.45,
+          "at": [
+            2.4,
+            -1
+          ]
+        },
+        {
+          "type": "rock",
+          "size": 0.3,
+          "at": [
+            -0.5,
+            -1.05
+          ]
+        },
+        {
+          "type": "rock",
+          "size": 0.25,
+          "at": [
+            1.25,
+            -1
+          ]
+        },
+        {
+          "type": "boat",
+          "kind": "sail",
+          "color": "#f4efe4",
+          "at": [
+            2.2,
+            1.6
+          ],
+          "rot": -60,
+          "scale": 0.6
+        },
+        {
+          "type": "rock",
+          "size": 0.35,
+          "at": [
+            -2.3,
+            1.3
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Chowder and sea lions",
+      "moment": "Clam chowder in sourdough bread bowls on the wharf while the sea lions below yell at each other.",
+      "hero": true,
+      "size": "large",
+      "surface": "water",
+      "objects": [
+        {
+          "type": "custom",
+          "name": "santa-cruz-wharf-deck",
+          "at": [
+            0,
+            -0.9
+          ],
+          "code": "const g=k.group(), T=k.THREE; const wood=k.mat('#9c7a55'), dark=k.mat('#6b4f36'), pile=k.mat('#5b4532'); k.put(g,k.rbox(4.0,0.14,2.6,wood,0.03),0,0.48,0); for(let i=0;i<13;i++) k.put(g,k.box(0.02,0.01,2.58,dark),-1.8+i*0.3,0.555,0); const pg=new T.CylinderGeometry(0.08,0.09,0.62,10); for(let i=0;i<7;i++) for(const z of [-1.2,1.25]) k.put(g,new T.Mesh(pg,pile),-1.8+i*0.6,0.24,z); k.put(g,k.box(4.0,0.1,0.1,dark),0,0.3,1.25); for(const x of [-1.95,1.95]){ k.put(g,k.box(0.06,0.06,2.6,dark),x,1.4,0); for(const z of [-1.2,-0.4,0.4,1.2]) k.put(g,k.box(0.07,0.85,0.07,dark),x,0.97,z); } for(const s of [-1,1]){ k.put(g,k.box(0.75,0.06,0.06,dark),s*1.6,1.4,1.27); k.put(g,k.box(0.07,0.85,0.07,dark),s*1.25,0.97,1.27); } k.put(g,k.torus(0.13,0.04,k.mat('#e8632f')),1.6,1.1,1.32); for(let i=0;i<4;i++) k.put(g,k.box(0.05,0.085,0.09,k.mat('#f4f1ea')),1.6+0.13*Math.cos(i*1.571+0.785),1.1+0.13*Math.sin(i*1.571+0.785),1.32,0,0,i*1.571+0.785); k.put(g,new T.Mesh(new T.CylinderGeometry(0.09,0.1,1.25,10),pile),-1.8,0.62,1.25); const sg=new T.SphereGeometry(1,8,6); const gull=(x,y,z,ry)=>{ const b=k.group(), w=k.mat('#f4f4f0'), gr=k.mat('#9aa3ad'), yl=k.mat('#f2c230'), ink=k.mat('#111111'); const m=(mat,px,py,pz,sx,sy,sz)=>{const o=new T.Mesh(sg,mat); o.scale.set(sx,sy,sz); k.put(b,o,px,py,pz);}; m(w,0,0.12,0,0.09,0.08,0.15); m(w,0,0.22,0.1,0.06,0.06,0.06); m(gr,0.07,0.14,-0.02,0.03,0.05,0.14); m(gr,-0.07,0.14,-0.02,0.03,0.05,0.14); k.put(b,k.cone(0.016,0.07,yl),0,0.21,0.18,Math.PI/2,0,0); m(ink,0.035,0.24,0.14,0.01,0.01,0.01); m(ink,-0.035,0.24,0.14,0.01,0.01,0.01); for(const s of [-1,1]) k.put(b,k.cyl(0.008,0.008,0.06,yl),s*0.03,0.03,0); k.put(g,b,x,y,z,0,ry,0); }; gull(-1.8,1.25,1.25,0.4); gull(0.95,0.555,0.45,-1.2); return g;"
+        },
+        {
+          "type": "shop-front",
+          "width": 2.6,
+          "kind": "cafe",
+          "color": "#f4efe4",
+          "awning": [
+            "#c0392b",
+            "#f4efe4"
+          ],
+          "at": [
+            -0.2,
+            -1.85
+          ],
+          "y": 0.56
+        },
+        {
+          "type": "planter",
+          "length": 0.7,
+          "flowers": "#e46aa8",
+          "at": [
+            -1.2,
+            -1.45
+          ],
+          "y": 0.56
+        },
+        {
+          "type": "potted-plant",
+          "kind": "flowers",
+          "flowers": "#f2c94c",
+          "at": [
+            1.3,
+            -1.6
+          ],
+          "y": 0.56
+        },
+        {
+          "type": "lamp-post",
+          "height": 2.4,
+          "at": [
+            -1.8,
+            -0.9
+          ],
+          "y": 0.56
+        },
+        {
+          "type": "bin",
+          "color": "#3d5a6b",
+          "at": [
+            1.7,
+            -1
+          ],
+          "y": 0.56
+        },
+        {
+          "type": "crate",
+          "fill": "bread",
+          "at": [
+            -1.25,
+            -0.6
+          ],
+          "y": 0.56,
+          "rot": 15
+        },
+        {
+          "type": "bench",
+          "length": 1.5,
+          "at": [
+            0,
+            -1.1
+          ],
+          "y": 0.56
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            -0.38,
+            -1.1
+          ],
+          "y": 0.56
+        },
+        {
+          "type": "person",
+          "who": "Maya",
+          "pose": "sit",
+          "at": [
+            0.38,
+            -1.1
+          ],
+          "y": 0.56
+        },
+        {
+          "type": "backpack",
+          "color": "#3f6b4f",
+          "at": [
+            0.95,
+            -1.15
+          ],
+          "y": 0.56,
+          "rot": -30
+        },
+        {
+          "type": "table",
+          "size": [
+            1.5,
+            0.7
+          ],
+          "cloth": "none",
+          "at": [
+            0,
+            -0.5
+          ],
+          "y": 0.56,
+          "id": "chowder-table"
+        },
+        {
+          "type": "custom",
+          "name": "clam-chowder-bread-bowl",
+          "at": [
+            -0.38,
+            0.03
+          ],
+          "on": "chowder-table",
+          "code": "const g=k.group(), T=k.THREE; const crust=k.mat('#b5722f'), crumb=k.mat('#f0dcae'), soup=k.mat('#f4ecd6',{rough:0.55}), steel=k.mat('#d5d7db',{metal:0.6,rough:0.3}); k.put(g,k.rbox(0.32,0.03,0.28,k.mat('#f6f1e7'),0.01),0,0.015,0); for(const x of [-0.105,0,0.105]) k.put(g,k.box(0.035,0.031,0.282,k.mat('#c0392b')),x,0.016,0); k.put(g,k.lathe([[0,0.03],[0.09,0.032],[0.12,0.065],[0.13,0.11],[0.118,0.155],[0.1,0.172],[0.088,0.16],[0,0.152]],crust),0,0,0); k.put(g,k.cyl(0.09,0.09,0.012,soup),0,0.158,0); const bit=new T.SphereGeometry(0.011,5,4); for(let i=0;i<9;i++){ const a=i*0.7, r=0.02+0.05*k.rand(); k.put(g,new T.Mesh(bit,k.mat(['#d8b884','#4e8a3a','#e9c46a'][i%3])),Math.cos(a)*r,0.166,Math.sin(a)*r); } const lid=k.group(); k.put(lid,k.lathe([[0,0],[0.075,0],[0.072,0.025],[0.05,0.045],[0,0.052]],crust),0,0,0); k.put(lid,k.cyl(0.074,0.074,0.006,crumb),0,0.002,0); k.put(g,lid,0.07,0.08,0.17,-1.2,0,0); const sp=k.group(); k.put(sp,k.box(0.014,0.17,0.006,steel),0,0.09,0); const bw=k.sph(0.022,steel); bw.scale.set(1,1.3,0.5); k.put(sp,bw,0,0,0); k.put(g,sp,-0.03,0.16,0.02,-0.45,0,0.35); g.scale.setScalar(1.4); return g;"
+        },
+        {
+          "type": "custom",
+          "name": "clam-chowder-bread-bowl",
+          "at": [
+            0.38,
+            0.03
+          ],
+          "on": "chowder-table",
+          "code": "const g=k.group(), T=k.THREE; const crust=k.mat('#b5722f'), crumb=k.mat('#f0dcae'), soup=k.mat('#f4ecd6',{rough:0.55}), steel=k.mat('#d5d7db',{metal:0.6,rough:0.3}); k.put(g,k.rbox(0.32,0.03,0.28,k.mat('#f6f1e7'),0.01),0,0.015,0); for(const x of [-0.105,0,0.105]) k.put(g,k.box(0.035,0.031,0.282,k.mat('#c0392b')),x,0.016,0); k.put(g,k.lathe([[0,0.03],[0.09,0.032],[0.12,0.065],[0.13,0.11],[0.118,0.155],[0.1,0.172],[0.088,0.16],[0,0.152]],crust),0,0,0); k.put(g,k.cyl(0.09,0.09,0.012,soup),0,0.158,0); const bit=new T.SphereGeometry(0.011,5,4); for(let i=0;i<9;i++){ const a=i*0.7, r=0.02+0.05*k.rand(); k.put(g,new T.Mesh(bit,k.mat(['#d8b884','#4e8a3a','#e9c46a'][i%3])),Math.cos(a)*r,0.166,Math.sin(a)*r); } const lid=k.group(); k.put(lid,k.lathe([[0,0],[0.075,0],[0.072,0.025],[0.05,0.045],[0,0.052]],crust),0,0,0); k.put(lid,k.cyl(0.074,0.074,0.006,crumb),0,0.002,0); k.put(g,lid,0.07,0.08,0.17,-1.2,0,0); const sp=k.group(); k.put(sp,k.box(0.014,0.17,0.006,steel),0,0.09,0); const bw=k.sph(0.022,steel); bw.scale.set(1,1.3,0.5); k.put(sp,bw,0,0,0); k.put(g,sp,-0.03,0.16,0.02,-0.45,0,0.35); g.scale.setScalar(1.4); return g;"
+        },
+        {
+          "type": "glass",
+          "drink": "water",
+          "on": "chowder-table",
+          "at": [
+            -0.65,
+            -0.18
+          ]
+        },
+        {
+          "type": "glass",
+          "drink": "beer",
+          "on": "chowder-table",
+          "at": [
+            0.65,
+            -0.18
+          ]
+        },
+        {
+          "type": "bottle",
+          "color": "#b5291f",
+          "scale": 0.6,
+          "on": "chowder-table",
+          "at": [
+            0,
+            -0.22
+          ]
+        },
+        {
+          "type": "person",
+          "pose": "stand",
+          "holding": "phone",
+          "shirt": "#7a5ea8",
+          "pants": "#2d2d3a",
+          "hairStyle": "long",
+          "at": [
+            1.5,
+            0.1
+          ],
+          "y": 0.56,
+          "rot": 15
+        },
+        {
+          "type": "person",
+          "kid": true,
+          "pose": "wave",
+          "shirt": "#f2c94c",
+          "pants": "#3b6ea5",
+          "hairStyle": "short",
+          "at": [
+            1,
+            0.2
+          ],
+          "y": 0.56,
+          "rot": -10
+        },
+        {
+          "type": "person",
+          "pose": "stand",
+          "shirt": "#3e7b5a",
+          "pants": "#4a3f35",
+          "hairStyle": "cap",
+          "at": [
+            -1.4,
+            0.05
+          ],
+          "y": 0.56,
+          "rot": 20
+        },
+        {
+          "type": "custom",
+          "name": "sea-lions-yelling-on-a-float",
+          "at": [
+            0.3,
+            1.75
+          ],
+          "code": "const g=k.group(), T=k.THREE, M=(c)=>k.mat(c); const G={body:new T.CapsuleGeometry(0.15,0.42,3,10),head:new T.SphereGeometry(0.1,10,8),lo:new T.SphereGeometry(1,6,4)}; const mesh=(geo,m,x,y,z,sx=1,sy=sx,sz=sx)=>{const o=new T.Mesh(geo,m); o.position.set(x,y,z); o.scale.set(sx,sy,sz); return o;}; k.put(g,k.rbox(2.2,0.16,1.3,M('#7d6248'),0.04),0,0.08,0); for(let i=0;i<7;i++) k.put(g,k.box(0.025,0.012,1.26,M('#4e3b2a')),-0.96+i*0.32,0.165,0); const lion=(x,z,ry,up,bark,c)=>{ const s=k.group(), m=M(c), d=M('#3f3026'), ca=Math.cos(up), sa=Math.sin(up); const b=mesh(G.body,m,0,0.15+sa*0.12,0); b.rotation.x=Math.PI/2-up; s.add(b); const hg=k.group(); hg.position.set(0,0.21+sa*0.5,ca*0.38); hg.rotation.x=-0.6*bark; s.add(hg); hg.add(mesh(G.head,m,0,0,0,1,0.95,1.15)); hg.add(mesh(G.lo,m,0,-0.02,0.1,0.06,0.055,0.08)); if(bark) hg.add(mesh(G.lo,M('#7a2e2e'),0,-0.06,0.13,0.045,0.03,0.035)); for(const e of [-1,1]){ hg.add(mesh(G.lo,M('#111111'),e*0.05,0.04,0.08,0.015)); s.add(mesh(G.lo,d,e*0.17,0.05,ca*0.12,0.13,0.025,0.07)); s.add(mesh(G.lo,d,e*0.07,0.03,-ca*0.36-0.08,0.06,0.02,0.11)); } k.put(g,s,x,0.17,z,0,ry,0); }; lion(-0.65,-0.3,Math.PI/2,0.75,1,'#5b4636'); lion(0.3,-0.3,-Math.PI/2,0.7,1,'#6b543e'); lion(-0.5,0.33,-1.4,0,0,'#4f3d2f'); lion(0.75,0.4,0.5,1.0,1,'#5e4838'); const sw=k.group(); sw.add(mesh(G.head,M('#4a3a2c'),0,0.05,0,1,0.95,1.15)); sw.add(mesh(G.lo,M('#4a3a2c'),0,0.03,0.1,0.06,0.055,0.08)); k.put(g,sw,1.45,0,0.5,0,-0.6,0); const ring=k.torus(1.2,0.025,k.mat('#eaf6f6',{transparent:true,opacity:0.5})); ring.scale.set(1,0.62,1); k.put(g,ring,0,0.02,0,Math.PI/2,0,0); return g;"
+        },
+        {
+          "type": "boat",
+          "kind": "row",
+          "color": "#e8e2d0",
+          "at": [
+            -1.9,
+            1.5
+          ],
+          "rot": 40,
+          "scale": 0.8
+        },
+        {
+          "type": "sphere",
+          "size": [
+            0.22,
+            0.22,
+            0.22
+          ],
+          "color": "#e8734a",
+          "at": [
+            2.3,
+            1.15
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunburnt now",
+      "moment": "Home on the couch, lobster-red and scrolling through today's photos.",
+      "hero": false,
+      "size": "medium",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "room",
+          "size": [
+            3.6,
+            2.8
+          ],
+          "floor": "wood",
+          "wall": "#f3e3c3",
+          "window": true,
+          "door": true,
+          "at": [
+            0,
+            0
+          ]
+        },
+        {
+          "type": "rug",
+          "size": [
+            2.2,
+            1.3
+          ],
+          "color": "#d9a05b",
+          "pattern": "stripes",
+          "at": [
+            -0.3,
+            0.25
+          ]
+        },
+        {
+          "type": "sofa",
+          "color": "#6f93b5",
+          "length": 1.8,
+          "at": [
+            -0.3,
+            -0.85
+          ]
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "skin": "#e8826a",
+          "pose": "sit",
+          "holding": "phone",
+          "at": [
+            -0.6,
+            -0.8
+          ]
+        },
+        {
+          "type": "table",
+          "size": [
+            1,
+            0.5
+          ],
+          "height": 0.42,
+          "cloth": "none",
+          "at": [
+            -0.3,
+            0.1
+          ],
+          "id": "coffee-table"
+        },
+        {
+          "type": "custom",
+          "name": "aloe-vera-bottle",
+          "at": [
+            -0.25,
+            0.02
+          ],
+          "on": "coffee-table",
+          "code": "const g=k.group(); const green=k.mat('#5fb36a',{rough:0.35}), white=k.mat('#f4f4f4'); k.put(g,k.lathe([[0,0],[0.045,0],[0.05,0.02],[0.05,0.16],[0.035,0.19],[0.015,0.2],[0,0.2]],green),0,0,0); k.put(g,k.cyl(0.016,0.016,0.03,white),0,0.215,0); k.put(g,k.box(0.008,0.04,0.008,white),0,0.25,0); k.put(g,k.box(0.05,0.012,0.012,white),0.02,0.27,0); k.put(g,k.box(0.07,0.07,0.004,k.mat('#ffffff')),0,0.09,0.05); k.put(g,k.cone(0.012,0.05,k.mat('#2f7a3a')),0,0.09,0.055); const blob=k.sph(0.025,k.mat('#a8e0b0',{transparent:true,opacity:0.7})); blob.scale.set(1.4,0.3,1.2); k.put(g,blob,0.1,0.005,0.03); g.scale.setScalar(1.5); return g;"
+        },
+        {
+          "type": "glass",
+          "drink": "water",
+          "on": "coffee-table",
+          "at": [
+            0.12,
+            0.08
+          ]
+        },
+        {
+          "type": "bottle",
+          "color": "#f2c94c",
+          "scale": 0.55,
+          "on": "coffee-table",
+          "at": [
+            0.36,
+            -0.1
+          ]
+        },
+        {
+          "type": "stool",
+          "color": "#9a7350",
+          "at": [
+            -1.45,
+            -0.95
+          ],
+          "id": "side-stool"
+        },
+        {
+          "type": "desk-lamp",
+          "color": "#d9a05b",
+          "on": "side-stool",
+          "at": [
+            0,
+            0
+          ]
+        },
+        {
+          "type": "shelf",
+          "size": [
+            0.8,
+            1.4
+          ],
+          "fill": "books",
+          "at": [
+            1.2,
+            -1.2
+          ],
+          "id": "bookshelf"
+        },
+        {
+          "type": "vase",
+          "flowers": "#e46aa8",
+          "on": "bookshelf",
+          "at": [
+            0.15,
+            0
+          ]
+        },
+        {
+          "type": "potted-plant",
+          "kind": "olive",
+          "size": 1,
+          "at": [
+            1.65,
+            -0.45
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "beach-towel-drying-rack",
+          "at": [
+            1.25,
+            0.35
+          ],
+          "rot": -25,
+          "code": "const g=k.group(); const wood=k.mat('#c9a77a'); for(const x of [-0.45,0.45]) for(const s of [-1,1]) k.put(g,k.box(0.04,1.0,0.04,wood),x,0.48,s*0.1,s*-0.2,0,0); k.put(g,k.cyl(0.02,0.02,1.0,wood),0,0.96,0,0,0,Math.PI/2); const cols=['#e8734a','#f6efe0','#2f9ab0','#f6efe0','#f2c94c']; cols.forEach((c,i)=>{ const x=-0.32+i*0.16; for(const s of [-1,1]) k.put(g,k.box(0.16,0.55,0.015,k.mat(c)),x,0.68,s*0.06,s*-0.12,0,0); k.put(g,k.cyl(0.035,0.035,0.16,k.mat(c)),x,0.96,0,0,0,Math.PI/2); }); return g;"
+        },
+        {
+          "type": "custom",
+          "name": "sandy-flip-flops",
+          "at": [
+            0.45,
+            1.2
+          ],
+          "rot": 15,
+          "code": "const g=k.group(), T=k.THREE; const sand=k.mat('#e3c58f'); const pile=new T.Mesh(new T.SphereGeometry(0.22,10,6),sand); pile.scale.set(1.3,0.12,1); k.put(g,pile,0.05,0,0.05); for(const [x,z,r] of [[-0.09,0,0.2],[0.1,0.06,-0.35]]){ const f=k.group(); const sole=k.cyl(0.05,0.05,0.02,k.mat('#2f9ab0')); sole.scale.set(1,1,2.3); k.put(f,sole,0,0.012,0); k.put(f,k.tube([[-0.045,0.02,-0.01],[0,0.05,0.07],[0.045,0.02,-0.01]],0.008,k.mat('#f6efe0')),0,0,0); k.put(g,f,x,0.01,z,0,r,0); } const gr=new T.SphereGeometry(0.012,4,3); for(let i=0;i<14;i++) k.put(g,new T.Mesh(gr,sand),(k.rand()-0.5)*0.7,0.004,(k.rand()-0.5)*0.5); g.scale.setScalar(1.3); return g;"
+        },
+        {
+          "type": "backpack",
+          "color": "#3f6b4f",
+          "at": [
+            1.35,
+            1.05
+          ],
+          "rot": 40
+        },
+        {
+          "type": "potted-plant",
+          "kind": "succulent",
+          "size": 0.6,
+          "at": [
+            -1.6,
+            0.9
+          ]
+        },
+        {
+          "type": "book",
+          "color": "#2f7f9a",
+          "open": true,
+          "at": [
+            -1,
+            0.75
+          ],
+          "rot": 20
+        }
+      ]
+    }
+  ]
+}

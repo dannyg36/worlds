@@ -766,15 +766,6 @@
             0.03
           ],
           "drink": "red-bull"
-        },
-        {
-          "type": "glass",
-          "on": "bin",
-          "at": [
-            -0.06,
-            -0.05
-          ],
-          "drink": "red-bull"
         }
       ]
     },

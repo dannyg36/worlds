@@ -1,0 +1,827 @@
+{
+  "title": "Biscuit Keeps the Ball",
+  "caption": "Dolores Park with Biscuit, a burrito split on the hill, frisbees, then wind and a long nap.",
+  "palette": [
+    "#5c9e3e",
+    "#d9a05b",
+    "#c45d7a",
+    "#f2e3c6"
+  ],
+  "time": "morning",
+  "biome": "meadow",
+  "landmark": {
+    "type": "tree",
+    "kind": "palm",
+    "height": 6
+  },
+  "cast": [
+    {
+      "name": "me",
+      "skin": "#d9a67e",
+      "shirt": "#e3b448",
+      "pants": "#34405a",
+      "hair": "#2b1d14",
+      "hairStyle": "short"
+    },
+    {
+      "name": "my sister",
+      "skin": "#d4a07a",
+      "shirt": "#c45d7a",
+      "pants": "#2f2f38",
+      "hair": "#1f1510",
+      "hairStyle": "bun"
+    }
+  ],
+  "vignettes": [
+    {
+      "title": "Biscuit's new ball",
+      "moment": "Biscuit finds a stray tennis ball by the courts and refuses to give it back.",
+      "hero": false,
+      "size": "medium",
+      "surface": "grass",
+      "objects": [
+        {
+          "type": "custom",
+          "name": "tennis-court-fence",
+          "at": [
+            0,
+            -1.55
+          ],
+          "code": "const g=k.group(), T=k.THREE; const steel=k.mat('#3e5a48',{metal:0.3,rough:0.5}), court=k.mat('#3c7a5c'), line=k.mat('#f4f4ee'), ball=k.mat('#d6e04a'); k.put(g,k.box(2.8,0.02,0.45,court),0,0.01,-0.25); k.put(g,k.box(2.8,0.024,0.05,line),0,0.012,-0.3); for(let i=0;i<=4;i++) k.put(g,k.cyl(0.03,0.03,1.7,steel),-1.4+i*0.7,0.85,0); k.put(g,k.cyl(0.025,0.025,2.8,steel),0,1.7,0,0,0,Math.PI/2); k.put(g,new T.Mesh(new T.PlaneGeometry(2.8,1.62),new T.MeshStandardMaterial({color:'#4a6b52',transparent:true,opacity:0.32,side:T.DoubleSide,roughness:0.8})),0,0.83,0); for(let i=0;i<19;i++) k.put(g,k.box(0.012,1.62,0.012,steel),-1.35+i*0.15,0.83,0); for(let j=0;j<8;j++) k.put(g,k.box(2.8,0.012,0.012,steel),0,0.1+j*0.21,0); const bg=new T.SphereGeometry(0.04,8,6); for(const [x,z] of [[-0.9,-0.2],[-0.75,-0.34],[0.6,-0.18],[1.1,-0.36],[-0.25,0.25]]) k.put(g,new T.Mesh(bg,ball),x,0.04,z); k.put(g,k.box(0.5,0.3,0.02,k.mat('#2f5e46')),0.95,1.25,0.03); k.put(g,k.box(0.4,0.04,0.025,line),0.95,1.31,0.045); k.put(g,k.box(0.28,0.03,0.025,line),0.95,1.21,0.045); return g;"
+        },
+        {
+          "type": "tree",
+          "kind": "palm",
+          "height": 4,
+          "at": [
+            -1.95,
+            -1.15
+          ]
+        },
+        {
+          "type": "tree",
+          "kind": "palm",
+          "height": 3.5,
+          "at": [
+            1.95,
+            -0.9
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.4,
+          "at": [
+            -0.8,
+            -1.3
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.35,
+          "at": [
+            0.9,
+            -1.3
+          ]
+        },
+        {
+          "type": "bench",
+          "length": 1.2,
+          "at": [
+            -1.15,
+            -0.75
+          ],
+          "id": "court-bench"
+        },
+        {
+          "type": "mug",
+          "color": "#f3efe6",
+          "on": "court-bench",
+          "at": [
+            -0.35,
+            0
+          ]
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "wave",
+          "at": [
+            -0.45,
+            0.25
+          ],
+          "rot": 70
+        },
+        {
+          "type": "dog",
+          "color": "#d9a05b",
+          "size": "medium",
+          "holding": "ball",
+          "at": [
+            0.7,
+            0.4
+          ],
+          "rot": 60
+        },
+        {
+          "type": "custom",
+          "name": "ball-thief-zoomies",
+          "at": [
+            0.7,
+            0.4
+          ],
+          "rot": 60,
+          "code": "const g=k.group(), T=k.THREE; const wl=k.mat('#ffffff',{transparent:true,opacity:0.75}); const dirt=k.mat('#7a5a3a'), turf=k.mat('#6a9a44'); for(const [x,y,l] of [[0.1,0.52,0.5],[-0.08,0.38,0.7],[0.12,0.24,0.45]]) k.put(g,k.tube([[x,y,-0.4],[x+0.05,y+0.03,-0.4-l*0.5],[x,y-0.02,-0.4-l]],0.016,wl),0,0,0); const cg=new T.SphereGeometry(1,6,4); for(let i=0;i<9;i++){ const c=new T.Mesh(cg,i%2?dirt:turf); c.scale.setScalar(0.025+k.rand()*0.02); k.put(g,c,(k.rand()-0.5)*0.35,0.04+k.rand()*0.22,-0.3-k.rand()*0.45); } return g;"
+        },
+        {
+          "type": "dog",
+          "color": "#3b3b3b",
+          "size": "small",
+          "at": [
+            1.6,
+            1.1
+          ],
+          "rot": -120
+        },
+        {
+          "type": "person",
+          "pose": "walk",
+          "holding": "phone",
+          "shirt": "#5b7f9e",
+          "pants": "#3a3a3a",
+          "hairStyle": "long",
+          "at": [
+            1.7,
+            -0.05
+          ],
+          "rot": -100
+        },
+        {
+          "type": "bin",
+          "color": "#2f5e46",
+          "at": [
+            1.45,
+            -1.05
+          ]
+        },
+        {
+          "type": "lamp-post",
+          "height": 2.4,
+          "at": [
+            -2.05,
+            0.6
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.5,
+          "flowers": "#f2c94c",
+          "at": [
+            -1.55,
+            1.55
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.4,
+          "at": [
+            1,
+            1.95
+          ]
+        },
+        {
+          "type": "flower-bed",
+          "size": [
+            1,
+            0.45
+          ],
+          "flowers": [
+            "#f2c94c",
+            "#ffffff"
+          ],
+          "at": [
+            -0.25,
+            1.85
+          ]
+        },
+        {
+          "type": "rock",
+          "size": 0.3,
+          "at": [
+            0.35,
+            2.1
+          ]
+        },
+        {
+          "type": "rock",
+          "size": 0.25,
+          "at": [
+            -2.15,
+            -0.2
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Burrito on the hill",
+      "moment": "My sister and I split a burrito on the hill while frisbees fly across the lawn below.",
+      "hero": true,
+      "size": "large",
+      "surface": "grass",
+      "objects": [
+        {
+          "type": "custom",
+          "name": "dolores-hill-and-skyline",
+          "at": [
+            0,
+            -1.1
+          ],
+          "code": "const g=k.group(), T=k.THREE; const hill=k.lathe([[2.4,0],[2.1,0.14],[1.75,0.36],[1.45,0.5],[1.2,0.55],[0.6,0.56],[0,0.565]],k.mat('#6fa04a')); hill.scale.set(1,1,0.75); k.put(g,hill,0,0,0); const tuft=new T.ConeGeometry(0.05,0.12,5), tm=k.mat('#4f8a35'); for(let i=0;i<18;i++){ const a=k.rand()*Math.PI*2, r=1.5+k.rand()*0.75; const h=r<1.75?0.36+(1.75-r)*0.47:Math.max(0,0.36-(r-1.75)*0.63); k.put(g,new T.Mesh(tuft,tm),Math.cos(a)*r,h+0.04,Math.sin(a)*r*0.75); } const cols=['#b9c6d2','#a7b6c4','#cdd6de','#98a9b9'], win=k.mat('#8e9fb0'); const B=[[-1.35,0.7,0.3],[-1.05,1.1,0.26],[-0.8,0.85,0.3],[-0.3,1.2,0.28],[0.0,1.55,0.26],[0.58,1.35,0.3],[0.86,1.0,0.26],[1.12,1.45,0.24],[1.38,0.8,0.3]]; B.forEach(([x,h,w],i)=>{ k.put(g,k.box(w,h,0.22,k.mat(cols[i%4])),x,h/2,-1.5); for(let j=1;j<h/0.22;j++) k.put(g,k.box(w+0.006,0.025,0.226,win),x,j*0.22,-1.5); }); const sf=k.cap(0.14,1.9,k.mat('#c3ccd4')); k.put(g,sf,-0.56,1.09,-1.5); k.put(g,new T.Mesh(new T.ConeGeometry(0.18,2.3,4),k.mat('#dde2e7')),0.3,1.15,-1.45,0,Math.PI/4,0); return g;"
+        },
+        {
+          "type": "tree",
+          "kind": "palm",
+          "height": 4.5,
+          "at": [
+            -2,
+            -2
+          ]
+        },
+        {
+          "type": "tree",
+          "kind": "palm",
+          "height": 5,
+          "at": [
+            2.1,
+            -1.8
+          ]
+        },
+        {
+          "type": "picnic-blanket",
+          "size": [
+            1.8,
+            1.1
+          ],
+          "color": "#c0392b",
+          "at": [
+            0,
+            -1.15
+          ],
+          "y": 0.565
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            -0.42,
+            -1.35
+          ],
+          "y": 0.11,
+          "rot": 12
+        },
+        {
+          "type": "person",
+          "who": "my sister",
+          "pose": "sit",
+          "at": [
+            0.42,
+            -1.35
+          ],
+          "y": 0.11,
+          "rot": -12
+        },
+        {
+          "type": "custom",
+          "name": "burrito-split-in-half",
+          "at": [
+            0,
+            -0.82
+          ],
+          "y": 0.57,
+          "code": "const g=k.group(), T=k.THREE; const foil=k.mat('#d3d7dc',{metal:0.6,rough:0.35}), tort=k.mat('#ecd3a0'), rice=k.mat('#f3ecdc'); const bits=[['#5a3322',5],['#c8412f',3],['#7bae4a',3],['#f2d27a',2]]; const bg=new T.SphereGeometry(0.012,5,4); k.put(g,k.box(0.42,0.004,0.3,k.mat('#f4ead8')),0,0.002,0); const half=(x,z,ry)=>{ const h=k.group(); k.put(h,k.cyl(0.05,0.05,0.13,tort),0,0.05,-0.065,Math.PI/2,0,0); k.put(h,k.cyl(0.053,0.053,0.08,foil),0,0.05,-0.095,Math.PI/2,0,0); k.put(h,k.cyl(0.045,0.045,0.006,rice),0,0.05,0.001,Math.PI/2,0,0); bits.forEach(([c,n])=>{ for(let i=0;i<n;i++){ const a=k.rand()*6.28, r=k.rand()*0.035; k.put(h,new T.Mesh(bg,k.mat(c)),Math.cos(a)*r,0.05+Math.sin(a)*r,0.006); } }); k.put(g,h,x,0,z,0,ry,0); }; half(-0.08,0.02,0.3); half(0.09,-0.01,-0.3); g.scale.setScalar(1.6); return g;"
+        },
+        {
+          "type": "bottle",
+          "color": "#3a2418",
+          "scale": 0.8,
+          "at": [
+            -0.3,
+            -0.9
+          ],
+          "y": 0.57
+        },
+        {
+          "type": "bottle",
+          "color": "#3a2418",
+          "scale": 0.8,
+          "at": [
+            0.32,
+            -0.92
+          ],
+          "y": 0.57
+        },
+        {
+          "type": "backpack",
+          "color": "#3f6b4f",
+          "at": [
+            0.8,
+            -1.45
+          ],
+          "y": 0.56,
+          "rot": -20
+        },
+        {
+          "type": "dog",
+          "color": "#d9a05b",
+          "size": "medium",
+          "holding": "ball",
+          "at": [
+            -1,
+            -0.8
+          ],
+          "y": 0.55,
+          "rot": 35
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "shirt": "#3e7b5a",
+          "pants": "#4a3f35",
+          "hairStyle": "curly",
+          "at": [
+            1.6,
+            -1
+          ],
+          "y": -0.02,
+          "rot": -20
+        },
+        {
+          "type": "person",
+          "pose": "wave",
+          "shirt": "#3a7bd5",
+          "pants": "#2d2d3a",
+          "hairStyle": "cap",
+          "at": [
+            -1.7,
+            1.5
+          ],
+          "rot": 70
+        },
+        {
+          "type": "custom",
+          "name": "frisbee-mid-air",
+          "at": [
+            0,
+            1.55
+          ],
+          "code": "const g=k.group(), T=k.THREE; const disc=k.lathe([[0,0],[0.12,0],[0.14,0.015],[0.13,0.03],[0,0.036]],k.mat('#e8463a',{rough:0.4})); k.put(g,disc,0.35,1.32,-0.02,0.18,0,-0.25); const dot=new T.SphereGeometry(0.028,6,4), dm=k.mat('#ffffff',{transparent:true,opacity:0.7}); for(let i=0;i<9;i++){ const t=i/9; k.put(g,new T.Mesh(dot,dm),-1.4+t*1.6,1.2+Math.sin(t*Math.PI)*0.28,-0.05+t*0.04); } return g;"
+        },
+        {
+          "type": "person",
+          "pose": "cheer",
+          "shirt": "#f2f2f2",
+          "pants": "#5a4a3a",
+          "hairStyle": "long",
+          "at": [
+            1.75,
+            1.35
+          ],
+          "rot": -70
+        },
+        {
+          "type": "dog",
+          "color": "#2b2b2b",
+          "size": "medium",
+          "at": [
+            0.75,
+            2.1
+          ],
+          "y": 0.18,
+          "rot": -70
+        },
+        {
+          "type": "picnic-blanket",
+          "size": [
+            1.1,
+            0.8
+          ],
+          "color": "#2f7f9a",
+          "at": [
+            -1.35,
+            0.55
+          ]
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "shirt": "#e8734a",
+          "pants": "#2f3a4f",
+          "hairStyle": "bun",
+          "at": [
+            -1.35,
+            0.45
+          ],
+          "y": -0.44,
+          "rot": 30
+        },
+        {
+          "type": "glass",
+          "drink": "white-wine",
+          "at": [
+            -1.05,
+            0.7
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.5,
+          "at": [
+            2.2,
+            0.6
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.45,
+          "flowers": "#f2c94c",
+          "at": [
+            -2.3,
+            1.2
+          ]
+        },
+        {
+          "type": "flower-bed",
+          "size": [
+            1,
+            0.4
+          ],
+          "flowers": [
+            "#f2c94c",
+            "#ffffff"
+          ],
+          "at": [
+            0,
+            2.6
+          ]
+        },
+        {
+          "type": "rock",
+          "size": 0.3,
+          "at": [
+            2.45,
+            1.25
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Then the wind came",
+      "moment": "A gust grabs our blanket and the napkins, and we start packing up.",
+      "hero": false,
+      "size": "medium",
+      "surface": "grass",
+      "objects": [
+        {
+          "type": "tree",
+          "kind": "round",
+          "height": 3,
+          "at": [
+            1.4,
+            -1.75
+          ]
+        },
+        {
+          "type": "tree",
+          "kind": "round",
+          "height": 2.6,
+          "at": [
+            -0.3,
+            -2.15
+          ]
+        },
+        {
+          "type": "tree",
+          "kind": "palm",
+          "height": 3.5,
+          "at": [
+            2.1,
+            0.3
+          ]
+        },
+        {
+          "type": "bench",
+          "length": 1.2,
+          "at": [
+            0.55,
+            -1.35
+          ]
+        },
+        {
+          "type": "person",
+          "pose": "wave",
+          "shirt": "#7a5ea8",
+          "pants": "#2d2d3a",
+          "hairStyle": "short",
+          "at": [
+            -1.5,
+            -1.35
+          ],
+          "rot": 160
+        },
+        {
+          "type": "custom",
+          "name": "kite-in-the-gusts",
+          "at": [
+            -1.5,
+            -1.35
+          ],
+          "code": "const g=k.group(), T=k.THREE; const kx=1.0, ky=3.2, kz=-0.4; const tri=(pts,c)=>{ const geo=new T.BufferGeometry(); geo.setAttribute('position',new T.Float32BufferAttribute(pts,3)); geo.computeVertexNormals(); return new T.Mesh(geo,new T.MeshStandardMaterial({color:c,roughness:0.7,side:T.DoubleSide})); }; const kg=k.group(); kg.add(tri([0,0.45,0,-0.32,0,0,0,-0.6,0],'#f2c94c')); kg.add(tri([0,0.45,0,0,-0.6,0,0.32,0,0],'#2f7f9a')); const stick=k.mat('#6b4a2e'); k.put(kg,k.box(0.015,1.05,0.015,stick),0,-0.075,0.01); k.put(kg,k.box(0.64,0.015,0.015,stick),0,0,0.01); k.put(g,kg,kx,ky,kz,-0.35,0.3,0.35); const tailP=[[kx+0.2,ky-0.55,kz],[kx-0.05,ky-0.95,kz+0.08],[kx+0.15,ky-1.3,kz],[kx-0.1,ky-1.65,kz+0.06]]; k.put(g,k.tube(tailP,0.006,k.mat('#f4efe4')),0,0,0); tailP.slice(1).forEach(([x,y,z],i)=>{ const bow=k.box(0.1,0.035,0.01,k.mat(['#c45d7a','#e8734a','#c45d7a'][i])); k.put(g,bow,x,y,z,0,0,0.5); }); k.put(g,k.tube([[0.05,1.2,0.1],[0.45,1.95,-0.15],[kx+0.2,ky-0.55,kz]],0.005,k.mat('#f4f4f4')),0,0,0); return g;"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "cheer",
+          "at": [
+            -0.95,
+            0
+          ],
+          "rot": 70
+        },
+        {
+          "type": "person",
+          "who": "my sister",
+          "pose": "cheer",
+          "at": [
+            0.95,
+            0
+          ],
+          "rot": -70
+        },
+        {
+          "type": "custom",
+          "name": "blanket-caught-by-the-wind",
+          "at": [
+            0,
+            0
+          ],
+          "code": "const g=k.group(), T=k.THREE; const geo=new T.PlaneGeometry(1.7,1.0,16,9); const p=geo.attributes.position; for(let i=0;i<p.count;i++){ const x=p.getX(i), y=p.getY(i), u=(x+0.85)/1.7, v=y+0.5, s=Math.sin(u*Math.PI); p.setZ(i, s*(0.12+0.32*(1-v))+0.04*Math.sin(u*9+v*4)); p.setY(i, y+(1-v)*0.22*s); } geo.computeVertexNormals(); k.put(g,new T.Mesh(geo,new T.MeshStandardMaterial({color:'#c0392b',roughness:0.85,side:T.DoubleSide})),0,1.12,0); const edge=k.mat('#f4efe4'); k.put(g,k.box(1.7,0.03,0.03,edge),0,1.62,0); return g;"
+        },
+        {
+          "type": "custom",
+          "name": "gust-of-leaves-and-napkins",
+          "at": [
+            0.3,
+            -0.3
+          ],
+          "code": "const g=k.group(), T=k.THREE; const streak=k.mat('#ffffff',{transparent:true,opacity:0.55}); for(const [y,z,ph] of [[0.55,-0.6,0],[1.35,0.25,1],[2.1,-0.35,2],[0.9,0.95,3]]){ const pts=[]; for(let i=0;i<7;i++) pts.push([-1.9+i*0.62,y+Math.sin(i*0.9+ph)*0.18,z+Math.cos(i*0.7+ph)*0.15]); k.put(g,k.tube(pts,0.014,streak),0,0,0); } const leaf=new T.SphereGeometry(1,5,3), cols=['#7ea83a','#c9a43a','#5f8f34','#d9b25a']; for(let i=0;i<24;i++){ const l=new T.Mesh(leaf,k.mat(cols[i%4])); l.scale.set(0.06,0.012,0.035); k.put(g,l,-1.9+k.rand()*3.8,0.25+k.rand()*2.2,-1+k.rand()*2,k.rand()*3,k.rand()*3,k.rand()*3); } for(const [x,y,z,c] of [[0.9,1.8,-0.1,'#f6f2e8'],[1.5,1.05,0.5,'#f6f2e8'],[0.2,2.3,-0.6,'#cfd3d8'],[-0.6,1.95,0.4,'#f6f2e8']]) k.put(g,k.box(0.15,0.005,0.15,k.mat(c)),x,y,z,0.6,0.8,0.3); return g;"
+        },
+        {
+          "type": "dog",
+          "color": "#d9a05b",
+          "size": "medium",
+          "holding": "ball",
+          "at": [
+            0.3,
+            1
+          ],
+          "rot": -20
+        },
+        {
+          "type": "backpack",
+          "color": "#3f6b4f",
+          "at": [
+            -0.45,
+            0.95
+          ],
+          "rot": 25
+        },
+        {
+          "type": "bin",
+          "color": "#2f5e46",
+          "at": [
+            1.9,
+            -0.9
+          ]
+        },
+        {
+          "type": "bottle",
+          "color": "#3a2418",
+          "scale": 0.8,
+          "at": [
+            1.6,
+            -0.6
+          ]
+        },
+        {
+          "type": "lamp-post",
+          "height": 2.4,
+          "at": [
+            -2.1,
+            -0.55
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.5,
+          "at": [
+            -2,
+            0.9
+          ]
+        },
+        {
+          "type": "bush",
+          "size": 0.45,
+          "flowers": "#f2c94c",
+          "at": [
+            1.3,
+            1.8
+          ]
+        },
+        {
+          "type": "rock",
+          "size": 0.3,
+          "at": [
+            -1,
+            1.9
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Home for a nap",
+      "moment": "Windows rattling, we crash: me in bed, my sister on the couch, Biscuit curled around his ball.",
+      "hero": false,
+      "size": "medium",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "room",
+          "size": [
+            3.6,
+            2.8
+          ],
+          "floor": "wood",
+          "wall": "#e9dcc4",
+          "window": true,
+          "door": true,
+          "at": [
+            0,
+            -0.1
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "napping-under-the-duvet",
+          "at": [
+            -0.85,
+            -0.45
+          ],
+          "code": "const g=k.group(), T=k.THREE; const sg=new T.SphereGeometry(1,14,10); const frame=k.mat('#9a7350'), sheet=k.mat('#f3efe6'), duvet=k.mat('#8fb3cf'), pil=k.mat('#fbfaf6'), skin=k.mat('#d9a67e'), hair=k.mat('#2b1d14'), ink=k.mat('#3a2a20'); const S=(m,x,y,z,sx,sy=sx,sz=sx)=>{const o=new T.Mesh(sg,m); o.scale.set(sx,sy,sz); return k.put(g,o,x,y,z);}; k.put(g,k.rbox(1.3,0.3,1.9,frame,0.04),0,0.15,0); k.put(g,k.rbox(1.24,0.18,1.84,sheet,0.06),0,0.39,0); k.put(g,k.rbox(1.36,0.85,0.08,frame,0.03),0,0.43,-0.97); k.put(g,k.rbox(0.5,0.12,0.32,pil,0.05),-0.3,0.54,-0.68); k.put(g,k.rbox(0.5,0.12,0.32,pil,0.05),0.3,0.54,-0.68); k.put(g,k.rbox(1.28,0.07,1.32,duvet,0.03),0,0.51,0.24); const lump=k.cap(0.2,0.85,duvet); lump.scale.set(1,1,0.55); k.put(g,lump,-0.28,0.55,0.15,Math.PI/2,0,0); k.put(g,k.cap(0.05,1.2,sheet),0,0.56,-0.4,0,0,Math.PI/2); S(skin,-0.3,0.71,-0.64,0.13); S(hair,-0.3,0.68,-0.69,0.137,0.095,0.14); for(const s of [-1,1]) k.put(g,k.box(0.04,0.01,0.012,ink),-0.3+s*0.045,0.835,-0.6); S(skin,-0.3,0.84,-0.55,0.022); k.put(g,k.cap(0.055,0.32,k.mat('#e3b448')),-0.56,0.6,-0.2,Math.PI/2,0,0); S(skin,-0.56,0.6,0.02,0.05); return g;"
+        },
+        {
+          "type": "sofa",
+          "color": "#7d9a6f",
+          "length": 1.5,
+          "at": [
+            0.95,
+            -1.05
+          ]
+        },
+        {
+          "type": "person",
+          "who": "my sister",
+          "pose": "sit",
+          "at": [
+            1.25,
+            -1
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "zzz",
+          "at": [
+            0,
+            0
+          ],
+          "code": "const g=k.group(); const m=k.mat('#7b9fd4',{rough:0.5}); const Z=(x,y,z,s)=>{ const zg=k.group(); k.put(zg,k.box(0.2,0.04,0.04,m),0,0.12,0); k.put(zg,k.box(0.2,0.04,0.04,m),0,-0.12,0); k.put(zg,k.box(0.04,0.3,0.04,m),0,0,0,0,0,-0.9); zg.scale.setScalar(s); k.put(g,zg,x,y,z,0,0,0.15); }; Z(-1.0,1.1,-1.0,0.5); Z(-0.82,1.42,-1.05,0.7); Z(-0.6,1.82,-1.1,0.9); Z(1.4,1.62,-0.95,0.5); Z(1.55,1.95,-1.0,0.7); return g;"
+        },
+        {
+          "type": "stool",
+          "color": "#9a7350",
+          "at": [
+            0,
+            -1.25
+          ],
+          "id": "nap-stool"
+        },
+        {
+          "type": "glass",
+          "drink": "water",
+          "on": "nap-stool",
+          "at": [
+            -0.05,
+            0
+          ]
+        },
+        {
+          "type": "rug",
+          "size": [
+            1.6,
+            1.1
+          ],
+          "color": "#b5523b",
+          "pattern": "persian",
+          "at": [
+            0.3,
+            0.5
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "biscuit-asleep-with-his-ball",
+          "at": [
+            0.35,
+            0.55
+          ],
+          "y": 0.01,
+          "rot": 10,
+          "code": "const g=k.group(), T=k.THREE; const sg=new T.SphereGeometry(1,14,10); const c=k.mat('#d9a05b'), lt=k.mat('#e9be84'), dk=k.mat('#b37e3f'), ink=k.mat('#1c1412'); const S=(p,m,x,y,z,sx,sy=sx,sz=sx)=>{const o=new T.Mesh(sg,m); o.scale.set(sx,sy,sz); return k.put(p,o,x,y,z);}; k.put(g,new T.Mesh(new T.TorusGeometry(0.19,0.12,10,20,Math.PI*1.7),c),0,0.11,0,Math.PI/2,0,0); S(g,c,0,0.1,0,0.17,0.1,0.17); const hg=k.group(); k.put(g,hg,0.16,0.19,0.13,0.15,0.5,0); S(hg,c,0,0,0,0.13,0.11,0.13); S(hg,lt,0,-0.03,0.11,0.075,0.06,0.085); S(hg,ink,0,-0.005,0.19,0.024,0.02,0.02); for(const s of [-1,1]){ S(hg,dk,s*0.11,-0.02,-0.02,0.045,0.095,0.07).rotation.z=s*0.5; k.put(hg,k.box(0.045,0.008,0.012,ink),s*0.05,0.035,0.11); } S(g,k.mat('#d6e04a'),0.02,0.06,0.28,0.06); k.put(g,k.tube([[-0.24,0.12,0.12],[-0.15,0.15,0.27],[-0.02,0.13,0.33]],0.035,c),0,0,0); S(g,c,0.22,0.04,0.25,0.05,0.035,0.08); S(g,c,0.1,0.04,0.3,0.05,0.035,0.08); return g;"
+        },
+        {
+          "type": "book",
+          "color": "#c45d7a",
+          "open": true,
+          "at": [
+            -0.15,
+            0.95
+          ],
+          "rot": -15
+        },
+        {
+          "type": "mug",
+          "color": "#e3b448",
+          "at": [
+            -0.05,
+            0.3
+          ]
+        },
+        {
+          "type": "picnic-blanket",
+          "size": [
+            0.55,
+            0.4
+          ],
+          "color": "#c0392b",
+          "at": [
+            1.45,
+            0.4
+          ],
+          "rot": 10
+        },
+        {
+          "type": "backpack",
+          "color": "#3f6b4f",
+          "at": [
+            1.55,
+            1.05
+          ],
+          "rot": -30
+        },
+        {
+          "type": "potted-plant",
+          "kind": "olive",
+          "size": 1,
+          "at": [
+            1.75,
+            -0.35
+          ]
+        },
+        {
+          "type": "potted-plant",
+          "kind": "herb",
+          "size": 0.7,
+          "at": [
+            -1.75,
+            0.9
+          ]
+        },
+        {
+          "type": "bottle",
+          "color": "#3a2418",
+          "scale": 0.7,
+          "at": [
+            1.25,
+            0.95
+          ]
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -1.55,
+            1.25
+          ]
+        }
+      ]
+    }
+  ]
+}
