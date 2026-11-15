@@ -19,17 +19,14 @@ function headers(json = true) {
   return h;
 }
 
-const BUSY_WAIT_MS = Number(process.env.GMI_BUSY_WAIT_S || 900) * 1000;
-
 async function gmi(method, pathname, body) {
   const url = pathname.startsWith("http") ? pathname : BASE + pathname;
-  const t0 = Date.now();
   for (let attempt = 1; ; attempt++) {
     let res;
     try {
       res = await fetch(url, { method, headers: headers(), body: body ? JSON.stringify(body) : undefined, signal: AbortSignal.timeout(90000) });
     } catch (e) {
-      if (attempt >= 5) throw new Error(method + " " + pathname + " -> " + String(e?.message ?? e));
+      if (method !== "GET" || attempt >= 4) throw new Error(method + " " + pathname + " -> " + String(e?.message ?? e));
       await sleep(2000 * attempt);
       continue;
     }
@@ -37,16 +34,11 @@ async function gmi(method, pathname, body) {
     let json = null;
     try { json = JSON.parse(text); } catch {}
     if (res.ok) return json ?? text;
-    const busy = /ResourceInsufficient|insufficient|concurren|too many/i.test(text);
-    if (busy && Date.now() - t0 < BUSY_WAIT_MS) {
-      console.error("[gmi] " + (body?.model ?? pathname) + " busy (HTTP " + res.status + ": " + text.slice(0, 120) + "); retrying in 30s, " + Math.round((BUSY_WAIT_MS - (Date.now() - t0)) / 1000) + "s of patience left");
-      await sleep(30000);
-      continue;
-    }
-    const retryable = res.status === 429 || res.status >= 500;
-    if (!retryable || attempt >= 5) throw new Error(method + " " + pathname + " -> HTTP " + res.status + ": " + text.slice(0, 500));
+    const capacity = /ResourceInsufficient|insufficient/i.test(text);
+    const retryable = !capacity && (res.status === 429 || (method === "GET" && res.status >= 500));
+    if (!retryable || attempt >= 4) throw new Error(method + " " + pathname + " -> HTTP " + res.status + ": " + text.slice(0, 500));
     const ra = Number(res.headers.get("retry-after"));
-    await sleep(Number.isFinite(ra) && ra > 0 ? Math.min(ra, 60) * 1000 : Math.min(30000, 2000 * 2 ** (attempt - 1)));
+    await sleep(Number.isFinite(ra) && ra > 0 ? Math.min(ra, 60) * 1000 : 3000 * attempt);
   }
 }
 
@@ -121,6 +113,7 @@ export async function run({ approach, model, payload, estCostUsd, label = "", ou
   checkBudget(approach, estCostUsd);
   headers();
   const threeD = is3d ?? (THREE_D_MODELS.has(model) || /3d/i.test(model));
+  if (threeD && process.env.GMI_ALLOW_3D !== "1") throw new Error(model + " is paused for the whole crew: every submit fails with ResourceInsufficient and retries flood GMI. Don't submit 3D jobs until YCCO-10 root says GMI or fal 3D works again.");
   const timeoutMs = (timeoutS ?? (threeD ? 1800 : 900)) * 1000;
   if (threeD) await acquire3dLock();
   const t0 = Date.now();
