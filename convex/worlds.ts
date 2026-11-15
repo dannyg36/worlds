@@ -1,4 +1,5 @@
 import { v } from "convex/values";
+import { internal } from "./_generated/api";
 import { mutation, query } from "./_generated/server";
 
 export const list = query({
@@ -15,6 +16,11 @@ export const add = mutation({
     if (!transcript) {
       throw new Error("A world needs a description of your day.");
     }
-    return await ctx.db.insert("worlds", { transcript });
+    const id = await ctx.db.insert("worlds", { transcript });
+    await ctx.scheduler.runAfter(0, internal.memory.remember, {
+      worldId: id,
+      transcript,
+    });
+    return id;
   },
 });

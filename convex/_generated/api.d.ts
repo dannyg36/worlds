@@ -11,6 +11,8 @@
 import type * as crons from "../crons.js";
 import type * as expoPush from "../expoPush.js";
 import type * as localTime from "../localTime.js";
+import type * as memory from "../memory.js";
+import type * as memoryCheck from "../memoryCheck.js";
 import type * as notifications from "../notifications.js";
 import type * as worlds from "../worlds.js";
 
@@ -24,6 +26,8 @@ declare const fullApi: ApiFromModules<{
   crons: typeof crons;
   expoPush: typeof expoPush;
   localTime: typeof localTime;
+  memory: typeof memory;
+  memoryCheck: typeof memoryCheck;
   notifications: typeof notifications;
   worlds: typeof worlds;
 }>;
