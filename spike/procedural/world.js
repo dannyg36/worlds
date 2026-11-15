@@ -1,0 +1,519 @@
+// Builds and renders a world from a spec: a single diorama (SCHEMA.md) or a whole island (ISLAND.md).
+// Shared by the spike harness (main.js) and the app's IslandViewer DOM component.
+//
+//   const world = await createWorld(container, spec, opts)
+//   opts: { width, height, pixelRatio, post = true, quality = "high" | "low", merge = true, fit = true,
+//           maxLights = 8, time, yaw, elev, dist, tx, ty, tz, panoUrl, still, autoRotate, onReady(stats), onError(err) }
+//   returns { renderer, scene, camera, controls, stats, island, setSize(w, h), focusVignette(i), dispose() }
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { SMAAPass } from "three/addons/postprocessing/SMAAPass.js";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
+import * as core from "./core.js";
+import { surfaceTex } from "./surfaces.js";
+import { buildIsland } from "./island.js";
+import { scatter } from "./scatter.js";
+import { parts as furniture } from "./parts/furniture.js";
+import { parts as people } from "./parts/people.js";
+import { parts as structures } from "./parts/structures.js";
+import { parts as nature } from "./parts/nature.js";
+import { parts as props } from "./parts/props.js";
+import { parts as city } from "./parts/city.js";
+import { parts as outdoors } from "./parts/outdoors.js";
+import { parts as indoor } from "./parts/indoor.js";
+
+const { mat, rng, canvasTex, cyl, rbox, put } = core;
+
+export const MODULE_PARTS = {
+  furniture: Object.keys(furniture), people: Object.keys(people), structures: Object.keys(structures), nature: Object.keys(nature),
+  props: Object.keys(props), city: Object.keys(city), outdoors: Object.keys(outdoors), indoor: Object.keys(indoor),
+};
+export const registry = { ...furniture, ...people, ...structures, ...nature, ...props, ...city, ...outdoors, ...indoor };
+
+// ---------- custom objects: model-written three.js ----------
+const MAX_CUSTOM_TRIANGLES = 20000;
+function customKit(ctx) {
+  return {
+    THREE,
+    mat: core.mat, glowMat: core.glowMat, glassMat: core.glassMat,
+    rbox: core.rbox, box: core.box, cyl: core.cyl, sph: core.sph, cap: core.cap, cone: core.cone,
+    torus: core.torus, lathe: core.lathe, tube: core.tube, put: core.put, group: core.group,
+    rand: ctx.rand,
+    addLight: (p, color, intensity, distance) => ctx.addLight(new THREE.Vector3(...p), color, intensity, distance),
+    part: (type, params = {}) => {
+      const make = registry[type];
+      if (!make) throw new Error("unknown part " + type);
+      const built = make({ type, ...params }, ctx);
+      return built?.isObject3D ? built : built.group;
+    },
+  };
+}
+function countTriangles(obj) {
+  let n = 0;
+  obj.traverse((o) => {
+    if (!o.isMesh || !o.geometry) return;
+    const g = o.geometry;
+    const t = (g.index ? g.index.count : g.attributes.position?.count ?? 0) / 3;
+    n += o.isInstancedMesh ? t * o.count : t;
+  });
+  return n;
+}
+registry.custom = (p, ctx) => {
+  if (typeof p.code !== "string" || p.code.length > 6000) throw new Error("custom: missing or oversized code");
+  const obj = new Function("k", p.code)(customKit(ctx));
+  if (!obj || !obj.isObject3D) throw new Error("custom: code did not return an Object3D");
+  if (countTriangles(obj) > MAX_CUSTOM_TRIANGLES) throw new Error("custom: too many triangles");
+  const g = new THREE.Group();
+  g.add(obj);
+  return { group: g, top: p.top ?? new THREE.Box3().setFromObject(obj).max.y };
+};
+
+// ---------- look ----------
+export const TIMES = {
+  dawn: { sun: "#ffb79a", sunI: 1.6, elev: 10, az: -60, hemi: ["#9fb4ff", "#5a4a50"], hemiI: 0.5, env: 0.35, bg: ["#f6c9b8", "#7c86b8"], bloom: 0.5, exp: 1.0 },
+  morning: { sun: "#fff1d6", sunI: 2.6, elev: 35, az: -45, hemi: ["#cfe3ff", "#6b5a4a"], hemiI: 0.6, env: 0.5, bg: ["#f3ead8", "#bcd3ea"], bloom: 0.3, bt: 1.4, exp: 1.0 },
+  noon: { sun: "#ffffff", sunI: 3.0, elev: 62, az: -30, hemi: ["#d6e8ff", "#6b5a4a"], hemiI: 0.7, env: 0.6, bg: ["#f4efe6", "#c9dcef"], bloom: 0.25, bt: 1.6, exp: 1.0 },
+  "golden-hour": { sun: "#ffad5c", sunI: 3.2, elev: 16, az: -55, hemi: ["#ffd9a8", "#5a3d34"], hemiI: 0.55, env: 0.35, bg: ["#ffd8a8", "#e58f6a"], bloom: 0.55, bt: 1.25, exp: 1.0 },
+  dusk: { sun: "#ff9a6b", sunI: 0.9, elev: 8, az: -60, hemi: ["#6f78c9", "#3a2a2a"], hemiI: 0.55, env: 0.22, bg: ["#3b3f78", "#c97a72"], bloom: 0.9, exp: 1.05 },
+  night: { sun: "#9fb2ff", sunI: 0.45, elev: 40, az: 30, hemi: ["#3b4a8a", "#1a1420"], hemiI: 0.45, env: 0.12, bg: ["#0f1530", "#2b2f5a"], bloom: 1.1, exp: 1.1 },
+  overcast: { sun: "#e8eef5", sunI: 1.2, elev: 55, az: -30, hemi: ["#dfe6ee", "#5f6266"], hemiI: 1.0, env: 0.7, bg: ["#e3e7ec", "#a9b3bf"], bloom: 0.2, bt: 1.4, exp: 1.0 },
+  rain: { sun: "#b9c6d6", sunI: 0.7, elev: 50, az: -30, hemi: ["#a7b6c8", "#3d4248"], hemiI: 0.9, env: 0.45, bg: ["#7d8da1", "#3e4a5c"], bloom: 0.6, exp: 1.05 },
+  snow: { sun: "#c9d8ff", sunI: 0.6, elev: 35, az: -40, hemi: ["#aebfe8", "#3a3a4a"], hemiI: 0.7, env: 0.3, bg: ["#27305a", "#6b78a8"], bloom: 0.9, exp: 1.05 },
+};
+
+const FilmFinish = {
+  uniforms: { tDiffuse: { value: null }, vignette: { value: 0.35 }, grain: { value: 0.035 } },
+  vertexShader: "varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+  fragmentShader: `uniform sampler2D tDiffuse; uniform float vignette; uniform float grain; varying vec2 vUv;
+    float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+    void main() {
+      vec4 c = texture2D(tDiffuse, vUv);
+      float d = distance(vUv, vec2(0.5));
+      c.rgb *= mix(1.0, smoothstep(0.85, 0.25, d), vignette);
+      c.rgb += (hash(vUv * 1000.0) - 0.5) * grain;
+      gl_FragColor = c;
+    }`,
+};
+// Clamp HDR colour and drop NaNs before bloom, so one hot specular pixel can't black out the frame.
+const Clamp = {
+  uniforms: { tDiffuse: { value: null } },
+  vertexShader: FilmFinish.vertexShader,
+  fragmentShader: `uniform sampler2D tDiffuse; varying vec2 vUv;
+    void main() {
+      vec4 c = texture2D(tDiffuse, vUv);
+      if (c.r != c.r || c.g != c.g || c.b != c.b) c = vec4(0.0, 0.0, 0.0, 1.0);
+      gl_FragColor = vec4(clamp(c.rgb, 0.0, 6.0), c.a);
+    }`,
+};
+
+// h = half-size of the base; it shrinks to wrap the content so the diorama stays dense.
+function buildBase(base = {}, r, h = 4.75) {
+  const g = new THREE.Group();
+  const shape = base.shape ?? "round";
+  const map = surfaceTex(base.surface ?? "grass", r);
+  if (map) map.repeat.multiplyScalar(h / 4.75);
+  const topMat = mat("#fff", { map, rough: 0.9 });
+  const rimMat = mat("#6b4428", { rough: 0.7 });
+  if (shape === "round") {
+    put(g, cyl(h, h, 0.12, topMat, 96), 0, -0.06, 0);
+    put(g, cyl(h + 0.1, h + 0.1, 0.18, mat("#5a4a3c"), 96), 0, -0.2, 0);
+    put(g, cyl(h + 0.25, h + 0.4, 0.55, rimMat, 96), 0, -0.55, 0);
+  } else {
+    put(g, rbox(2 * h, 0.12, 2 * h, topMat, 0.04), 0, -0.06, 0);
+    put(g, rbox(2 * h + 0.3, 0.6, 2 * h + 0.3, rimMat, 0.08), 0, -0.42, 0);
+  }
+  g.traverse((o) => { if (o.isMesh) o.receiveShadow = true; });
+  return g;
+}
+
+function weather(kind, scene, r, radius) {
+  if (kind !== "snow" && kind !== "rain") return;
+  const n = Math.round((kind === "snow" ? 1400 : 900) * Math.max(1, (radius / 6) ** 2));
+  const pos = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    const a = r() * Math.PI * 2, d = Math.sqrt(r()) * radius;
+    pos.set([Math.cos(a) * d, r() * 7, Math.sin(a) * d], i * 3);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  const sprite = canvasTex(32, 32, (ctx) => {
+    const g = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+    g.addColorStop(0, "rgba(255,255,255,1)"); g.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, 32, 32);
+  });
+  const m = new THREE.PointsMaterial({ size: kind === "snow" ? 0.07 : 0.03, map: sprite, transparent: true, depthWrite: false, color: kind === "snow" ? "#ffffff" : "#bcd0ea", opacity: kind === "snow" ? 0.95 : 0.6 });
+  scene.add(new THREE.Points(geo, m));
+}
+
+// The world is static, so merge every mesh that shares a material into one draw call.
+function mergeStatic(root, skip) {
+  root.updateMatrixWorld(true);
+  const buckets = new Map();
+  const victims = [];
+  root.traverse((o) => {
+    if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh || Array.isArray(o.material) || skip.has(o)) return;
+    if (o.parent === root) return;
+    const key = o.material.uuid + (o.castShadow ? "s" : "") + (o.receiveShadow ? "r" : "");
+    const g = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry.clone();
+    g.applyMatrix4(o.matrixWorld);
+    for (const name of Object.keys(g.attributes)) if (!["position", "normal", "uv", "color"].includes(name)) g.deleteAttribute(name);
+    if (!g.attributes.normal) g.computeVertexNormals();
+    if (!g.attributes.uv) g.setAttribute("uv", new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2));
+    const wantColor = !!o.material.vertexColors;
+    if (g.attributes.color && g.attributes.color.itemSize !== 3) g.deleteAttribute("color");
+    if (wantColor && !g.attributes.color) g.setAttribute("color", new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 3).fill(1), 3));
+    if (!wantColor && g.attributes.color) g.deleteAttribute("color");
+    if (!buckets.has(key)) buckets.set(key, { mat: o.material, cast: o.castShadow, recv: o.receiveShadow, geos: [] });
+    buckets.get(key).geos.push(g);
+    victims.push(o);
+  });
+  for (const v of victims) v.removeFromParent();
+  for (const b of buckets.values()) {
+    const geo = mergeGeometries(b.geos, false);
+    if (!geo) continue;
+    const m = new THREE.Mesh(geo, b.mat);
+    m.castShadow = b.cast;
+    m.receiveShadow = b.recv;
+    root.add(m);
+  }
+  return buckets.size;
+}
+
+const LOOK_FIELDS = ["skin", "shirt", "pants", "hair", "hairStyle", "kid"];
+
+export async function createWorld(container, spec, opts = {}) {
+  const given = Object.fromEntries(Object.entries(opts).filter(([, v]) => v !== undefined));
+  const o = { post: true, quality: "high", merge: true, fit: true, maxLights: 8, ...given };
+  const low = o.quality === "low";
+  let W = o.width ?? container.clientWidth ?? 800, H = o.height ?? container.clientHeight ?? 800;
+  const deg = THREE.MathUtils.degToRad;
+  const t0 = performance.now();
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: !!o.still });
+  renderer.setPixelRatio(o.pixelRatio ?? Math.min(globalThis.devicePixelRatio ?? 1, low ? 1.5 : 2));
+  renderer.setSize(W, H);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  container.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(30, W / H, 0.1, 400);
+  const stats = { objects: 0, vignettes: 0, custom: 0, unknown: [], errors: [], buildMs: 0, lights: 0 };
+  const isIsland = Array.isArray(spec.vignettes);
+
+  if (o.time) spec = { ...spec, time: o.time };
+  const time = TIMES[spec.time] ?? TIMES["golden-hour"];
+  const r = rng(1234);
+  renderer.toneMappingExposure = time.exp;
+
+  scene.background = canvasTex(4, 256, (ctx, w, h) => {
+    const g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, time.bg[1]); g.addColorStop(1, time.bg[0]);
+    ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+  });
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environmentIntensity = time.env;
+  if (o.panoUrl) {
+    const pano = await new THREE.TextureLoader().loadAsync(o.panoUrl);
+    pano.mapping = THREE.EquirectangularReflectionMapping;
+    pano.colorSpace = THREE.SRGBColorSpace;
+    scene.background = pano;
+    scene.backgroundBlurriness = 0.04;
+    scene.backgroundIntensity = 0.9;
+  }
+
+  scene.add(new THREE.HemisphereLight(time.hemi[0], time.hemi[1], time.hemiI));
+  const sun = new THREE.DirectionalLight(time.sun, time.sunI);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(low ? 1024 : 2048, low ? 1024 : 2048);
+  sun.shadow.bias = -0.0004;
+  sun.shadow.normalBias = 0.02;
+  sun.shadow.radius = 3;
+  scene.add(sun);
+  scene.add(sun.target);
+
+  // ---------- objects ----------
+  const lightRequests = [];
+  const cast = Object.fromEntries((spec.cast ?? []).map((c) => [c.name, c]));
+
+  function buildObject(obj, parentGroup, placed) {
+    if (obj.type === "person" && obj.who && cast[obj.who]) {
+      const look = Object.fromEntries(LOOK_FIELDS.filter((k) => cast[obj.who][k] !== undefined).map((k) => [k, cast[obj.who][k]]));
+      obj = { ...obj, ...look };
+    }
+    const make = registry[obj.type];
+    let built;
+    const ctx = {
+      rand: rng(Math.floor((obj.at?.[0] ?? 0) * 1000 + (obj.at?.[1] ?? 0) * 7919 + stats.objects * 31)),
+      time: spec.time,
+      palette: spec.palette ?? [],
+      addLight(pos, color = "#ffcc88", intensity = 1, distance = 4) {
+        lightRequests.push({ obj: null, pos: pos.clone ? pos.clone() : new THREE.Vector3(...pos), color, intensity, distance });
+      },
+    };
+    const before = lightRequests.length;
+    try {
+      if (!make) throw new Error("unknown type " + obj.type);
+      built = make(obj, ctx);
+      if (built?.isObject3D) built = { group: built };
+      if (obj.type === "custom") stats.custom++;
+    } catch (e) {
+      if (!make) stats.unknown.push(obj.type); else stats.errors.push(`${obj.type}${obj.name ? ` (${obj.name})` : ""}: ${e.message}`);
+      lightRequests.length = before;
+      const ph = rbox(0.3, 0.3, 0.3, mat(make ? "#c9b8a6" : "#ff00ff"));
+      ph.position.y = 0.15;
+      const g = new THREE.Group(); g.add(ph);
+      built = { group: g, top: 0.3 };
+    }
+    const g = built.group;
+    // String-light points are absolute in the parent's frame, so the strand itself stays at the origin.
+    const absolute = obj.type === "string-lights";
+    const [x, z] = absolute ? [0, 0] : obj.at ?? [0, 0];
+    const parent = !absolute && obj.on && placed[obj.on];
+    if (parent) {
+      parent.group.add(g);
+      g.position.set(x, (parent.top ?? 0) + (obj.y ?? 0), z);
+      g.scale.setScalar((obj.scale ?? 1) / (parent.group.scale.x || 1));
+    } else {
+      parentGroup.add(g);
+      g.position.set(x, absolute ? 0 : obj.y ?? 0, z);
+      g.scale.setScalar(obj.scale ?? 1);
+    }
+    g.rotation.y = absolute ? 0 : deg(obj.rot ?? 0);
+    for (let i = before; i < lightRequests.length; i++) lightRequests[i].obj = g;
+    if (obj.id) placed[obj.id] = { group: g, top: built.top ?? 0 };
+    stats.objects++;
+  }
+
+  // Supports first, so `on` children can find their parent.
+  function buildAll(objs, parentGroup) {
+    const placed = {};
+    const pending = [...(objs ?? [])];
+    for (let pass = 0; pass < 4 && pending.length; pass++) {
+      for (let i = 0; i < pending.length; ) {
+        const ob = pending[i];
+        if (!ob.on || placed[ob.on]) { buildObject(ob, parentGroup, placed); pending.splice(i, 1); } else i++;
+      }
+    }
+    for (const ob of pending) { stats.errors.push(`on: missing ${ob.on}`); buildObject({ ...ob, on: undefined }, parentGroup, placed); }
+  }
+
+  let island = null;
+  const fixed = new Set();
+  let extent; // radius of everything, for camera and shadows
+  let center = new THREE.Vector3();
+  if (isIsland) {
+    try {
+      island = buildIsland(spec, { rand: rng(77), time: spec.time });
+    } catch (e) {
+      stats.errors.push("island: " + e.message);
+    }
+    if (island) {
+      scene.add(island.group);
+      spec.vignettes.forEach((v, i) => {
+        const plot = island.plots[i];
+        if (!plot) return;
+        const vg = new THREE.Group();
+        vg.position.set(plot.x, island.heightAt ? island.heightAt(plot.x, plot.z) : 0, plot.z);
+        vg.rotation.y = plot.rot;
+        vg.userData.vignette = i;
+        scene.add(vg);
+        buildAll(v.objects, vg);
+        stats.vignettes++;
+      });
+      if (spec.landmark && island.landmark) {
+        buildAll([{ ...spec.landmark, at: [island.landmark.x, island.landmark.z] }], scene);
+      }
+      try {
+        const filler = scatter(island, spec, { rand: rng(99), time: spec.time });
+        if (filler) { scene.add(filler); stats.filler = filler.children.length; }
+      } catch (e) {
+        stats.errors.push("scatter: " + e.message);
+      }
+      extent = (island.radius ?? 9) + 3;
+    }
+  }
+  if (!island) {
+    buildAll(spec.objects ?? spec.vignettes?.flatMap((v) => v.objects ?? []), scene);
+  }
+
+  // Point lights: merge nearby requests and keep the brightest few.
+  scene.updateMatrixWorld(true);
+  const merged = [];
+  for (const L of lightRequests) {
+    const wp = L.pos.clone().applyMatrix4(L.obj.matrixWorld);
+    const m = merged.find((M) => M.pos.distanceTo(wp) < 1.6);
+    if (m) { m.pos.lerp(wp, L.intensity / (m.intensity + L.intensity)); m.intensity += L.intensity; m.distance = Math.max(m.distance, L.distance); }
+    else merged.push({ pos: wp, color: L.color, intensity: L.intensity, distance: L.distance });
+  }
+  merged.sort((a, b) => b.intensity - a.intensity);
+  for (const M of merged.slice(0, low ? Math.min(o.maxLights, 4) : o.maxLights)) {
+    const pl = new THREE.PointLight(M.color, Math.min(M.intensity, 4), M.distance * 1.5, 1.6);
+    pl.position.copy(M.pos);
+    scene.add(pl);
+    stats.lights++;
+  }
+
+  scene.traverse((m) => {
+    if (m.isMesh && !m.isInstancedMesh) {
+      const glow = m.material?.emissiveIntensity > 1;
+      const glass = m.material?.transparent;
+      m.castShadow = !glow && !glass;
+      m.receiveShadow = !glow;
+    }
+  });
+
+  // Single diorama: fit a plinth to the content.
+  if (!island) {
+    const content = new THREE.Box3();
+    for (const c of scene.children) if (c.isGroup) content.expandByObject(c);
+    const fit = o.fit && !content.isEmpty();
+    const cx = fit ? (content.min.x + content.max.x) / 2 : 0;
+    const cz = fit ? (content.min.z + content.max.z) / 2 : 0;
+    let half = 4.75;
+    if (fit) {
+      const ex = (content.max.x - content.min.x) / 2, ez = (content.max.z - content.min.z) / 2;
+      const need = (spec.base?.shape ?? "round") === "round" ? Math.hypot(ex, ez) * 0.92 : Math.max(ex, ez);
+      half = THREE.MathUtils.clamp(need + 0.45, 3, 5.5);
+    }
+    const baseGroup = buildBase(spec.base, r, half);
+    baseGroup.position.set(cx, 0, cz);
+    scene.add(baseGroup);
+    stats.baseHalf = +half.toFixed(2);
+    center.set(cx, 0, cz);
+    extent = fit ? Math.max(content.getBoundingSphere(new THREE.Sphere()).radius, half) : 6.5;
+  }
+
+  weather(spec.time, scene, r, (island?.radius ?? 6) + 1);
+
+  // Shadow catcher under everything.
+  const box = new THREE.Box3().setFromObject(scene);
+  const catcher = new THREE.Mesh(new THREE.CircleGeometry(extent * 2.2, 64), new THREE.ShadowMaterial({ opacity: 0.18 }));
+  catcher.rotation.x = -Math.PI / 2;
+  catcher.position.set(center.x, (isFinite(box.min.y) ? box.min.y : -0.8) - 0.01, center.z);
+  catcher.receiveShadow = true;
+  scene.add(catcher);
+  fixed.add(catcher);
+
+  // Sun and shadow frustum sized to the world.
+  const el = deg(time.elev), az = deg(time.az);
+  const sunDist = extent * 3;
+  sun.position.set(center.x + Math.sin(az) * Math.cos(el) * sunDist, Math.sin(el) * sunDist, center.z + Math.cos(az) * Math.cos(el) * sunDist);
+  sun.target.position.copy(center);
+  Object.assign(sun.shadow.camera, { left: -extent - 1, right: extent + 1, top: extent + 1, bottom: -extent - 1, near: 0.5, far: sunDist * 2.5 });
+  sun.shadow.camera.updateProjectionMatrix();
+
+  if (o.merge) stats.mergedMeshes = mergeStatic(scene, fixed);
+  stats.buildMs = Math.round(performance.now() - t0);
+
+  // ---------- camera ----------
+  const yaw = deg(o.yaw ?? 0), elev = deg(o.elev ?? (island ? 38 : 30));
+  const dist = o.dist ?? (island ? THREE.MathUtils.clamp(extent * 2.75, 18, 70) : THREE.MathUtils.clamp(extent * 3.3, 10, 24));
+  const target = new THREE.Vector3(center.x + (o.tx ?? 0), o.ty ?? (island ? 0.4 : 0.9), center.z + (o.tz ?? 0));
+  const placeCamera = (tgt, y, e, d) => {
+    camera.position.set(tgt.x + Math.sin(y) * Math.cos(e) * d, tgt.y + Math.sin(e) * d, tgt.z + Math.cos(y) * Math.cos(e) * d);
+    camera.lookAt(tgt);
+  };
+  placeCamera(target, yaw, elev, dist);
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.target.copy(target);
+  controls.enableDamping = true;
+  controls.maxPolarAngle = deg(84);
+  controls.minDistance = 3;
+  controls.maxDistance = dist * 1.8;
+  controls.autoRotate = !!o.autoRotate;
+  controls.autoRotateSpeed = 0.4;
+  controls.update();
+
+  // ---------- post ----------
+  let composer = null;
+  if (o.post) {
+    composer = new EffectComposer(renderer);
+    composer.setPixelRatio(renderer.getPixelRatio());
+    composer.setSize(W, H);
+    composer.addPass(new RenderPass(scene, camera));
+    if (!low) {
+      const ao = new GTAOPass(scene, camera, W, H);
+      ao.updateGtaoMaterial({ radius: 0.35, distanceExponent: 1.5, thickness: 1, scale: 1 });
+      ao.blendIntensity = 0.85;
+      composer.addPass(ao);
+    }
+    composer.addPass(new ShaderPass(Clamp));
+    composer.addPass(new UnrealBloomPass(new THREE.Vector2(low ? W / 2 : W, low ? H / 2 : H), time.bloom, 0.5, time.bt ?? 1.0));
+    composer.addPass(new OutputPass());
+    if (!low) composer.addPass(new SMAAPass());
+    composer.addPass(new ShaderPass(FilmFinish));
+  }
+
+  // ---------- loop ----------
+  let fly = null; // { from, to, fromTarget, toTarget, t }
+  function focusVignette(i) {
+    const plot = island?.plots?.[i];
+    if (!plot) return;
+    const toTarget = new THREE.Vector3(plot.x, 0.6, plot.z);
+    const out = new THREE.Vector3(Math.sin(plot.rot), 0, Math.cos(plot.rot));
+    const d = plot.radius * 3.6;
+    const to = toTarget.clone().addScaledVector(out, d * Math.cos(deg(32))).setY(toTarget.y + d * Math.sin(deg(32)));
+    fly = { from: camera.position.clone(), to, fromTarget: controls.target.clone(), toTarget, t: 0 };
+  }
+
+  let frames = 0, raf = 0, disposed = false;
+  renderer.info.autoReset = false;
+  let last = performance.now();
+  function frame() {
+    if (disposed) return;
+    const now = performance.now(), dt = Math.min(0.1, (now - last) / 1000); last = now;
+    if (fly) {
+      fly.t = Math.min(1, fly.t + dt / 1.1);
+      const e = fly.t < 0.5 ? 2 * fly.t * fly.t : 1 - (-2 * fly.t + 2) ** 2 / 2;
+      camera.position.lerpVectors(fly.from, fly.to, e);
+      controls.target.lerpVectors(fly.fromTarget, fly.toTarget, e);
+      if (fly.t >= 1) fly = null;
+    }
+    controls.update();
+    renderer.info.reset();
+    composer ? composer.render() : renderer.render(scene, camera);
+    if (++frames === 3) {
+      stats.triangles = renderer.info.render.triangles;
+      stats.drawCalls = renderer.info.render.calls;
+      o.onReady?.(stats);
+    }
+    if (!o.still || frames < 4) raf = requestAnimationFrame(frame);
+  }
+  frame();
+
+  return {
+    renderer, scene, camera, controls, stats, island,
+    setSize(w, h) {
+      W = w; H = h;
+      renderer.setSize(w, h);
+      composer?.setSize(w, h);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    },
+    focusVignette,
+    dispose() {
+      disposed = true;
+      cancelAnimationFrame(raf);
+      controls.dispose();
+      scene.traverse((m) => {
+        m.geometry?.dispose?.();
+        const mats = Array.isArray(m.material) ? m.material : m.material ? [m.material] : [];
+        for (const mm of mats) { for (const v of Object.values(mm)) if (v?.isTexture) v.dispose(); mm.dispose(); }
+      });
+      composer?.dispose?.();
+      pmrem.dispose();
+      renderer.dispose();
+      renderer.domElement.remove();
+    },
+  };
+}

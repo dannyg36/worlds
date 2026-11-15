@@ -1,0 +1,45 @@
+{
+  "title": "Layout test",
+  "caption": "Five small plots to test island layout, paths and filler.",
+  "time": "golden-hour",
+  "biome": "meadow",
+  "landmark": { "type": "tree", "kind": "olive", "height": 5 },
+  "cast": [
+    { "name": "me", "skin": "#e0ac69", "shirt": "#3b6ea5", "pants": "#2d2d3a", "hair": "#2b1d14", "hairStyle": "short" }
+  ],
+  "vignettes": [
+    { "title": "Morning coffee", "moment": "Coffee at the counter.", "hero": false, "size": "small", "surface": "tile",
+      "objects": [
+        { "type": "counter", "at": [0, -1], "id": "c" },
+        { "type": "mug", "on": "c", "at": [0.3, 0] },
+        { "type": "person", "who": "me", "pose": "stand", "at": [0, 0.2], "rot": 180 }
+      ] },
+    { "title": "Bus stop", "moment": "Waiting for the bus.", "hero": false, "size": "medium", "surface": "asphalt",
+      "objects": [
+        { "type": "wall", "at": [0, -2.2], "length": 3, "height": 2 },
+        { "type": "bench", "at": [0, -1] },
+        { "type": "person", "who": "me", "pose": "stand", "at": [0.8, 0], "holding": "umbrella" }
+      ] },
+    { "title": "The big moment", "moment": "Everyone cheers.", "hero": true, "size": "large", "surface": "cobblestone",
+      "objects": [
+        { "type": "table", "at": [0, 0], "id": "t", "size": [2.2, 1] },
+        { "type": "cake", "on": "t", "at": [0, 0], "sparkler": true },
+        { "type": "chair", "at": [-0.6, -0.8] },
+        { "type": "person", "pose": "sit", "at": [-0.6, -0.8] },
+        { "type": "chair", "at": [0.6, -0.8] },
+        { "type": "person", "who": "me", "pose": "sit", "at": [0.6, -0.8] },
+        { "type": "person", "pose": "cheer", "at": [1.6, -0.2], "rot": -60 }
+      ] },
+    { "title": "Walk home", "moment": "A quiet walk.", "hero": false, "size": "small", "surface": "grass",
+      "objects": [
+        { "type": "lamp-post", "at": [-0.8, -0.8] },
+        { "type": "person", "who": "me", "pose": "walk", "at": [0.2, 0.2], "rot": 90 }
+      ] },
+    { "title": "Bedtime", "moment": "Lights out.", "hero": false, "size": "medium", "surface": "wood",
+      "objects": [
+        { "type": "shelf", "at": [0, -2], "size": [1.4, 1.6] },
+        { "type": "potted-plant", "at": [1.2, -1.6] },
+        { "type": "lantern", "at": [-1, -1.6] }
+      ] }
+  ]
+}

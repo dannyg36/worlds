@@ -26,6 +26,7 @@ import { Aurora } from "@/world/aurora";
 import { auroraBase } from "@/world/color";
 import { GlassCard } from "@/world/glass-card";
 import { WorldForming } from "@/world/forming";
+import IslandViewer from "@/world/island-viewer";
 import WorldViewer from "@/world/viewer";
 import {
   defaultPalette,
@@ -77,25 +78,45 @@ function WorldScene({ world }: { world: World }) {
   const insets = useSafeAreaInsets();
   const palette = worldPalette(world);
   const failed = world.status === "failed";
-  const modelUrl = failed ? undefined : world.modelUrl;
-  const [readyUrl, setReadyUrl] = useState<string | null>(null);
+  const scene = failed ? undefined : world.scene;
+  const modelUrl = failed || scene ? undefined : world.modelUrl;
+  const source = scene ?? modelUrl;
+  const [readySource, setReadySource] = useState<string | null>(null);
   const [progress, setProgress] = useState<{
     url: string;
     fraction: number;
   } | null>(null);
   const [modelError, setModelError] = useState<{
-    url: string;
+    source: string;
     message: string;
   } | null>(null);
   const [attempt, setAttempt] = useState(0);
   const [walking, setWalking] = useState(false);
   const [cardHeight, setCardHeight] = useState(150);
   const sawForming = useRef(isForming(world));
-  const viewerReady = modelUrl !== undefined && readyUrl === modelUrl;
+  const viewerReady = source !== undefined && readySource === source;
   const errorMessage =
-    modelError && modelError.url === modelUrl ? modelError.message : null;
+    modelError && modelError.source === source ? modelError.message : null;
   const showOverlay =
-    !failed && (isForming(world) || (modelUrl !== undefined && !viewerReady));
+    !failed &&
+    (scene !== undefined
+      ? !viewerReady
+      : isForming(world) || (modelUrl !== undefined && !viewerReady));
+  const insetTop = insets.top + 52;
+  const insetBottom = walking ? insets.bottom : insets.bottom + cardHeight + 16;
+
+  async function handleReady() {
+    setReadySource(source ?? null);
+    if (sawForming.current) {
+      void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    }
+  }
+
+  async function handleError(message: string) {
+    if (source !== undefined) {
+      setModelError({ source, message });
+    }
+  }
 
   useEffect(() => {
     if (isForming(world)) {
@@ -106,7 +127,7 @@ function WorldScene({ world }: { world: World }) {
   if (failed) {
     return <FailedWorld world={world} />;
   }
-  if (!modelUrl && !isForming(world)) {
+  if (!source && !isForming(world)) {
     return <QuietWorld world={world} />;
   }
 
@@ -114,7 +135,8 @@ function WorldScene({ world }: { world: World }) {
     <View style={[styles.screen, { backgroundColor: auroraBase(palette) }]}>
       <Stack.Screen
         options={{
-          headerRight: viewerReady
+          headerRight:
+            viewerReady && modelUrl
             ? () => (
                 <Pressable
                   accessibilityRole="button"
@@ -141,46 +163,55 @@ function WorldScene({ world }: { world: World }) {
             : undefined,
         }}
       />
-      {modelUrl ? (
+      {source ? (
         <View style={StyleSheet.absoluteFill}>
-          <WorldViewer
-            key={`${modelUrl}#${attempt}`}
-            modelUrl={modelUrl}
-            palette={palette}
-            insetTop={insets.top + 52}
-            insetBottom={
-              walking ? insets.bottom : insets.bottom + cardHeight + 16
-            }
-            walking={walking}
-            showStats={showStats}
-            onProgress={async (fraction) =>
-              setProgress({ url: modelUrl, fraction })
-            }
-            onReady={async () => {
-              setReadyUrl(modelUrl);
-              if (sawForming.current) {
-                void Haptics.notificationAsync(
-                  Haptics.NotificationFeedbackType.Success,
-                );
+          {scene ? (
+            <IslandViewer
+              key={`island#${attempt}`}
+              sceneJson={scene}
+              insetTop={insetTop}
+              insetBottom={insetBottom}
+              onReady={handleReady}
+              onError={handleError}
+              dom={{
+                style: { flex: 1, backgroundColor: auroraBase(palette) },
+                scrollEnabled: false,
+                bounces: false,
+                contentInsetAdjustmentBehavior: "never",
+                automaticallyAdjustContentInsets: false,
+                onContentProcessDidTerminate: () =>
+                  setAttempt((current) => current + 1),
+              }}
+            />
+          ) : modelUrl ? (
+            <WorldViewer
+              key={`${modelUrl}#${attempt}`}
+              modelUrl={modelUrl}
+              palette={palette}
+              insetTop={insetTop}
+              insetBottom={insetBottom}
+              walking={walking}
+              showStats={showStats}
+              onProgress={async (fraction) =>
+                setProgress({ url: modelUrl, fraction })
               }
-            }}
-            onError={async (message) =>
-              setModelError({ url: modelUrl, message })
-            }
-            onTap={async () => {
-              void Haptics.selectionAsync();
-            }}
-            onWalkingChange={async (value) => setWalking(value)}
-            dom={{
-              style: { flex: 1, backgroundColor: auroraBase(palette) },
-              scrollEnabled: false,
-              bounces: false,
-              contentInsetAdjustmentBehavior: "never",
-              automaticallyAdjustContentInsets: false,
-              onContentProcessDidTerminate: () =>
-                setAttempt((current) => current + 1),
-            }}
-          />
+              onReady={handleReady}
+              onError={handleError}
+              onTap={async () => {
+                void Haptics.selectionAsync();
+              }}
+              onWalkingChange={async (value) => setWalking(value)}
+              dom={{
+                style: { flex: 1, backgroundColor: auroraBase(palette) },
+                scrollEnabled: false,
+                bounces: false,
+                contentInsetAdjustmentBehavior: "never",
+                automaticallyAdjustContentInsets: false,
+                onContentProcessDidTerminate: () =>
+                  setAttempt((current) => current + 1),
+              }}
+            />
+          ) : null}
           <InfoCard
             world={world}
             visible={viewerReady && !walking}

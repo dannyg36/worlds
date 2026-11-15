@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
     "@expo-google-fonts/instrument-serif": "^0.4.1",
     "@expo/ui": "~58.0.28",
     "convex": "^1.50.0",
@@ -41,8 +42,8 @@
   "devDependencies": {
     "@edge-runtime/vm": "^5.0.0",
     "@types/react": "~19.3.0",
-    "convex-test": "^0.0.71",
     "@types/three": "^0.187.0",
+    "convex-test": "^0.0.71",
     "eslint": "^9.0.0",
     "eslint-config-expo": "~58.0.4",
     "typescript": "~6.0.3",
@@ -55,7 +56,8 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "test": "vitest",
-    "dev:backend": "convex dev"
+    "dev:backend": "convex dev",
+    "sync:island": "node tools/sync-island-kit.mjs"
   },
   "private": true
 }

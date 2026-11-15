@@ -5,6 +5,6 @@ const expoConfig = require('eslint-config-expo/flat');
 module.exports = defineConfig([
   expoConfig,
   {
-    ignores: ['dist/*', 'research/**', 'tools/**', 'spike/**'],
+    ignores: ['dist/*', 'research/**', 'tools/**', 'spike/**', 'src/world/island/kit/**'],
   },
 ]);

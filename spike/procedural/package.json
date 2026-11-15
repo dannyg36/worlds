@@ -4,6 +4,7 @@
   "type": "module",
   "description": "Spike: an LLM writes a scene spec and a three.js kit renders it as a diorama.",
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
     "playwright-core": "1.65.1",
     "three": "0.187.0"
   }
