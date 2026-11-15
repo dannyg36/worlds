@@ -29,7 +29,7 @@ sequenceDiagram
 - `devices` stores only `sha256(secret)`. `register` is idempotent and takes 32 to 256 characters.
 - `tokenIdentifier` is `<CONVEX_CLOUD_URL>|<devices id>`. Everything per-person keys off it, as CREW.md asks.
 - `compassionate-goose-961` already serves an ES256 key set at `https://compassionate-goose-961.convex.cloud/.well-known/jwks.json` (checked with curl, HTTP 200).
-- The client is `src/profiles/DeviceProfileProvider.tsx`. It wraps the app in `ConvexProviderWithAuth`, exchanges the secret for a token over `ConvexHttpClient` (retrying after 1 and 4 seconds), and gates the app: a spinner, then "Couldn't reach worlds" with Try again, then onboarding, then the app.
+- The client is `src/profiles/DeviceProfileProvider.tsx`. It wraps the app in `ConvexProviderWithAuth`, exchanges the secret for a token over `ConvexHttpClient`, and gates the app: a spinner, then "Couldn't reach worlds" with Try again, then onboarding, then the app. The first sign-in retries after 1 and 4 seconds, then shows that error. A token refresh (hourly) keeps retrying every 10 seconds until the network is back, so a phone that goes offline stays in the app and keeps unsaved drafts, such as the record sheet's words.
 
 ## Data model and functions
 
@@ -61,6 +61,7 @@ Public functions are `deviceAuth.register` and `token`; `profiles.me` and `creat
   - once Ana shares, Ben's feed shows her world;
   - `worlds.add` schedules `memory.remember`.
 - **Two profiles on Expo web.** Two origins (`localhost:8081` and `127.0.0.1:8081`) give each profile its own localStorage. Ana picked a name and added a world, which showed "Only you can see this". Ben opened Ana's invite link and saw "Ana invited you". After he picked a name, it said "You and Ana are friends", and Ana's Friends list showed Ben without a reload. Ben's feed stayed empty until Ana tapped Share, then her world appeared in Ben's open tab without a reload. After merging main, home shows the Friends link, the share row and the Record your day button. Screenshots are in the Captain drive under `renders/YCCO-16/`.
+- **A token refresh while offline (from the review of worlds#8).** I set the token lifetime to 30 seconds locally (not committed), typed a draft, and stopped the backend for 40 seconds. Before the fix, the app was replaced by "Couldn't reach worlds" and the draft was lost. After it, the draft stayed on screen, and once the backend was back it saved as Ana's world without a reload. Renders 10 to 12 show this.
 - `npx tsc --noEmit` (after `npx expo customize tsconfig.json`, as CI does), `npx expo lint`, `npx -y expo-doctor` (20/20) and Prettier all pass.
 
 ## Not checked on iOS
