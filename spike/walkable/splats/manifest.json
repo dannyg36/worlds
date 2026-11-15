@@ -1,0 +1,91 @@
+{
+  "note": "Everything the splats page loads. fetch-assets.mjs downloads each url into assets/<path> and checks bytes and sha256. Splat files made by this spike are uploaded to fal storage (fal CDN URLs); vendor libs are pinned jsDelivr URLs; marble-* are World Labs' public example exports, used only as a reference.",
+  "vendor": [
+    {
+      "path": "vendor/three.module.js",
+      "url": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "bytes": 603113,
+      "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a"
+    },
+    {
+      "path": "vendor/three.core.js",
+      "url": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.core.js",
+      "bytes": 1403455,
+      "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20"
+    },
+    {
+      "path": "vendor/addons/postprocessing/Pass.js",
+      "url": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/postprocessing/Pass.js",
+      "bytes": 4218,
+      "sha256": "444b409c235ead986893c472e720da1b779a56985c7d10b279c7944b52bd61c5"
+    },
+    {
+      "path": "vendor/spark.module.min.js",
+      "url": "https://cdn.jsdelivr.net/npm/@sparkjsdev/spark@2.4.0/dist/spark.module.min.js",
+      "bytes": 2852378,
+      "sha256": "a2f01f68dbcd5e060d55348f803e509fc789b97904e01b98763fcf0314351aaf"
+    }
+  ],
+  "assets": [
+    {
+      "id": "marble-kitchen-500k",
+      "path": "marble/rustic_kitchen_500k.spz",
+      "url": "https://wlt-ai-cdn.art/example_exports/rustic_kitchen_with_natural_light/rustic_kitchen_with_natural_light_500k.spz",
+      "bytes": 7582907,
+      "sha256": "351f5f2ceb6ee9095a4b4100f864db9780a21cc6bdb8a70c6f88117cbb1d5fe0",
+      "day": "*",
+      "src": "marble",
+      "kind": "marble-reference",
+      "label": "Marble example: rustic kitchen (500k)",
+      "splats_nominal": 500000,
+      "view": {
+        "mode": "walk",
+        "rotateX180": true,
+        "radius": 2.5
+      }
+    },
+    {
+      "id": "marble-kitchen-2m",
+      "path": "marble/rustic_kitchen_2m.spz",
+      "url": "https://wlt-ai-cdn.art/example_exports/rustic_kitchen_with_natural_light/rustic_kitchen_with_natural_light_2m.spz",
+      "bytes": 30268621,
+      "sha256": "aa1476697da1bc8a0492d0c59fa7732592727efed856d3e6ac1429b621df6157",
+      "day": "*",
+      "src": "marble2m",
+      "kind": "marble-reference",
+      "label": "Marble example: rustic kitchen (2M)",
+      "splats_nominal": 2000000,
+      "view": {
+        "mode": "walk",
+        "rotateX180": true,
+        "radius": 2.5
+      }
+    },
+    {
+      "id": "marble-lane-500k",
+      "path": "marble/cobblestone_lane_500k.spz",
+      "url": "https://wlt-ai-cdn.art/example_exports/narrow_european_cobblestone_lane/narrow_european_cobblestone_lane_500k.spz",
+      "bytes": 7708443,
+      "sha256": "f9133e75d4fa9c122e1d036b204042a8e164d5d06f635069e1480e3dcf75e099",
+      "day": "*",
+      "src": "marble-outdoor",
+      "kind": "marble-reference",
+      "label": "Marble example: cobblestone lane (500k)",
+      "splats_nominal": 500000,
+      "view": {
+        "mode": "walk",
+        "rotateX180": true,
+        "radius": 4
+      }
+    },
+    {
+      "id": "marble-kitchen-pano",
+      "path": "marble/rustic_kitchen_pano.png",
+      "url": "https://wlt-ai-cdn.art/example_exports/rustic_kitchen_with_natural_light/rustic_kitchen_with_natural_light_pano.png",
+      "bytes": 3860086,
+      "sha256": "bfbc06994ff0ca492b486b3d270f3196fb6b1fb103c7e836a648af8946c8d16c",
+      "kind": "pano-input",
+      "label": "Marble example pano (2560x1280), input for a like-for-like pano->splat comparison"
+    }
+  ]
+}
