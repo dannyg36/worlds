@@ -1,0 +1,26 @@
+{
+  "root": {
+    "cap_usd": 4,
+    "owner": "YCCO-10 root: shared base images"
+  },
+  "skybox": {
+    "cap_usd": 5,
+    "owner": "Subagent: 360 panorama skybox + diorama"
+  },
+  "pano3d": {
+    "cap_usd": 5,
+    "owner": "Subagent: panorama to 3D (HunyuanWorld layered mesh, depth mesh)"
+  },
+  "splats": {
+    "cap_usd": 6,
+    "owner": "Subagent: Gaussian splats + phone rendering"
+  },
+  "worldmodels": {
+    "cap_usd": 12,
+    "owner": "Subagent: real-time world models over WebRTC"
+  },
+  "composite": {
+    "cap_usd": 8,
+    "owner": "Subagent: scene spec -> separate assets laid out procedurally"
+  }
+}

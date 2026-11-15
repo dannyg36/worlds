@@ -1,0 +1,13 @@
+node_modules/
+assets/
+out/
+*.glb
+*.gltf
+*.ply
+*.spz
+*.splat
+*.ksplat
+*.drc
+*.mp4
+*.webm
+*.mov

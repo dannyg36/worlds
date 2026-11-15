@@ -1,0 +1,4 @@
+{
+  "note": "Shared base images per primary day. Filled in by the YCCO-10 root once FAL_KEY lands; URLs are fal CDN links.",
+  "days": {}
+}
