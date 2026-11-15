@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { dropInvalidObjects, objectErrors, parseOutline } from "./island";
+import { dropInvalidObjects, islandPhoto, objectErrors, parseOutline } from "./island";
 
 const BRIEF = { title: "Pier", moment: "We play guitar on the pier.", size: "medium" };
 const OUTLINE = {
@@ -70,5 +70,47 @@ describe("vignette objects", () => {
       objects[1],
       objects[8],
     ]);
+  });
+});
+
+describe("photos", () => {
+  test("parseOutline keeps each numbered photo once and gives the rest to the hero", () => {
+    const outline = parseOutline(
+      JSON.stringify({
+        ...OUTLINE,
+        vignettes: [
+          { ...BRIEF, photos: [2, "Photo 1"] },
+          { ...BRIEF, hero: true, photos: [] },
+          { ...BRIEF, photos: [2, 9, 0, "two"] },
+          BRIEF,
+        ],
+      }),
+      4,
+    );
+    expect(outline.vignettes.map((vignette) => vignette.photos)).toEqual([[0, 1], [2, 3], [], []]);
+  });
+
+  test("parseOutline adds no photos to a day without them", () => {
+    const outline = parseOutline(
+      JSON.stringify({ ...OUTLINE, vignettes: [{ ...BRIEF, photos: [1] }, BRIEF, BRIEF, BRIEF] }),
+    );
+    expect(outline.vignettes.some((vignette) => "photos" in vignette)).toBe(false);
+  });
+
+  test("islandPhoto reads JPEG, PNG, GIF and WebP and skips anything else", () => {
+    const bytes = (...parts: (number | string)[]) =>
+      new Uint8Array(
+        parts.flatMap((part) =>
+          typeof part === "string" ? [...part].map((char) => char.charCodeAt(0)) : [part],
+        ),
+      );
+    expect(islandPhoto(bytes(0xff, 0xd8, 0xff, 0xe0))).toEqual({
+      mediaType: "image/jpeg",
+      data: "/9j/4A==",
+    });
+    expect(islandPhoto(bytes(0x89, "PNG\r\n"))?.mediaType).toBe("image/png");
+    expect(islandPhoto(bytes("GIF89a"))?.mediaType).toBe("image/gif");
+    expect(islandPhoto(bytes("RIFF", 0, 0, 0, 0, "WEBPVP8 "))?.mediaType).toBe("image/webp");
+    expect(islandPhoto(bytes("<svg>"))).toBeNull();
   });
 });

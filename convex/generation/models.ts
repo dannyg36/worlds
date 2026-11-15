@@ -1,7 +1,7 @@
 import { CLAUDE_MODEL } from "./anthropic";
 import { fal } from "./fal";
 import { gmiChat, gmiQueue } from "./gmi";
-import { claudeIsland, islandScene, type Island } from "./island";
+import { claudeIsland, islandScene, type Island, type IslandPhoto } from "./island";
 import type { Provider } from "./provider";
 import { parseScene, type Scene } from "./scene";
 import {
@@ -25,7 +25,7 @@ export type Model<Input, Output> = {
 export type Dream = { scene: Scene; island?: string };
 
 type Models = {
-  dreaming: Model<{ transcript: string; cast: string }, Dream>;
+  dreaming: Model<{ transcript: string; cast: string; photos?: IslandPhoto[] }, Dream>;
   painting: Model<Scene, string>;
   sculpting: Model<string, string>;
   /** Run the image-to-3D step after painting. Off while the island renderer replaces it. */
@@ -35,7 +35,7 @@ type Models = {
 export const claudeIslandWriter: Models["dreaming"] = {
   provider: claudeIsland,
   id: CLAUDE_MODEL,
-  input: ({ transcript, cast }) => ({ transcript, cast }),
+  input: ({ transcript, cast, photos = [] }) => ({ transcript, cast, photos }),
   output: (result) => {
     if (typeof result !== "string") {
       throw new Error("The island writer returned no island.");

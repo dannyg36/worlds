@@ -24,6 +24,8 @@ export type World = {
   imageUrl?: string;
   modelUrl?: string;
   scene?: string;
+  /** Photos shared with the transcript, in the order they were added; null for one that's gone. */
+  photos?: (string | null)[];
   error?: string;
   shared?: boolean;
 };

@@ -234,6 +234,47 @@ describe("generation", () => {
     expect(await storedFiles(t)).toEqual([`/gmi-test/${paint.id}.jpg`]);
   });
 
+  test("shows the outline the day's photos and keeps which vignette each one shows", async () => {
+    const jpeg = new Uint8Array([0xff, 0xd8, 0xff, 0xe0]);
+    const t = signedInTest();
+    const photos = await t.run(async (ctx) => [
+      await ctx.storage.store(new Blob([jpeg], { type: "image/jpeg" })),
+      await ctx.storage.store(new Blob(["not really a png"], { type: "image/png" })),
+      await ctx.storage.store(new Blob([jpeg], { type: "image/jpeg" })),
+    ]);
+    claude.script("outline", undefined, {
+      ...OUTLINE,
+      vignettes: OUTLINE.vignettes.map((vignette, index) => ({
+        ...vignette,
+        photos: index === 2 ? ["Photo 1"] : [],
+      })),
+    });
+    const id = await t.mutation(api.worlds.add, { transcript: TRANSCRIPT, photos });
+    await settle(t);
+
+    expect((await world(t, id)).status).toBe("ready");
+    const [outline, ...vignettes] = claude.calls;
+    // The unreadable second photo is left out, and the others keep their numbers.
+    expect(outline.images).toEqual([
+      { label: "Photo 1", mediaType: "image/jpeg", data: "/9j/4A==" },
+      { label: "Photo 3", mediaType: "image/jpeg", data: "/9j/4A==" },
+    ]);
+    expect(outline.user).toContain("shared 2 photos from the day");
+    expect(vignettes).toHaveLength(4);
+    for (const call of vignettes) {
+      expect(call.images ?? []).toEqual([]);
+      expect(call.user).not.toContain('"photos"');
+    }
+    // Photo 1 goes where the outline put it; the hero takes the two nobody named.
+    const { vignettes: written } = await island(t, id);
+    expect(written.map((vignette: { photos: number[] }) => vignette.photos)).toEqual([
+      [],
+      [1, 2],
+      [0],
+      [],
+    ]);
+  });
+
   test("repairs a vignette that comes back invalid", async () => {
     const broken = [
       { type: "spaceship", at: [0, 0] },

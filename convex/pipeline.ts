@@ -7,6 +7,7 @@ import {
   type ActionCtx,
   type MutationCtx,
 } from "./_generated/server";
+import { islandPhoto } from "./generation/island";
 import { models } from "./generation/models";
 import { download, ProviderError, type Check } from "./generation/provider";
 import { generationStep, scene } from "./generation/tables";
@@ -129,6 +130,7 @@ export const runStep = internalAction({
                 task.transcript,
                 await memorySpace(task.ownerTokenIdentifier),
               ),
+              photos: await readPhotos(ctx, task.photos),
             })
           : task.input;
       const submission = await model.provider.submit(
@@ -208,6 +210,7 @@ export const beginTask = internalMutation({
       attempt,
       input,
       transcript: world.transcript,
+      photos: world.photos ?? [],
       ownerTokenIdentifier: world.ownerTokenIdentifier,
     };
   },
@@ -525,6 +528,16 @@ async function complete(
     ...details,
     output: await storeOutput(ctx, step, result),
   });
+}
+
+/** The world's photos for the island writer, in order, with null for any that can't be read. */
+async function readPhotos(ctx: ActionCtx, photos: Id<"_storage">[]) {
+  return await Promise.all(
+    photos.map(async (photo) => {
+      const blob = await ctx.storage.get(photo);
+      return blob && islandPhoto(new Uint8Array(await blob.arrayBuffer()));
+    }),
+  );
 }
 
 async function storeOutput(

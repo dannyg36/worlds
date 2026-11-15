@@ -1,4 +1,4 @@
-import { claudeText, type ClaudeRequest } from "./anthropic";
+import { claudeText, type ClaudeImage, type ClaudeRequest, type ImageType } from "./anthropic";
 import { ISLAND_SYSTEM_PROMPT } from "./islandPrompt";
 import { asRecord, ProviderError, type Provider } from "./provider";
 import type { Scene } from "./scene";
@@ -40,6 +40,8 @@ export type Vignette = {
   hero: boolean;
   size: Size;
   surface?: string;
+  /** Indexes into the world's photos of the ones that show this moment; set when the day has photos. */
+  photos?: number[];
   objects: IslandObject[];
 };
 export type Island = {
@@ -53,7 +55,9 @@ export type Island = {
   vignettes: Vignette[];
 };
 type Outline = Omit<Island, "vignettes"> & { vignettes: Omit<Vignette, "objects">[] };
-export type IslandInput = { transcript: string; cast: string };
+/** A photo of the day as Claude takes it; null where a stored photo couldn't be read, so the numbers still line up. */
+export type IslandPhoto = { mediaType: ImageType; data: string } | null;
+export type IslandInput = { transcript: string; cast: string; photos?: IslandPhoto[] };
 export type Complete = (request: Omit<ClaudeRequest, "model">) => Promise<string>;
 
 const HEX_COLOR = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i;
@@ -62,7 +66,7 @@ const HEX_COLOR = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i;
 export const claudeIsland: Provider = {
   name: "anthropic",
   submit: async (model, input, timeoutMs) => {
-    const { transcript, cast } = asRecord(input);
+    const { transcript, cast, photos } = asRecord(input);
     const deadline = new AbortController();
     const timer = setTimeout(() => deadline.abort(), timeoutMs);
     try {
@@ -70,6 +74,7 @@ export const claudeIsland: Provider = {
         {
           transcript: typeof transcript === "string" ? transcript : "",
           cast: typeof cast === "string" ? cast : "",
+          photos: Array.isArray(photos) ? (photos as IslandPhoto[]) : [],
         },
         (request) =>
           claudeText({ ...request, model }, { timeoutMs, signal: deadline.signal }),
@@ -85,15 +90,20 @@ export const claudeIsland: Provider = {
 };
 
 export async function writeIsland(
-  { transcript, cast }: IslandInput,
+  { transcript, cast, photos = [] }: IslandInput,
   complete: Complete,
 ): Promise<Island> {
+  const images = photos.flatMap((photo, index): ClaudeImage[] =>
+    photo ? [{ label: `Photo ${index + 1}`, ...photo }] : [],
+  );
   const outline = parseOutline(
     await complete({
       system: ISLAND_SYSTEM_PROMPT,
-      user: outlinePrompt(transcript, cast),
+      user: outlinePrompt(transcript, cast, images.length),
+      images,
       effort: "medium",
     }),
+    images.length ? photos.length : 0,
   );
   const vignettes = await Promise.all(
     outline.vignettes.map(async (brief, index) => {
@@ -143,17 +153,24 @@ export function islandScene(island: Island): Scene {
   };
 }
 
-function outlinePrompt(transcript: string, cast: string) {
+function outlinePrompt(transcript: string, cast: string, photoCount: number) {
   const note = `Voice note:\n"""\n${transcript}\n"""`;
-  const ask =
-    "This is the outline call of two-call mode. Reply with only the top-level JSON object for this day, with `vignettes` holding only `title`, `moment`, `hero`, `size` and `surface` (no `objects`). No prose and no code fences.";
-  return [cast, note, ask].filter(Boolean).join("\n\n");
+  const photos = photoCount
+    ? `The person also shared ${photoCount === 1 ? "a photo" : `${photoCount} photos`} from the day, shown above, each after its label. Use them with the note for how the places, people and things look. Give each vignette a \`photos\` array with the numbers of the photos that show its moment, like \`"photos": [2]\`, and put every photo in exactly one vignette: the moment it shows, or the closest one.`
+    : "";
+  const fields = photoCount
+    ? "`title`, `moment`, `hero`, `size`, `surface` and `photos`"
+    : "`title`, `moment`, `hero`, `size` and `surface`";
+  const ask = `This is the outline call of two-call mode. Reply with only the top-level JSON object for this day, with \`vignettes\` holding only ${fields} (no \`objects\`). No prose and no code fences.`;
+  return [cast, note, photos, ask].filter(Boolean).join("\n\n");
 }
 
 function vignettePrompt(outline: Outline, index: number) {
   const brief = outline.vignettes[index];
+  // Vignette calls don't see the photos, so their numbers would only confuse them.
+  const shown = JSON.stringify(outline, (key, value) => (key === "photos" ? undefined : value), 2);
   return [
-    `This is a vignette call of two-call mode. The island outline:\n${JSON.stringify(outline, null, 2)}`,
+    `This is a vignette call of two-call mode. The island outline:\n${shown}`,
     `Write vignette ${index + 1} of ${outline.vignettes.length}, "${brief.title}" (${brief.size}, plot radius ${PLOT_RADIUS[brief.size]} m): ${brief.moment}`,
     'Reply with only `{ "objects": [...] }` for this vignette. No prose and no code fences.',
   ].join("\n\n");
@@ -186,7 +203,8 @@ async function attempt(ask: () => Promise<string>, size: Size) {
   }
 }
 
-export function parseOutline(text: string): Outline {
+/** photoCount is how many photos the day has; when it's 0, vignettes get no `photos`. */
+export function parseOutline(text: string, photoCount = 0): Outline {
   const fields = asRecord(parseJsonObject(text));
   const palette = (Array.isArray(fields.palette) ? fields.palette : [])
     .map((color) => (typeof color === "string" ? color.trim() : ""))
@@ -226,6 +244,7 @@ export function parseOutline(text: string): Outline {
           0,
         );
   vignettes.forEach((vignette, index) => (vignette.hero = index === crowned));
+  const photos = placePhotos(briefs, crowned, photoCount);
   const landmark = asRecord(fields.landmark);
   return {
     title: cleanText(fields.title, "title", 60),
@@ -239,8 +258,63 @@ export function parseOutline(text: string): Outline {
     cast: (Array.isArray(fields.cast) ? fields.cast.map(asRecord) : []).filter(
       (member) => typeof member.name === "string" && member.name.trim(),
     ),
-    vignettes,
+    vignettes: photos
+      ? vignettes.map((vignette, index) => ({ ...vignette, photos: photos[index] }))
+      : vignettes,
   };
+}
+
+/**
+ * Each vignette's photos as 0-based indexes. A photo number the outline gives
+ * goes to the first vignette that names it, and the hero takes any photo
+ * nobody named, so every photo the person shared shows up somewhere.
+ */
+function placePhotos(briefs: Record<string, unknown>[], hero: number, count: number) {
+  if (count === 0) {
+    return null;
+  }
+  const placed = new Set<number>();
+  const photos = briefs.map((brief) =>
+    (Array.isArray(brief.photos) ? brief.photos : []).flatMap((value) => {
+      const number =
+        typeof value === "number" ? value : typeof value === "string" ? Number(/\d+/.exec(value)?.[0]) : NaN;
+      const photo = number - 1;
+      if (!Number.isInteger(photo) || photo < 0 || photo >= count || placed.has(photo)) {
+        return [];
+      }
+      placed.add(photo);
+      return [photo];
+    }),
+  );
+  for (let photo = 0; photo < count; photo++) {
+    if (!placed.has(photo)) {
+      photos[hero].push(photo);
+    }
+  }
+  return photos.map((list) => list.sort((a, b) => a - b));
+}
+
+/** A stored photo as Claude takes it, or null when it isn't a JPEG, PNG, GIF or WebP image. */
+export function islandPhoto(bytes: Uint8Array): IslandPhoto {
+  const text = (start: number, end: number) => String.fromCharCode(...bytes.subarray(start, end));
+  const mediaType: ImageType | null =
+    bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff
+      ? "image/jpeg"
+      : bytes[0] === 0x89 && text(1, 4) === "PNG"
+        ? "image/png"
+        : text(0, 4) === "GIF8"
+          ? "image/gif"
+          : text(0, 4) === "RIFF" && text(8, 12) === "WEBP"
+            ? "image/webp"
+            : null;
+  if (!mediaType) {
+    return null;
+  }
+  let binary = "";
+  for (let start = 0; start < bytes.length; start += 0x8000) {
+    binary += String.fromCharCode(...bytes.subarray(start, start + 0x8000));
+  }
+  return { mediaType, data: btoa(binary) };
 }
 
 /** Problems with a vignette's objects, one line each, for the repair call. */

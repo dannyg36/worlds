@@ -42,7 +42,14 @@
           "speechRecognitionPermission": "worlds turns what you say into text so it can build a world from your day."
         }
       ],
-      "expo-notifications"
+      "expo-notifications",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "worlds lets you add photos from your day so they show up in your world.",
+          "cameraPermission": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

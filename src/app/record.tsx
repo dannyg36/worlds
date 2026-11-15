@@ -27,6 +27,7 @@ import { Surface } from "@/components/ui/Surface";
 import { haptics } from "@/design/haptics";
 import { withAlpha } from "@/design/palette";
 import { color, font, layout, radius, space, type } from "@/design/tokens";
+import { DayPhotos, uploadPhotos } from "@/components/DayPhotos";
 import { type SpeechError, useSpeechToText } from "@/hooks/use-speech-to-text";
 import { isFixtureWorldId, retryFixtureWorld } from "@/world/fixtures";
 import { api } from "../../convex/_generated/api";
@@ -107,11 +108,13 @@ export default function RecordScreen() {
   const addWorld = useMutation(api.worlds.add);
   const extendWorld = useMutation(api.worlds.extend);
   const adding = worldId !== undefined;
+  const generateUploadUrl = useMutation(api.worlds.generateUploadUrl);
   const { isWebSocketConnected } = useConvexConnectionState();
   const [draft, setDraft] = useState<string | null>(canRecord ? null : "");
   const [saving, setSaving] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [photos, setPhotos] = useState<string[]>([]);
   const speech = useSpeechToText({
     maxSeconds: MAX_SECONDS,
     onFinish: setDraft,
@@ -139,7 +142,10 @@ export default function RecordScreen() {
       } else if (worldId) {
         await extendWorld({ id: worldId as Id<"worlds">, transcript: draft });
       } else {
-        await addWorld({ transcript: draft });
+        await addWorld({
+          transcript: draft,
+          photos: await uploadPhotos(photos, generateUploadUrl),
+        });
       }
       navigation.goBack();
     } catch (error) {
@@ -235,6 +241,9 @@ export default function RecordScreen() {
               multiline
               style={styles.entry}
             />
+            {!adding && (
+              <DayPhotos photos={photos} onChange={setPhotos} disabled={saving} />
+            )}
             <View style={styles.actions}>
               <Button
                 label={

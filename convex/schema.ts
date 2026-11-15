@@ -6,6 +6,8 @@ export default defineSchema({
   worlds: defineTable({
     ownerTokenIdentifier: v.string(),
     transcript: v.string(),
+    /** Photos shared with the transcript, in the order they were added. */
+    photos: v.optional(v.array(v.id("_storage"))),
     shared: v.optional(v.boolean()),
     ...worldGenerationFields,
   })

@@ -89,6 +89,25 @@ describe("claudeText", () => {
     });
   });
 
+  test("sends each image after its label and before the prompt", async () => {
+    const calls = stubClaude("{}");
+
+    await claudeText(
+      { ...REQUEST, images: [{ label: "Photo 1", mediaType: "image/jpeg", data: "/9j/4A==" }] },
+      { timeoutMs: 60_000 },
+    );
+    expect(calls[0].body.messages).toEqual([
+      {
+        role: "user",
+        content: [
+          { type: "text", text: "Photo 1" },
+          { type: "image", source: { type: "base64", media_type: "image/jpeg", data: "/9j/4A==" } },
+          { type: "text", text: "Write vignette 1 of 4." },
+        ],
+      },
+    ]);
+  });
+
   test("throws on a refusal or a reply cut off at max_tokens", async () => {
     stubClaude("I can't", "refusal");
     await expect(claudeText(REQUEST, { timeoutMs: 60_000 })).rejects.toThrow(
