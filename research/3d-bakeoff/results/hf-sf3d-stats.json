@@ -1,0 +1,490 @@
+{
+  "hf-sf3d/birthday-dinner": {
+    "file_bytes": 1600416,
+    "triangles": 29140,
+    "points": 0,
+    "lines": 0,
+    "vertices": 28593,
+    "primitives": 1,
+    "meshes": 1,
+    "modes": [
+      4
+    ],
+    "vertex_colors": false,
+    "materials": 1,
+    "material_detail": [
+      {
+        "unlit": false,
+        "metallic": 0,
+        "roughness": 0.9498025178909302,
+        "doubleSided": false,
+        "alpha": "OPAQUE",
+        "maps": [
+          "BaseColor",
+          "Normal"
+        ]
+      }
+    ],
+    "textures": 2,
+    "texture_max_px": 1024,
+    "texture_bytes": 333988,
+    "texture_detail": [
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 161032,
+        "slots": [
+          "baseColorTexture"
+        ]
+      },
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 172956,
+        "slots": [
+          "normalTexture"
+        ]
+      }
+    ],
+    "pbr_maps": [
+      "BaseColor",
+      "Normal"
+    ],
+    "bounds_dims": [
+      0.9602,
+      0.874,
+      0.7346
+    ],
+    "extensions": [],
+    "generator": "glTF-Transform v4.5.1"
+  },
+  "hf-sf3d/dolores-park": {
+    "file_bytes": 1148836,
+    "triangles": 24156,
+    "points": 0,
+    "lines": 0,
+    "vertices": 17570,
+    "primitives": 1,
+    "meshes": 1,
+    "modes": [
+      4
+    ],
+    "vertex_colors": false,
+    "materials": 1,
+    "material_detail": [
+      {
+        "unlit": false,
+        "metallic": 0,
+        "roughness": 1,
+        "doubleSided": false,
+        "alpha": "OPAQUE",
+        "maps": [
+          "BaseColor",
+          "Normal"
+        ]
+      }
+    ],
+    "textures": 2,
+    "texture_max_px": 1024,
+    "texture_bytes": 294972,
+    "texture_detail": [
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 145200,
+        "slots": [
+          "baseColorTexture"
+        ]
+      },
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 149772,
+        "slots": [
+          "normalTexture"
+        ]
+      }
+    ],
+    "pbr_maps": [
+      "BaseColor",
+      "Normal"
+    ],
+    "bounds_dims": [
+      0.9963,
+      0.742,
+      0.8811
+    ],
+    "extensions": [],
+    "generator": "glTF-Transform v4.5.1"
+  },
+  "hf-sf3d/farmers-market": {
+    "file_bytes": 1446724,
+    "triangles": 30204,
+    "points": 0,
+    "lines": 0,
+    "vertices": 23729,
+    "primitives": 1,
+    "meshes": 1,
+    "modes": [
+      4
+    ],
+    "vertex_colors": false,
+    "materials": 1,
+    "material_detail": [
+      {
+        "unlit": false,
+        "metallic": 0.09363408386707306,
+        "roughness": 0.9979739785194397,
+        "doubleSided": false,
+        "alpha": "OPAQUE",
+        "maps": [
+          "BaseColor",
+          "Normal"
+        ]
+      }
+    ],
+    "textures": 2,
+    "texture_max_px": 1024,
+    "texture_bytes": 323164,
+    "texture_detail": [
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 155372,
+        "slots": [
+          "baseColorTexture"
+        ]
+      },
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 167792,
+        "slots": [
+          "normalTexture"
+        ]
+      }
+    ],
+    "pbr_maps": [
+      "BaseColor",
+      "Normal"
+    ],
+    "bounds_dims": [
+      0.9222,
+      0.7259,
+      0.7637
+    ],
+    "extensions": [],
+    "generator": "glTF-Transform v4.5.1"
+  },
+  "hf-sf3d/finals-library": {
+    "file_bytes": 1542776,
+    "triangles": 30592,
+    "points": 0,
+    "lines": 0,
+    "vertices": 26593,
+    "primitives": 1,
+    "meshes": 1,
+    "modes": [
+      4
+    ],
+    "vertex_colors": false,
+    "materials": 1,
+    "material_detail": [
+      {
+        "unlit": false,
+        "metallic": 0.026317615061998367,
+        "roughness": 0.21802958846092224,
+        "doubleSided": false,
+        "alpha": "OPAQUE",
+        "maps": [
+          "BaseColor",
+          "Normal"
+        ]
+      }
+    ],
+    "textures": 2,
+    "texture_max_px": 1024,
+    "texture_bytes": 322908,
+    "texture_detail": [
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 163328,
+        "slots": [
+          "baseColorTexture"
+        ]
+      },
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 159580,
+        "slots": [
+          "normalTexture"
+        ]
+      }
+    ],
+    "pbr_maps": [
+      "BaseColor",
+      "Normal"
+    ],
+    "bounds_dims": [
+      0.9561,
+      0.7561,
+      0.6906
+    ],
+    "extensions": [],
+    "generator": "glTF-Transform v4.5.1"
+  },
+  "hf-sf3d/hackathon": {
+    "file_bytes": 1006408,
+    "triangles": 22500,
+    "points": 0,
+    "lines": 0,
+    "vertices": 14990,
+    "primitives": 1,
+    "meshes": 1,
+    "modes": [
+      4
+    ],
+    "vertex_colors": false,
+    "materials": 1,
+    "material_detail": [
+      {
+        "unlit": false,
+        "metallic": 0,
+        "roughness": 0.2975969910621643,
+        "doubleSided": false,
+        "alpha": "OPAQUE",
+        "maps": [
+          "BaseColor",
+          "Normal"
+        ]
+      }
+    ],
+    "textures": 2,
+    "texture_max_px": 1024,
+    "texture_bytes": 254960,
+    "texture_detail": [
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 113388,
+        "slots": [
+          "baseColorTexture"
+        ]
+      },
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 141572,
+        "slots": [
+          "normalTexture"
+        ]
+      }
+    ],
+    "pbr_maps": [
+      "BaseColor",
+      "Normal"
+    ],
+    "bounds_dims": [
+      0.7816,
+      0.7447,
+      0.6667
+    ],
+    "extensions": [],
+    "generator": "glTF-Transform v4.5.1"
+  },
+  "hf-sf3d/mission-peak": {
+    "file_bytes": 1189096,
+    "triangles": 28960,
+    "points": 0,
+    "lines": 0,
+    "vertices": 19165,
+    "primitives": 1,
+    "meshes": 1,
+    "modes": [
+      4
+    ],
+    "vertex_colors": false,
+    "materials": 1,
+    "material_detail": [
+      {
+        "unlit": false,
+        "metallic": 0.0005298248142935336,
+        "roughness": 0.2521263659000397,
+        "doubleSided": false,
+        "alpha": "OPAQUE",
+        "maps": [
+          "BaseColor",
+          "Normal"
+        ]
+      }
+    ],
+    "textures": 2,
+    "texture_max_px": 1024,
+    "texture_bytes": 226516,
+    "texture_detail": [
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 120948,
+        "slots": [
+          "baseColorTexture"
+        ]
+      },
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 105568,
+        "slots": [
+          "normalTexture"
+        ]
+      }
+    ],
+    "pbr_maps": [
+      "BaseColor",
+      "Normal"
+    ],
+    "bounds_dims": [
+      1.0119,
+      0.8041,
+      0.9406
+    ],
+    "extensions": [],
+    "generator": "glTF-Transform v4.5.1"
+  },
+  "hf-sf3d/rainy-monday": {
+    "file_bytes": 1218700,
+    "triangles": 24544,
+    "points": 0,
+    "lines": 0,
+    "vertices": 18073,
+    "primitives": 1,
+    "meshes": 1,
+    "modes": [
+      4
+    ],
+    "vertex_colors": false,
+    "materials": 1,
+    "material_detail": [
+      {
+        "unlit": false,
+        "metallic": 0,
+        "roughness": 0.9909403324127197,
+        "doubleSided": false,
+        "alpha": "OPAQUE",
+        "maps": [
+          "BaseColor",
+          "Normal"
+        ]
+      }
+    ],
+    "textures": 2,
+    "texture_max_px": 1024,
+    "texture_bytes": 344068,
+    "texture_detail": [
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 171984,
+        "slots": [
+          "baseColorTexture"
+        ]
+      },
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 172084,
+        "slots": [
+          "normalTexture"
+        ]
+      }
+    ],
+    "pbr_maps": [
+      "BaseColor",
+      "Normal"
+    ],
+    "bounds_dims": [
+      0.7197,
+      0.6668,
+      0.6224
+    ],
+    "extensions": [],
+    "generator": "glTF-Transform v4.5.1"
+  },
+  "hf-sf3d/santa-cruz": {
+    "file_bytes": 1607372,
+    "triangles": 36580,
+    "points": 0,
+    "lines": 0,
+    "vertices": 26779,
+    "primitives": 1,
+    "meshes": 1,
+    "modes": [
+      4
+    ],
+    "vertex_colors": false,
+    "materials": 1,
+    "material_detail": [
+      {
+        "unlit": false,
+        "metallic": 0.0014400479849427938,
+        "roughness": 0.6162850260734558,
+        "doubleSided": false,
+        "alpha": "OPAQUE",
+        "maps": [
+          "BaseColor",
+          "Normal"
+        ]
+      }
+    ],
+    "textures": 2,
+    "texture_max_px": 1024,
+    "texture_bytes": 309696,
+    "texture_detail": [
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 153536,
+        "slots": [
+          "baseColorTexture"
+        ]
+      },
+      {
+        "mime": "image/jpeg",
+        "width": 1024,
+        "height": 1024,
+        "bytes": 156160,
+        "slots": [
+          "normalTexture"
+        ]
+      }
+    ],
+    "pbr_maps": [
+      "BaseColor",
+      "Normal"
+    ],
+    "bounds_dims": [
+      0.9579,
+      0.8503,
+      0.8815
+    ],
+    "extensions": [],
+    "generator": "glTF-Transform v4.5.1"
+  }
+}

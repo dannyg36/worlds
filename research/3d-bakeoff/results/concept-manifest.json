@@ -1,0 +1,130 @@
+{
+  "rainy-monday": {
+    "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_81154e49-f9b0-4717-9f1f-8c82d13e7499_e81322ef-d599-47d7-9865-c6e3bdb8099e.png",
+    "file": "/workspace/worlds/tools/3d-bakeoff/out/concept/rainy-monday.png",
+    "bytes": 1585692,
+    "prompt": "A single miniature tabletop diorama of a small corner coffee shop on a rainy city street: a cafe storefront with a striped awning, a window table holding a latte with cat latte art, wet pavement with puddles, and an umbrella flipped inside out by the door. Everything sits on one compact square base, and the whole diorama is centered with empty margin around it, seen from a three-quarter isometric angle about 30 degrees above. Soft, even, neutral studio lighting with no harsh shadows. Plain light grey seamless background. No text, no lettering, no border.",
+    "provider": "gmi",
+    "model": "gpt-image-2.5-flare-generate",
+    "input": {
+      "size": "1024x1024",
+      "quality": "low",
+      "output_format": "png",
+      "background": "opaque"
+    },
+    "latency_s": 13.803,
+    "request_id": "81154e49-f9b0-4717-9f1f-8c82d13e7499"
+  },
+  "santa-cruz": {
+    "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_6ab534d5-a851-4434-97ba-2814c5141e2b_9186f780-b14e-47b2-8d60-ec5f68668624.png",
+    "file": "/workspace/worlds/tools/3d-bakeoff/out/concept/santa-cruz.png",
+    "bytes": 1699066,
+    "prompt": "A single miniature tabletop diorama of a sunny California coastal cliff next to a wooden wharf: a cliffside bike path with two parked rental bicycles, a few surfers on small waves below, a clam chowder bread bowl on a wharf bench, and sea lions lounging on a floating dock. Everything sits on one compact square base, and the whole diorama is centered with empty margin around it, seen from a three-quarter isometric angle about 30 degrees above. Soft, even, neutral studio lighting with no harsh shadows. Plain light grey seamless background. No text, no lettering, no border.",
+    "provider": "gmi",
+    "model": "gpt-image-2.5-flare-generate",
+    "input": {
+      "size": "1024x1024",
+      "quality": "low",
+      "output_format": "png",
+      "background": "opaque"
+    },
+    "latency_s": 25.77,
+    "request_id": "6ab534d5-a851-4434-97ba-2814c5141e2b"
+  },
+  "dolores-park": {
+    "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_b1c55b89-d720-4628-8f91-2a5012318c60_124a8666-9c0b-45a2-9f18-76809fdc0c13.png",
+    "file": "/workspace/worlds/tools/3d-bakeoff/out/concept/dolores-park.png",
+    "bytes": 1714149,
+    "prompt": "A single miniature tabletop diorama of a grassy hillside city park on a sunny morning: a happy dog holding a tennis ball, a picnic blanket with a burrito cut in half, a few palm trees, and a frisbee lying in the grass, with a small row of city houses behind. Everything sits on one compact square base, and the whole diorama is centered with empty margin around it, seen from a three-quarter isometric angle about 30 degrees above. Soft, even, neutral studio lighting with no harsh shadows. Plain light grey seamless background. No text, no lettering, no border.",
+    "provider": "gmi",
+    "model": "gpt-image-2.5-flare-generate",
+    "input": {
+      "size": "1024x1024",
+      "quality": "low",
+      "output_format": "png",
+      "background": "opaque"
+    },
+    "latency_s": 17.589,
+    "request_id": "b1c55b89-d720-4628-8f91-2a5012318c60"
+  },
+  "birthday-dinner": {
+    "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_78505aac-479d-445b-9788-c3f23d6924e3_d3f27b23-31a2-4e5f-97f0-5517a69ca4ad.png",
+    "file": "/workspace/worlds/tools/3d-bakeoff/out/concept/birthday-dinner.png",
+    "bytes": 1646051,
+    "prompt": "A single miniature tabletop diorama of a tiny Italian restaurant patio at night: one long table set for eight with plates of pasta, a tiramisu topped with a lit sparkler, and warm string lights strung overhead between wooden posts. Everything sits on one compact square base, and the whole diorama is centered with empty margin around it, seen from a three-quarter isometric angle about 30 degrees above. Soft, even, neutral studio lighting with no harsh shadows. Plain light grey seamless background. No text, no lettering, no border.",
+    "provider": "gmi",
+    "model": "gpt-image-2.5-flare-generate",
+    "input": {
+      "size": "1024x1024",
+      "quality": "low",
+      "output_format": "png",
+      "background": "opaque"
+    },
+    "latency_s": 20.704,
+    "request_id": "78505aac-479d-445b-9788-c3f23d6924e3"
+  },
+  "finals-library": {
+    "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_325accf0-50d0-4b5b-a690-7a792fa44b64_0dba6a46-13c3-4978-ad2b-437e45693b06.png",
+    "file": "/workspace/worlds/tools/3d-bakeoff/out/concept/finals-library.png",
+    "bytes": 1582695,
+    "prompt": "A single miniature tabletop diorama of a grand library reading room on a snowy night: long wooden study tables with green desk lamps and stacks of chemistry textbooks, a mug of hot chocolate, and tall arched windows with snow outside. Everything sits on one compact square base, and the whole diorama is centered with empty margin around it, seen from a three-quarter isometric angle about 30 degrees above. Soft, even, neutral studio lighting with no harsh shadows. Plain light grey seamless background. No text, no lettering, no border.",
+    "provider": "gmi",
+    "model": "gpt-image-2.5-flare-generate",
+    "input": {
+      "size": "1024x1024",
+      "quality": "low",
+      "output_format": "png",
+      "background": "opaque"
+    },
+    "latency_s": 19.554,
+    "request_id": "325accf0-50d0-4b5b-a690-7a792fa44b64"
+  },
+  "mission-peak": {
+    "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_a8c33404-4887-4b94-b190-f72cbdbda777_ffbd79cb-1801-420d-a1b5-fb2daf368fb8.png",
+    "file": "/workspace/worlds/tools/3d-bakeoff/out/concept/mission-peak.png",
+    "bytes": 1614655,
+    "prompt": "A single miniature tabletop diorama of a steep grassy mountain summit at sunrise: a winding dirt trail up the slope, a tall metal summit pole at the very top, and a couple of cows grazing on the hillside. Everything sits on one compact square base, and the whole diorama is centered with empty margin around it, seen from a three-quarter isometric angle about 30 degrees above. Soft, even, neutral studio lighting with no harsh shadows. Plain light grey seamless background. No text, no lettering, no border.",
+    "provider": "gmi",
+    "model": "gpt-image-2.5-flare-generate",
+    "input": {
+      "size": "1024x1024",
+      "quality": "low",
+      "output_format": "png",
+      "background": "opaque"
+    },
+    "latency_s": 17.94,
+    "request_id": "a8c33404-4887-4b94-b190-f72cbdbda777"
+  },
+  "hackathon": {
+    "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_de5a83d3-4cfa-46a0-9004-b0fd452577cb_93fb0c27-fa40-4054-b204-8c8cb2f552a1.png",
+    "file": "/workspace/worlds/tools/3d-bakeoff/out/concept/hackathon.png",
+    "bytes": 1376759,
+    "prompt": "A single miniature tabletop diorama of a cramped startup office corner at sunset: one long desk against a big window glowing orange, covered in open laptops and lots of red energy drink cans, a few office chairs, and an open pizza box on the floor. Everything sits on one compact square base, and the whole diorama is centered with empty margin around it, seen from a three-quarter isometric angle about 30 degrees above. Soft, even, neutral studio lighting with no harsh shadows. Plain light grey seamless background. No text, no lettering, no border.",
+    "provider": "gmi",
+    "model": "gpt-image-2.5-flare-generate",
+    "input": {
+      "size": "1024x1024",
+      "quality": "low",
+      "output_format": "png",
+      "background": "opaque"
+    },
+    "latency_s": 11.379,
+    "request_id": "de5a83d3-4cfa-46a0-9004-b0fd452577cb"
+  },
+  "farmers-market": {
+    "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_6a9f0747-7d27-405d-b4d1-12b71fed61f3_f96e3c50-9d64-413b-a814-5dd59fce92a5.png",
+    "file": "/workspace/worlds/tools/3d-bakeoff/out/concept/farmers-market.png",
+    "bytes": 1603549,
+    "prompt": "A single miniature tabletop diorama of a farmers market stall in front of a clock-tower ferry terminal building: wooden crates of peaches, loaves of sourdough bread, and giant purple carrots under a canvas awning. Everything sits on one compact square base, and the whole diorama is centered with empty margin around it, seen from a three-quarter isometric angle about 30 degrees above. Soft, even, neutral studio lighting with no harsh shadows. Plain light grey seamless background. No text, no lettering, no border.",
+    "provider": "gmi",
+    "model": "gpt-image-2.5-flare-generate",
+    "input": {
+      "size": "1024x1024",
+      "quality": "low",
+      "output_format": "png",
+      "background": "opaque"
+    },
+    "latency_s": 17.781,
+    "request_id": "6a9f0747-7d27-405d-b4d1-12b71fed61f3"
+  }
+}
