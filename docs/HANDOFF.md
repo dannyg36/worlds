@@ -17,24 +17,24 @@ worlds is an iOS app. Each night you talk for about 20 seconds about your day, a
   - `src/hooks/use-speech-to-text.ts` wraps `expo-speech-recognition` with on-device recognition on iOS, so it needs no API key.
   - Typing is the fallback. On web, the sheet opens straight into typing.
   - `worlds://record?source=sample` feeds a bundled clip through the recognizer, so you can test without a microphone.
+- **Device profiles, friends and a live shared feed** (worlds#8).
+  - Each phone picks a name on first launch and becomes a signed-in Convex user through `ctx.auth`. Convex signs the device tokens with the deployment's own key (`ctx.auth.signJwt`, ES256), so there are no signing keys to set up.
+  - Friends connect with an invite link (`worlds://invite/<code>`) or by typing the code.
+  - Worlds start private. Share puts one in your friends' feeds, and home reads `feed.list`.
+  - Memory is per person: `worlds.add` saves the day to `memorySpace(tokenIdentifier)`.
+  - Details are in `docs/friends/HANDOFF.md`.
 
 ## Open work, in the order I'd merge it
 
-1. **worlds#8: device profiles, friends and a live shared feed** (`capy/device-profiles-friends`).
-   - Each phone picks a name and becomes a signed-in Convex user through `ctx.auth`. Convex signs the device tokens with the deployment's own key (`ctx.auth.signJwt`), so there are no signing keys to set up.
-   - Friends connect with an invite link (`worlds://invite/<code>`) or by typing the code.
-   - Worlds start private, and Share puts one in your friends' feeds. Memory is per person, through `memorySpace(tokenIdentifier)`.
-   - **Before deploying it,** delete the worlds that have no owner (three test worlds on the dev deployment). Otherwise the schema push fails, because `ownerTokenIdentifier` is required.
-   - Details are in `docs/friends/HANDOFF.md` on that branch.
-2. **worlds#6: glass redesign** (`capy/glass-redesign`, from Neel Kolhe's crew). It owns the design system, the app shell, home and WorldCard. When you rebase it onto `main`:
-   - Keep `api.feed.list` with its author line, Share and Unshare, and the Friends link in the header, all from #8.
+1. **worlds#6: glass redesign** (`capy/glass-redesign`, from Neel Kolhe's crew). It owns the design system, the app shell, home and WorldCard. When you rebase it onto `main`:
+   - Keep `api.feed.list` with its author line, Share and Unshare, and the Friends link in the header, all from worlds#8.
    - Point the hero orb at `router.push("/record")`.
    - Keep the `record` form-sheet registration and `anchor: "index"` in the root layout.
-3. **3D pipeline, viewer and research** (`capy/gurnoor-3d-worlds`, from Gurnoor Sandu's crew). It replaces draft worlds#3 and has no pull request yet. Start with `docs/3d-worlds/README.md` there. When you bring it onto `main` after #8:
+2. **3D pipeline, viewer and research** (`capy/gurnoor-3d-worlds`, from Gurnoor Sandu's crew). It replaces draft worlds#3 and has no pull request yet. Start with `docs/3d-worlds/README.md` there. When you bring it onto `main`:
    - `convex/access.ts` should let only the owner read a world, or a friend when the world is `shared`.
    - Recall should use the owner's space: `recallCast(prompt, memorySpace(world.ownerTokenIdentifier))`.
    - `worlds.add` must keep setting the owner and scheduling `remember`.
-4. **Other branches.**
+3. **Other branches.**
    - `capy/nightly-loop-notifications` is a nightly reminder that opens the record sheet. I haven't reviewed it.
    - `capy/google-apple-sign-in` has Apple and Google sign-in through Clerk. It's shelved because Clerk's dashboard was down. When real sign-in comes back, map each device profile's `tokenIdentifier` to the new account.
 
@@ -60,7 +60,8 @@ Capy's cloud phones stopped when the organization ran out of Capy credits, so ev
   - whether the SecureStore secret survives a restart
   - opening `worlds://invite/<code>` from Messages, both from a cold start and while the app is running
   - the native share sheet for invites
-  - `ctx.auth.signJwt` on the dev deployment once it's deployed
+
+Device sign-in itself was checked on the dev deployment with a script after deploying. An unknown device or a wrong secret gets no token. A registered device gets an ES256 token issued by the deployment, and with that token it can create a profile. A caller who isn't signed in sees an empty feed and can't add a world.
 
 ## Running it
 
@@ -76,7 +77,7 @@ npx tsc --noEmit && npx expo lint && npx -y expo-doctor
 
 - The Convex project is `yc-consumer-mobile-hackathon` in the `danny-gu` team.
   - Danny's dev deployment is `compassionate-goose-961` (https://compassionate-goose-961.convex.cloud). Every phone build so far pointed at it.
-  - `main`'s backend is deployed there, along with the three ownerless test worlds.
+  - `main`'s backend, including device profiles, was deployed there at 21:55 UTC on 2026-11-15. Its `worlds` table was cleared first, so the required owner field could deploy. It holds one test profile, "Captain check", from the sign-in check, and no worlds. A phone build now opens on the name picker.
   - A teammate who runs `npx convex dev` gets their own dev deployment.
 - Environment variables:
   - `SUPERMEMORY_API_KEY` is set on `compassionate-goose-961`. Set it on any other deployment with `npx convex env set`.
