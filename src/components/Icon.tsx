@@ -7,7 +7,7 @@ export type IconName = Extract<SymbolViewProps["name"], { ios?: unknown }>;
 export function Icon({
   name,
   size = 20,
-  tint = color.text,
+  tint = color.ink,
   weight = "semibold",
 }: {
   name: IconName;

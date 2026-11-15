@@ -1,13 +1,13 @@
 import { BlurView } from "expo-blur";
 import type { ReactNode } from "react";
-import { KeyboardAvoidingView, Modal, Platform, Pressable, StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, Modal, Platform, Pressable, StyleSheet, View, type ViewStyle } from "react-native";
 import Animated, { FadeIn, SlideInDown } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { color, layout, motion, radius, space } from "@/design/tokens";
-import { GlassSurface } from "./GlassSurface";
+import { color, layout, motion, radius, shadow, space } from "@/design/tokens";
 
-export function GlassSheet({
+/** A paper sheet that rises over a frosted pearl scrim. */
+export function Sheet({
   visible,
   onClose,
   children,
@@ -19,16 +19,13 @@ export function GlassSheet({
   const insets = useSafeAreaInsets();
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose} statusBarTranslucent>
-      <KeyboardAvoidingView
-        style={styles.fill}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-      >
+      <KeyboardAvoidingView style={styles.fill} behavior={Platform.OS === "ios" ? "padding" : undefined}>
         <Pressable accessibilityLabel="Close" style={StyleSheet.absoluteFill} onPress={onClose}>
           {Platform.OS === "web" ? (
             <View style={[StyleSheet.absoluteFill, styles.webScrim]} />
           ) : (
-            <BlurView style={StyleSheet.absoluteFill} intensity={30} tint="dark">
-              <View style={[StyleSheet.absoluteFill, { backgroundColor: color.scrim }]} />
+            <BlurView style={StyleSheet.absoluteFill} intensity={24} tint="light">
+              <View style={[StyleSheet.absoluteFill, styles.scrim]} />
             </BlurView>
           )}
         </Pressable>
@@ -37,11 +34,9 @@ export function GlassSheet({
             entering={SlideInDown.springify().damping(motion.spring.damping).stiffness(motion.spring.stiffness)}
             style={[styles.sheetWrap, { paddingBottom: Math.max(insets.bottom, space.lg) }]}
           >
-            <Animated.View entering={FadeIn.duration(240)}>
-              <GlassSurface radius={radius.xl} strong style={styles.sheet}>
-                <View style={styles.grabber} />
-                {children}
-              </GlassSurface>
+            <Animated.View entering={FadeIn.duration(240)} style={styles.sheet}>
+              <View style={styles.grabber} />
+              {children}
             </Animated.View>
           </Animated.View>
         </View>
@@ -54,10 +49,13 @@ const styles = StyleSheet.create({
   fill: {
     flex: 1,
   },
+  scrim: {
+    backgroundColor: color.scrim,
+  },
   webScrim: {
     backgroundColor: color.scrim,
-    backdropFilter: "blur(10px)",
-  } as object,
+    backdropFilter: "blur(8px)",
+  } as ViewStyle,
   dock: {
     flex: 1,
     justifyContent: "flex-end",
@@ -69,16 +67,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.md,
   },
   sheet: {
+    backgroundColor: color.paper,
+    borderRadius: radius.xl,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: color.hairline,
+    boxShadow: shadow.float,
     padding: space.xl,
     paddingTop: space.md,
     gap: space.lg,
-    boxShadow: "0 -10px 60px -10px rgba(139, 108, 255, 0.35)",
   },
   grabber: {
     alignSelf: "center",
-    width: 38,
+    width: 36,
     height: 5,
     borderRadius: 3,
-    backgroundColor: "rgba(255,255,255,0.22)",
+    backgroundColor: color.inkFaint,
   },
 });

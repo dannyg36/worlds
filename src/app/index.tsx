@@ -6,11 +6,12 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 import type { FunctionReturnType } from "convex/server";
-import { HeroOrb } from "@/components/HeroOrb";
 import { HomeHeader } from "@/components/HomeHeader";
+import { RecordPearl } from "@/components/RecordPearl";
 import type { WorldStatus } from "@/components/WorldCard";
 import { WorldFeed, type FeedWorld } from "@/components/WorldFeed";
-import { layout, space } from "@/design/tokens";
+import { color, layout, space } from "@/design/tokens";
+import { withAlpha } from "@/design/palette";
 
 type PipelineFields = Partial<{
   status: WorldStatus;
@@ -93,14 +94,14 @@ const useFeed: () => Feed =
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const feed = useFeed();
-  const orbSpace = layout.orb + 110 + insets.bottom;
+  const dockSpace = layout.pearl + 120 + insets.bottom;
 
   return (
     <View style={styles.screen}>
       <WorldFeed
         worlds={feed.worlds}
         topInset={insets.top}
-        bottomInset={orbSpace}
+        bottomInset={dockSpace}
         header={<HomeHeader count={feed.worlds?.length} onOpenFriends={feed.openFriends} />}
         onOpen={(world) =>
           feed.canOpen && world.image !== undefined
@@ -114,9 +115,9 @@ export default function HomeScreen() {
             : undefined
         }
       />
-      <View pointerEvents="none" style={[styles.fade, { height: orbSpace + space.xxxl }]} />
-      <View pointerEvents="box-none" style={[styles.orbDock, { paddingBottom: insets.bottom + space.md }]}>
-        <HeroOrb onPress={() => router.push("/record")} />
+      <View pointerEvents="none" style={[styles.fade, { height: dockSpace + space.xxl }]} />
+      <View pointerEvents="box-none" style={[styles.dock, { paddingBottom: insets.bottom + space.lg }]}>
+        <RecordPearl onPress={() => router.push("/record")} />
       </View>
     </View>
   );
@@ -131,9 +132,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundImage: "linear-gradient(180deg, rgba(10,8,30,0) 0%, rgba(10,8,30,0.82) 42%, rgba(7,6,22,0.97) 72%, rgba(5,5,18,1) 100%)",
+    backgroundImage: `linear-gradient(180deg, ${withAlpha(color.pearl, 0)} 0%, ${withAlpha(color.pearl, 0.86)} 46%, ${withAlpha(color.pearlDeep, 0.97)} 78%, ${color.pearlDeep} 100%)`,
   },
-  orbDock: {
+  dock: {
     position: "absolute",
     left: 0,
     right: 0,

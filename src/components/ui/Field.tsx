@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { StyleSheet, TextInput, View, type TextInputProps } from "react-native";
 
-import { color, fontFamily, radius, space } from "@/design/tokens";
+import { color, font, radius, space } from "@/design/tokens";
 
-export function GlassField({ style, multiline, onFocus, onBlur, ...props }: TextInputProps) {
+export function Field({ style, multiline, onFocus, onBlur, ...props }: TextInputProps) {
   const [focused, setFocused] = useState(false);
   return (
     <View style={[styles.field, focused && styles.focused]}>
       <TextInput
         {...props}
         multiline={multiline}
-        placeholderTextColor={color.textTertiary}
-        keyboardAppearance="dark"
-        selectionColor={color.lilac}
+        placeholderTextColor={color.inkTertiary}
+        keyboardAppearance="light"
+        selectionColor={color.ink}
+        cursorColor={color.ink}
         onFocus={(event) => {
           setFocused(true);
           onFocus?.(event);
@@ -31,29 +32,29 @@ const styles = StyleSheet.create({
   field: {
     borderRadius: radius.md,
     borderCurve: "continuous",
-    backgroundColor: "rgba(255,255,255,0.05)",
-    borderWidth: StyleSheet.hairlineWidth * 2,
+    backgroundColor: color.paper,
+    borderWidth: 1,
     borderColor: color.hairline,
     paddingHorizontal: space.lg,
-    paddingVertical: space.md,
+    paddingVertical: space.md + 2,
+    boxShadow: "inset 0 1px 2px rgba(0, 0, 0, 0.03)",
   },
   focused: {
-    borderColor: "rgba(201, 184, 255, 0.55)",
-    boxShadow: "0 0 0 4px rgba(139, 108, 255, 0.18)",
+    borderColor: "rgba(0, 0, 0, 0.38)",
+    boxShadow: "0 0 0 4px rgba(0, 0, 0, 0.04)",
   },
   input: {
-    fontFamily: fontFamily.system,
-    fontSize: 18,
+    fontFamily: font.sans,
+    fontSize: 17,
     lineHeight: 24,
-    minHeight: 28,
-    color: color.text,
+    minHeight: 24,
+    padding: 0,
+    color: color.ink,
     outlineStyle: "none",
   } as object,
   multiline: {
-    minHeight: 120,
-    maxHeight: 220,
-    lineHeight: 26,
-    paddingVertical: space.xs,
+    minHeight: 132,
+    maxHeight: 260,
     textAlignVertical: "top",
   },
 });

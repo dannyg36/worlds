@@ -1,10 +1,16 @@
-import type { ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
+import Animated, {
+  Easing,
+  FadeIn,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from "react-native-reanimated";
 
-import { GlassSurface } from "@/components/glass/GlassSurface";
 import { WorldCard, type WorldStatus } from "@/components/WorldCard";
-import { color, layout, motion, radius, space, type } from "@/design/tokens";
+import { color, font, layout, motion, radius, space, type } from "@/design/tokens";
 
 export type FeedWorld = {
   id: string;
@@ -107,8 +113,12 @@ export function WorldFeed({
         if (item.kind === "month") {
           return (
             <Animated.View entering={FadeIn.delay(Math.min(index, 8) * motion.stagger)} style={styles.month}>
-              <Text style={type.section}>{item.label}</Text>
-              <Text style={type.eyebrow}>{item.count} {item.count === 1 ? "world" : "worlds"}</Text>
+              <Text style={styles.monthLabel} accessibilityRole="header">
+                {item.label}
+              </Text>
+              <Text style={type.meta}>
+                {item.count} {item.count === 1 ? "world" : "worlds"}
+              </Text>
             </Animated.View>
           );
         }
@@ -124,32 +134,29 @@ export function WorldFeed({
 }
 
 function Loading() {
+  const pulse = useSharedValue(1);
+  useEffect(() => {
+    pulse.set(withRepeat(withTiming(0.55, { duration: 1200, easing: Easing.inOut(Easing.sin) }), -1, true));
+  }, [pulse]);
+  const style = useAnimatedStyle(() => ({ opacity: pulse.value }));
   return (
-    <View style={styles.stateGap}>
-      {[0, 1].map((i) => (
-        <Animated.View key={i} entering={FadeInDown.delay(i * motion.stagger)}>
-          <GlassSurface radius={radius.xl} style={i === 0 ? styles.skeletonHero : styles.skeleton}>
-            <View style={styles.skeletonLines}>
-              <View style={[styles.skeletonLine, { width: "30%" }]} />
-              <View style={[styles.skeletonLine, styles.skeletonTitle]} />
-            </View>
-          </GlassSurface>
-        </Animated.View>
-      ))}
-    </View>
+    <Animated.View style={[styles.stateGap, style]} accessibilityLabel="Loading your worlds">
+      <View style={styles.skeletonPlate} />
+      <View style={styles.skeletonLines}>
+        <View style={[styles.skeletonLine, { width: "24%" }]} />
+        <View style={[styles.skeletonLine, styles.skeletonTitle]} />
+      </View>
+    </Animated.View>
   );
 }
 
 function Empty() {
   return (
-    <Animated.View entering={FadeInDown.delay(120).springify().damping(motion.spring.damping)}>
-      <GlassSurface radius={radius.xl} style={styles.empty}>
-        <View style={styles.emptyMoon} />
-        <Text style={[type.title, styles.center]}>Your first world is one night away.</Text>
-        <Text style={[type.body, styles.center]}>
-          Tap the orb and tell me about your day. A minute later it becomes a little place you can explore.
-        </Text>
-      </GlassSurface>
+    <Animated.View entering={FadeIn.delay(200).duration(700)} style={styles.empty}>
+      <Text style={[type.headline, styles.center]}>Your first world is one night away.</Text>
+      <Text style={[type.body, styles.center]}>
+        Tap the pearl and tell it about your day. A minute later it becomes a little place you can explore.
+      </Text>
     </Animated.View>
   );
 }
@@ -163,11 +170,11 @@ const styles = StyleSheet.create({
     maxWidth: layout.maxWidth,
     alignSelf: "center",
     paddingHorizontal: layout.gutter,
-    gap: space.lg,
+    gap: space.xxl + 4,
   },
   pair: {
     flexDirection: "row",
-    gap: space.md,
+    gap: space.md + 2,
     alignItems: "flex-start",
   },
   spacer: {
@@ -177,47 +184,47 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "baseline",
     justifyContent: "space-between",
+    marginTop: space.lg,
     paddingTop: space.xl,
-    paddingHorizontal: space.xs,
+    paddingHorizontal: space.xxs,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: color.hairlineStrong,
+  },
+  monthLabel: {
+    fontFamily: font.serifLight,
+    fontSize: 26,
+    lineHeight: 32,
+    letterSpacing: -0.3,
+    color: color.ink,
   },
   stateGap: {
     gap: space.lg,
   },
-  skeletonHero: {
-    height: 420,
-    justifyContent: "flex-end",
-  },
-  skeleton: {
-    height: 220,
-    justifyContent: "flex-end",
+  skeletonPlate: {
+    aspectRatio: 1,
+    borderRadius: radius.lg + 4,
+    borderCurve: "continuous",
+    backgroundColor: color.pearlDeep,
   },
   skeletonLines: {
-    padding: space.xl,
     gap: space.md,
+    paddingHorizontal: space.xs,
   },
   skeletonLine: {
     height: 10,
     borderRadius: 5,
-    backgroundColor: "rgba(255,255,255,0.08)",
+    backgroundColor: color.pearlDeep,
   },
   skeletonTitle: {
-    height: 22,
-    width: "70%",
+    height: 24,
+    width: "68%",
     borderRadius: 8,
   },
   empty: {
     alignItems: "center",
     gap: space.md,
-    padding: space.xxl,
-    paddingVertical: space.xxxl,
-  },
-  emptyMoon: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    marginBottom: space.sm,
-    backgroundImage: `radial-gradient(circle at 35% 35%, #FFFFFF 0%, ${color.lilac} 40%, ${color.violet} 100%)`,
-    boxShadow: `0 0 50px 8px rgba(139, 108, 255, 0.55)`,
+    paddingTop: space.xxxl,
+    paddingHorizontal: space.lg,
   },
   center: {
     textAlign: "center",

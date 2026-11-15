@@ -1,17 +1,21 @@
-import {
-  InstrumentSerif_400Regular,
-  InstrumentSerif_400Regular_Italic,
-  useFonts,
-} from "@expo-google-fonts/instrument-serif";
+import { AlbertSans_400Regular } from "@expo-google-fonts/albert-sans/400Regular";
+import { AlbertSans_500Medium } from "@expo-google-fonts/albert-sans/500Medium";
+import { AlbertSans_600SemiBold } from "@expo-google-fonts/albert-sans/600SemiBold";
+import { NotoSerifDisplay_200ExtraLight } from "@expo-google-fonts/noto-serif-display/200ExtraLight";
+import { NotoSerifDisplay_300Light } from "@expo-google-fonts/noto-serif-display/300Light";
+import { NotoSerifDisplay_300Light_Italic } from "@expo-google-fonts/noto-serif-display/300Light_Italic";
+import { NotoSerifDisplay_400Regular } from "@expo-google-fonts/noto-serif-display/400Regular";
+import { NotoSerifDisplay_400Regular_Italic } from "@expo-google-fonts/noto-serif-display/400Regular_Italic";
 import { ConvexReactClient } from "convex/react";
-import { DarkTheme, Stack, ThemeProvider } from "expo-router";
+import { useFonts } from "expo-font";
+import { DefaultTheme, Stack, ThemeProvider } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { Backdrop } from "@/components/Backdrop";
-import { color, fontFamily } from "@/design/tokens";
+import { color, font } from "@/design/tokens";
 import { DeviceProfileProvider } from "@/profiles/DeviceProfileProvider";
 
 import { PushNotifications } from "@/notifications/push-notifications";
@@ -27,19 +31,28 @@ export const unstable_settings = {
 };
 
 const theme = {
-  ...DarkTheme,
+  ...DefaultTheme,
   colors: {
-    ...DarkTheme.colors,
-    primary: color.violet,
+    ...DefaultTheme.colors,
+    primary: color.ink,
     background: "transparent",
-    card: color.night,
-    text: color.text,
+    card: color.pearl,
+    text: color.ink,
     border: color.hairline,
   },
 };
 
 export default function RootLayout() {
-  const [fontsLoaded, fontError] = useFonts({ InstrumentSerif_400Regular, InstrumentSerif_400Regular_Italic });
+  const [fontsLoaded, fontError] = useFonts({
+    NotoSerifDisplay_200ExtraLight,
+    NotoSerifDisplay_300Light,
+    NotoSerifDisplay_300Light_Italic,
+    NotoSerifDisplay_400Regular,
+    NotoSerifDisplay_400Regular_Italic,
+    AlbertSans_400Regular,
+    AlbertSans_500Medium,
+    AlbertSans_600SemiBold,
+  });
   const ready = fontsLoaded || fontError !== null;
 
   useEffect(() => {
@@ -49,18 +62,18 @@ export default function RootLayout() {
   if (!ready) return null;
 
   return (
-    <DeviceProfileProvider client={convex}>
-      <ThemeProvider value={theme}>
-        <View style={styles.root}>
-          <Backdrop />
-          <StatusBar style="light" />
+    <View style={styles.root}>
+      <Backdrop />
+      <StatusBar style="dark" />
+      <DeviceProfileProvider client={convex}>
+        <ThemeProvider value={theme}>
           <Stack
             screenOptions={{
               contentStyle: { backgroundColor: "transparent" },
               headerTransparent: true,
               headerShadowVisible: false,
-              headerTintColor: color.text,
-              headerTitleStyle: { fontFamily: fontFamily.display, fontSize: 22, color: color.text },
+              headerTintColor: color.ink,
+              headerTitleStyle: { fontFamily: font.serif, fontSize: 20, color: color.ink },
               headerBackButtonDisplayMode: "minimal",
             }}
           >
@@ -78,21 +91,20 @@ export default function RootLayout() {
               options={{
                 headerTransparent: true,
                 headerTitle: "",
-                headerTintColor: "#FFFFFF",
                 headerBackButtonDisplayMode: "minimal",
               }}
             />
           </Stack>
-        </View>
-      </ThemeProvider>
-      <PushNotifications />
-    </DeviceProfileProvider>
+        </ThemeProvider>
+        <PushNotifications />
+      </DeviceProfileProvider>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: color.ink,
+    backgroundColor: color.pearl,
   },
 });

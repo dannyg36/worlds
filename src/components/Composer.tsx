@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 
-import { GlassButton } from "@/components/glass/GlassButton";
-import { GlassField } from "@/components/glass/GlassField";
-import { GlassSheet } from "@/components/glass/GlassSheet";
-import { Icon } from "@/components/Icon";
+import { Button } from "@/components/ui/Button";
+import { Field } from "@/components/ui/Field";
+import { Sheet } from "@/components/ui/Sheet";
 import { haptics } from "@/design/haptics";
 import { space, type } from "@/design/tokens";
 
@@ -37,13 +36,13 @@ export function Composer({
   }
 
   return (
-    <GlassSheet visible={visible} onClose={onClose}>
+    <Sheet visible={visible} onClose={onClose}>
       <View style={styles.head}>
-        <Text style={type.eyebrow}>Tonight</Text>
+        <Text style={type.meta}>Tonight</Text>
         <Text style={type.title}>How was your day?</Text>
         <Text style={type.caption}>Tell it like you would to a friend. A few sentences is plenty.</Text>
       </View>
-      <GlassField
+      <Field
         value={transcript}
         onChangeText={setTranscript}
         placeholder="Woke up to rain, finally finished the deck, dumplings with Maya…"
@@ -51,14 +50,15 @@ export function Composer({
         multiline
         autoFocus
       />
-      <GlassButton
+      <Button
         variant="primary"
-        label={saving ? "Sending to the dream…" : "Make my world"}
-        icon={<Icon name={{ ios: "sparkles", web: "auto_awesome" }} size={18} tint="#FFFFFF" />}
+        label={saving ? "Making your world…" : "Make my world"}
+        icon={{ ios: "sparkles", web: "auto_awesome" }}
+        loading={saving}
         disabled={!canSubmit}
         onPress={submit}
       />
-    </GlassSheet>
+    </Sheet>
   );
 }
 
