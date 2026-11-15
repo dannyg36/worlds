@@ -4,7 +4,7 @@ import { KTX2Loader } from "three/addons/loaders/KTX2Loader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { GroundedSkybox } from "three/addons/objects/GroundedSkybox.js";
 import { computeBoundsTree, acceleratedRaycast } from "three-mesh-bvh";
-import { buildGround, describeGround, lightPreset, parsePalette, parsePlace, layoutWorld, hashString } from "./world.js";
+import { buildGround, describeGround, lightPreset, parsePalette, parsePlace, layoutWorld, scatterDecor, hashString } from "./world.js";
 import { Input, Player, makeAvatar, makeTour } from "./controls.js";
 import { Perf, glInfo, gpuEstimate, recordCanvas } from "./hud.js";
 
@@ -110,6 +110,24 @@ function makeTemplate(root, sizeM, frontYawDeg) {
   return { object: holder, size: size.multiplyScalar(s) };
 }
 
+async function makeSpriteTemplate(file, sizeM) {
+  const buf = await fetchAsset(file);
+  const url = URL.createObjectURL(new Blob([buf], { type: "image/png" }));
+  const map = await new THREE.TextureLoader().loadAsync(url);
+  URL.revokeObjectURL(url);
+  map.colorSpace = THREE.SRGBColorSpace;
+  map.anisotropy = 4;
+  const aspect = map.image.width / map.image.height;
+  const h = aspect > 1 ? sizeM / aspect : sizeM;
+  const w = h * aspect;
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h).translate(0, h / 2, 0), new THREE.MeshStandardMaterial({ map, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.9 }));
+  mesh.castShadow = true;
+  const holder = new THREE.Group();
+  holder.add(mesh);
+  holder.userData.billboard = true;
+  return { object: holder, size: new THREE.Vector3(w, h, w * 0.6) };
+}
+
 function prepModel(root, needsBvh) {
   root.traverse((m) => {
     if (!m.isMesh) return;
@@ -127,7 +145,7 @@ function prepModel(root, needsBvh) {
 }
 
 let world, set, setName, spec;
-let scene, camera, player, avatar, ground, placed = [], hero = null, input, tour = null;
+let scene, camera, player, avatar, ground, placed = [], billboards = [], hero = null, input, tour = null;
 let mode = qs.get("view") || "3p";
 let layoutMs = 0;
 let firstFrameAt = null;
@@ -168,6 +186,7 @@ async function init() {
   const modelPromises = spec.objects.map(async (o) => {
     const a = set.objects[o.id];
     if (!a) return null;
+    if (a.sprite) return [o.id, await makeSpriteTemplate(a.sprite, o.size_m)];
     const buf = await fetchAsset(a.file);
     const t = performance.now();
     const gltf = await gltfLoader.parseAsync(buf, "assets/" + a.file.replace(/[^/]+$/, ""));
@@ -237,6 +256,7 @@ async function init() {
   layoutMs = Math.round(performance.now() - tl);
   placed = lay.placed;
   hero = lay.hero;
+  if (qs.get("decor") !== "0") scene.add(scatterDecor({ ground, placed, palette, seed: hashString(day) }));
   const tints = [null, [0.58, 0.35], [0.02, 0.3], [0.13, 0.35], [0.8, 0.25]];
   for (const p of placed) {
     if (p.isPerson && p.index > 0) {
@@ -248,9 +268,13 @@ async function init() {
         }
       });
     }
+    if (p.object.userData.billboard) {
+      billboards.push(p);
+      p.anim = p.anim === "cheer" || p.anim === "bob" ? p.anim : null;
+    }
     p.baseY = p.object.position.y;
     p.sy = p.object.scale.y;
-    if (!p.anim) {
+    if (!p.anim && !p.object.userData.billboard) {
       p.object.matrixAutoUpdate = false;
       p.object.updateMatrix();
     }
@@ -267,7 +291,8 @@ async function init() {
     spawn,
     yaw: Math.PI,
   });
-  avatar = makeAvatar(palette[1]?.color ?? new THREE.Color(0x3b82f6));
+  const accent = [...palette].sort((a, b) => b.color.getHSL({}).s - a.color.getHSL({}).s)[0]?.color;
+  avatar = makeAvatar(accent && accent.getHSL({}).s > 0.35 ? accent : new THREE.Color(0xf27d6b));
   scene.add(avatar);
   if (qs.get("tour") === "1") tour = makeTour(ground, placed.find((p) => p.id === hero), spawn);
 
@@ -343,6 +368,7 @@ function frame() {
     } else if (p.anim === "sway") p.object.rotation.z = Math.sin(t * 0.8 + p.phase) * 0.015;
     else if (p.anim === "breathe") p.object.scale.y = p.sy * (1 + Math.sin(t * 2.2 + p.phase) * 0.02);
   }
+  for (const b of billboards) b.object.rotation.y = Math.atan2(camera.position.x - b.object.position.x, camera.position.z - b.object.position.z);
   renderer.render(scene, camera);
   renderInfo = { calls: renderer.info.render.calls, triangles: renderer.info.render.triangles };
   if (!firstFrameAt) {

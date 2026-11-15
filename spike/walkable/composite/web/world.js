@@ -340,7 +340,7 @@ export function buildGround({ spec, palette, seed, floating }) {
   }
 
   return {
-    group, R, kind, coastDir, coastS, pathPoints, cliffH,
+    group, R, kind, coastDir, coastS, pathPoints, cliffH, distToPath, grass,
     heightAt,
     isLand: (x, z) => Math.hypot(x, z) < R + 0.2 && heightAt(x, z) > 0.12,
     isWater: (x, z) => heightAt(x, z) < -0.25,
@@ -359,6 +359,89 @@ function addIslandBase(group, R, rimColor, bottomColor) {
   under.rotation.x = Math.PI;
   under.position.y = -0.32 - R * 0.375;
   group.add(under);
+}
+
+export function scatterDecor({ ground, placed, palette, seed }) {
+  const group = new THREE.Group();
+  group.name = "decor";
+  if (ground.kind.indoor) return group;
+  const rand = mulberry32(seed ^ 0x9e3779b9);
+  const R = ground.R;
+  const blocked = (x, z, pad) => placed.some((p) => {
+    if (p.parent) return false;
+    const dx = x - p.x, dz = z - p.z;
+    const c = Math.cos(p.yaw), s = Math.sin(p.yaw);
+    const lx = dx * c - dz * s, lz = dx * s + dz * c;
+    return Math.abs(lx) < p.hx + pad && Math.abs(lz) < p.hz + pad;
+  });
+  const top = (ground.cliffH ?? 0.5) * 0.55;
+  const spots = (n, ok) => {
+    const out = [];
+    for (let k = 0; k < n * 6 && out.length < n; k++) {
+      const a = rand() * Math.PI * 2, r = Math.sqrt(rand()) * (R - 0.3);
+      const x = Math.cos(a) * r, z = Math.sin(a) * r;
+      if (ok(x, z)) out.push([x, z]);
+    }
+    return out;
+  };
+  const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), v = new THREE.Vector3(), sc = new THREE.Vector3();
+  const blades = [];
+  for (let b = 0; b < 3; b++) {
+    const g = new THREE.ConeGeometry(0.022, 0.17, 4, 1).translate(0, 0.085, 0);
+    g.rotateZ((b - 1) * 0.35).rotateY(b * 2.1).translate((b - 1) * 0.04, 0, (b % 2) * 0.03);
+    blades.push(g);
+  }
+  const tuftGeo = mergeGeos(blades);
+  const grassSpots = spots(420, (x, z) => ground.heightAt(x, z) > top && (!ground.distToPath || ground.distToPath(x, z) > 0.6) && !blocked(x, z, 0.15));
+  const tufts = new THREE.InstancedMesh(tuftGeo, new THREE.MeshStandardMaterial({ roughness: 1 }), grassSpots.length);
+  const base = (ground.grass ?? new THREE.Color(0x7aa055)).clone();
+  grassSpots.forEach(([x, z], i) => {
+    m4.compose(v.set(x, ground.heightAt(x, z) - 0.02, z), q.setFromEuler(e.set(0, rand() * 6.28, 0)), sc.setScalar(0.7 + rand() * 0.8));
+    tufts.setMatrixAt(i, m4);
+    tufts.setColorAt(i, base.clone().multiplyScalar(0.75 + rand() * 0.45));
+  });
+  tufts.receiveShadow = true;
+  group.add(tufts);
+  const accents = palette.map((p) => p.color).filter((c) => c.getHSL({}).s > 0.25);
+  const flowerSpots = spots(70, (x, z) => ground.heightAt(x, z) > top && !blocked(x, z, 0.2));
+  const flowers = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.05, 0).translate(0, 0.2, 0), new THREE.MeshStandardMaterial({ roughness: 0.8 }), flowerSpots.length);
+  const flowerColors = [new THREE.Color(0xf6e27a), new THREE.Color(0xffffff), new THREE.Color(0xf2a0b5), ...accents];
+  flowerSpots.forEach(([x, z], i) => {
+    m4.compose(v.set(x, ground.heightAt(x, z), z), q.identity(), sc.setScalar(0.8 + rand() * 0.6));
+    flowers.setMatrixAt(i, m4);
+    flowers.setColorAt(i, flowerColors[Math.floor(rand() * flowerColors.length)]);
+  });
+  group.add(flowers);
+  const rockSpots = spots(26, (x, z) => { const h = ground.heightAt(x, z); return h > -0.1 && h < top + 0.2 && !blocked(x, z, 0.3); });
+  const rocks = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.22, 0), new THREE.MeshStandardMaterial({ color: 0x9b8a74, roughness: 0.95, flatShading: true }), rockSpots.length);
+  rockSpots.forEach(([x, z], i) => {
+    m4.compose(v.set(x, ground.heightAt(x, z), z), q.setFromEuler(e.set(rand(), rand() * 6.28, rand())), sc.set(0.6 + rand(), 0.35 + rand() * 0.4, 0.6 + rand()));
+    rocks.setMatrixAt(i, m4);
+  });
+  rocks.castShadow = true;
+  rocks.receiveShadow = true;
+  group.add(rocks);
+  return group;
+}
+
+function mergeGeos(geos) {
+  const pos = [], nrm = [], idx = [];
+  let off = 0;
+  for (const g of geos) {
+    const gi = g.index ? g : g.toNonIndexed();
+    const p = gi.getAttribute("position"), n = gi.getAttribute("normal");
+    for (let i = 0; i < p.count; i++) {
+      pos.push(p.getX(i), p.getY(i), p.getZ(i));
+      nrm.push(n.getX(i), n.getY(i), n.getZ(i));
+    }
+    if (gi.index) for (let i = 0; i < gi.index.count; i++) idx.push(gi.index.getX(i) + off);
+    off += p.count;
+  }
+  const out = new THREE.BufferGeometry();
+  out.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  out.setAttribute("normal", new THREE.Float32BufferAttribute(nrm, 3));
+  out.setIndex(idx);
+  return out;
 }
 
 const PERSON = /person|people|man|woman|kid|child|friend|surfer|hiker|runner|player|guitarist|chef|student|cyclist/;

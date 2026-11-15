@@ -71,7 +71,7 @@
     "yaw_deg": 0,
     "height_m": 1.7
   },
-  "default_set": "sample",
+  "default_set": "sample-opt",
   "sets": {
     "sample": {
       "label": "dev stand-ins (Khronos CC0 models), not generated",
@@ -105,6 +105,115 @@
           "bytes": 4125648
         }
       }
+    },
+    "sample-opt": {
+      "label": "dev stand-ins (Khronos CC0 models), not generated · optimized (ktx2, meshopt)",
+      "objects": {
+        "surfer": {
+          "file": "santa-cruz/sample-opt/surfer.glb",
+          "bytes": 142180,
+          "raw_file": "sample/CesiumMan.glb",
+          "raw_bytes": 438044,
+          "tris": 4672,
+          "tris_raw": 4672,
+          "textures": [
+            "1024x1024 image/ktx2"
+          ]
+        },
+        "sealion": {
+          "file": "santa-cruz/sample-opt/sealion.glb",
+          "bytes": 94116,
+          "raw_file": "sample/Fox.glb",
+          "raw_bytes": 162852,
+          "tris": 576,
+          "tris_raw": 576,
+          "textures": [
+            "1024x1024 image/ktx2"
+          ]
+        },
+        "wharf": {
+          "file": "santa-cruz/sample-opt/wharf.glb",
+          "bytes": 385580,
+          "raw_file": "sample/GlamVelvetSofa.glb",
+          "raw_bytes": 3149844,
+          "tris": 4196,
+          "tris_raw": 4196,
+          "textures": [
+            "1024x1024 image/ktx2",
+            "1024x1024 image/ktx2"
+          ]
+        },
+        "bike": {
+          "file": "santa-cruz/sample-opt/bike.glb",
+          "bytes": 642216,
+          "raw_file": "sample/ToyCar.glb",
+          "raw_bytes": 5422412,
+          "tris": 13998,
+          "tris_raw": 108936,
+          "textures": [
+            "1024x1024 image/ktx2",
+            "1024x1024 image/ktx2",
+            "1024x1024 image/ktx2",
+            "1024x1024 image/ktx2",
+            "512x512 image/ktx2",
+            "1024x1024 image/ktx2",
+            "512x512 image/ktx2",
+            "1024x1024 image/ktx2"
+          ]
+        },
+        "bench": {
+          "file": "santa-cruz/sample-opt/bench.glb",
+          "bytes": 636592,
+          "raw_file": "sample/SheenChair.glb",
+          "raw_bytes": 4125648,
+          "tris": 13997,
+          "tris_raw": 39936,
+          "textures": [
+            "1024x1024 image/ktx2",
+            "512x512 image/ktx2",
+            "512x512 image/ktx2",
+            "512x512 image/ktx2",
+            "512x512 image/ktx2",
+            "1024x512 image/ktx2",
+            "512x512 image/ktx2"
+          ]
+        },
+        "chowder": {
+          "file": "santa-cruz/sample-opt/chowder.glb",
+          "bytes": 517388,
+          "raw_file": "sample/ChairDamaskPurplegold.glb",
+          "raw_bytes": 2028924,
+          "tris": 9984,
+          "tris_raw": 9984,
+          "textures": [
+            "512x512 image/ktx2",
+            "512x512 image/ktx2",
+            "512x512 image/ktx2",
+            "512x512 image/ktx2",
+            "128x128 image/ktx2",
+            "512x512 image/ktx2",
+            "512x512 image/ktx2",
+            "512x512 image/ktx2",
+            "1024x512 image/ktx2"
+          ]
+        },
+        "cypress": {
+          "file": "santa-cruz/sample-opt/cypress.glb",
+          "bytes": 378984,
+          "raw_file": "sample/Lantern.glb",
+          "raw_bytes": 9564264,
+          "tris": 5394,
+          "tris_raw": 5394,
+          "textures": [
+            "1024x1024 image/ktx2",
+            "1024x1024 image/ktx2",
+            "1024x1024 image/ktx2",
+            "1024x1024 image/ktx2"
+          ]
+        }
+      },
+      "optimized_from": "sample",
+      "optimize_ms": 14450
     }
   }
 }
