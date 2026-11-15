@@ -8,6 +8,10 @@
  * @module
  */
 
+import type * as crons from "../crons.js";
+import type * as expoPush from "../expoPush.js";
+import type * as localTime from "../localTime.js";
+import type * as notifications from "../notifications.js";
 import type * as worlds from "../worlds.js";
 
 import type {
@@ -17,6 +21,10 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  crons: typeof crons;
+  expoPush: typeof expoPush;
+  localTime: typeof localTime;
+  notifications: typeof notifications;
   worlds: typeof worlds;
 }>;
 

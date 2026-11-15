@@ -2,6 +2,8 @@ import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
 import { useColorScheme } from "react-native";
 
+import { PushNotifications } from "../notifications/push-notifications";
+
 const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
   unsavedChangesWarning: false,
 });
@@ -19,6 +21,7 @@ export default function RootLayout() {
           />
         </Stack>
       </ThemeProvider>
+      <PushNotifications />
     </ConvexProvider>
   );
 }
