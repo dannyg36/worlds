@@ -297,6 +297,14 @@ describe("world status notifications", () => {
     ]);
   });
 
+  test("stays quiet when the owner has no registered device", async () => {
+    const t = convexTest(schema, modules);
+    await register(t, "anonymous");
+    await register(t.withIdentity({ tokenIdentifier: "owner-b" }), "stranger");
+    const worldId = await addWorld(t, "2026-11-16T04:00:00Z", "owner-a");
+    await changed(t, worldId, "ready", "Nobody's Phone");
+    expect(expo.sendRequests).toEqual([]);
+  });
 });
 
 describe("sending through Expo", () => {
