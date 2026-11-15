@@ -15,5 +15,5 @@ export function Icon({
   tint?: string;
   weight?: "regular" | "medium" | "semibold" | "bold";
 }) {
-  return <SymbolView name={name} size={size} tintColor={tint} weight={weight} />;
+  return <SymbolView name={{ ...name, android: name.android ?? name.web }} size={size} tintColor={tint} weight={weight} />;
 }

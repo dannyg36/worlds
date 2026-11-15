@@ -124,7 +124,7 @@ export function WorldCard({
           <Text style={[hero ? type.cardTitle : type.cardTitleCompact, styles.untitled]}>Something is forming…</Text>
         ) : null
       ) : words ? (
-        <Text style={[styles.quote, !hero && styles.quoteCompact]} numberOfLines={hero ? 5 : 5}>
+        <Text style={[styles.quote, !hero && styles.quoteCompact]}>
           “{words}”
         </Text>
       ) : null}
