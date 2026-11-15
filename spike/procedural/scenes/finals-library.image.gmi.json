@@ -1,0 +1,471 @@
+{
+  "title": "Organic Chem at Midnight",
+  "time": "night",
+  "base": {
+    "shape": "square",
+    "surface": "wood"
+  },
+  "palette": [
+    "#2e5339",
+    "#4a2d18",
+    "#d2aa6d",
+    "#1a2c42"
+  ],
+  "objects": [
+    {
+      "id": "wall_back_left",
+      "type": "wall",
+      "at": [
+        -2.2,
+        -3.8
+      ],
+      "rot": 45,
+      "length": 5.2,
+      "height": 4.2,
+      "material": "wood",
+      "color": "#4a2f1c",
+      "vines": true
+    },
+    {
+      "id": "wall_back_right",
+      "type": "wall",
+      "at": [
+        2.2,
+        -0.6
+      ],
+      "rot": -45,
+      "length": 6.2,
+      "height": 4.2,
+      "material": "stone",
+      "color": "#7a6b58",
+      "window": true
+    },
+    {
+      "id": "shelf_main_1",
+      "type": "shelf",
+      "at": [
+        -2.8,
+        -3
+      ],
+      "rot": 45,
+      "size": [
+        2.4,
+        3.8
+      ],
+      "color": "#3b2212",
+      "fill": "books"
+    },
+    {
+      "id": "shelf_main_2",
+      "type": "shelf",
+      "at": [
+        -1.4,
+        -1.6
+      ],
+      "rot": 45,
+      "size": [
+        2.4,
+        3.8
+      ],
+      "color": "#3b2212",
+      "fill": "books"
+    },
+    {
+      "id": "shelf_side",
+      "type": "shelf",
+      "at": [
+        3.6,
+        1.4
+      ],
+      "rot": -45,
+      "size": [
+        1,
+        2.5
+      ],
+      "color": "#3b2212",
+      "fill": "books"
+    },
+    {
+      "id": "cabinet_low",
+      "type": "desk",
+      "at": [
+        -3.2,
+        -0.2
+      ],
+      "rot": 45,
+      "size": [
+        1.1,
+        0.6
+      ],
+      "color": "#4a2d18"
+    },
+    {
+      "type": "candle",
+      "on": "cabinet_low",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "type": "book",
+      "on": "cabinet_low",
+      "at": [
+        -0.2,
+        0
+      ],
+      "color": "#1c3144"
+    },
+    {
+      "id": "table_back",
+      "type": "table",
+      "at": [
+        0.6,
+        -1.6
+      ],
+      "rot": -45,
+      "size": [
+        2.8,
+        1.1
+      ],
+      "shape": "rect",
+      "cloth": "none",
+      "color": "#4a2d18"
+    },
+    {
+      "type": "chair",
+      "at": [
+        1.2,
+        -2.2
+      ],
+      "rot": -135,
+      "color": "#3d2314"
+    },
+    {
+      "type": "chair",
+      "at": [
+        1.7,
+        -1.7
+      ],
+      "rot": -135,
+      "color": "#3d2314"
+    },
+    {
+      "type": "chair",
+      "at": [
+        0,
+        -1
+      ],
+      "rot": 45,
+      "color": "#3d2314"
+    },
+    {
+      "type": "chair",
+      "at": [
+        0.5,
+        -0.5
+      ],
+      "rot": 45,
+      "color": "#3d2314"
+    },
+    {
+      "type": "candle",
+      "on": "table_back",
+      "at": [
+        -0.8,
+        0
+      ]
+    },
+    {
+      "type": "candle",
+      "on": "table_back",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "type": "candle",
+      "on": "table_back",
+      "at": [
+        0.8,
+        0
+      ]
+    },
+    {
+      "type": "book",
+      "on": "table_back",
+      "at": [
+        -0.8,
+        0.25
+      ],
+      "color": "#1a365d"
+    },
+    {
+      "type": "book",
+      "on": "table_back",
+      "at": [
+        -0.3,
+        -0.2
+      ],
+      "open": true,
+      "color": "#8c2d19"
+    },
+    {
+      "type": "book",
+      "on": "table_back",
+      "at": [
+        0.4,
+        0.2
+      ],
+      "color": "#2c4c38"
+    },
+    {
+      "type": "book",
+      "on": "table_back",
+      "at": [
+        0.9,
+        -0.15
+      ],
+      "color": "#4a2c2c"
+    },
+    {
+      "id": "table_front",
+      "type": "table",
+      "at": [
+        -0.6,
+        0.8
+      ],
+      "rot": -45,
+      "size": [
+        3.2,
+        1.2
+      ],
+      "shape": "rect",
+      "cloth": "none",
+      "color": "#4a2d18"
+    },
+    {
+      "type": "chair",
+      "at": [
+        -0.1,
+        0.2
+      ],
+      "rot": -135,
+      "color": "#3d2314"
+    },
+    {
+      "id": "study_chair",
+      "type": "chair",
+      "at": [
+        0.4,
+        0.7
+      ],
+      "rot": -135,
+      "color": "#3d2314"
+    },
+    {
+      "type": "chair",
+      "at": [
+        -1.2,
+        1.4
+      ],
+      "rot": 45,
+      "color": "#3d2314"
+    },
+    {
+      "type": "chair",
+      "at": [
+        -0.7,
+        1.9
+      ],
+      "rot": 45,
+      "color": "#3d2314"
+    },
+    {
+      "type": "chair",
+      "at": [
+        -0.2,
+        2.4
+      ],
+      "rot": 45,
+      "color": "#3d2314"
+    },
+    {
+      "type": "person",
+      "at": [
+        0.4,
+        0.7
+      ],
+      "rot": -135,
+      "pose": "sit",
+      "skin": "#edd6c8",
+      "shirt": "#b85d43",
+      "pants": "#2b3a4a",
+      "hair": "#231b15",
+      "hairStyle": "bun"
+    },
+    {
+      "type": "person",
+      "at": [
+        0.8,
+        1.6
+      ],
+      "rot": -90,
+      "pose": "stand",
+      "skin": "#dfba9f",
+      "shirt": "#415a77",
+      "pants": "#1b263b",
+      "hair": "#5a3825",
+      "hairStyle": "short",
+      "holding": "glass"
+    },
+    {
+      "type": "mug",
+      "on": "table_front",
+      "at": [
+        0.2,
+        -0.2
+      ],
+      "color": "#ffffff"
+    },
+    {
+      "type": "mug",
+      "on": "table_front",
+      "at": [
+        -0.2,
+        -0.1
+      ],
+      "color": "#e0e1dd"
+    },
+    {
+      "type": "candle",
+      "on": "table_front",
+      "at": [
+        -1,
+        0
+      ]
+    },
+    {
+      "type": "candle",
+      "on": "table_front",
+      "at": [
+        -0.2,
+        0
+      ]
+    },
+    {
+      "type": "candle",
+      "on": "table_front",
+      "at": [
+        0.6,
+        0
+      ]
+    },
+    {
+      "type": "book",
+      "on": "table_front",
+      "at": [
+        0,
+        -0.3
+      ],
+      "open": true,
+      "color": "#1b4332"
+    },
+    {
+      "type": "book",
+      "on": "table_front",
+      "at": [
+        0.4,
+        0.3
+      ],
+      "open": true,
+      "color": "#582f0e"
+    },
+    {
+      "type": "book",
+      "on": "table_front",
+      "at": [
+        -0.6,
+        0.25
+      ],
+      "color": "#1c2541"
+    },
+    {
+      "type": "book",
+      "on": "table_front",
+      "at": [
+        -1.1,
+        -0.25
+      ],
+      "color": "#6b2d5c"
+    },
+    {
+      "type": "book",
+      "on": "table_front",
+      "at": [
+        -1.1,
+        0.2
+      ],
+      "color": "#283618"
+    },
+    {
+      "type": "book",
+      "on": "table_front",
+      "at": [
+        1,
+        -0.2
+      ],
+      "color": "#3a0ca3"
+    },
+    {
+      "type": "crate",
+      "at": [
+        -2.2,
+        0.8
+      ],
+      "rot": 45,
+      "fill": "none",
+      "color": "#4a2d18"
+    },
+    {
+      "type": "potted-plant",
+      "at": [
+        -3.2,
+        -3.4
+      ],
+      "kind": "herb",
+      "size": 0.8
+    },
+    {
+      "type": "potted-plant",
+      "at": [
+        3.4,
+        2.2
+      ],
+      "kind": "succulent",
+      "size": 0.6
+    },
+    {
+      "type": "lantern",
+      "at": [
+        1.4,
+        -3.2
+      ]
+    },
+    {
+      "type": "lantern",
+      "at": [
+        2.6,
+        -1.8
+      ]
+    },
+    {
+      "type": "lantern",
+      "at": [
+        3.4,
+        -0.4
+      ]
+    }
+  ]
+}

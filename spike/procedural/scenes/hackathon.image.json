@@ -1,0 +1,71 @@
+{
+  "title": "It Rendered at Sunset",
+  "time": "golden-hour",
+  "base": { "shape": "square", "surface": "carpet" },
+  "palette": ["#f28c38", "#d0312d", "#c48a4f", "#5a5a5e", "#6b4e71"],
+  "objects": [
+    { "type": "wall", "id": "window-wall", "at": [0, -4.3], "rot": 0, "length": 9, "height": 3, "material": "plaster", "color": "#a9a49d", "window": true },
+    { "type": "wall", "id": "side-wall", "at": [-4.3, 0.1], "rot": 90, "length": 8.8, "height": 3, "material": "plaster", "color": "#cfc8bf" },
+
+    { "type": "box", "id": "whiteboard", "at": [-4.12, -2.6], "size": [0.04, 1.0, 1.6], "y": 1.2, "color": "#f4f4f2" },
+    { "type": "box", "at": [-4.09, -3.0], "size": [0.01, 0.12, 0.12], "y": 1.55, "color": "#f4a261" },
+    { "type": "box", "at": [-4.09, -2.6], "size": [0.01, 0.12, 0.12], "y": 1.35, "color": "#a8d5a2" },
+    { "type": "box", "at": [-4.09, -2.2], "size": [0.01, 0.12, 0.12], "y": 1.5, "color": "#f6a6b2" },
+
+    { "type": "shelf", "id": "bookshelf", "at": [-3.7, -3.95], "rot": 0, "size": [0.8, 1.8], "color": "#b5793f", "fill": "books" },
+    { "type": "potted-plant", "on": "bookshelf", "at": [0, 0], "kind": "herb", "size": 0.35 },
+
+    { "type": "box", "id": "cabinet", "at": [-3.9, -1.4], "size": [0.5, 0.7, 0.6], "color": "#8d8a85" },
+    { "type": "potted-plant", "on": "cabinet", "at": [0, 0], "kind": "herb", "size": 0.3 },
+    { "type": "box", "at": [-3.3, -0.7], "rot": 20, "size": [0.35, 0.45, 0.25], "color": "#2b2d31" },
+
+    { "type": "desk", "id": "desk", "at": [0.4, -3.65], "rot": 0, "size": [7.0, 0.9], "color": "#c48a4f" },
+    { "type": "laptop", "on": "desk", "at": [-2.5, 0.05], "rot": 0, "open": true },
+    { "type": "laptop", "on": "desk", "at": [0.0, 0.05], "rot": 0, "open": true },
+    { "type": "laptop", "on": "desk", "at": [2.2, 0.05], "rot": 0, "open": true },
+    { "type": "glass", "on": "desk", "at": [-3.3, -0.25], "drink": "red-bull" },
+    { "type": "glass", "on": "desk", "at": [-3.0, -0.3], "drink": "red-bull" },
+    { "type": "glass", "on": "desk", "at": [-1.8, -0.25], "drink": "red-bull" },
+    { "type": "glass", "on": "desk", "at": [-1.55, -0.05], "drink": "red-bull" },
+    { "type": "glass", "on": "desk", "at": [-1.35, -0.3], "drink": "red-bull" },
+    { "type": "glass", "on": "desk", "at": [-0.75, -0.3], "drink": "red-bull" },
+    { "type": "glass", "on": "desk", "at": [0.65, -0.3], "drink": "red-bull" },
+    { "type": "glass", "on": "desk", "at": [0.9, -0.05], "drink": "red-bull" },
+    { "type": "glass", "on": "desk", "at": [1.45, -0.3], "drink": "red-bull" },
+    { "type": "glass", "on": "desk", "at": [2.75, 0.25], "drink": "red-bull" },
+    { "type": "glass", "on": "desk", "at": [3.05, 0.3], "drink": "red-bull" },
+    { "type": "book", "on": "desk", "at": [-3.15, 0.22], "rot": 10, "color": "#efe3b8", "open": true },
+    { "type": "book", "on": "desk", "at": [-1.1, 0.25], "rot": -8, "color": "#f2d675", "open": true },
+    { "type": "book", "on": "desk", "at": [1.25, 0.25], "rot": 12, "color": "#efe7d2", "open": true },
+    { "type": "mug", "on": "desk", "at": [-2.0, 0.28], "color": "#2f6db5" },
+    { "type": "mug", "on": "desk", "at": [0.55, 0.28], "color": "#f4f1ea" },
+    { "type": "potted-plant", "on": "desk", "at": [2.75, -0.28], "kind": "succulent", "size": 0.2 },
+    { "type": "lantern", "on": "desk", "at": [3.3, -0.2] },
+
+    { "type": "chair", "id": "chair-left", "at": [-2.1, -2.5], "rot": 170, "color": "#2a2b2e" },
+    { "type": "chair", "id": "chair-mid", "at": [0.4, -2.4], "rot": 180, "color": "#2a2b2e" },
+    { "type": "chair", "id": "chair-right", "at": [2.8, -2.0], "rot": 200, "color": "#2a2b2e" },
+
+    { "type": "person", "id": "danny", "at": [0.4, -2.4], "rot": 180, "pose": "sit", "skin": "#e0b48f", "shirt": "#5b6b3a", "pants": "#2f3540", "hair": "#8b4a2b", "hairStyle": "curly", "holding": "none" },
+    { "type": "person", "id": "me", "at": [1.9, -1.1], "rot": 210, "pose": "cheer", "skin": "#c68b59", "shirt": "#2f6db5", "pants": "#3a3f4a", "hair": "#3b2416", "hairStyle": "short", "holding": "none" },
+    { "type": "person", "id": "teammate-1", "at": [-1.7, -0.9], "rot": 140, "pose": "cheer", "skin": "#8d5a3b", "shirt": "#f26522", "pants": "#1f2a44", "hair": "#0f0f0f", "hairStyle": "bun", "holding": "none" },
+    { "type": "person", "id": "teammate-2", "at": [-0.7, -2.6], "rot": 135, "pose": "cheer", "skin": "#f1c8a5", "shirt": "#24324a", "pants": "#4a4f57", "hair": "#d4b072", "hairStyle": "long", "holding": "none" },
+
+    { "type": "box", "id": "pizza-box", "at": [1.0, 1.7], "rot": 20, "size": [0.85, 0.05, 1.6], "color": "#c9a06a" },
+    { "type": "plate", "on": "pizza-box", "at": [0, 0.4], "food": "pizza" },
+
+    { "type": "glass", "at": [-1.5, -2.95], "drink": "red-bull" },
+    { "type": "glass", "at": [-2.7, -0.4], "drink": "red-bull" },
+    { "type": "glass", "at": [-3.0, 0.0], "drink": "red-bull" },
+    { "type": "glass", "at": [-0.3, 1.3], "drink": "red-bull" },
+    { "type": "glass", "at": [0.0, 0.7], "drink": "red-bull" },
+    { "type": "glass", "at": [2.1, 2.6], "drink": "red-bull" },
+    { "type": "glass", "at": [3.3, -1.3], "drink": "red-bull" },
+    { "type": "glass", "at": [3.5, -0.8], "drink": "red-bull" },
+    { "type": "glass", "at": [1.6, -2.9], "drink": "red-bull" },
+    { "type": "glass", "at": [-1.9, 0.6], "drink": "red-bull" },
+    { "type": "glass", "at": [2.9, 0.9], "drink": "red-bull" },
+
+    { "type": "cylinder", "at": [3.8, -2.5], "size": [0.4, 0.5, 0.4], "color": "#2e3033" }
+  ]
+}
