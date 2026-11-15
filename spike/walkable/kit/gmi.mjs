@@ -158,6 +158,7 @@ export async function run({ approach, model, payload, estCostUsd, label = "", ou
     error,
     latency_s: +((t1 - t0) / 1000).toFixed(2),
     queue_wait_s: processingAt ? +((processingAt - t0) / 1000).toFixed(2) : null,
+    server_s: final?.updated_at && final?.created_at ? final.updated_at - final.created_at : null,
     est_cost_usd: requestId ? estCostUsd : 0,
     output_bytes: outputBytes || null,
     files,
