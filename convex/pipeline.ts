@@ -10,6 +10,7 @@ import {
 import { models } from "./generation/models";
 import { download, ProviderError, type Check } from "./generation/provider";
 import { generationStep, scene } from "./generation/tables";
+import { recallCast } from "./memory";
 
 type Step = Infer<typeof generationStep>;
 type Run = Doc<"generationRuns">;
@@ -101,9 +102,16 @@ export const runStep = internalAction({
     const model = models[step];
     const ref = { runId, step, attempt: task.attempt };
     try {
+      const input =
+        step === "dreaming"
+          ? models.dreaming.input({
+              transcript: task.transcript,
+              cast: await recallCast(task.transcript),
+            })
+          : task.input;
       const submission = await model.provider.submit(
         model.id,
-        task.input,
+        input,
         model.timeoutMs,
       );
       if (submission.state === "done") {
@@ -174,7 +182,7 @@ export const beginTask = internalMutation({
       touchedAt: now,
     });
     await ctx.db.patch("worlds", world._id, { status: step });
-    return { attempt, input };
+    return { attempt, input, transcript: world.transcript };
   },
 });
 
@@ -450,7 +458,7 @@ async function tasksInFlight(ctx: MutationCtx, step: Step) {
 function stepInput(step: Step, world: Doc<"worlds">, run: Run) {
   switch (step) {
     case "dreaming":
-      return models.dreaming.input(world.transcript);
+      return models.dreaming.input({ transcript: world.transcript, cast: "" });
     case "painting":
       if (!run.scene) {
         throw new Error("Painting needs a scene.");

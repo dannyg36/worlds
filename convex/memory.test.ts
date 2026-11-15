@@ -96,7 +96,7 @@ test("adding a world schedules remember, which saves the day to the shared space
   expect(calls).toHaveLength(0);
 
   await t.finishAllScheduledFunctions(vi.runAllTimers);
-  expect(calls).toEqual([
+  expect(calls.filter((call) => call.path.endsWith("/document"))).toEqual([
     {
       path: "/ns/worlds-shared/document",
       body: {

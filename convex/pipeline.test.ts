@@ -11,7 +11,13 @@ import {
   type FakeGmi,
 } from "./fakeGmi.testing";
 import { models } from "./generation/models";
+import { recallCast } from "./memory";
 import schema from "./schema";
+
+vi.mock("./memory", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("./memory")>()),
+  recallCast: vi.fn(async () => ""),
+}));
 
 const modules = import.meta.glob("./**/*.ts");
 const TRANSCRIPT = "Got to the office at nine and ate cold pizza on the floor.";
@@ -367,4 +373,31 @@ describe("watchdog", () => {
       error: "Generation took too long.",
     });
   });
+});
+
+test("the scene writer gets the recalled cast ahead of the voice note", async () => {
+  const cast = "<recurring_cast>\n- Mochi is a corgi in a red collar\n</recurring_cast>";
+  vi.mocked(recallCast).mockResolvedValueOnce(cast);
+  const t = convexTest(schema, modules);
+  await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
+  await settle(t);
+
+  const [dream] = gmi.submitted("dreaming");
+  const messages = dream.input.messages as { role: string; content: string }[];
+  expect(recallCast).toHaveBeenCalledWith(TRANSCRIPT);
+  expect(messages.find((message) => message.role === "user")?.content).toBe(
+    `${cast}\n\nVoice note:\n"""\n${TRANSCRIPT}\n"""`,
+  );
+});
+
+test("without a recalled cast the scene writer prompt is only the voice note", async () => {
+  const t = convexTest(schema, modules);
+  await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
+  await settle(t);
+
+  const [dream] = gmi.submitted("dreaming");
+  const messages = dream.input.messages as { role: string; content: string }[];
+  expect(messages.find((message) => message.role === "user")?.content).toBe(
+    `Voice note:\n"""\n${TRANSCRIPT}\n"""`,
+  );
 });

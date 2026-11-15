@@ -10,8 +10,9 @@ caption: one warm, specific sentence under 90 characters, in the speaker's own v
 palette: 3 to 5 hex colors that carry the day's mood and light, the dominant color first.
 imagePrompt: under 90 words describing one miniature diorama of the day for an image model. Choose the single place that best holds the day and 3 to 5 concrete objects or moments from the note, all standing on one round base. Show the time of day and the weather through light and color. Any people are small stylized figures without detailed faces. No text, signs, or lettering. Don't describe the camera, background, art style, or rendering; those are added separately.`;
 
-export function sceneWriterPrompt(transcript: string): string {
-  return `Voice note:\n"""\n${transcript}\n"""`;
+export function sceneWriterPrompt(transcript: string, cast = ""): string {
+  const note = `Voice note:\n"""\n${transcript}\n"""`;
+  return cast ? `${cast}\n\n${note}` : note;
 }
 
 const CONCEPT_IMAGE_STYLE =

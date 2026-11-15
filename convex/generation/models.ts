@@ -20,7 +20,7 @@ export type Model<Input, Output> = {
 };
 
 type Models = {
-  dreaming: Model<string, Scene>;
+  dreaming: Model<{ transcript: string; cast: string }, Scene>;
   painting: Model<Scene, string>;
   sculpting: Model<string, string>;
 };
@@ -29,10 +29,10 @@ export const gmiModels: Models = {
   dreaming: {
     provider: gmiChat,
     id: "google/gemini-3.8-flash",
-    input: (transcript) => ({
+    input: ({ transcript, cast }) => ({
       messages: [
         { role: "system", content: SCENE_WRITER_SYSTEM_PROMPT },
-        { role: "user", content: sceneWriterPrompt(transcript) },
+        { role: "user", content: sceneWriterPrompt(transcript, cast) },
       ],
       temperature: 0.8,
       max_tokens: 1500,
@@ -79,10 +79,10 @@ export const falModels: Models = {
   dreaming: {
     provider: fal,
     id: "openrouter/router",
-    input: (transcript) => ({
+    input: ({ transcript, cast }) => ({
       model: "google/gemini-3.8-flash",
       system_prompt: SCENE_WRITER_SYSTEM_PROMPT,
-      prompt: sceneWriterPrompt(transcript),
+      prompt: sceneWriterPrompt(transcript, cast),
       temperature: 0.8,
       max_tokens: 800,
     }),
