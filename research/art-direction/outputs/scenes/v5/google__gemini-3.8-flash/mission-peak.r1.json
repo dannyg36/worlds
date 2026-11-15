@@ -1,0 +1,65 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "mission-peak",
+ "rep": 1,
+ "latency_s": 3.58,
+ "usage": {
+  "completion_tokens": 400,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1797,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2197
+ },
+ "cost_usd": 0.00284775,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Reaching the summit of Mission Peak at sunrise with dad beside the iconic pole.",
+  "elements": [
+   {
+    "name": "Mission Peak summit pole",
+    "kind": "object",
+    "look": "a weathered steel sight pole with several viewing holes bored through it"
+   },
+   {
+    "name": "Dad",
+    "kind": "person",
+    "look": "a man in a navy fleece and grey hiking cap leaning on a walking stick"
+   },
+   {
+    "name": "Hiker",
+    "kind": "person",
+    "look": "a hiker in an ochre jacket resting hands on hips"
+   },
+   {
+    "name": "Grazing cow",
+    "kind": "animal",
+    "look": "a small black-and-white cow grazing peacefully on the slope"
+   },
+   {
+    "name": "Trail summit",
+    "kind": "place",
+    "look": "a grassy golden hilltop scattered with gravel and small weathered rocks"
+   }
+  ],
+  "time_of_day": "dawn",
+  "weather": "clear",
+  "mood": "accomplished",
+  "palette": [
+   "#e07a5f",
+   "#f4a261",
+   "#819864",
+   "#4a5759"
+  ],
+  "scene": "A steep grassy hilltop is bathed in warm peach-colored sunrise light. In the center stands a weathered metal pole with viewing holes, casting a long shadow across the golden-green grass and gravel. Beside it, a man in a navy fleece and grey cap rests on a walking stick, while a hiker in an ochre jacket takes in the view. Along the back edge, a small black-and-white cow grazes on a lower fold of the ridge.",
+  "title": "Summit at Sunrise",
+  "caption": "Reached the peak with Dad just as the sun broke through."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

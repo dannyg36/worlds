@@ -1,0 +1,12 @@
+{
+ "model": "flare",
+ "gmi_model": "gpt-image-2.5-flare-generate",
+ "style": "miniature",
+ "slug": "hackathon",
+ "latency_s": 26.5,
+ "server_s": 18,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_04327034-6d58-4f95-adba-21fd2a840021_c94171de-bddc-45c2-81b5-1e40d0f94bf3.png",
+ "prompt": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: On a square patch of charcoal office carpet, a cluttered wooden work table sits at the center. Three small figures in dark hoodies raise their arms in excitement around an open silver laptop that glows with bright blue and green shapes. Slim silver energy-drink cans and coiled black cables crowd the tabletop. In front, on the floor, rests an open cardboard pizza box with leftover slices. At the back edge, a tall gridded windowpane glows with rich amber sunset light. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "04327034-6d58-4f95-adba-21fd2a840021"
+}

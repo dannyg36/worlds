@@ -1,0 +1,12 @@
+{
+ "model": "sd5lite",
+ "gmi_model": "seedream-5.0-lite",
+ "style": "clay",
+ "slug": "birthday-dinner",
+ "latency_s": 127.15,
+ "server_s": 37,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_7bf61175-7139-4f59-bb69-44a3f3a1a22fba1d97cb-52a2-4087-9f4c-181fde5033d1.png",
+ "prompt": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A warm outdoor patio of terracotta tile is bounded by a low ivy-draped brick wall at the back. Overhead, crisscrossing strands of glowing bulb string lights cast amber light across the scene. At the center, a long wooden dining table is laden with pasta plates and glassware. On the left, a small figure in a dark shirt and white apron sets down a square tiramisu topped with a fizzing, bright golden sparkler. Three friends in colorful sweaters sit around the table, leaning forward in delight. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "7bf61175-7139-4f59-bb69-44a3f3a1a22f"
+}

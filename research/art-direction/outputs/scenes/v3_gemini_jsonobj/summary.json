@@ -1,0 +1,10 @@
+{
+ "google/gemini-3.8-flash": {
+  "n": 30,
+  "errors": 0,
+  "p50_s": 4.26,
+  "max_s": 7.3,
+  "cost_usd": 0.0856,
+  "with_issues": 2
+ }
+}

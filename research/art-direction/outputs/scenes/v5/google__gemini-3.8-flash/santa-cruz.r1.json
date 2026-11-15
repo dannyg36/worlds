@@ -1,0 +1,66 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "santa-cruz",
+ "rep": 1,
+ "latency_s": 4.22,
+ "usage": {
+  "completion_tokens": 442,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1801,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2243
+ },
+ "cost_usd": 0.00300825,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Eating clam chowder in bread bowls on the sunny wharf while watching sea lions below.",
+  "elements": [
+   {
+    "name": "wharf",
+    "kind": "place",
+    "look": "weathered wooden pier planking with a rustic railing along the back edge"
+   },
+   {
+    "name": "clam chowder in bread bowls",
+    "kind": "object",
+    "look": "round sourdough bread bowls filled with creamy soup resting on a small outdoor wooden table"
+   },
+   {
+    "name": "Maya and friend",
+    "kind": "person",
+    "look": "two small figures seated on benches with pink sunburnt cheeks, one in a light teal jacket and one in sunny yellow"
+   },
+   {
+    "name": "rented cruisers",
+    "kind": "object",
+    "look": "two colorful beach cruiser bicycles leaned together against the wooden railing"
+   },
+   {
+    "name": "sea lions",
+    "kind": "animal",
+    "look": "two plump glossy brown sea lions basking and barking on wooden pilings below the deck edge"
+   }
+  ],
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "mood": "sun-drenched joyful",
+  "palette": [
+   "#E8A87C",
+   "#41B3A3",
+   "#D1A980",
+   "#F2E3C6",
+   "#2E5266"
+  ],
+  "scene": "On a sunlit wooden pier plank floor, two small figures in yellow and teal jackets sit at a round picnic table in the center, sharing two steaming sourdough bread bowls. Leaned against the rustic timber railing on the right stand two turquoise beach cruiser bikes. Over the railing along the back edge, two glossy brown sea lions rest on exposed wooden dock pilings, mouths open in mid-bark. Golden coastal sunlight washes the warm weathered wood and creates bright highlights on the warm soup.",
+  "title": "Chowder on the Wharf",
+  "caption": "Maya and I biked the cliffs and watched sea lions yell."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

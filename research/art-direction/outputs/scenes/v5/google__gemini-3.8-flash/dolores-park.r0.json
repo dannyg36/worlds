@@ -1,0 +1,71 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "dolores-park",
+ "rep": 0,
+ "latency_s": 4.43,
+ "usage": {
+  "completion_tokens": 543,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1795,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2338
+ },
+ "cost_usd": 0.0033825,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Sitting on the park hill splitting a burrito while the dog refuses to drop his tennis ball.",
+  "elements": [
+   {
+    "name": "Biscuit",
+    "kind": "animal",
+    "look": "a happy scruffy tan dog clamping a bright yellow-green tennis ball firmly in his mouth"
+   },
+   {
+    "name": "sister",
+    "kind": "person",
+    "look": "a figure in a cozy lilac sweater sitting cross-legged on the grass"
+   },
+   {
+    "name": "me",
+    "kind": "person",
+    "look": "a figure in a faded blue denim jacket holding half of a foil-wrapped burrito"
+   },
+   {
+    "name": "burrito",
+    "kind": "object",
+    "look": "a chubby foil-wrapped burrito cut in half with rice and beans peeking out"
+   },
+   {
+    "name": "frisbee players",
+    "kind": "person",
+    "look": "two tiny figures at the back edge tossing a red plastic disc"
+   },
+   {
+    "name": "Dolores Park hill",
+    "kind": "place",
+    "look": "a sunlit grassy slope with one slender palm tree trunk cut off at the top"
+   }
+  ],
+  "time_of_day": "morning",
+  "weather": "clear",
+  "mood": "lazy contentment",
+  "palette": [
+   "#76a035",
+   "#f5d76e",
+   "#c59b6d",
+   "#82a1c2",
+   "#b8a3cf"
+  ],
+  "scene": "A bright green grassy slope tilts gently from back to front, bathed in warm morning light. In the center, two figures sit side by side on a small picnic blanket: one in a denim jacket and one in a soft lilac sweater, sharing halves of a silver foil burrito. Right beside them, a scruffy tan dog proudly clamps a slightly oversized bright lime tennis ball in his jaws. Along the back edge, two tiny figures toss a red disc beneath the slender trunk of a single palm tree.",
+  "title": "Lazy Sunday with Biscuit",
+  "caption": "Split a burrito on the hill while Biscuit hoarded his new tennis ball."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

@@ -1,0 +1,61 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "finals-library",
+ "rep": 0,
+ "latency_s": 3.64,
+ "usage": {
+  "completion_tokens": 291,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1798,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2089
+ },
+ "cost_usd": 0.00243975,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Walking home through the quiet snow at midnight after cramming in the library.",
+  "elements": [
+   {
+    "name": "snowy sidewalk",
+    "kind": "place",
+    "look": "a narrow stone sidewalk dusted with soft white snow"
+   },
+   {
+    "name": "streetlamp",
+    "kind": "object",
+    "look": "a dark iron lamppost casting a warm amber glow"
+   },
+   {
+    "name": "paper cup of hot chocolate",
+    "kind": "object",
+    "look": "a small warm takeaway cup held in mittens"
+   },
+   {
+    "name": "figure in winter coat",
+    "kind": "person",
+    "look": "a small figure bundled in a dark navy puffer coat and knitted scarf"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "snowy",
+  "mood": "quiet relief",
+  "palette": [
+   "#1b263b",
+   "#e0e1dd",
+   "#d4a373",
+   "#415a77",
+   "#fefae0"
+  ],
+  "scene": "A narrow stone sidewalk dusted with powdery white snow stretches from front to back. In the center, a small bundled figure in a dark navy coat and grey scarf walks forward, holding a steaming takeaway cup in mittened hands. Small footprints trail behind them in the fresh snow. To the left, a tall dark iron lamppost glows with soft amber light, illuminating the ground. At the back edge sits the dark brick fragment of a sleeping townhouse with snowy steps.",
+  "title": "Snow at Midnight",
+  "caption": "Walked home in the dead quiet after eleven hours of chemistry."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

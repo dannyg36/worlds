@@ -1,0 +1,66 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "profanity",
+ "rep": 0,
+ "latency_s": 1.76,
+ "usage": {
+  "prompt_tokens": 1842,
+  "completion_tokens": 386,
+  "total_tokens": 2228,
+  "prompt_tokens_details": {
+   "cached_tokens": 1536
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.0006094799999999999,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "Eating gas station nachos alone in the car after finally getting it back from the tow yard in the rain.",
+  "elements": [
+   {
+    "name": "the car",
+    "kind": "object",
+    "look": "a small boxy hatchback, dark blue, rain-beaded, parked crookedly"
+   },
+   {
+    "name": "gas station nachos",
+    "kind": "object",
+    "look": "a bright orange tray of tortilla chips under a glossy cheese pump, a few jalapeño slices on top"
+   },
+   {
+    "name": "the tow yard guy",
+    "kind": "person",
+    "look": "a stocky man in a gray work jacket behind a small lit service window"
+   },
+   {
+    "name": "the tow yard",
+    "kind": "place",
+    "look": "a gravel lot fenced with chain link, a few cars parked in rows, a small lit office hut at the back edge"
+   },
+   {
+    "name": "the rain",
+    "kind": "place",
+    "look": "wet shiny asphalt with puddles reflecting orange lamp light"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "rainy",
+  "mood": "rueful funny",
+  "palette": [
+   "#2A3550",
+   "#E8873A",
+   "#F2C14E",
+   "#5C6478",
+   "#3F6B5A"
+  ],
+  "scene": "A wet gravel patch of tow yard at night, chain-link fence along the back edge with a few parked cars and a small office hut, its window glowing warm. Center-front sits a dark blue hatchback, rain-beaded and shiny, an orange tray of nachos with glossy cheese resting on its hood. To the left a stocky man in a gray work jacket stands at the lit window. Puddles across the gravel mirror the orange lamps, and a green trash can leans by the fence.",
+  "title": "Nachos After the Tow",
+  "caption": "Ninety-five bucks later, I ate gas station nachos in my car and laughed. "
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

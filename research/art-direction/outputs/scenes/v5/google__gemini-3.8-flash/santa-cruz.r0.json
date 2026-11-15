@@ -1,0 +1,66 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "santa-cruz",
+ "rep": 0,
+ "latency_s": 6.69,
+ "usage": {
+  "completion_tokens": 480,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1801,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2281
+ },
+ "cost_usd": 0.00315075,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Eating clam chowder in bread bowls on the wooden wharf while watching sea lions below.",
+  "elements": [
+   {
+    "name": "wooden wharf",
+    "kind": "place",
+    "look": "weathered gray-brown timber deck with heavy wooden railings"
+   },
+   {
+    "name": "bread bowls",
+    "kind": "object",
+    "look": "two round sourdough bread bowls steaming with creamy clam chowder on a picnic table"
+   },
+   {
+    "name": "sea lions",
+    "kind": "animal",
+    "look": "two sleek brown sea lions lounging on wooden crossbeams beneath the pier deck"
+   },
+   {
+    "name": "rental bikes",
+    "kind": "object",
+    "look": "two colorful beach cruiser bikes leaning together against the wharf railing"
+   },
+   {
+    "name": "Maya and me",
+    "kind": "person",
+    "look": "two figures in bright windbreakers and sun-reddened cheeks leaning over the rail"
+   }
+  ],
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "mood": "sun-drenched breezy",
+  "palette": [
+   "#8B5A2B",
+   "#F4D06F",
+   "#4A7C59",
+   "#2E6F9E",
+   "#D97443"
+  ],
+  "scene": "A weathered wooden wharf deck bathed in bright coastal afternoon sun. At the center, two round sourdough bread bowls of clam chowder sit on a rustic picnic bench. Leaning over the sturdy wooden railing are two figures in windbreakers, peering down at two plump brown sea lions perched on timber beams below. On the left, two colorful cruiser bikes rest against the rail. The sun casts sharp, warm shadows across the splintered gray planks.",
+  "title": "Chowder on the Wharf",
+  "caption": "Ate hot chowder on the pier while the sea lions yelled."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

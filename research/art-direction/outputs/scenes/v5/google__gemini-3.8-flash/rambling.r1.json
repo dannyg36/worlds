@@ -1,0 +1,66 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "rambling",
+ "rep": 1,
+ "latency_s": 4.85,
+ "usage": {
+  "completion_tokens": 405,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1901,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2306
+ },
+ "cost_usd": 0.0029445,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Reaching the top of the purple V4 route on the climbing gym overhang.",
+  "elements": [
+   {
+    "name": "climbing wall",
+    "kind": "place",
+    "look": "a steep angled gray wall section with colorful holds"
+   },
+   {
+    "name": "purple holds",
+    "kind": "object",
+    "look": "prominent chunky purple resin climbing holds arranged in a route"
+   },
+   {
+    "name": "climber",
+    "kind": "person",
+    "look": "a small figure in a teal tank top gripping the top hold"
+   },
+   {
+    "name": "Sam",
+    "kind": "person",
+    "look": "a small figure in an orange t-shirt watching from below"
+   },
+   {
+    "name": "crash pad",
+    "kind": "object",
+    "look": "a thick blue gym safety mat across the floor"
+   }
+  ],
+  "time_of_day": "dusk",
+  "weather": "clear",
+  "mood": "triumphant",
+  "palette": [
+   "#7b42bc",
+   "#2d3436",
+   "#0984e3",
+   "#f39c12",
+   "#dfe6e9"
+  ],
+  "scene": "A thick padded blue gym floor covers the ground, meeting a steep gray overhanging wall angled forward at the back. Bold purple climbing holds curve up the wall, slightly larger than life, flanked by a few scattered yellow and red grips. At the center top of the wall hangs a climber in a teal tank top, two hands planted on the final hold. Below on the right stands a companion in an orange shirt looking up with raised arms. Warm overhead gym lighting casts soft silhouettes across the wall.",
+  "title": "Purple V4 First Try",
+  "caption": "Finally sent the purple V4 on the overhang, first try."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

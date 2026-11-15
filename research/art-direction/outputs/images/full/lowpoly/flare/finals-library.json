@@ -1,0 +1,12 @@
+{
+ "model": "flare",
+ "gmi_model": "gpt-image-2.5-flare-generate",
+ "style": "lowpoly",
+ "slug": "finals-library",
+ "latency_s": 19.59,
+ "server_s": 20,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_880808ab-a89c-4448-b55f-9afa8767ac17_cd91957c-3872-44c9-9297-46c649e16e68.png",
+ "prompt": "A low-poly 3D floating island: a small chunk of land built from faceted, flat-shaded polygons with crisp edges, its rocky underside tapering to a point, hovering in empty space. On the island: A narrow stone sidewalk dusted with powdery white snow stretches from front to back. In the center, a small bundled figure in a dark navy coat and grey scarf walks forward, holding a steaming takeaway cup in mittened hands. Small footprints trail behind them in the fresh snow. To the left, a tall dark iron lamppost glows with soft amber light, illuminating the ground. At the back edge sits the dark brick fragment of a sleeping townhouse with snowy steps. Clean stylized game-asset look: every element, including people, furniture, food and plants, is built from flat-shaded faceted polygons in soft pastel colors, with no realistic textures. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "880808ab-a89c-4448-b55f-9afa8767ac17"
+}

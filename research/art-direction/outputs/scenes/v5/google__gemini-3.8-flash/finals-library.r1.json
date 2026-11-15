@@ -1,0 +1,65 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "finals-library",
+ "rep": 1,
+ "latency_s": 4.1,
+ "usage": {
+  "completion_tokens": 392,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1798,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2190
+ },
+ "cost_usd": 0.0028185,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Studying under a green lamp by the library window while snow falls outside and drinking hot chocolate with Jake.",
+  "elements": [
+   {
+    "name": "green desk lamp",
+    "kind": "object",
+    "look": "a brass desk lamp with a glowing emerald-green glass shade"
+   },
+   {
+    "name": "tall library window",
+    "kind": "place",
+    "look": "an arched wooden window pane with fresh snow gathered on the exterior sill"
+   },
+   {
+    "name": "chemistry textbooks",
+    "kind": "object",
+    "look": "thick opened books and loose paper notes stacked beside a pencil"
+   },
+   {
+    "name": "paper cups of hot chocolate",
+    "kind": "object",
+    "look": "two brown paper takeaway cups with small white lids"
+   },
+   {
+    "name": "Jake",
+    "kind": "person",
+    "look": "a friend in a navy puffer jacket sitting across the oak study table"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "snowy",
+  "mood": "focused warmth",
+  "palette": [
+   "#1b4d3e",
+   "#8b5a2b",
+   "#dbe9f4",
+   "#f4a261"
+  ],
+  "scene": "A polished dark oak floor holds a sturdy wooden library table centered before a tall arched window fragment at the back edge. A green banker's lamp casts warm emerald light across open heavy textbooks and scattered handwritten notes. A student in a cream sweater sits opposite a friend in a navy puffer jacket, two steaming paper cups resting between them. Outside the frosted glass, thick snow sits packed along the dark exterior sill.",
+  "title": "Midnight Snow and Chemistry",
+  "caption": "Jake brought hot chocolate while I memorized every last reaction."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

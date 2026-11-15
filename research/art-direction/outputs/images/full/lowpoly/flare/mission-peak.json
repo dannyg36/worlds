@@ -1,0 +1,12 @@
+{
+ "model": "flare",
+ "gmi_model": "gpt-image-2.5-flare-generate",
+ "style": "lowpoly",
+ "slug": "mission-peak",
+ "latency_s": 20.12,
+ "server_s": 20,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_358562e7-58f2-40de-b6e2-069a1d8edbf5_8423de5c-247c-4cfd-a6a4-9b0a3d1228d9.png",
+ "prompt": "A low-poly 3D floating island: a small chunk of land built from faceted, flat-shaded polygons with crisp edges, its rocky underside tapering to a point, hovering in empty space. On the island: A steep grassy hilltop patch glows in warm apricot dawn light. At the center stands a weathered metal pole on a rocky mound, with two bright red garden tomatoes resting on a boulder at its base. To the right, a father in an olive jacket and tan hat stands beside a hiker in a navy windbreaker holding walking sticks. Along the sloping left edge, a tiny black-and-white cow grazes on dew-touched golden-green grass. Clean stylized game-asset look: every element, including people, furniture, food and plants, is built from flat-shaded faceted polygons in soft pastel colors, with no realistic textures. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "358562e7-58f2-40de-b6e2-069a1d8edbf5"
+}

@@ -1,0 +1,60 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "rainy-monday",
+ "rep": 0,
+ "latency_s": 5.38,
+ "usage": {
+  "completion_tokens": 438,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1797,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2235
+ },
+ "cost_usd": 0.00299025,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Stopping at the little coffee shop on Valencia where the barista drew a cat in the latte foam.",
+  "elements": [
+   {
+    "name": "latte with foam cat",
+    "kind": "object",
+    "look": "a wide ceramic mug holding a warm latte topped with delicate cat face foam art"
+   },
+   {
+    "name": "flipped umbrella",
+    "kind": "object",
+    "look": "a dark rain umbrella blown inside out, resting wet against a chair leg"
+   },
+   {
+    "name": "coffee shop counter",
+    "kind": "place",
+    "look": "a warm wooden cafe counter with steam rising from a shiny espresso machine"
+   },
+   {
+    "name": "barista",
+    "kind": "person",
+    "look": "a figure in a deep green apron standing behind the counter"
+   }
+  ],
+  "time_of_day": "morning",
+  "weather": "rainy",
+  "mood": "cozy relief",
+  "palette": [
+   "#c48a52",
+   "#3d5236",
+   "#e8d8c8",
+   "#4a5568"
+  ],
+  "scene": "A warm wooden cafe floor with wet footprints leading from the doorway. At center, an oversized ceramic cup sits on a small round bistro table, filled with milky coffee and foam shaped into a tiny cat face. Leaning against the table leg lies a dark umbrella, blown inside out with glistening rain droplets on its fabric. At the back edge stands a slice of wooden counter with a barista in a dark green apron beside a silver espresso machine. Soft amber light glows from an overhead pendant lamp.",
+  "title": "A Cat in the Foam",
+  "caption": "The barista drew a cat in my latte after the wind wrecked my umbrella."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

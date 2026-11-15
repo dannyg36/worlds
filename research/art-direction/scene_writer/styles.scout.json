@@ -1,0 +1,58 @@
+{
+  "clay": {
+    "name": "Claymation diorama",
+    "lead": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama:",
+    "look": "Chunky, slightly squashed proportions and little clay figures with simple bead eyes.",
+    "bg": "warm off-white",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  "lowpoly": {
+    "name": "Low-poly floating island",
+    "lead": "A low-poly 3D floating island: a small chunk of land built from faceted, flat-shaded polygons with crisp edges, its rocky underside tapering to a point, hovering in empty space. On the island:",
+    "look": "Clean stylized game-asset look with simple geometric shapes, soft pastel gradients and tiny low-poly figures.",
+    "bg": "pale gray",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  "miniature": {
+    "name": "Tilt-shift tabletop miniature",
+    "lead": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature:",
+    "look": "Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus.",
+    "bg": "light gray studio",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  "vinyl": {
+    "name": "Vinyl toy playset",
+    "lead": "A designer vinyl toy playset: glossy, smooth molded plastic in soft candy colors, rounded chunky shapes and cute collectible figures with oversized heads, arranged on a rounded display base. In the playset:",
+    "look": "Premium collectible product shot with soft highlights and no harsh reflections.",
+    "bg": "soft neutral",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless soft neutral background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  "paper": {
+    "name": "Papercraft pop-up",
+    "lead": "A papercraft pop-up diorama: a tiny world built from layered cut paper and folded cardstock, with crisp paper edges, subtle paper grain and soft shadows between layers, standing on a round paper base. In the diorama:",
+    "look": "Handmade, delicate and precise, like a pop-up book page come to life.",
+    "bg": "off-white",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  "felt": {
+    "name": "Needle-felted wool",
+    "lead": "A needle-felted wool diorama: a tiny cozy world made of soft fuzzy felted wool with rounded shapes and tiny felt figures, on a round felted base. In the diorama:",
+    "look": "Soft, tactile and cozy, with visible wool fibers.",
+    "bg": "warm off-white",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  "painted": {
+    "name": "Hand-painted cozy game",
+    "lead": "A stylized hand-painted 3D diorama like a cozy indie game: chunky exaggerated shapes, soft painterly textures with visible brush strokes and warm bounced light, on a small round platform of earth. On the platform:",
+    "look": "Storybook warmth, simple readable shapes and tiny stylized figures.",
+    "bg": "pale cream",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless pale cream background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  "voxel": {
+    "name": "Voxel world",
+    "lead": "A voxel-art diorama: a tiny world built entirely from small uniform cubes with crisp blocky shapes and clean colors, on a square block base. On the base:",
+    "look": "Clean, chunky and playful, every shape made of visible cubes.",
+    "bg": "pale gray",
+    "guard": "The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  }
+}

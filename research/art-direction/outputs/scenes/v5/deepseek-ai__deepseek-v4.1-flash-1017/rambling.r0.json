@@ -1,0 +1,73 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "rambling",
+ "rep": 0,
+ "latency_s": 2.4,
+ "usage": {
+  "prompt_tokens": 1932,
+  "completion_tokens": 449,
+  "total_tokens": 2381,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.0006710399999999999,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "At the climbing gym, finally sending the purple V4 on the overhang first try and letting out a small scream of joy.",
+  "elements": [
+   {
+    "name": "purple V4 route",
+    "kind": "object",
+    "look": "a line of chunky purple holds running up a steep overhanging wall"
+   },
+   {
+    "name": "Sam",
+    "kind": "person",
+    "look": "a small figure in a teal t-shirt and dark shorts, arms raised"
+   },
+   {
+    "name": "climber",
+    "kind": "person",
+    "look": "a small figure in a yellow tank top and grey chalk-dusted leggings, one arm punched up in triumph"
+   },
+   {
+    "name": "climbing gym wall",
+    "kind": "place",
+    "look": "a tall grey overhang wall studded with colorful holds, chalky handprints, blue crash mats below"
+   },
+   {
+    "name": "chalk bag",
+    "kind": "object",
+    "look": "a small round white chalk bag with a dusty puff of chalk around its rim"
+   },
+   {
+    "name": "elephant mural",
+    "kind": "object",
+    "look": "a small painted elephant shape on a fragment of warm orange wall at the back edge"
+   }
+  ],
+  "time_of_day": "dusk",
+  "weather": "clear",
+  "mood": "triumphant joy",
+  "palette": [
+   "#5B3FA8",
+   "#8E8B94",
+   "#2E6E8E",
+   "#E8C24A",
+   "#D97B3F"
+  ],
+  "scene": "A patch of blue gym matting holds a tall grey overhanging climbing wall at the back, studded with colorful holds and chalky handprints. The purple-hold route climbs the overhang at the center, with a small climber in a yellow tank top at its top, one arm punched up. Below right, a friend in a teal shirt stands with arms raised. A round white chalk bag rests front-left, dusted with powder. At the back edge, a fragment of warm orange wall shows a small painted elephant. Dusk light glows warm through a tall window slice behind.",
+  "title": "Sending the Purple V4",
+  "caption": "First try on the purple V4 — I actually screamed. Sam laughed so hard. Call Mom about Thanksgiving. Maybe tomorrow."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": [
+  "caption_words=20"
+ ]
+}

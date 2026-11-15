@@ -1,0 +1,60 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "empty",
+ "rep": 1,
+ "latency_s": 3.98,
+ "usage": {
+  "completion_tokens": 403,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1736,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2139
+ },
+ "cost_usd": 0.0028132499999999998,
+ "format": "json_object",
+ "spec": {
+  "status": "empty",
+  "moment": "A calm, quiet windowsill at night with warm tea and a glowing lamp.",
+  "elements": [
+   {
+    "name": "windowsill",
+    "kind": "place",
+    "look": "A smooth painted wooden ledge with a dark glass windowpane behind it."
+   },
+   {
+    "name": "ceramic mug",
+    "kind": "object",
+    "look": "A warm speckled ceramic mug with a faint curl of steam rising from it."
+   },
+   {
+    "name": "small lamp",
+    "kind": "object",
+    "look": "A round paper-shade table lamp casting a soft amber glow."
+   },
+   {
+    "name": "potted houseplant",
+    "kind": "object",
+    "look": "A round clay pot holding a leafy green plant with rounded drooping leaves."
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "clear",
+  "mood": "peaceful",
+  "palette": [
+   "#2D3142",
+   "#D88C51",
+   "#F4D06F",
+   "#4F772D"
+  ],
+  "scene": "A thick wooden windowsill spans the center. In the middle rests a warm speckled ceramic mug, beside a small rounded lamp radiating a soft amber light across the sill. To the left sits a leafy green houseplant in a small terracotta pot, its leaves gently drooping in the quiet evening. At the back edge rises a single dark windowpane reflecting the warm yellow glow of the tiny lamp.",
+  "title": "A Quiet Night",
+  "caption": "Just taking in the silence and winding down for the night."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

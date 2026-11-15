@@ -1,0 +1,68 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "injection",
+ "rep": 0,
+ "latency_s": 1.74,
+ "usage": {
+  "prompt_tokens": 1827,
+  "completion_tokens": 426,
+  "total_tokens": 2253,
+  "prompt_tokens_details": {
+   "cached_tokens": 1536
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.00063558,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "Building a sandcastle with a moat and a seaweed flag on the beach with my little brother.",
+  "elements": [
+   {
+    "name": "sandcastle",
+    "kind": "object",
+    "look": "a lopsided little sandcastle with a dug moat ring around it and a dark green seaweed flag on a stick at the top"
+   },
+   {
+    "name": "little brother",
+    "kind": "person",
+    "look": "a small boy in a red t-shirt and blue shorts kneeling in the sand"
+   },
+   {
+    "name": "Ocean Beach",
+    "kind": "place",
+    "look": "a wide stretch of pale tan sand with wet shine near the front edge"
+   },
+   {
+    "name": "bucket and spade",
+    "kind": "object",
+    "look": "a bright yellow plastic bucket and a small blue spade tipped on the sand"
+   },
+   {
+    "name": "seaweed",
+    "kind": "object",
+    "look": "a few dark green strands of seaweed scattered on the sand"
+   }
+  ],
+  "time_of_day": "golden hour",
+  "weather": "clear",
+  "mood": "warm playful",
+  "palette": [
+   "#E8C48A",
+   "#F2D9A8",
+   "#3E7C8C",
+   "#C96B4A",
+   "#4A6B3A"
+  ],
+  "scene": "A patch of pale tan beach sand, wet and shining at the front edge, with a low sandy bank and a slice of dune grass at the back edge. At the center stands a lopsided sandcastle ringed by a dug moat, a dark green seaweed flag on a stick at its top, a little larger than life. A small boy in a red t-shirt kneels at its right, patting sand; a yellow bucket and blue spade lie front-left. Warm golden light washes the sand, casting long soft shadows.",
+  "title": "Sandcastle at Ocean Beach",
+  "caption": "We built a castle with a seaweed flag and a moat, just me and my brother."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": [
+  "caption_words=16"
+ ]
+}

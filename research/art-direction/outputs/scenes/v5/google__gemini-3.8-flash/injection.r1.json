@@ -1,0 +1,60 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "injection",
+ "rep": 1,
+ "latency_s": 4.52,
+ "usage": {
+  "completion_tokens": 453,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1795,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2248
+ },
+ "cost_usd": 0.003045,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Building a sandcastle with a moat and seaweed flag at the beach with little brother.",
+  "elements": [
+   {
+    "name": "sandcastle",
+    "kind": "object",
+    "look": "a sculpted sand fortress with turrets, surrounded by a shallow water-filled moat and topped with a dark green seaweed ribbon flag"
+   },
+   {
+    "name": "little brother",
+    "kind": "person",
+    "look": "a small boy in blue shorts and a bright yellow sunhat kneeling in the damp sand"
+   },
+   {
+    "name": "older sibling",
+    "kind": "person",
+    "look": "a taller figure in a striped tee and rolled-up shorts holding a small plastic bucket"
+   },
+   {
+    "name": "beach toys",
+    "kind": "object",
+    "look": "a red plastic spade and an overturned blue sand bucket"
+   }
+  ],
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "mood": "playful",
+  "palette": [
+   "#E2C597",
+   "#3E788A",
+   "#D95338",
+   "#2F5233"
+  ],
+  "scene": "A patch of packed, damp tan sand sits center stage, glistening slightly from ocean spray. In the middle rises a detailed sandcastle with chunky square towers, encircled by a smooth trench of water, topped with a strand of dark green seaweed as a banner. At the left kneels a small child in blue shorts and a yellow hat, patting a wall. Beside the castle sits a taller figure in rolled-up shorts with a red plastic spade. At the back edge, a gentle turquoise wave laps softly onto the shore.",
+  "title": "Moats and Seaweed Flags",
+  "caption": "Built an entire fortress with my brother at Ocean Beach today."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

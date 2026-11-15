@@ -1,0 +1,12 @@
+{
+ "model": "flare",
+ "gmi_model": "gpt-image-2.5-flare-generate",
+ "style": "vinyl",
+ "slug": "dolores-park",
+ "latency_s": 20.48,
+ "server_s": 21,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_c882d608-dabd-48ce-ae51-affb549fdfb4_ed01eddb-4ef0-4592-b950-72c9438b6248.png",
+ "prompt": "A designer vinyl toy playset: glossy, smooth molded plastic in soft candy colors, rounded chunky shapes and cute collectible figures with oversized heads and molded hair, arranged on a rounded display base. In the playset: A bright green grassy slope tilts gently from back to front, bathed in warm morning light. In the center, two figures sit side by side on a small picnic blanket: one in a denim jacket and one in a soft lilac sweater, sharing halves of a silver foil burrito. Right beside them, a scruffy tan dog proudly clamps a slightly oversized bright lime tennis ball in his jaws. Along the back edge, two tiny figures toss a red disc beneath the slender trunk of a single palm tree. Premium collectible product shot with soft highlights and no harsh reflections. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless soft neutral background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "c882d608-dabd-48ce-ae51-affb549fdfb4"
+}
