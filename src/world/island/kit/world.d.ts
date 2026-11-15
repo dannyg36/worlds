@@ -11,6 +11,16 @@ export type WorldOptions = {
   onError?: (error: unknown) => void;
 };
 
+/** A vignette's plot: its centre on the island, its outward angle and its radius, in metres. */
+export type IslandPlot = { x: number; z: number; rot: number; radius: number; index: number };
+
+/** What island.js laid out; plots[i] holds vignettes[i]. */
+export type IslandLayout = {
+  radius: number;
+  plots: IslandPlot[];
+  heightAt(x: number, z: number): number;
+};
+
 export type WorldHandle = {
   dispose(): void;
   setSize(width: number, height: number): void;
@@ -20,6 +30,8 @@ export type WorldHandle = {
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
   controls: OrbitControls;
+  /** Null for a single diorama, or when the island couldn't be built. */
+  island: IslandLayout | null;
 };
 
 export function createWorld(

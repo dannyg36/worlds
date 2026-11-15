@@ -169,10 +169,16 @@ function WorldScene({ world }: { world: World }) {
             <IslandViewer
               key={`island#${attempt}`}
               sceneJson={scene}
+              photos={world.photos}
               insetTop={insetTop}
               insetBottom={insetBottom}
               onReady={handleReady}
               onError={handleError}
+              onSelect={async (index) => {
+                if (index !== null) {
+                  void Haptics.selectionAsync();
+                }
+              }}
               dom={{
                 style: { flex: 1, backgroundColor: auroraBase(palette) },
                 scrollEnabled: false,
