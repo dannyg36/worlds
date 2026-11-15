@@ -6,6 +6,10 @@ const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
   unsavedChangesWarning: false,
 });
 
+export const unstable_settings = {
+  anchor: "index",
+};
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
@@ -16,6 +20,14 @@ export default function RootLayout() {
           <Stack.Screen
             name="index"
             options={{ title: "Worlds", headerLargeTitleEnabled: true }}
+          />
+          <Stack.Screen
+            name="record"
+            options={{
+              presentation: "formSheet",
+              headerShown: false,
+              sheetGrabberVisible: true,
+            }}
           />
         </Stack>
       </ThemeProvider>
