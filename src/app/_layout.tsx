@@ -14,6 +14,8 @@ import { Backdrop } from "@/components/Backdrop";
 import { color, fontFamily } from "@/design/tokens";
 import { DeviceProfileProvider } from "@/profiles/DeviceProfileProvider";
 
+import { PushNotifications } from "@/notifications/push-notifications";
+
 SplashScreen.preventAutoHideAsync();
 
 const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
@@ -83,6 +85,7 @@ export default function RootLayout() {
           </Stack>
         </View>
       </ThemeProvider>
+      <PushNotifications />
     </DeviceProfileProvider>
   );
 }

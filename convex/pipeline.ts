@@ -392,6 +392,11 @@ export const completeTask = internalMutation({
           status: "ready",
           modelStorageId: output.storageId,
         });
+        await ctx.scheduler.runAfter(
+          0,
+          internal.notifications.worldStatusChanged,
+          { worldId: world._id, status: "ready", title: world.title },
+        );
         break;
     }
     return true;
@@ -562,6 +567,10 @@ async function failRun(ctx: MutationCtx, run: Run, error: string) {
   const world = await ctx.db.get("worlds", run.worldId);
   if (world?.runId === run._id) {
     await ctx.db.patch("worlds", world._id, { status: "failed", error });
+    await ctx.scheduler.runAfter(0, internal.notifications.worldStatusChanged, {
+      worldId: world._id,
+      status: "failed",
+    });
   }
 }
 
