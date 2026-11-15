@@ -1,5 +1,7 @@
+import { CLAUDE_MODEL } from "./anthropic";
 import { fal } from "./fal";
 import { gmiChat, gmiQueue } from "./gmi";
+import { claudeIsland, islandScene, type Island } from "./island";
 import type { Provider } from "./provider";
 import { parseScene, type Scene } from "./scene";
 import {
@@ -19,36 +21,61 @@ export type Model<Input, Output> = {
   maxInFlight?: number;
 };
 
+/** island is the island spec as a JSON string; the legacy scene writer has none. */
+export type Dream = { scene: Scene; island?: string };
+
 type Models = {
-  dreaming: Model<{ transcript: string; cast: string }, Scene>;
+  dreaming: Model<{ transcript: string; cast: string }, Dream>;
   painting: Model<Scene, string>;
   sculpting: Model<string, string>;
+  /** Run the image-to-3D step after painting. Off while the island renderer replaces it. */
+  sculpt: boolean;
+};
+
+export const claudeIslandWriter: Models["dreaming"] = {
+  provider: claudeIsland,
+  id: CLAUDE_MODEL,
+  input: ({ transcript, cast }) => ({ transcript, cast }),
+  output: (result) => {
+    if (typeof result !== "string") {
+      throw new Error("The island writer returned no island.");
+    }
+    return { scene: islandScene(JSON.parse(result) as Island), island: result };
+  },
+  pollMs: 1_000,
+  // One outline call, parallel vignette calls, and maybe a repair round, all
+  // inside one action; Convex stops actions at 10 minutes.
+  timeoutMs: 8 * 60_000,
+  maxTries: 2,
+};
+
+/** The pre-island scene writer, for a pipeline that sculpts a 3D model instead. */
+export const gmiSceneWriter: Models["dreaming"] = {
+  provider: gmiChat,
+  id: "google/gemini-3.8-flash",
+  input: ({ transcript, cast }) => ({
+    messages: [
+      { role: "system", content: SCENE_WRITER_SYSTEM_PROMPT },
+      { role: "user", content: sceneWriterPrompt(transcript, cast) },
+    ],
+    temperature: 0.8,
+    max_tokens: 1500,
+    reasoning_effort: "low",
+    response_format: { type: "json_object" },
+  }),
+  output: (result) => sceneWriterDream(chatText(result)),
+  pollMs: 1_000,
+  timeoutMs: 45_000,
+  maxTries: 3,
 };
 
 export const gmiModels: Models = {
-  dreaming: {
-    provider: gmiChat,
-    id: "google/gemini-3.8-flash",
-    input: ({ transcript, cast }) => ({
-      messages: [
-        { role: "system", content: SCENE_WRITER_SYSTEM_PROMPT },
-        { role: "user", content: sceneWriterPrompt(transcript, cast) },
-      ],
-      temperature: 0.8,
-      max_tokens: 1500,
-      reasoning_effort: "low",
-      response_format: { type: "json_object" },
-    }),
-    output: (result) => parseScene(chatText(result)),
-    pollMs: 1_000,
-    timeoutMs: 45_000,
-    maxTries: 3,
-  },
+  dreaming: claudeIslandWriter,
   painting: {
     provider: gmiQueue,
     id: "seedream-4-0-250828",
     input: (scene) => ({
-      prompt: conceptImagePrompt(scene),
+      prompt: scene.imagePrompt,
       size: "1024x1024",
       max_images: 1,
       watermark: false,
@@ -73,6 +100,7 @@ export const gmiModels: Models = {
     maxTries: 2,
     maxInFlight: 1,
   },
+  sculpt: false,
 };
 
 export const falModels: Models = {
@@ -86,7 +114,7 @@ export const falModels: Models = {
       temperature: 0.8,
       max_tokens: 800,
     }),
-    output: (result) => parseScene(textField(result, "output")),
+    output: (result) => sceneWriterDream(textField(result, "output")),
     pollMs: 750,
     timeoutMs: 45_000,
     maxTries: 3,
@@ -95,7 +123,7 @@ export const falModels: Models = {
     provider: fal,
     id: "fal-ai/z-image/turbo",
     input: (scene) => ({
-      prompt: conceptImagePrompt(scene),
+      prompt: scene.imagePrompt,
       image_size: "square_hd",
       num_inference_steps: 8,
       output_format: "jpeg",
@@ -119,9 +147,15 @@ export const falModels: Models = {
     maxTries: 2,
     maxInFlight: 1,
   },
+  sculpt: true,
 };
 
 export const models: Models = gmiModels;
+
+function sceneWriterDream(text: string): Dream {
+  const scene = parseScene(text);
+  return { scene: { ...scene, imagePrompt: conceptImagePrompt(scene) } };
+}
 
 function chatText(result: unknown): string {
   return textField(field(result, "choices", 0, "message"), "content");

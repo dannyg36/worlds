@@ -1,0 +1,420 @@
+{
+  "title": "First World Renders",
+  "time": "golden-hour",
+  "base": {
+    "shape": "square",
+    "surface": "wood"
+  },
+  "palette": [
+    "#f39c12",
+    "#2c3e50",
+    "#e74c3c",
+    "#3498db"
+  ],
+  "objects": [
+    {
+      "type": "wall",
+      "id": "back-wall-left",
+      "at": [
+        -2,
+        -3.2
+      ],
+      "length": 4,
+      "height": 3.2,
+      "material": "brick",
+      "color": "#7f8c8d"
+    },
+    {
+      "type": "wall",
+      "id": "back-wall-right",
+      "at": [
+        2,
+        -3.2
+      ],
+      "length": 4,
+      "height": 3.2,
+      "material": "brick",
+      "color": "#7f8c8d",
+      "window": true
+    },
+    {
+      "type": "shelf",
+      "at": [
+        -2.8,
+        -3
+      ],
+      "rot": 0,
+      "size": [
+        1.4,
+        2
+      ],
+      "color": "#2c3e50",
+      "fill": "books"
+    },
+    {
+      "type": "potted-plant",
+      "at": [
+        -3.5,
+        -2.5
+      ],
+      "kind": "olive",
+      "size": 1.2
+    },
+    {
+      "type": "potted-plant",
+      "at": [
+        3.4,
+        -2.8
+      ],
+      "kind": "succulent",
+      "size": 0.8
+    },
+    {
+      "type": "table",
+      "id": "hack-table",
+      "at": [
+        0,
+        -0.6
+      ],
+      "rot": 0,
+      "size": [
+        2.4,
+        1.2
+      ],
+      "shape": "rect",
+      "cloth": "none",
+      "color": "#e0e0e0"
+    },
+    {
+      "type": "laptop",
+      "id": "hero-laptop",
+      "on": "hack-table",
+      "at": [
+        0,
+        0
+      ],
+      "rot": 180,
+      "open": true
+    },
+    {
+      "type": "laptop",
+      "on": "hack-table",
+      "at": [
+        -0.8,
+        -0.2
+      ],
+      "rot": 150,
+      "open": true
+    },
+    {
+      "type": "laptop",
+      "on": "hack-table",
+      "at": [
+        0.8,
+        -0.1
+      ],
+      "rot": -160,
+      "open": true
+    },
+    {
+      "type": "glass",
+      "on": "hack-table",
+      "at": [
+        -0.3,
+        0.3
+      ],
+      "drink": "red-bull"
+    },
+    {
+      "type": "glass",
+      "on": "hack-table",
+      "at": [
+        -0.5,
+        0.25
+      ],
+      "drink": "red-bull"
+    },
+    {
+      "type": "glass",
+      "on": "hack-table",
+      "at": [
+        0.4,
+        0.35
+      ],
+      "drink": "red-bull"
+    },
+    {
+      "type": "glass",
+      "on": "hack-table",
+      "at": [
+        0.55,
+        0.2
+      ],
+      "drink": "red-bull"
+    },
+    {
+      "type": "glass",
+      "on": "hack-table",
+      "at": [
+        -0.9,
+        0.3
+      ],
+      "drink": "latte"
+    },
+    {
+      "type": "mug",
+      "on": "hack-table",
+      "at": [
+        0.9,
+        -0.3
+      ],
+      "color": "#e74c3c"
+    },
+    {
+      "type": "chair",
+      "id": "chair-left",
+      "at": [
+        -1.5,
+        -0.6
+      ],
+      "rot": 90,
+      "color": "#34495e"
+    },
+    {
+      "type": "chair",
+      "id": "chair-back-l",
+      "at": [
+        -0.7,
+        -1.4
+      ],
+      "rot": 0,
+      "color": "#34495e"
+    },
+    {
+      "type": "chair",
+      "id": "chair-back-r",
+      "at": [
+        0.7,
+        -1.4
+      ],
+      "rot": 0,
+      "color": "#34495e"
+    },
+    {
+      "type": "chair",
+      "id": "chair-right",
+      "at": [
+        1.5,
+        -0.6
+      ],
+      "rot": -90,
+      "color": "#34495e"
+    },
+    {
+      "type": "person",
+      "at": [
+        0,
+        0.8
+      ],
+      "rot": 180,
+      "pose": "cheer",
+      "shirt": "#e74c3c",
+      "pants": "#2c3e50",
+      "skin": "#f5d0a9",
+      "hair": "#2c3e50",
+      "hairStyle": "curly"
+    },
+    {
+      "type": "person",
+      "at": [
+        -0.8,
+        0.7
+      ],
+      "rot": 160,
+      "pose": "cheer",
+      "shirt": "#3498db",
+      "pants": "#34495e",
+      "skin": "#d7a15c",
+      "hair": "#1a1a1a",
+      "hairStyle": "short"
+    },
+    {
+      "type": "person",
+      "at": [
+        0.9,
+        0.6
+      ],
+      "rot": -165,
+      "pose": "cheer",
+      "shirt": "#2ecc71",
+      "pants": "#111111",
+      "skin": "#f1c27d",
+      "hair": "#d35400",
+      "hairStyle": "long"
+    },
+    {
+      "type": "person",
+      "at": [
+        -1.7,
+        -0.6
+      ],
+      "rot": 80,
+      "pose": "cheer",
+      "shirt": "#9b59b6",
+      "pants": "#7f8c8d",
+      "skin": "#e0ac69",
+      "hair": "#2c3e50",
+      "hairStyle": "bun"
+    },
+    {
+      "type": "crate",
+      "id": "pizza-crate",
+      "at": [
+        -0.2,
+        2
+      ],
+      "rot": 15,
+      "fill": "none"
+    },
+    {
+      "type": "plate",
+      "at": [
+        -0.8,
+        1.9
+      ],
+      "rot": 10,
+      "food": "pizza"
+    },
+    {
+      "type": "plate",
+      "at": [
+        0.5,
+        2.1
+      ],
+      "rot": -25,
+      "food": "pizza"
+    },
+    {
+      "type": "glass",
+      "at": [
+        0.9,
+        1.8
+      ],
+      "drink": "red-bull"
+    },
+    {
+      "type": "glass",
+      "at": [
+        -1.1,
+        1.7
+      ],
+      "drink": "red-bull"
+    },
+    {
+      "type": "glass",
+      "at": [
+        -0.4,
+        2.5
+      ],
+      "drink": "red-bull"
+    },
+    {
+      "type": "post",
+      "id": "post-left",
+      "at": [
+        -3.2,
+        2.6
+      ],
+      "height": 2.4,
+      "color": "#7f8c8d"
+    },
+    {
+      "type": "post",
+      "id": "post-right",
+      "at": [
+        3.2,
+        2.6
+      ],
+      "height": 2.4,
+      "color": "#7f8c8d"
+    },
+    {
+      "type": "string-lights",
+      "points": [
+        [
+          -3.2,
+          2.3,
+          2.6
+        ],
+        [
+          -1.6,
+          2,
+          0
+        ],
+        [
+          0,
+          2.2,
+          -1.5
+        ],
+        [
+          1.6,
+          2,
+          0
+        ],
+        [
+          3.2,
+          2.3,
+          2.6
+        ]
+      ],
+      "color": "#f1c40f"
+    },
+    {
+      "type": "bike",
+      "at": [
+        3,
+        1.2
+      ],
+      "rot": -40,
+      "color": "#1abc9c"
+    },
+    {
+      "type": "planter",
+      "at": [
+        2.6,
+        2.7
+      ],
+      "rot": -10,
+      "length": 1.2,
+      "flowers": "#e67e22"
+    },
+    {
+      "type": "planter",
+      "at": [
+        -2.6,
+        2.7
+      ],
+      "rot": 15,
+      "length": 1.2,
+      "flowers": "#e67e22"
+    },
+    {
+      "type": "book",
+      "at": [
+        -2,
+        1.2
+      ],
+      "rot": 35,
+      "color": "#34495e",
+      "open": true
+    },
+    {
+      "type": "guitar",
+      "at": [
+        2.6,
+        -1.8
+      ],
+      "rot": 25
+    }
+  ]
+}

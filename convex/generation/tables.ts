@@ -26,6 +26,8 @@ export const worldGenerationFields = {
   title: v.optional(v.string()),
   caption: v.optional(v.string()),
   palette: v.optional(v.array(v.string())),
+  /** The island spec (spike/procedural/ISLAND.md) as a JSON string. */
+  scene: v.optional(v.string()),
   imageStorageId: v.optional(v.id("_storage")),
   modelStorageId: v.optional(v.id("_storage")),
   error: v.optional(v.string()),

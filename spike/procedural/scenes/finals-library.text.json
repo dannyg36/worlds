@@ -1,0 +1,76 @@
+{
+  "title": "Hot Chocolate, Hour Eleven",
+  "time": "snow",
+  "base": { "shape": "square", "surface": "wood" },
+  "palette": ["#2f6b4f", "#7a2433", "#5b3a24", "#f4f1ea", "#e8b04a"],
+  "objects": [
+    { "type": "box", "id": "snow-outside", "at": [0, -4.12], "size": [8.8, 0.04, 0.75], "color": "#f4f7fb" },
+    { "type": "tree", "kind": "pine", "at": [-2.9, -4.15], "height": 4.8 },
+    { "type": "tree", "kind": "pine", "at": [0.9, -4.2], "height": 5.2 },
+    { "type": "tree", "kind": "pine", "at": [3.3, -4.15], "height": 4.4 },
+    { "type": "lamp-post", "at": [-0.6, -4.15], "height": 4.2 },
+
+    { "type": "wall", "id": "wall-left", "at": [-2.8, -3.6], "rot": 0, "length": 2.8, "height": 3.6, "material": "stone", "color": "#d8cfbf", "window": true },
+    { "type": "wall", "id": "wall-mid", "at": [0, -3.6], "rot": 0, "length": 2.8, "height": 3.6, "material": "stone", "color": "#d8cfbf", "window": true },
+    { "type": "wall", "id": "wall-right", "at": [2.8, -3.6], "rot": 0, "length": 2.8, "height": 3.6, "material": "stone", "color": "#d8cfbf", "window": true },
+
+    { "type": "box", "id": "rug", "at": [0, -0.55], "size": [6.4, 0.02, 5.4], "color": "#7a2433" },
+
+    { "type": "shelf", "id": "shelf-l1", "at": [-3.95, -2.35], "rot": 90, "size": [2.2, 2.7], "color": "#4e3220", "fill": "books" },
+    { "type": "shelf", "id": "shelf-l2", "at": [-3.95, -0.05], "rot": 90, "size": [2.2, 2.7], "color": "#4e3220", "fill": "books" },
+    { "type": "shelf", "id": "shelf-r1", "at": [3.95, -2.35], "rot": -90, "size": [2.2, 2.7], "color": "#4e3220", "fill": "books" },
+    { "type": "shelf", "id": "shelf-r2", "at": [3.95, -0.05], "rot": -90, "size": [2.2, 2.7], "color": "#4e3220", "fill": "books" },
+    { "type": "shelf", "id": "shelf-l3", "at": [-3.95, 1.95], "rot": 90, "size": [1.4, 1.1], "color": "#4e3220", "fill": "books" },
+    { "type": "shelf", "id": "shelf-r3", "at": [3.95, 1.95], "rot": -90, "size": [1.4, 1.1], "color": "#4e3220", "fill": "books" },
+    { "type": "lantern", "on": "shelf-l3", "at": [0, 0], "color": "#2f6b4f" },
+    { "type": "lantern", "on": "shelf-r3", "at": [0, 0], "color": "#2f6b4f" },
+
+    { "type": "potted-plant", "kind": "olive", "at": [-3.75, 3.75], "size": 1.3 },
+    { "type": "potted-plant", "kind": "olive", "at": [3.75, 3.75], "size": 1.0 },
+
+    { "type": "table", "id": "back-table", "at": [0, -2.0], "rot": 0, "size": [3.2, 1.0], "shape": "rect", "cloth": "none", "color": "#5b3a24" },
+    { "type": "chair", "at": [-1.05, -2.75], "rot": 0, "color": "#6b4226" },
+    { "type": "chair", "at": [0, -2.75], "rot": 0, "color": "#6b4226" },
+    { "type": "chair", "at": [1.05, -2.75], "rot": 0, "color": "#6b4226" },
+    { "type": "chair", "at": [-1.05, -1.25], "rot": 180, "color": "#6b4226" },
+    { "type": "chair", "at": [0.6, -1.15], "rot": -160, "color": "#6b4226" },
+    { "type": "lantern", "on": "back-table", "at": [-0.8, 0], "color": "#2f6b4f" },
+    { "type": "lantern", "on": "back-table", "at": [0.8, 0], "color": "#2f6b4f" },
+    { "type": "laptop", "on": "back-table", "at": [-1.1, -0.22], "rot": 180 },
+    { "type": "book", "id": "back-stack-1", "on": "back-table", "at": [0.25, -0.25], "color": "#2c4a6e" },
+    { "type": "book", "on": "back-stack-1", "at": [0, 0], "rot": 10, "color": "#c9a227" },
+    { "type": "book", "on": "back-table", "at": [1.1, 0.22], "rot": 0, "color": "#3d6b52", "open": true },
+    { "type": "mug", "on": "back-table", "at": [-0.4, 0.25], "color": "#efe6d6" },
+
+    { "type": "table", "id": "hero-table", "at": [0, 0.85], "rot": 0, "size": [3.2, 1.1], "shape": "rect", "cloth": "none", "color": "#5b3a24" },
+    { "type": "chair", "id": "my-chair", "at": [-0.4, 0.0], "rot": 0, "color": "#6b4226" },
+    { "type": "chair", "id": "jake-chair", "at": [1.25, -0.1], "rot": -12, "color": "#6b4226" },
+    { "type": "chair", "at": [-1.2, 1.7], "rot": 180, "color": "#6b4226" },
+    { "type": "chair", "at": [1.2, 1.7], "rot": 180, "color": "#6b4226" },
+
+    { "type": "person", "id": "me", "pose": "sit", "at": [-0.4, 0.0], "rot": 0, "skin": "#b9825c", "shirt": "#e9dcc3", "pants": "#34465f", "hair": "#2a1a12", "hairStyle": "bun", "holding": "none" },
+    { "type": "person", "id": "jake", "pose": "stand", "at": [0.4, 0.05], "rot": -70, "skin": "#e4b98f", "shirt": "#a8322d", "pants": "#2b2b33", "hair": "#7a5232", "hairStyle": "cap", "holding": "none" },
+
+    { "type": "lantern", "on": "hero-table", "at": [-1.25, 0.2], "color": "#2f6b4f" },
+    { "type": "lantern", "on": "hero-table", "at": [0.85, 0.2], "color": "#2f6b4f" },
+    { "type": "laptop", "on": "hero-table", "at": [-1.0, -0.22], "rot": 135, "open": true },
+    { "type": "book", "on": "hero-table", "at": [-0.4, -0.25], "rot": 180, "color": "#b03a2e", "open": true },
+    { "type": "book", "on": "hero-table", "at": [-0.35, 0.18], "rot": 170, "color": "#f2ead8", "open": true },
+    { "type": "book", "on": "hero-table", "at": [-0.82, 0.15], "rot": 8, "color": "#f3e08a" },
+    { "type": "sphere", "on": "hero-table", "at": [0.08, 0.1], "size": [0.08, 0.08, 0.08], "color": "#222222" },
+    { "type": "sphere", "on": "hero-table", "at": [0.16, 0.1], "size": [0.06, 0.06, 0.06], "color": "#d23b2f" },
+    { "type": "sphere", "on": "hero-table", "at": [0.08, 0.18], "size": [0.05, 0.05, 0.05], "color": "#f2f2f2" },
+    { "type": "mug", "id": "my-cocoa", "on": "hero-table", "at": [0.05, -0.32], "color": "#efe6d6" },
+    { "type": "mug", "id": "jake-cocoa", "on": "hero-table", "at": [0.45, -0.36], "color": "#2f6b4f" },
+    { "type": "book", "on": "hero-table", "at": [0.95, -0.25], "rot": -15, "color": "#2c4a6e" },
+    { "type": "book", "id": "stack-1", "on": "hero-table", "at": [1.3, 0.15], "color": "#2c4a6e" },
+    { "type": "book", "id": "stack-2", "on": "stack-1", "at": [0, 0], "rot": 12, "color": "#7a2433" },
+    { "type": "book", "on": "stack-2", "at": [0, 0], "rot": -8, "color": "#c9a227" },
+
+    { "type": "box", "id": "my-backpack", "at": [-1.05, -0.05], "rot": 20, "size": [0.32, 0.42, 0.2], "color": "#2f4157" },
+
+    { "type": "stool", "id": "stool-1", "at": [-2.4, 3.1], "color": "#6b4226" },
+    { "type": "book", "id": "stool-book-1", "on": "stool-1", "at": [0, 0], "color": "#3d6b52" },
+    { "type": "book", "on": "stool-book-1", "at": [0, 0], "rot": 15, "color": "#b03a2e" }
+  ]
+}

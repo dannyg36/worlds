@@ -1,0 +1,1354 @@
+{
+  "title": "Eleven Hours of Orgo",
+  "caption": "Green lamps, first snow at four, Jake's hot chocolate, and a silent walk home at midnight.",
+  "palette": [
+    "#2f6b4f",
+    "#f4f1ea",
+    "#7a4a2b"
+  ],
+  "time": "night",
+  "biome": "snow",
+  "landmark": {
+    "type": "lamp-post",
+    "height": 4
+  },
+  "cast": [
+    {
+      "name": "me",
+      "skin": "#e8b98f",
+      "shirt": "#5a6e8c",
+      "pants": "#2d2d3a",
+      "hair": "#3b2a1e",
+      "hairStyle": "bun"
+    },
+    {
+      "name": "Jake",
+      "skin": "#d9a679",
+      "shirt": "#8c2f2f",
+      "pants": "#3a3f4a",
+      "hair": "#6b4a2b",
+      "hairStyle": "short"
+    }
+  ],
+  "vignettes": [
+    {
+      "title": "Settling in to cram",
+      "moment": "I claim a long library table under a green desk lamp and spread out my organic chem notes.",
+      "hero": false,
+      "size": "medium",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.4
+          ],
+          "size": [
+            4.6,
+            3.8
+          ],
+          "floor": "wood",
+          "wall": "#e9e2d0",
+          "window": true,
+          "door": false
+        },
+        {
+          "type": "shelf",
+          "id": "shelfL",
+          "at": [
+            -1.5,
+            -2.1
+          ],
+          "size": [
+            1.6,
+            2
+          ],
+          "color": "#7a4a2b",
+          "fill": "books"
+        },
+        {
+          "type": "shelf",
+          "id": "shelfR",
+          "at": [
+            1.5,
+            -2.1
+          ],
+          "size": [
+            1.6,
+            2
+          ],
+          "color": "#7a4a2b",
+          "fill": "books"
+        },
+        {
+          "type": "custom",
+          "name": "tall-arched-window",
+          "at": [
+            0,
+            -2.25
+          ],
+          "code": "const g=k.group();const fr=k.mat('#7a4a2b');const gl=k.glassMat('#9fb8d6',0.5);k.put(g,k.box(0.9,1.8,0.04,gl),0,1.4,0);k.put(g,k.box(1.0,0.08,0.1,fr),0,0.5,0);k.put(g,k.box(1.0,0.08,0.1,fr),0,2.3,0);k.put(g,k.box(0.08,1.8,0.1,fr),-0.47,1.4,0);k.put(g,k.box(0.08,1.8,0.1,fr),0.47,1.4,0);k.put(g,k.box(0.05,1.8,0.08,fr),0,1.4,0.01);k.put(g,k.box(0.9,0.05,0.08,fr),0,1.4,0.01);const arch=k.torus(0.46,0.05,fr);arch.scale.set(1,1,1);k.put(g,arch,0,2.3,0);return g;"
+        },
+        {
+          "type": "table",
+          "id": "longtable",
+          "at": [
+            0,
+            -0.3
+          ],
+          "size": [
+            2.6,
+            1
+          ],
+          "shape": "rect",
+          "cloth": "none",
+          "color": "#6b3f22"
+        },
+        {
+          "type": "desk-lamp",
+          "at": [
+            -0.6,
+            -0.25
+          ],
+          "on": "longtable"
+        },
+        {
+          "type": "desk-lamp",
+          "at": [
+            0.8,
+            -0.25
+          ],
+          "on": "longtable"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.4,
+            0.45
+          ],
+          "rot": 180,
+          "color": "#5a3a22"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            -0.4,
+            0.45
+          ],
+          "rot": 180
+        },
+        {
+          "type": "chair",
+          "at": [
+            0.8,
+            0.45
+          ],
+          "rot": 180,
+          "color": "#5a3a22"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0.6,
+            -1.05
+          ],
+          "color": "#5a3a22"
+        },
+        {
+          "type": "laptop",
+          "at": [
+            -0.4,
+            0.15
+          ],
+          "rot": 180,
+          "open": true,
+          "on": "longtable"
+        },
+        {
+          "type": "custom",
+          "name": "orgo-notes-spread",
+          "at": [
+            0.1,
+            0.05
+          ],
+          "on": "longtable",
+          "code": "const g=k.group();const p=k.mat('#f4f1ea');const ink=k.mat('#2f4a7a');for(let i=0;i<6;i++){const s=k.box(0.21,0.004,0.29,p);k.put(g,s,(k.rand()-0.5)*0.7,0.002+i*0.003,(k.rand()-0.5)*0.3,0,(k.rand()-0.5)*0.8,0);const hex=k.torus(0.04,0.004,ink);hex.rotation.x=Math.PI/2;k.put(g,hex,(k.rand()-0.5)*0.6,0.03,(k.rand()-0.5)*0.25);}return g;"
+        },
+        {
+          "type": "custom",
+          "name": "molecular-model-kit",
+          "at": [
+            0.9,
+            0.15
+          ],
+          "on": "longtable",
+          "code": "const g=k.group();const b=k.mat('#222');const r=k.mat('#c0392b');const w=k.mat('#f4f1ea');k.put(g,k.sph(0.035,b),0,0.06,0);const pts=[[0.07,0.09,0,r],[-0.07,0.09,0,w],[0,0.03,0.07,w],[0,0.03,-0.07,w]];pts.forEach(p=>{k.put(g,k.tube([[0,0.06,0],[p[0],p[1],p[2]]],0.006,k.mat('#888')),0,0,0);k.put(g,k.sph(0.025,p[3]),p[0],p[1],p[2]);});return g;"
+        },
+        {
+          "type": "book",
+          "at": [
+            -1,
+            0
+          ],
+          "color": "#2f6b4f",
+          "open": true,
+          "on": "longtable"
+        },
+        {
+          "type": "book",
+          "at": [
+            1.15,
+            -0.25
+          ],
+          "color": "#c0392b",
+          "on": "longtable"
+        },
+        {
+          "type": "book",
+          "at": [
+            1.15,
+            -0.25
+          ],
+          "color": "#2f4a7a",
+          "y": 0.05,
+          "on": "longtable"
+        },
+        {
+          "type": "custom",
+          "name": "highlighters",
+          "at": [
+            -0.1,
+            -0.3
+          ],
+          "on": "longtable",
+          "code": "const g=k.group();['#f5e663','#f28ab2','#7fd88a'].forEach((c,i)=>{const h=k.cap(0.012,0.1,k.mat(c));h.rotation.z=Math.PI/2;k.put(g,h,0,0.013,i*0.035-0.035,0,0.2*i,0);});return g;"
+        },
+        {
+          "type": "mug",
+          "at": [
+            0.45,
+            -0.2
+          ],
+          "color": "#f4f1ea",
+          "on": "longtable"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -1.2,
+            0.75
+          ],
+          "color": "#2f6b4f"
+        },
+        {
+          "type": "rug",
+          "at": [
+            0,
+            0.2
+          ],
+          "size": [
+            3,
+            1.8
+          ],
+          "color": "#2f6b4f",
+          "pattern": "persian"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -2,
+            -1.5
+          ],
+          "kind": "olive",
+          "size": 0.8
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            2.05,
+            0.9
+          ],
+          "height": 2.2
+        },
+        {
+          "type": "bin",
+          "at": [
+            1.9,
+            1.9
+          ],
+          "color": "#3a3f4a"
+        },
+        {
+          "type": "custom",
+          "name": "quiet-sign",
+          "at": [
+            1.4,
+            1.8
+          ],
+          "rot": -15,
+          "code": "const g=k.group();k.put(g,k.cyl(0.02,0.02,0.6,k.mat('#7a4a2b')),0,0.3,0);k.put(g,k.rbox(0.36,0.2,0.03,k.mat('#2f6b4f'),0.02),0,0.66,0);k.put(g,k.box(0.26,0.03,0.035,k.mat('#f4f1ea')),0,0.66,0);return g;"
+        },
+        {
+          "type": "stool",
+          "at": [
+            -1.9,
+            1.2
+          ],
+          "color": "#7a4a2b"
+        },
+        {
+          "type": "book",
+          "at": [
+            0,
+            0
+          ],
+          "color": "#8c6a2f",
+          "on": "shelfL",
+          "y": 0.1
+        }
+      ]
+    },
+    {
+      "title": "Snow at four",
+      "moment": "Outside the huge library windows, it starts to snow while I'm halfway through the reaction list.",
+      "hero": false,
+      "size": "medium",
+      "surface": "carpet",
+      "objects": [
+        {
+          "type": "room",
+          "id": "room",
+          "at": [
+            0,
+            -0.2
+          ],
+          "size": [
+            4.6,
+            4.2
+          ],
+          "floor": "carpet",
+          "wall": "#e9e2d0",
+          "window": true
+        },
+        {
+          "type": "custom",
+          "name": "tall-library-window-snow",
+          "at": [
+            0,
+            -2.25
+          ],
+          "code": "const g=k.group();const frame=k.mat('#5a3a22');const glass=k.glassMat('#9fb8d6',0.35);for(let i=0;i<3;i++){const x=(i-1)*1.1;k.put(g,k.box(0.95,2.4,0.04,glass),x,1.6,0);k.put(g,k.box(0.08,2.5,0.1,frame),x-0.5,1.6,0);k.put(g,k.box(0.08,2.5,0.1,frame),x+0.5,1.6,0);const arch=k.cyl(0.48,0.48,0.08,frame);k.put(g,arch,x,2.85,0,Math.PI/2,0,0);k.put(g,k.box(0.95,0.06,0.12,frame),x,1.6,0);}k.put(g,k.box(3.4,0.1,0.25,frame),0,0.38,0.05);const snow=k.mat('#ffffff',{emissive:'#ffffff',emissiveIntensity:0.4});for(let i=0;i<70;i++){k.put(g,k.sph(0.025,snow),(k.rand()-0.5)*3.2,0.5+k.rand()*2.6,-0.15-k.rand()*0.4);}k.put(g,k.box(3.2,0.08,0.35,k.mat('#ffffff')),0,0.46,-0.25);return g;"
+        },
+        {
+          "type": "custom",
+          "name": "snowy-pines-outside",
+          "at": [
+            0,
+            -2.4
+          ],
+          "code": "const g=k.group();const dk=k.mat('#2b4a3a');const w=k.mat('#f4f6fa');[[-1.2,1.1],[0.1,1.4],[1.3,1.0]].forEach(([x,h])=>{k.put(g,k.cone(0.35,h,dk),x,0.6+h/2,-0.6);k.put(g,k.cone(0.22,0.35,w),x,0.6+h-0.1,-0.6);});return g;"
+        },
+        {
+          "type": "shelf",
+          "at": [
+            -2.1,
+            -0.6
+          ],
+          "rot": 90,
+          "size": [
+            1.6,
+            2
+          ],
+          "color": "#6b4228",
+          "fill": "books"
+        },
+        {
+          "type": "shelf",
+          "at": [
+            -2.1,
+            1
+          ],
+          "rot": 90,
+          "size": [
+            1.2,
+            1.6
+          ],
+          "color": "#6b4228",
+          "fill": "books"
+        },
+        {
+          "type": "table",
+          "id": "desk",
+          "at": [
+            0,
+            0.3
+          ],
+          "size": [
+            2.2,
+            1
+          ],
+          "shape": "rect",
+          "cloth": "none",
+          "color": "#7a4a2b"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0.3,
+            1.05
+          ],
+          "rot": 180,
+          "color": "#5a3a22"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            0.3,
+            1.05
+          ],
+          "rot": 180
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.6,
+            -0.45
+          ],
+          "color": "#5a3a22"
+        },
+        {
+          "type": "desk-lamp",
+          "on": "desk",
+          "at": [
+            -0.6,
+            -0.25
+          ]
+        },
+        {
+          "type": "desk-lamp",
+          "on": "desk",
+          "at": [
+            0.7,
+            -0.25
+          ]
+        },
+        {
+          "type": "book",
+          "on": "desk",
+          "at": [
+            0.3,
+            0.15
+          ],
+          "color": "#2f6b4f",
+          "open": true
+        },
+        {
+          "type": "book",
+          "on": "desk",
+          "at": [
+            -0.3,
+            0.1
+          ],
+          "color": "#8c2f2f"
+        },
+        {
+          "type": "book",
+          "on": "desk",
+          "at": [
+            -0.3,
+            0.1
+          ],
+          "color": "#2e4a7a",
+          "y": 0.05
+        },
+        {
+          "type": "custom",
+          "name": "reaction-notes",
+          "at": [
+            0.9,
+            0.2
+          ],
+          "y": 0.76,
+          "code": "const g=k.group();const p=k.mat('#fbf8ef');const ink=k.mat('#1f3a6b');for(let i=0;i<3;i++){const s=k.box(0.21,0.004,0.28,p);k.put(g,s,i*0.06,i*0.004,i*0.03,0,0.2*i-0.2,0);}for(let j=0;j<6;j++){k.put(g,k.box(0.14,0.002,0.008,ink),0.12,0.014,-0.08+j*0.035,0,0.2,0);}k.put(g,k.torus(0.025,0.006,ink),0.08,0.016,0.05,Math.PI/2,0,0);return g;"
+        },
+        {
+          "type": "custom",
+          "name": "highlighter",
+          "at": [
+            0.55,
+            0.45
+          ],
+          "y": 0.76,
+          "code": "const g=k.group();const b=k.cap(0.012,0.1,k.mat('#f2e33a'));k.put(g,b,0,0.012,0,0,0,Math.PI/2);return g;"
+        },
+        {
+          "type": "laptop",
+          "on": "desk",
+          "at": [
+            -0.75,
+            0.15
+          ],
+          "rot": 15,
+          "open": true
+        },
+        {
+          "type": "mug",
+          "on": "desk",
+          "at": [
+            0.95,
+            -0.2
+          ],
+          "color": "#f4f1ea"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            1.2,
+            1.1
+          ],
+          "rot": -30,
+          "color": "#2f6b4f"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1.95,
+            -1.7
+          ],
+          "kind": "olive",
+          "size": 0.9
+        },
+        {
+          "type": "rug",
+          "at": [
+            0,
+            0.4
+          ],
+          "size": [
+            3.2,
+            2.2
+          ],
+          "color": "#2f6b4f",
+          "pattern": "persian"
+        },
+        {
+          "type": "custom",
+          "name": "radiator",
+          "at": [
+            1.3,
+            -1.85
+          ],
+          "code": "const g=k.group();const m=k.mat('#c9c2b4',{metal:0.3});for(let i=0;i<8;i++){k.put(g,k.rbox(0.07,0.55,0.12,m,0.02),-0.3+i*0.085,0.33,0);}k.put(g,k.box(0.72,0.04,0.1,m),0,0.06,0);return g;"
+        },
+        {
+          "type": "stool",
+          "id": "stool",
+          "at": [
+            -1.3,
+            1.6
+          ],
+          "color": "#7a4a2b"
+        },
+        {
+          "type": "book",
+          "on": "stool",
+          "at": [
+            0,
+            0
+          ],
+          "color": "#c59a3d"
+        },
+        {
+          "type": "bin",
+          "at": [
+            1.8,
+            1.6
+          ],
+          "color": "#3a3f4a"
+        },
+        {
+          "type": "custom",
+          "name": "crumpled-paper",
+          "at": [
+            1.55,
+            1.85
+          ],
+          "code": "const g=k.group();const p=k.mat('#f4f1ea');k.put(g,k.sph(0.05,p),0,0.05,0);k.put(g,k.sph(0.045,p),0.12,0.045,0.06);return g;"
+        }
+      ]
+    },
+    {
+      "title": "Jake's hot chocolate",
+      "moment": "Jake shows up at my table with a hot chocolate for me.",
+      "hero": true,
+      "size": "large",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.3
+          ],
+          "size": [
+            6,
+            5
+          ],
+          "floor": "wood",
+          "wall": "#e9e2d0",
+          "window": true,
+          "door": false
+        },
+        {
+          "type": "custom",
+          "name": "tall-snowy-window",
+          "at": [
+            -1.2,
+            -2.7
+          ],
+          "code": "const g=k.group();const fr=k.mat('#3a2a1e');k.put(g,k.box(1.6,2.6,0.08,fr),0,1.5,0);k.put(g,k.box(1.4,2.4,0.04,k.glassMat('#1c2a44',0.85)),0,1.5,0.03);k.put(g,k.box(0.06,2.4,0.1,fr),0,1.5,0.04);k.put(g,k.box(1.4,0.06,0.1,fr),0,1.6,0.04);const s=k.mat('#ffffff',{emissive:'#ffffff',emissiveIntensity:0.4});for(let i=0;i<40;i++){k.put(g,k.sph(0.018,s),(k.rand()-0.5)*1.3,0.4+k.rand()*2.2,0.07);}k.put(g,k.box(1.5,0.08,0.12,k.mat('#f4f1ea')),0,0.28,0.02);return g;"
+        },
+        {
+          "type": "custom",
+          "name": "tall-snowy-window",
+          "at": [
+            1.2,
+            -2.7
+          ],
+          "code": "const g=k.group();const fr=k.mat('#3a2a1e');k.put(g,k.box(1.6,2.6,0.08,fr),0,1.5,0);k.put(g,k.box(1.4,2.4,0.04,k.glassMat('#1c2a44',0.85)),0,1.5,0.03);k.put(g,k.box(0.06,2.4,0.1,fr),0,1.5,0.04);k.put(g,k.box(1.4,0.06,0.1,fr),0,1.6,0.04);const s=k.mat('#ffffff',{emissive:'#ffffff',emissiveIntensity:0.4});for(let i=0;i<40;i++){k.put(g,k.sph(0.018,s),(k.rand()-0.5)*1.3,0.4+k.rand()*2.2,0.07);}k.put(g,k.box(1.5,0.08,0.12,k.mat('#f4f1ea')),0,0.28,0.02);return g;"
+        },
+        {
+          "type": "shelf",
+          "at": [
+            -2.6,
+            -0.8
+          ],
+          "rot": 90,
+          "size": [
+            1.8,
+            2.2
+          ],
+          "color": "#7a4a2b",
+          "fill": "books"
+        },
+        {
+          "type": "shelf",
+          "at": [
+            -2.6,
+            1
+          ],
+          "rot": 90,
+          "size": [
+            1.4,
+            2
+          ],
+          "color": "#7a4a2b",
+          "fill": "books"
+        },
+        {
+          "type": "rug",
+          "at": [
+            0.2,
+            0.4
+          ],
+          "size": [
+            3.6,
+            2.4
+          ],
+          "color": "#2f6b4f",
+          "pattern": "persian"
+        },
+        {
+          "type": "table",
+          "id": "tbl",
+          "at": [
+            0,
+            0
+          ],
+          "size": [
+            2.4,
+            1
+          ],
+          "shape": "rect",
+          "cloth": "none"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.5,
+            0.75
+          ],
+          "rot": 180,
+          "color": "#5a3a22"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            -0.5,
+            0.75
+          ],
+          "rot": 180
+        },
+        {
+          "type": "person",
+          "who": "Jake",
+          "pose": "stand",
+          "at": [
+            0.9,
+            0.85
+          ],
+          "rot": -140
+        },
+        {
+          "type": "custom",
+          "name": "hot-chocolate-cup",
+          "on": "tbl",
+          "at": [
+            -0.15,
+            0.25
+          ],
+          "code": "const g=k.group();k.put(g,k.cyl(0.05,0.04,0.13,k.mat('#f4f1ea')),0,0.065,0);k.put(g,k.cyl(0.052,0.052,0.025,k.mat('#8c2f2f')),0,0.07,0);k.put(g,k.cyl(0.054,0.054,0.015,k.mat('#ffffff')),0,0.135,0);k.put(g,k.cyl(0.012,0.012,0.012,k.mat('#3b2a1e')),0,0.148,0);const st=k.mat('#ffffff',{transparent:true,opacity:0.35});k.put(g,k.tube([[0,0.16,0],[0.02,0.22,0],[-0.01,0.28,0],[0.015,0.34,0]],0.006,st),0,0,0);return g;"
+        },
+        {
+          "type": "desk-lamp",
+          "on": "tbl",
+          "at": [
+            -0.9,
+            -0.3
+          ]
+        },
+        {
+          "type": "desk-lamp",
+          "on": "tbl",
+          "at": [
+            0.7,
+            -0.3
+          ]
+        },
+        {
+          "type": "book",
+          "on": "tbl",
+          "at": [
+            -0.6,
+            0.1
+          ],
+          "color": "#2f6b4f",
+          "open": true
+        },
+        {
+          "type": "book",
+          "on": "tbl",
+          "at": [
+            0.2,
+            -0.15
+          ],
+          "color": "#7a4a2b"
+        },
+        {
+          "type": "book",
+          "on": "tbl",
+          "at": [
+            0.25,
+            -0.15
+          ],
+          "color": "#c0392b",
+          "y": 0.04
+        },
+        {
+          "type": "laptop",
+          "on": "tbl",
+          "at": [
+            0.5,
+            0.15
+          ],
+          "open": true,
+          "rot": -20
+        },
+        {
+          "type": "custom",
+          "name": "reaction-notes",
+          "on": "tbl",
+          "at": [
+            -0.2,
+            -0.05
+          ],
+          "code": "const g=k.group();const p=k.mat('#fbf8ee');const ink=k.mat('#2b3a5a');for(let i=0;i<4;i++){const s=k.box(0.21,0.004,0.28,p);k.put(g,s,(i-1.5)*0.12,0.002+i*0.002,(k.rand()-0.5)*0.06,0,(k.rand()-0.5)*0.6,0);k.put(g,k.torus(0.025,0.004,ink),(i-1.5)*0.12,0.008+i*0.002,0,Math.PI/2,0,0);}return g;"
+        },
+        {
+          "type": "custom",
+          "name": "highlighters",
+          "on": "tbl",
+          "at": [
+            -0.95,
+            0.3
+          ],
+          "code": "const g=k.group();['#f5e663','#f28ab2','#7ee08a'].forEach((c,i)=>{k.put(g,k.cap(0.012,0.1,k.mat(c)),i*0.04,0.012,0,0,0,Math.PI/2);});return g;"
+        },
+        {
+          "type": "mug",
+          "on": "tbl",
+          "at": [
+            0.95,
+            0.2
+          ],
+          "color": "#c9c2b0"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -1.2,
+            1
+          ],
+          "color": "#2d4a6b"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.4,
+            -0.75
+          ],
+          "rot": 0,
+          "color": "#5a3a22"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            2.5,
+            -2.2
+          ],
+          "kind": "olive",
+          "size": 1
+        },
+        {
+          "type": "bin",
+          "at": [
+            2.5,
+            1.2
+          ],
+          "color": "#3a3f4a"
+        },
+        {
+          "type": "stool",
+          "at": [
+            2,
+            -1.6
+          ],
+          "color": "#7a4a2b"
+        },
+        {
+          "type": "book",
+          "at": [
+            2,
+            -1.6
+          ],
+          "y": 0.45,
+          "color": "#2f6b4f"
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            2.6,
+            2.6
+          ],
+          "height": 2.2
+        },
+        {
+          "type": "custom",
+          "name": "scarf-on-chair",
+          "at": [
+            1.4,
+            -0.75
+          ],
+          "code": "const g=k.group();k.put(g,k.tube([[-0.2,0.85,-0.2],[0,0.95,-0.22],[0.2,0.85,-0.2],[0.22,0.5,-0.18]],0.035,k.mat('#8c2f2f')),0,0,0);return g;"
+        }
+      ]
+    },
+    {
+      "title": "Every reaction memorized",
+      "moment": "Hours in, I run through every reaction from memory under the glowing lamp.",
+      "hero": false,
+      "size": "small",
+      "surface": "carpet",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.3
+          ],
+          "size": [
+            3.4,
+            2.6
+          ],
+          "floor": "carpet",
+          "wall": "#e9e3d6",
+          "window": true
+        },
+        {
+          "type": "shelf",
+          "at": [
+            -1.1,
+            -1.45
+          ],
+          "size": [
+            1.2,
+            1.8
+          ],
+          "color": "#7a4a2b",
+          "fill": "books"
+        },
+        {
+          "type": "whiteboard",
+          "at": [
+            0.7,
+            -1.5
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "reaction-scrawl",
+          "at": [
+            0.7,
+            -1.42
+          ],
+          "y": 0.9,
+          "code": "const g=k.group();const m=k.mat('#2f6b4f');const pts=[[-0.35,0.2],[0,0.2],[0.3,0.2],[-0.35,-0.05],[0.25,-0.05]];for(const p of pts){k.put(g,k.torus(0.07,0.012,m),p[0],p[1],0.01);}k.put(g,k.box(0.12,0.015,0.01,k.mat('#c0392b')),-0.17,0.2,0.01);k.put(g,k.box(0.12,0.015,0.01,k.mat('#c0392b')),0.15,0.2,0.01);k.put(g,k.box(0.4,0.015,0.01,m),-0.05,-0.05,0.01);return g;"
+        },
+        {
+          "type": "rug",
+          "at": [
+            0,
+            0.2
+          ],
+          "size": [
+            2.2,
+            1.6
+          ],
+          "color": "#2f6b4f",
+          "pattern": "persian"
+        },
+        {
+          "type": "desk",
+          "id": "desk",
+          "at": [
+            0,
+            -0.2
+          ],
+          "size": [
+            1.4,
+            0.7
+          ],
+          "color": "#7a4a2b"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0,
+            0.35
+          ],
+          "rot": 180,
+          "color": "#5b3a22"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            0,
+            0.35
+          ],
+          "rot": 180
+        },
+        {
+          "type": "desk-lamp",
+          "on": "desk",
+          "at": [
+            -0.45,
+            -0.15
+          ]
+        },
+        {
+          "type": "book",
+          "on": "desk",
+          "at": [
+            0.05,
+            0.1
+          ],
+          "color": "#2f6b4f",
+          "open": true
+        },
+        {
+          "type": "book",
+          "on": "desk",
+          "at": [
+            0.5,
+            -0.15
+          ],
+          "color": "#7a4a2b"
+        },
+        {
+          "type": "book",
+          "on": "desk",
+          "at": [
+            0.5,
+            -0.15
+          ],
+          "y": 0.04,
+          "color": "#c0392b"
+        },
+        {
+          "type": "mug",
+          "on": "desk",
+          "at": [
+            0.35,
+            0.15
+          ],
+          "color": "#f4f1ea"
+        },
+        {
+          "type": "custom",
+          "name": "flashcard-stack",
+          "on": "desk",
+          "at": [
+            -0.2,
+            0.15
+          ],
+          "code": "const g=k.group();for(let i=0;i<6;i++){const c=k.box(0.13,0.004,0.08,k.mat(i%2?'#f4f1ea':'#f7e9a8'));k.put(g,c,(k.rand()-0.5)*0.02,0.002+i*0.005,0,0,(k.rand()-0.5)*0.4,0);}return g;"
+        },
+        {
+          "type": "custom",
+          "name": "molecule-model",
+          "on": "desk",
+          "at": [
+            -0.15,
+            -0.2
+          ],
+          "code": "const g=k.group();const c=k.mat('#222');const h=k.mat('#f4f1ea');const o=k.mat('#c0392b');k.put(g,k.sph(0.035,c),0,0.08,0);k.put(g,k.sph(0.035,c),0.08,0.08,0);k.put(g,k.sph(0.03,o),0.13,0.13,0);k.put(g,k.sph(0.022,h),-0.05,0.12,0);k.put(g,k.sph(0.022,h),-0.05,0.04,0);k.put(g,k.sph(0.022,h),0.1,0.03,0);k.put(g,k.tube([[0,0.08,0],[0.08,0.08,0]],0.007,k.mat('#999')),0,0,0);k.put(g,k.cyl(0.015,0.015,0.05,k.mat('#999')),0.04,0.025,0);return g;"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            0.7,
+            0.5
+          ],
+          "rot": -20,
+          "color": "#5a6e8c"
+        },
+        {
+          "type": "custom",
+          "name": "crumpled-notes",
+          "at": [
+            -0.6,
+            0.7
+          ],
+          "code": "const g=k.group();const m=k.mat('#f4f1ea');k.put(g,k.sph(0.05,m),0,0.05,0);k.put(g,k.sph(0.04,m),0.15,0.04,0.1);k.put(g,k.sph(0.045,m),-0.1,0.045,0.15);return g;"
+        },
+        {
+          "type": "bin",
+          "at": [
+            -0.9,
+            0.4
+          ],
+          "color": "#3a3f4a"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1.3,
+            -1.2
+          ],
+          "kind": "succulent",
+          "size": 0.5
+        },
+        {
+          "type": "lantern",
+          "at": [
+            1.3,
+            0.9
+          ]
+        },
+        {
+          "type": "book",
+          "at": [
+            0.3,
+            0.9
+          ],
+          "rot": 30,
+          "color": "#2f6b4f",
+          "open": true
+        },
+        {
+          "type": "book",
+          "at": [
+            -1.2,
+            -0.5
+          ],
+          "rot": -15,
+          "color": "#7a4a2b"
+        },
+        {
+          "type": "stool",
+          "at": [
+            1.2,
+            -0.3
+          ],
+          "color": "#7a4a2b"
+        },
+        {
+          "type": "mug",
+          "on": "desk",
+          "at": [
+            0.6,
+            0.2
+          ],
+          "color": "#2f6b4f"
+        }
+      ]
+    },
+    {
+      "title": "Midnight walk home",
+      "moment": "I walk home through fresh snow at midnight, and the whole street is dead quiet.",
+      "hero": false,
+      "size": "medium",
+      "surface": "snow",
+      "objects": [
+        {
+          "type": "house",
+          "at": [
+            -1.3,
+            -1.7
+          ],
+          "size": "small",
+          "color": "#c9b8a3",
+          "roof": "#f4f1ea"
+        },
+        {
+          "type": "house",
+          "at": [
+            1.3,
+            -1.8
+          ],
+          "size": "small",
+          "color": "#7a4a2b",
+          "roof": "#f4f1ea",
+          "rot": -8
+        },
+        {
+          "type": "tree",
+          "kind": "pine",
+          "at": [
+            0.1,
+            -2.1
+          ],
+          "height": 2.2
+        },
+        {
+          "type": "tree",
+          "kind": "pine",
+          "at": [
+            -2.2,
+            -0.6
+          ],
+          "height": 1.8
+        },
+        {
+          "type": "tree",
+          "kind": "pine",
+          "at": [
+            2.2,
+            -0.4
+          ],
+          "height": 1.6
+        },
+        {
+          "type": "fence",
+          "at": [
+            -1.4,
+            -0.6
+          ],
+          "length": 1.6,
+          "color": "#e8e2d6"
+        },
+        {
+          "type": "fence",
+          "at": [
+            1.4,
+            -0.6
+          ],
+          "length": 1.4,
+          "color": "#e8e2d6"
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            -1.6,
+            0.5
+          ],
+          "height": 2.4
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            1.8,
+            1.3
+          ],
+          "height": 2.4
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "walk",
+          "at": [
+            0.2,
+            0.6
+          ],
+          "rot": 30
+        },
+        {
+          "type": "backpack",
+          "at": [
+            0.05,
+            0.48
+          ],
+          "color": "#2f6b4f",
+          "y": 0.75,
+          "scale": 0.8
+        },
+        {
+          "type": "custom",
+          "name": "footprints",
+          "at": [
+            -0.6,
+            1.6
+          ],
+          "rot": 30,
+          "code": "const g=k.group();const m=k.mat('#cfd6e0');for(let i=0;i<8;i++){const f=k.rbox(0.09,0.01,0.16,m,0.03);k.put(g,f,(i%2?0.08:-0.08),0.01,-i*0.28);}return g;"
+        },
+        {
+          "type": "car",
+          "kind": "sedan",
+          "at": [
+            1.2,
+            0.3
+          ],
+          "rot": 90,
+          "color": "#5a6e8c"
+        },
+        {
+          "type": "custom",
+          "name": "snow-on-car",
+          "at": [
+            1.2,
+            0.3
+          ],
+          "rot": 90,
+          "code": "const g=k.group();k.put(g,k.rbox(0.7,0.08,0.85,k.mat('#f4f1ea'),0.04),0,0.98,-0.05);k.put(g,k.rbox(0.8,0.06,0.55,k.mat('#f4f1ea'),0.03),0,0.66,0.85);return g;"
+        },
+        {
+          "type": "custom",
+          "name": "snowbank",
+          "at": [
+            -1.2,
+            1.9
+          ],
+          "code": "const g=k.group();const m=k.mat('#f7f5f0');k.put(g,k.sph(0.35,m),0,0,0);k.put(g,k.sph(0.28,m),0.4,0,0.05);k.put(g,k.sph(0.25,m),-0.38,0,-0.05);return g;"
+        },
+        {
+          "type": "custom",
+          "name": "snowman",
+          "at": [
+            -0.9,
+            -0.1
+          ],
+          "rot": 20,
+          "code": "const g=k.group();const w=k.mat('#f7f5f0');k.put(g,k.sph(0.22,w),0,0.2,0);k.put(g,k.sph(0.16,w),0,0.52,0);k.put(g,k.sph(0.11,w),0,0.76,0);k.put(g,k.cone(0.025,0.12,k.mat('#e07a2b')),0,0.77,0.14,Math.PI/2,0,0);k.put(g,k.sph(0.018,k.mat('#111')),-0.04,0.8,0.1);k.put(g,k.sph(0.018,k.mat('#111')),0.04,0.8,0.1);return g;"
+        },
+        {
+          "type": "street-sign",
+          "kind": "arrow",
+          "at": [
+            2.1,
+            -0.9
+          ]
+        },
+        {
+          "type": "hydrant",
+          "at": [
+            0.7,
+            1.9
+          ],
+          "color": "#8c2f2f"
+        },
+        {
+          "type": "bench",
+          "at": [
+            -1.9,
+            1.3
+          ],
+          "rot": 90,
+          "length": 1,
+          "color": "#7a4a2b"
+        },
+        {
+          "type": "custom",
+          "name": "snow-on-bench",
+          "at": [
+            -1.9,
+            1.3
+          ],
+          "rot": 90,
+          "code": "return k.rbox(1.0,0.06,0.38,k.mat('#f4f1ea'),0.03);",
+          "y": 0.45
+        },
+        {
+          "type": "bush",
+          "at": [
+            2.1,
+            2
+          ],
+          "size": 0.5
+        },
+        {
+          "type": "bush",
+          "at": [
+            -2.1,
+            -1.5
+          ],
+          "size": 0.5
+        },
+        {
+          "type": "rock",
+          "at": [
+            0.3,
+            2.2
+          ],
+          "size": 0.25
+        },
+        {
+          "type": "custom",
+          "name": "falling-snow",
+          "at": [
+            0,
+            0
+          ],
+          "code": "const g=k.group();const m=k.glowMat('#ffffff',0.4);for(let i=0;i<120;i++){k.put(g,k.sph(0.025,m),(k.rand()-0.5)*4.6,0.3+k.rand()*3,(k.rand()-0.5)*4.6);}return g;"
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -1.3,
+            -0.9
+          ],
+          "y": 0.6
+        }
+      ]
+    }
+  ]
+}

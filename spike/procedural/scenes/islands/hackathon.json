@@ -1,0 +1,1054 @@
+{
+  "title": "The Night Our World Rendered",
+  "caption": "Nine a.m. at YC, one table by the window, a mountain of Red Bulls, a database fight with Danny, a scream at sunset, cold pizza on the floor.",
+  "palette": [
+    "#f26522",
+    "#1d3f94",
+    "#d4213d",
+    "#f2c230",
+    "#efe7da"
+  ],
+  "time": "golden-hour",
+  "biome": "city",
+  "landmark": {
+    "type": "custom",
+    "name": "ycSign",
+    "code": "const g = k.group();\nconst post = k.mat('#33353b', { metal: 0.4, rough: 0.5 });\nk.put(g, k.cyl(0.26, 0.32, 0.14, post), 0, 0.07, 0);\nk.put(g, k.cyl(0.055, 0.065, 2.0, post), 0, 1.05, 0);\nk.put(g, k.rbox(1.05, 1.05, 0.16, k.mat('#f26522'), 0.09), 0, 2.45, 0);\nconst w = k.mat('#ffffff');\nfor (const s of [1, -1]) {\n  k.put(g, k.rbox(0.14, 0.38, 0.04, w, 0.03), 0, 2.27, 0.09 * s);\n  k.put(g, k.rbox(0.13, 0.36, 0.04, w, 0.03), -0.1, 2.58, 0.09 * s, 0, 0, 0.6);\n  k.put(g, k.rbox(0.13, 0.36, 0.04, w, 0.03), 0.1, 2.58, 0.09 * s, 0, 0, -0.6);\n}\nk.addLight([0, 2.4, 0.6], '#ffb070', 0.8, 3);\nreturn g;"
+  },
+  "cast": [
+    {
+      "name": "me",
+      "skin": "#c98e5f",
+      "shirt": "#2f6fb5",
+      "pants": "#2b2f3a",
+      "hair": "#2a1a10",
+      "hairStyle": "short"
+    },
+    {
+      "name": "Danny",
+      "skin": "#f0c9a5",
+      "shirt": "#c0392b",
+      "pants": "#5a5a5a",
+      "hair": "#151515",
+      "hairStyle": "curly"
+    },
+    {
+      "name": "teammate-1",
+      "skin": "#8d5a3b",
+      "shirt": "#2f8f5b",
+      "pants": "#1f2a44",
+      "hair": "#111111",
+      "hairStyle": "long"
+    },
+    {
+      "name": "teammate-2",
+      "skin": "#e8b98f",
+      "shirt": "#7a5bb5",
+      "pants": "#2e2e2e",
+      "hair": "#e0c070",
+      "hairStyle": "bun"
+    }
+  ],
+  "vignettes": [
+    {
+      "title": "Nine a.m. at YC",
+      "moment": "I walk up to the office at nine as a dolly of Red Bull cases rolls in ahead of me.",
+      "hero": false,
+      "size": "medium",
+      "surface": "cobblestone",
+      "objects": [
+        {
+          "type": "shop-front",
+          "id": "office",
+          "at": [
+            0,
+            -1.65
+          ],
+          "width": 2.8,
+          "kind": "office",
+          "color": "#efe7da",
+          "awning": [
+            "#f26522",
+            "#fbf3e6"
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "nineClock",
+          "at": [
+            -1.8,
+            -0.5
+          ],
+          "rot": 20,
+          "code": "const g = k.group();\nconst iron = k.mat('#2f4a3a', { metal: 0.3, rough: 0.5 }), face = k.mat('#f6f1e2'), dark = k.mat('#1c1c1c');\nk.put(g, k.cyl(0.08, 0.12, 0.3, iron), 0, 0.15, 0);\nk.put(g, k.cyl(0.045, 0.055, 2.1, iron), 0, 1.3, 0);\nconst head = k.group();\nk.put(g, head, 0, 2.6, 0);\nk.put(head, k.cyl(0.3, 0.3, 0.14, iron), 0, 0, 0, Math.PI / 2, 0, 0);\nk.put(head, k.sph(0.06, iron), 0, 0.33, 0);\nfor (const s of [1, -1]) {\n  const f = k.group();\n  k.put(head, f, 0, 0, 0.07 * s, 0, s < 0 ? Math.PI : 0, 0);\n  k.put(f, k.cyl(0.255, 0.255, 0.012, face), 0, 0, 0, Math.PI / 2, 0, 0);\n  for (let i = 0; i < 12; i++) {\n    const a = (i * Math.PI) / 6;\n    k.put(f, k.box(0.022, i % 3 ? 0.03 : 0.055, 0.01, dark), Math.sin(a) * 0.205, Math.cos(a) * 0.205, 0.01, 0, 0, -a);\n  }\n  k.put(f, k.box(0.14, 0.028, 0.01, dark), -0.07, 0, 0.016);\n  k.put(f, k.box(0.02, 0.2, 0.01, dark), 0, 0.09, 0.022);\n  k.put(f, k.sph(0.022, dark), 0, 0, 0.024);\n}\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "redBullDolly",
+          "at": [
+            -0.75,
+            -0.7
+          ],
+          "rot": 25,
+          "code": "const g = k.group();\nconst steel = k.mat('#c3c7ce', { metal: 0.6, rough: 0.35 }), tyre = k.mat('#222226');\nconst blue = k.mat('#1d3f94'), silver = k.mat('#d9dde3', { metal: 0.3, rough: 0.4 });\nconst red = k.mat('#d4213d'), yel = k.mat('#f2c230');\nfor (const x of [-0.2, 0.2]) k.put(g, k.cyl(0.018, 0.018, 1.25, steel), x, 0.66, -0.19);\nk.put(g, k.tube([[-0.2, 1.26, -0.19], [0, 1.36, -0.21], [0.2, 1.26, -0.19]], 0.018, steel), 0, 0, 0);\nk.put(g, k.box(0.46, 0.03, 0.3, steel), 0, 0.03, -0.02);\nfor (const x of [-0.27, 0.27]) k.put(g, k.cyl(0.1, 0.1, 0.06, tyre), x, 0.1, -0.2, 0, 0, Math.PI / 2);\nfor (let i = 0; i < 4; i++) {\n  const y = 0.15 + i * 0.25, tilt = (k.rand() - 0.5) * 0.12;\n  k.put(g, k.rbox(0.42, 0.24, 0.3, i % 2 ? silver : blue, 0.02), 0, y, -0.02, 0, tilt, 0);\n  k.put(g, k.cyl(0.055, 0.055, 0.012, yel), 0.05, y, 0.135, Math.PI / 2, 0, 0);\n  k.put(g, k.box(0.16, 0.05, 0.012, red), -0.06, y - 0.02, 0.14, 0, 0, 0.1);\n}\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "sandwichBoard",
+          "at": [
+            1.3,
+            0.45
+          ],
+          "rot": -25,
+          "code": "const g = k.group();\nconst wood = k.mat('#9a6a44'), slate = k.mat('#2e3430'), chalk = k.mat('#f4f1e6'), orange = k.mat('#f26522');\nfor (const s of [1, -1]) {\n  const p = k.group();\n  k.put(g, p, 0, 0.44, 0.11 * s, -0.22 * s, s < 0 ? Math.PI : 0, 0);\n  k.put(p, k.rbox(0.58, 0.9, 0.04, wood, 0.02), 0, 0, 0);\n  k.put(p, k.box(0.48, 0.66, 0.012, slate), 0, -0.05, 0.022);\n  k.put(p, k.box(0.18, 0.18, 0.016, orange), 0, 0.15, 0.03);\n  k.put(p, k.box(0.032, 0.07, 0.02, chalk), 0, 0.12, 0.035);\n  k.put(p, k.box(0.03, 0.07, 0.02, chalk), -0.026, 0.175, 0.035, 0, 0, 0.6);\n  k.put(p, k.box(0.03, 0.07, 0.02, chalk), 0.026, 0.175, 0.035, 0, 0, -0.6);\n  for (let i = 0; i < 3; i++) k.put(p, k.box(0.34 - i * 0.07, 0.022, 0.016, chalk), -i * 0.02, -0.04 - i * 0.09, 0.03);\n  k.put(p, k.box(0.12, 0.05, 0.016, k.mat('#f2c230')), 0.12, -0.3, 0.03, 0, 0, 0.1);\n}\nreturn g;"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "walk",
+          "holding": "phone",
+          "at": [
+            0.15,
+            0.35
+          ],
+          "rot": 165
+        },
+        {
+          "type": "person",
+          "who": "teammate-1",
+          "pose": "wave",
+          "at": [
+            0.7,
+            -0.85
+          ],
+          "rot": -15
+        },
+        {
+          "type": "person",
+          "who": "teammate-2",
+          "pose": "walk",
+          "at": [
+            1.15,
+            -0.25
+          ],
+          "rot": -140
+        },
+        {
+          "type": "planter",
+          "at": [
+            -1.1,
+            -1.12
+          ],
+          "length": 0.7,
+          "flowers": "#f2c230"
+        },
+        {
+          "type": "planter",
+          "at": [
+            1.15,
+            -1.12
+          ],
+          "length": 0.7,
+          "flowers": "#f26522"
+        },
+        {
+          "type": "bike",
+          "at": [
+            2,
+            -0.45
+          ],
+          "rot": 8,
+          "color": "#1d3f94"
+        },
+        {
+          "type": "bike",
+          "at": [
+            -2.05,
+            0.55
+          ],
+          "rot": -10,
+          "color": "#f26522"
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            1.9,
+            0.9
+          ],
+          "height": 2.6
+        },
+        {
+          "type": "bench",
+          "id": "bench",
+          "at": [
+            -1.25,
+            1.15
+          ],
+          "rot": 35,
+          "length": 1,
+          "color": "#2f4a3a"
+        },
+        {
+          "type": "backpack",
+          "on": "bench",
+          "at": [
+            0.18,
+            0
+          ],
+          "color": "#1d3f94"
+        },
+        {
+          "type": "glass",
+          "on": "bench",
+          "at": [
+            -0.25,
+            0.02
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "hydrant",
+          "at": [
+            1.2,
+            1.6
+          ],
+          "color": "#d4213d"
+        },
+        {
+          "type": "traffic-cone",
+          "at": [
+            0.3,
+            2
+          ]
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            0.4,
+            -1.15
+          ],
+          "kind": "succulent",
+          "size": 0.5
+        },
+        {
+          "type": "glass",
+          "at": [
+            -0.35,
+            1.35
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "bush",
+          "at": [
+            -0.6,
+            2.05
+          ],
+          "size": 0.45,
+          "flowers": "#f2c230"
+        }
+      ]
+    },
+    {
+      "title": "Twenty minutes on the database",
+      "moment": "Danny and I stand at the whiteboard arguing about the database while the clock eats twenty minutes.",
+      "hero": false,
+      "size": "medium",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.2
+          ],
+          "size": [
+            3.3,
+            3
+          ],
+          "floor": "wood",
+          "wall": "#efe7da",
+          "window": false,
+          "door": false
+        },
+        {
+          "type": "rug",
+          "at": [
+            -0.2,
+            -0.1
+          ],
+          "size": [
+            1.9,
+            1.2
+          ],
+          "color": "#c9b79c",
+          "pattern": "plain"
+        },
+        {
+          "type": "custom",
+          "name": "dbWhiteboard",
+          "at": [
+            -0.35,
+            -1.22
+          ],
+          "code": "const g = k.group(), T = k.THREE;\nconst frame = k.mat('#b8bcc4', { metal: 0.5, rough: 0.4 }), white = k.mat('#fbfbf7', { rough: 0.3 });\nfor (const x of [-0.82, 0.82]) {\n  k.put(g, k.cyl(0.022, 0.022, 1.75, frame), x, 0.95, 0);\n  k.put(g, k.box(0.06, 0.05, 0.55, frame), x, 0.06, 0);\n}\nk.put(g, k.rbox(1.66, 1.04, 0.045, frame, 0.015), 0, 1.32, 0);\nk.put(g, k.box(1.56, 0.94, 0.01, white), 0, 1.32, 0.024);\nk.put(g, k.box(1.3, 0.03, 0.09, frame), 0, 0.79, 0.06);\nconst ink = (c) => k.mat(c, { rough: 0.6 });\nconst db = (x, c) => {\n  const m = ink(c);\n  for (const y of [1.6, 1.48, 1.36]) {\n    const t = new T.Mesh(new T.TorusGeometry(0.12, 0.009, 4, 20), m);\n    t.scale.y = 0.32;\n    k.put(g, t, x, y, 0.032);\n  }\n  for (const s of [-1, 1]) k.put(g, k.box(0.016, 0.24, 0.006, m), x + 0.12 * s, 1.48, 0.032);\n  for (const dy of [0, 0.1, 0.2]) k.put(g, k.box(0.3 - dy, 0.014, 0.006, m), x - dy / 2, 1.0 + dy, 0.032);\n};\ndb(-0.45, '#2a62c9');\ndb(0.45, '#d4213d');\nk.put(g, k.tube([[-0.2, 1.62, 0.032], [-0.06, 1.42, 0.032], [0.06, 1.52, 0.032], [0.2, 1.3, 0.032]], 0.011, ink('#222')), 0, 0, 0);\nk.put(g, k.box(0.36, 0.014, 0.006, ink('#222')), 0, 1.15, 0.032, 0, 0, 0.5);\nk.put(g, k.box(0.36, 0.014, 0.006, ink('#222')), 0, 1.15, 0.032, 0, 0, -0.5);\nconst notes = [[-0.66, 1.68, '#f7e463'], [0.66, 1.67, '#f59ab5'], [0.68, 0.98, '#9fe3c4'], [-0.68, 0.98, '#f7e463'], [-0.55, 1.7, '#f59ab5']];\nfor (const [x, y, c] of notes) k.put(g, k.box(0.11, 0.11, 0.008, k.mat(c)), x, y, 0.034, 0, 0, (k.rand() - 0.5) * 0.4);\nfor (const [x, c] of [[-0.25, '#2a62c9'], [-0.08, '#d4213d'], [0.1, '#222']]) k.put(g, k.cyl(0.013, 0.013, 0.13, k.mat(c)), x, 0.82, 0.07, 0, 0, Math.PI / 2);\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "twentyMinClock",
+          "at": [
+            0.95,
+            -1.6
+          ],
+          "code": "const g = k.group(), T = k.THREE;\nconst c = k.group();\nk.put(g, c, 0, 1.8, 0.03);\nconst dark = k.mat('#2b2b2b');\nk.put(c, k.cyl(0.26, 0.26, 0.05, dark), 0, 0, 0, Math.PI / 2, 0, 0);\nk.put(c, k.cyl(0.23, 0.23, 0.056, k.mat('#f7f3ea')), 0, 0, 0, Math.PI / 2, 0, 0);\nconst wedge = new T.Mesh(new T.CircleGeometry(0.2, 16, -Math.PI / 6, (2 * Math.PI) / 3), k.mat('#f26522'));\nk.put(c, wedge, 0, 0, 0.03);\nfor (let i = 0; i < 12; i++) {\n  const a = (i * Math.PI) / 6;\n  k.put(c, k.box(0.018, 0.04, 0.01, dark), Math.sin(a) * 0.205, Math.cos(a) * 0.205, 0.032, 0, 0, -a);\n}\nk.put(c, k.box(0.022, 0.18, 0.01, dark), 0.866 * 0.085, -0.5 * 0.085, 0.036, 0, 0, (-2 * Math.PI) / 3);\nk.put(c, k.box(0.03, 0.12, 0.01, dark), -0.866 * 0.055, 0.5 * 0.055, 0.04, 0, 0, Math.PI / 3);\nk.put(c, k.sph(0.022, k.mat('#d4213d')), 0, 0, 0.042);\nreturn g;"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "wave",
+          "at": [
+            -0.8,
+            -0.2
+          ],
+          "rot": 62
+        },
+        {
+          "type": "person",
+          "who": "Danny",
+          "pose": "wave",
+          "at": [
+            0.4,
+            -0.15
+          ],
+          "rot": -62
+        },
+        {
+          "type": "desk",
+          "id": "desk",
+          "at": [
+            1.15,
+            -1.22
+          ],
+          "size": [
+            1,
+            0.55
+          ],
+          "color": "#c99a5e"
+        },
+        {
+          "type": "monitor",
+          "on": "desk",
+          "at": [
+            0.05,
+            -0.08
+          ]
+        },
+        {
+          "type": "mug",
+          "on": "desk",
+          "at": [
+            -0.38,
+            0.1
+          ],
+          "color": "#f26522"
+        },
+        {
+          "type": "glass",
+          "on": "desk",
+          "at": [
+            0.36,
+            0.12
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "desk",
+          "at": [
+            0.42,
+            -0.02
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.2,
+            -0.62
+          ],
+          "rot": 200,
+          "color": "#2d2d2d"
+        },
+        {
+          "type": "shelf",
+          "at": [
+            -1.38,
+            -0.45
+          ],
+          "rot": 90,
+          "size": [
+            1,
+            1.5
+          ],
+          "fill": "books",
+          "color": "#c99a5e"
+        },
+        {
+          "type": "custom",
+          "name": "crumpledSchemas",
+          "at": [
+            -0.05,
+            0.8
+          ],
+          "code": "const g = k.group(), T = k.THREE;\nconst paper = k.mat('#f4f1e6', { rough: 0.9 }), yellow = k.mat('#f7e9a8', { rough: 0.9 });\nconst spots = [[0, 0], [0.22, 0.12], [-0.18, 0.2], [0.35, -0.1], [-0.32, -0.05], [0.08, 0.32], [-0.05, -0.22]];\nspots.forEach(([x, z], i) => {\n  const b = new T.Mesh(new T.IcosahedronGeometry(0.055 + k.rand() * 0.02, 0), i % 3 ? paper : yellow);\n  k.put(g, b, x, 0.05, z, k.rand() * 3, k.rand() * 3, k.rand() * 3);\n});\nreturn g;"
+        },
+        {
+          "type": "bin",
+          "at": [
+            0.85,
+            0.9
+          ],
+          "color": "#2f4f6f"
+        },
+        {
+          "type": "stool",
+          "id": "stool",
+          "at": [
+            1.4,
+            0.05
+          ],
+          "color": "#f26522"
+        },
+        {
+          "type": "laptop",
+          "on": "stool",
+          "at": [
+            0,
+            0
+          ],
+          "open": true,
+          "rot": -30
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -1.25,
+            0.75
+          ],
+          "kind": "olive",
+          "size": 0.8
+        },
+        {
+          "type": "glass",
+          "at": [
+            -0.6,
+            1.2
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "at": [
+            1.5,
+            0.75
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -0.95,
+            1.4
+          ],
+          "color": "#c0392b",
+          "rot": 30
+        },
+        {
+          "type": "book",
+          "at": [
+            0.45,
+            1.5
+          ],
+          "open": true,
+          "color": "#1d3f94"
+        }
+      ]
+    },
+    {
+      "title": "Sunset: it renders!",
+      "moment": "The sun goes down behind the window, our first world pops up on the monitor, and everybody screams.",
+      "hero": true,
+      "size": "large",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.05
+          ],
+          "size": [
+            4.4,
+            4
+          ],
+          "floor": "wood",
+          "wall": "#efe7da",
+          "window": false,
+          "door": false
+        },
+        {
+          "type": "custom",
+          "name": "sunsetWindow",
+          "at": [
+            0.8,
+            -1.94
+          ],
+          "code": "const g = k.group();\nconst W = 1.7, y0 = 0.72, frame = k.mat('#f4efe6');\nconst bands = [['#ffd36e', 0, 0.28], ['#ff9a4a', 0.28, 0.34], ['#f2667a', 0.62, 0.34], ['#8a5fa8', 0.96, 0.32]];\nfor (const [c, b, h] of bands) k.put(g, k.box(W, h, 0.02, k.glowMat(c, 1.15)), 0, y0 + b + h / 2, 0);\nk.put(g, k.cyl(0.22, 0.22, 0.02, k.glowMat('#fff2c0', 2.6)), 0.35, y0 + 0.3, 0.012, Math.PI / 2, 0, 0);\nconst city = k.mat('#4a2f55');\nlet x = -W / 2 + 0.08;\nwhile (x < W / 2 - 0.08) {\n  const w = 0.1 + k.rand() * 0.14, h = 0.08 + k.rand() * 0.32;\n  k.put(g, k.box(w, h, 0.02, city), x + w / 2, y0 + h / 2, 0.022);\n  x += w + 0.01;\n}\nfor (const s of [-1, 1]) {\n  k.put(g, k.rbox(0.09, 1.42, 0.1, frame, 0.02), (W / 2 + 0.03) * s, y0 + 0.65, 0.03);\n  k.put(g, k.rbox(0.05, 1.3, 0.06, frame, 0.015), (W / 6) * s, y0 + 0.65, 0.04);\n}\nk.put(g, k.rbox(W + 0.16, 0.09, 0.1, frame, 0.02), 0, y0 + 1.33, 0.03);\nk.put(g, k.rbox(W + 0.24, 0.07, 0.2, frame, 0.02), 0, y0 - 0.03, 0.08);\nk.put(g, k.rbox(W, 0.04, 0.06, frame, 0.015), 0, y0 + 0.7, 0.04);\nk.addLight([0, 1.5, 0.8], '#ff9a5a', 2.2, 5);\nreturn g;"
+        },
+        {
+          "type": "table",
+          "id": "t",
+          "at": [
+            0.3,
+            -0.75
+          ],
+          "size": [
+            2.4,
+            1
+          ],
+          "shape": "rect",
+          "cloth": "none",
+          "color": "#c99a5e"
+        },
+        {
+          "type": "custom",
+          "name": "renderMonitor",
+          "at": [
+            0,
+            0.16
+          ],
+          "on": "t",
+          "code": "const g = k.group();\nconst dark = k.mat('#25272d', { rough: 0.5 }), W = 0.76, H = 0.46, cy = 0.3 + H / 2;\nk.put(g, k.rbox(0.26, 0.02, 0.18, dark, 0.008), 0, 0.01, -0.06);\nk.put(g, k.rbox(0.06, 0.32, 0.03, dark, 0.01), 0, 0.17, -0.08);\nk.put(g, k.rbox(W + 0.05, H + 0.05, 0.045, dark, 0.015), 0, cy, -0.05);\nk.put(g, k.box(W, H * 0.62, 0.006, k.glowMat('#3d7be0', 1.25)), 0, cy + H * 0.19, -0.025);\nk.put(g, k.box(W, H * 0.38, 0.006, k.glowMat('#22b5c8', 1.3)), 0, cy - H * 0.31, -0.025);\nconst isl = k.group();\nk.put(g, isl, 0, cy - 0.06, 0.0);\nk.put(isl, k.cyl(0.15, 0.06, 0.1, k.mat('#a0683e', { emissive: '#a0683e', emissiveIntensity: 0.5 })), 0, 0, 0);\nk.put(isl, k.cyl(0.155, 0.155, 0.03, k.glowMat('#7ed957', 1.4)), 0, 0.06, 0);\nk.put(isl, k.cone(0.045, 0.12, k.glowMat('#2f9e57', 1.4)), -0.06, 0.14, 0);\nk.put(isl, k.cone(0.035, 0.09, k.glowMat('#2f9e57', 1.4)), -0.1, 0.12, 0.03);\nk.put(isl, k.box(0.07, 0.06, 0.06, k.glowMat('#fff1d6', 1.6)), 0.06, 0.105, 0.01);\nk.put(isl, k.cone(0.06, 0.05, k.glowMat('#e2553b', 1.4)), 0.06, 0.16, 0.01, 0, Math.PI / 4, 0);\nfor (let i = 0; i < 6; i++) k.put(g, k.sph(0.012, k.glowMat('#fff6c8', 3)), (k.rand() - 0.5) * 0.6, cy + (k.rand() - 0.3) * 0.35, 0.04 + k.rand() * 0.08);\nk.put(g, k.rbox(0.5, 0.022, 0.16, k.mat('#3a3d44'), 0.008), 0, 0.011, 0.2);\nk.addLight([0, cy, 0.35], '#7fd0ff', 1.6, 3);\nreturn g;"
+        },
+        {
+          "type": "laptop",
+          "on": "t",
+          "at": [
+            -0.75,
+            0.15
+          ],
+          "rot": 15,
+          "open": true
+        },
+        {
+          "type": "laptop",
+          "on": "t",
+          "at": [
+            -0.55,
+            -0.28
+          ],
+          "rot": 180,
+          "open": true
+        },
+        {
+          "type": "laptop",
+          "on": "t",
+          "at": [
+            0.62,
+            -0.28
+          ],
+          "rot": 180,
+          "open": true
+        },
+        {
+          "type": "mug",
+          "on": "t",
+          "at": [
+            -0.36,
+            0.38
+          ],
+          "color": "#f26522"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            0.55,
+            0.2
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            0.75,
+            0.33
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            0.95,
+            0.1
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            1.05,
+            -0.3
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            -1.05,
+            -0.05
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            0.22,
+            -0.12
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.75,
+            -1.65
+          ],
+          "rot": 15,
+          "color": "#2d2d2d"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.35,
+            -1.65
+          ],
+          "rot": -15,
+          "color": "#2d2d2d"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -1.35,
+            -0.75
+          ],
+          "rot": 90,
+          "color": "#2d2d2d"
+        },
+        {
+          "type": "custom",
+          "name": "tippedChair",
+          "at": [
+            0.75,
+            1
+          ],
+          "rot": -20,
+          "code": "const g = k.group();\nk.put(g, k.part('chair', { color: '#2d2d2d' }), 0, 0.23, 0, -Math.PI / 2 + 0.06, 0, 0);\nreturn g;"
+        },
+        {
+          "type": "person",
+          "who": "teammate-1",
+          "pose": "cheer",
+          "at": [
+            -0.15,
+            -1.45
+          ],
+          "rot": 0
+        },
+        {
+          "type": "person",
+          "who": "teammate-2",
+          "pose": "cheer",
+          "at": [
+            0.8,
+            -1.45
+          ],
+          "rot": 0
+        },
+        {
+          "type": "person",
+          "who": "Danny",
+          "pose": "cheer",
+          "at": [
+            1.9,
+            -0.55
+          ],
+          "rot": -70
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "cheer",
+          "at": [
+            -0.4,
+            0.95
+          ],
+          "rot": 15
+        },
+        {
+          "type": "custom",
+          "name": "canTower",
+          "at": [
+            1.5,
+            1.5
+          ],
+          "rot": -25,
+          "code": "const g = k.group(), T = k.THREE;\nconst blue = k.mat('#1d3f94', { metal: 0.35, rough: 0.35 }), silv = k.mat('#d6dbe3', { metal: 0.6, rough: 0.3 }), red = k.mat('#d4213d');\nconst r = 0.042, h = 0.15, n = 6;\nconst body = new T.CylinderGeometry(r, r, h * 0.55, 12), top = new T.CylinderGeometry(r * 0.88, r, h * 0.45, 12), dot = new T.CylinderGeometry(r * 0.45, r * 0.45, 0.006, 8);\nfor (let row = 0; row < n; row++) {\n  for (let i = 0; i < n - row; i++) {\n    const c = k.group();\n    k.put(g, c, (i - (n - row - 1) / 2) * r * 2.08, row * h, 0, 0, (k.rand() - 0.5) * 0.8, 0);\n    k.put(c, new T.Mesh(body, blue), 0, h * 0.275, 0);\n    k.put(c, new T.Mesh(top, silv), 0, h * 0.775, 0);\n    k.put(c, new T.Mesh(dot, red), 0, h * 0.72, r * 0.97, Math.PI / 2, 0, 0);\n  }\n}\nreturn g;"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -1.55,
+            1.1
+          ],
+          "color": "#1d3f94",
+          "rot": 40
+        },
+        {
+          "type": "backpack",
+          "at": [
+            2,
+            0.3
+          ],
+          "color": "#2f8f5b",
+          "rot": -60
+        },
+        {
+          "type": "glass",
+          "at": [
+            0.85,
+            1.85
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "at": [
+            0.2,
+            2.1
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -1.75,
+            -1.55
+          ],
+          "kind": "olive",
+          "size": 0.9
+        },
+        {
+          "type": "bin",
+          "id": "bin",
+          "at": [
+            2,
+            -1.55
+          ],
+          "color": "#2f4f6f"
+        },
+        {
+          "type": "glass",
+          "on": "bin",
+          "at": [
+            0.05,
+            0.03
+          ],
+          "drink": "red-bull"
+        }
+      ]
+    },
+    {
+      "title": "Cold pizza on the floor",
+      "moment": "Too tired for chairs, we sit on the carpet and eat cold pizza while the world still glows on a laptop.",
+      "hero": false,
+      "size": "medium",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.2
+          ],
+          "size": [
+            3.3,
+            3
+          ],
+          "floor": "carpet",
+          "wall": "#efe7da",
+          "window": true,
+          "door": false
+        },
+        {
+          "type": "sofa",
+          "id": "sofa",
+          "at": [
+            0.25,
+            -1.2
+          ],
+          "length": 1.8,
+          "color": "#3b4a6b"
+        },
+        {
+          "type": "rug",
+          "at": [
+            0.1,
+            0.35
+          ],
+          "size": [
+            2.4,
+            1.6
+          ],
+          "color": "#d8c3a0",
+          "pattern": "stripes"
+        },
+        {
+          "type": "person",
+          "who": "teammate-1",
+          "pose": "sit",
+          "at": [
+            -0.25,
+            -0.55
+          ],
+          "rot": 0,
+          "y": -0.5
+        },
+        {
+          "type": "person",
+          "who": "teammate-2",
+          "pose": "sit",
+          "at": [
+            0.6,
+            -0.55
+          ],
+          "rot": -10,
+          "y": -0.5,
+          "holding": "phone"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            -1.05,
+            0.25
+          ],
+          "rot": 75,
+          "y": -0.5
+        },
+        {
+          "type": "person",
+          "who": "Danny",
+          "pose": "sit",
+          "at": [
+            1.25,
+            0.3
+          ],
+          "rot": -75,
+          "y": -0.5
+        },
+        {
+          "type": "pizza-box",
+          "at": [
+            -0.1,
+            0.35
+          ],
+          "rot": 10,
+          "open": true
+        },
+        {
+          "type": "pizza-box",
+          "at": [
+            0.5,
+            0.75
+          ],
+          "rot": -25,
+          "open": true
+        },
+        {
+          "type": "pizza-box",
+          "id": "pb1",
+          "at": [
+            -1.15,
+            -1.2
+          ],
+          "rot": 5
+        },
+        {
+          "type": "pizza-box",
+          "id": "pb2",
+          "on": "pb1",
+          "at": [
+            0.02,
+            0
+          ],
+          "rot": -8
+        },
+        {
+          "type": "pizza-box",
+          "on": "pb2",
+          "at": [
+            -0.02,
+            0.01
+          ],
+          "rot": 12
+        },
+        {
+          "type": "custom",
+          "name": "coldPizza",
+          "at": [
+            0.3,
+            1.45
+          ],
+          "rot": 20,
+          "scale": 1.6,
+          "code": "const g = k.group(), T = k.THREE;\nconst cheese = k.mat('#efc35a'), crust = k.mat('#c88a3e'), pep = k.mat('#b5342a');\nk.put(g, k.box(0.36, 0.004, 0.34, k.mat('#f4f1ea')), 0, 0.002, 0, 0, 0.3, 0);\nconst slice = (x, z, ry, n) => {\n  const s = k.group();\n  k.put(g, s, x, 0.004, z, 0, ry, 0);\n  k.put(s, new T.Mesh(new T.CylinderGeometry(0.22, 0.22, 0.018, 6, 1, false, -0.3, 0.6), cheese), 0, 0.009, 0);\n  k.put(s, new T.Mesh(new T.TorusGeometry(0.21, 0.02, 5, 8, 0.6), crust), 0, 0.02, 0, -Math.PI / 2, 0, -Math.PI / 2 - 0.3);\n  for (let i = 0; i < n; i++) k.put(s, k.cyl(0.022, 0.022, 0.006, pep), (k.rand() - 0.5) * 0.06, 0.02, 0.07 + i * 0.045);\n};\nslice(-0.1, -0.08, 0.4, 3);\nslice(0.08, -0.1, -0.5, 2);\nk.put(g, new T.Mesh(new T.TorusGeometry(0.21, 0.02, 5, 8, 0.5), crust), 0.05, 0.02, 0.32, -Math.PI / 2, 0, 2.2);\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "crushedCans",
+          "at": [
+            -0.75,
+            1.15
+          ],
+          "code": "const g = k.group(), T = k.THREE;\nconst blue = k.mat('#1d3f94', { metal: 0.35, rough: 0.35 }), silv = k.mat('#d6dbe3', { metal: 0.6, rough: 0.3 });\nconst can = (x, z, ry, squash) => {\n  const c = k.group();\n  k.put(g, c, x, 0.042 * squash, z, Math.PI / 2, ry, 0);\n  k.put(c, new T.Mesh(new T.CylinderGeometry(0.042, 0.042, 0.08, 12), blue), 0, -0.035, 0);\n  k.put(c, new T.Mesh(new T.CylinderGeometry(0.038, 0.042, 0.07, 12), silv), 0, 0.04, 0);\n  c.scale.set(1, 1, squash);\n};\ncan(0, 0, 0.4, 1);\ncan(0.15, 0.1, 1.9, 1);\ncan(-0.14, 0.12, -0.7, 0.45);\ncan(0.05, -0.15, 2.6, 0.5);\ncan(-0.2, -0.1, 1.2, 1);\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "floorLaptop",
+          "at": [
+            1.4,
+            1
+          ],
+          "rot": -40,
+          "code": "const g = k.group(), T = k.THREE;\nconst shell = k.mat('#b9bec6', { metal: 0.5, rough: 0.35 });\nk.put(g, k.rbox(0.42, 0.024, 0.3, shell, 0.01), 0, 0.012, 0);\nk.put(g, k.box(0.36, 0.004, 0.13, k.mat('#2a2c31')), 0, 0.026, -0.04);\nconst lid = k.group();\nk.put(g, lid, 0, 0.024, -0.15, -0.28, 0, 0);\nk.put(lid, k.rbox(0.42, 0.28, 0.016, shell, 0.008), 0, 0.14, -0.008);\nk.put(lid, k.box(0.38, 0.24, 0.004, k.glowMat('#3d7be0', 1.4)), 0, 0.14, 0.002);\nk.put(lid, k.box(0.38, 0.08, 0.005, k.glowMat('#22b5c8', 1.4)), 0, 0.06, 0.003);\nk.put(lid, new T.Mesh(new T.CircleGeometry(0.08, 14, 0, Math.PI), k.glowMat('#7ed957', 1.8)), 0, 0.09, 0.006);\nk.put(lid, k.cone(0.02, 0.05, k.glowMat('#2f9e57', 1.8)), -0.03, 0.15, 0.008);\nk.put(lid, k.box(0.03, 0.025, 0.01, k.glowMat('#fff1d6', 2)), 0.03, 0.135, 0.008);\nk.addLight([0, 0.25, 0.2], '#7fd0ff', 0.9, 2);\nreturn g;"
+        },
+        {
+          "type": "stool",
+          "id": "stool",
+          "at": [
+            1.45,
+            -1.25
+          ],
+          "color": "#f26522"
+        },
+        {
+          "type": "desk-lamp",
+          "on": "stool",
+          "at": [
+            0,
+            0
+          ],
+          "rot": -30
+        },
+        {
+          "type": "plate",
+          "at": [
+            -0.5,
+            0.8
+          ],
+          "food": "pizza"
+        },
+        {
+          "type": "plate",
+          "at": [
+            0.95,
+            -0.2
+          ],
+          "food": "pizza"
+        },
+        {
+          "type": "bottle",
+          "at": [
+            0.05,
+            1.05
+          ],
+          "color": "#9fd3e6"
+        },
+        {
+          "type": "glass",
+          "at": [
+            -0.45,
+            -0.05
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "at": [
+            0.95,
+            0.7
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -1.35,
+            1
+          ],
+          "color": "#1d3f94",
+          "rot": -20
+        },
+        {
+          "type": "pizza-box",
+          "at": [
+            -0.35,
+            1.85
+          ],
+          "rot": -30,
+          "open": true
+        },
+        {
+          "type": "glass",
+          "at": [
+            1.1,
+            1.6
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "at": [
+            -1,
+            1.7
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1.9,
+            0.2
+          ],
+          "kind": "succulent",
+          "size": 0.5
+        },
+        {
+          "type": "mug",
+          "at": [
+            0.9,
+            2
+          ],
+          "color": "#f26522"
+        }
+      ]
+    }
+  ]
+}

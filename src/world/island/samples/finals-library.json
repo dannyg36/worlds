@@ -1,0 +1,1163 @@
+{
+  "title": "Eleven Hours of Orgo",
+  "caption": "Green lamps, a wall of flashcards, snow at four, Jake's hot chocolate, and a dead-quiet walk home at midnight.",
+  "palette": [
+    "#2f6b4f",
+    "#f2e6c9",
+    "#7b2d3b",
+    "#2b3a55",
+    "#d9a441"
+  ],
+  "time": "snow",
+  "biome": "snow",
+  "landmark": {
+    "type": "tree",
+    "kind": "pine",
+    "height": 5
+  },
+  "cast": [
+    {
+      "name": "me",
+      "skin": "#f1c27d",
+      "shirt": "#7b2d3b",
+      "pants": "#2f3a4a",
+      "hair": "#3a2416",
+      "hairStyle": "bun"
+    },
+    {
+      "name": "Jake",
+      "skin": "#c68642",
+      "shirt": "#3c6e8f",
+      "pants": "#4a4238",
+      "hair": "#1f1a17",
+      "hairStyle": "cap"
+    }
+  ],
+  "vignettes": [
+    {
+      "title": "Claiming a desk",
+      "moment": "I stake out a spot at the long library table: textbook, model kit, highlighters, eleven hours to go.",
+      "hero": false,
+      "size": "medium",
+      "surface": "carpet",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.35
+          ],
+          "size": [
+            4.6,
+            3.8
+          ],
+          "floor": "wood",
+          "wall": "#e8dcc4",
+          "window": true
+        },
+        {
+          "type": "shelf",
+          "at": [
+            -1.35,
+            -2.05
+          ],
+          "size": [
+            1.5,
+            2
+          ],
+          "fill": "books"
+        },
+        {
+          "type": "shelf",
+          "at": [
+            0.35,
+            -2.05
+          ],
+          "size": [
+            1.5,
+            2
+          ],
+          "fill": "books"
+        },
+        {
+          "type": "rug",
+          "at": [
+            0.1,
+            -0.2
+          ],
+          "size": [
+            3.4,
+            2
+          ],
+          "color": "#2f6b4f",
+          "pattern": "persian"
+        },
+        {
+          "type": "table",
+          "id": "t1",
+          "at": [
+            0.1,
+            -0.55
+          ],
+          "size": [
+            2.6,
+            0.95
+          ],
+          "cloth": "none",
+          "color": "#6b4226"
+        },
+        {
+          "type": "desk-lamp",
+          "on": "t1",
+          "at": [
+            -0.65,
+            0.05
+          ]
+        },
+        {
+          "type": "desk-lamp",
+          "on": "t1",
+          "at": [
+            0.75,
+            0.05
+          ]
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.15,
+            -1.4
+          ],
+          "rot": 0
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "at": [
+            -0.15,
+            -1.4
+          ],
+          "rot": 0,
+          "pose": "sit"
+        },
+        {
+          "type": "book",
+          "on": "t1",
+          "at": [
+            -0.2,
+            -0.22
+          ],
+          "color": "#c0392b",
+          "open": true
+        },
+        {
+          "type": "book",
+          "id": "stack1",
+          "on": "t1",
+          "at": [
+            0.35,
+            -0.25
+          ],
+          "color": "#2b3a55"
+        },
+        {
+          "type": "book",
+          "id": "stack2",
+          "on": "stack1",
+          "at": [
+            0.01,
+            0
+          ],
+          "color": "#d9a441",
+          "rot": 8
+        },
+        {
+          "type": "book",
+          "on": "stack2",
+          "at": [
+            0,
+            0
+          ],
+          "color": "#2f6b4f",
+          "rot": -6
+        },
+        {
+          "type": "custom",
+          "name": "molecule",
+          "at": [
+            -0.85,
+            -0.25
+          ],
+          "on": "t1",
+          "code": "const g = k.group();\nconst C_ = k.mat('#2a2a2e', { rough: 0.35 }), H = k.mat('#f4f4f0', { rough: 0.35 }), O = k.mat('#d63c3c', { rough: 0.35 }), bond = k.mat('#c9ccd2', { rough: 0.4 });\nconst R = 0.11, y = 0.16;\nconst P = []; for (let i = 0; i < 6; i++) { const a = Math.PI / 6 + i * Math.PI / 3; P.push([Math.cos(a) * R, y, Math.sin(a) * R]); }\nP.forEach(([x, yy, z], i) => {\n  k.put(g, k.sph(0.032, C_, 12), x, yy, z);\n  const [x2, , z2] = P[(i + 1) % 6], mx = (x + x2) / 2, mz = (z + z2) / 2, ang = Math.atan2(z2 - z, x2 - x);\n  const b = k.cyl(0.008, 0.008, R, bond, 6); k.put(g, b, mx, yy, mz, 0, -ang, Math.PI / 2);\n  if (i % 2 === 0) { const b2 = k.cyl(0.006, 0.006, R * 0.7, bond, 6); k.put(g, b2, mx * 0.78, yy, mz * 0.78, 0, -ang, Math.PI / 2); }\n  const ox = x * 1.85, oz = z * 1.85;\n  k.put(g, k.cyl(0.006, 0.006, R * 0.8, bond, 6), (x + ox) / 2, yy, (z + oz) / 2, 0, -Math.atan2(z, x), Math.PI / 2);\n  k.put(g, k.sph(i === 1 ? 0.03 : 0.022, i === 1 ? O : H, 10), ox, yy, oz);\n});\nk.put(g, k.cyl(0.006, 0.006, y, bond, 6), 0, y / 2, 0);\nk.put(g, k.cyl(0.05, 0.06, 0.012, k.mat('#3b6ea5'), 14), 0, 0.006, 0);\nreturn g;"
+        },
+        {
+          "type": "bottle",
+          "on": "t1",
+          "at": [
+            0.62,
+            -0.32
+          ],
+          "color": "#3c8a5a"
+        },
+        {
+          "type": "laptop",
+          "on": "t1",
+          "at": [
+            1.05,
+            0.25
+          ],
+          "rot": 180,
+          "open": true
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -0.75,
+            -1.45
+          ],
+          "color": "#2f4f6f"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.05,
+            0.4
+          ],
+          "rot": 180
+        },
+        {
+          "type": "person",
+          "at": [
+            1.05,
+            0.4
+          ],
+          "rot": 180,
+          "pose": "sit",
+          "skin": "#8d5a3b",
+          "shirt": "#d9a441",
+          "pants": "#2b2d42",
+          "hair": "#120b08",
+          "hairStyle": "curly"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -1.75,
+            -0.55
+          ],
+          "rot": 90
+        },
+        {
+          "type": "person",
+          "at": [
+            -1.75,
+            -0.55
+          ],
+          "rot": 90,
+          "pose": "sit",
+          "skin": "#f3d2b3",
+          "shirt": "#8fb996",
+          "pants": "#4a4e69",
+          "hair": "#a8452a",
+          "hairStyle": "long"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1.8,
+            -1.85
+          ],
+          "kind": "succulent",
+          "size": 0.8
+        },
+        {
+          "type": "bin",
+          "at": [
+            1.85,
+            -0.95
+          ],
+          "color": "#5f6b73"
+        },
+        {
+          "type": "mug",
+          "on": "t1",
+          "at": [
+            -1.05,
+            0.2
+          ],
+          "color": "#f2e6c9"
+        }
+      ]
+    },
+    {
+      "title": "Snow at four",
+      "moment": "Around four the windows go grey and it starts to snow, and I stop mid-flashcard to watch.",
+      "hero": false,
+      "size": "medium",
+      "surface": "carpet",
+      "objects": [
+        {
+          "type": "wall",
+          "at": [
+            0,
+            -2.15
+          ],
+          "length": 4.6,
+          "height": 3,
+          "material": "stone",
+          "color": "#c9c2b2"
+        },
+        {
+          "type": "custom",
+          "name": "archWindow",
+          "at": [
+            -0.55,
+            -2
+          ],
+          "code": "const g = k.group();\nconst W = 1.5, H = 2.2, frame = k.mat('#e9e2d0'), glass = k.glowMat('#4a5f9e', 0.55), snow = k.mat('#f6f8ff', { rough: 1 });\nk.put(g, k.box(W, H, 0.03, glass), 0, 0.55 + H / 2, -0.02);\nconst arch = k.cyl(W / 2, W / 2, 0.03, glass, 24); k.put(g, arch, 0, 0.55 + H, -0.02, Math.PI / 2, 0, 0);\nk.put(g, k.torus(W / 2, 0.05, frame, 24, Math.PI), 0, 0.55 + H, 0);\nfor (const s of [-1, 1]) k.put(g, k.box(0.1, H, 0.1, frame), s * W / 2, 0.55 + H / 2, 0);\nk.put(g, k.box(0.05, H + W / 2, 0.06, frame), 0, 0.55 + (H + W / 2) / 2, 0);\nfor (let i = 1; i < 4; i++) k.put(g, k.box(W, 0.04, 0.06, frame), 0, 0.55 + i * H / 4, 0);\nk.put(g, k.rbox(W + 0.3, 0.08, 0.3, frame, 0.02), 0, 0.53, 0.08);\nk.put(g, k.rbox(W + 0.2, 0.08, 0.18, k.mat('#c7c2b6'), 0.02), 0, 0.29, 0.02);\nfor (let i = 1; i < 4; i++) { const d = k.cap(0.03, W - 0.1, snow, 6); k.put(g, d, 0, 0.58 + i * H / 4, -0.01, 0, 0, Math.PI / 2); }\nconst flakes = k.mat('#ffffff', { emissive: '#ffffff', emissiveIntensity: 0.6 });\nfor (let i = 0; i < 14; i++) k.put(g, k.sph(0.02, flakes, 4), (k.rand() - 0.5) * (W - 0.15), 0.7 + k.rand() * (H + 0.2), -0.04);\nconst rad = k.group(); for (let i = 0; i < 9; i++) k.put(rad, k.box(0.06, 0.5, 0.12, k.mat('#b9b2a2', { metal: 0.3, rough: 0.5 })), -0.36 + i * 0.09, 0.3, 0);\nk.put(g, rad, 0, 0, 0.2);\nreturn g;"
+        },
+        {
+          "type": "shelf",
+          "at": [
+            1.45,
+            -1.95
+          ],
+          "size": [
+            1.3,
+            2.1
+          ],
+          "fill": "books"
+        },
+        {
+          "type": "desk",
+          "id": "carrel",
+          "at": [
+            -0.55,
+            -1.15
+          ],
+          "size": [
+            1.4,
+            0.65
+          ],
+          "color": "#6b4226"
+        },
+        {
+          "type": "desk-lamp",
+          "on": "carrel",
+          "at": [
+            0.48,
+            -0.12
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "flashcards",
+          "at": [
+            -0.25,
+            0.05
+          ],
+          "on": "carrel",
+          "code": "const g = k.group();\nconst card = k.mat('#ece4cf', { rough: 0.95 }), red = k.mat('#d64545'), blue = k.mat('#7fa6d6'), yellow = k.mat('#ffe066', { emissive: '#ffe066', emissiveIntensity: 0.15 });\nconst one = (x, z, y, r) => { const c = k.group(); k.put(c, k.box(0.127, 0.003, 0.076, card), 0, 0, 0); k.put(c, k.box(0.11, 0.0035, 0.004, red), 0, 0.0005, -0.026); for (let i = 0; i < 3; i++) k.put(c, k.box(0.1 - i * 0.02, 0.0035, 0.003, blue), -i * 0.01, 0.0005, -0.008 + i * 0.014); k.put(g, c, x, y, z, 0, r, 0); };\nfor (let i = 0; i < 14; i++) one(0, 0, 0.002 + i * 0.004, (k.rand() - 0.5) * 0.12);\nk.put(g, k.torus(0.05, 0.004, k.mat('#c0392b'), 14), 0, 0.03, 0, Math.PI / 2, 0, 0);\nfor (let i = 0; i < 9; i++) one(0.2 + (i % 3) * 0.06, -0.05 + Math.floor(i / 3) * 0.05, 0.002 + i * 0.0035, (i - 4) * 0.12);\nfor (let i = 0; i < 6; i++) one(-0.17 - k.rand() * 0.15, -0.08 + k.rand() * 0.2, 0.002 + i * 0.002, k.rand() * 3);\nfor (let i = 0; i < 8; i++) one(0.42, 0.08, 0.002 + i * 0.004, 0.05 * i);\nk.put(g, k.cyl(0.009, 0.009, 0.13, yellow, 8), 0.05, 0.008, 0.11, 0, 0.3, Math.PI / 2);\nk.put(g, k.cyl(0.009, 0.009, 0.13, k.mat('#ff7eb6'), 8), -0.06, 0.008, 0.14, 0, -0.5, Math.PI / 2);\nreturn g;"
+        },
+        {
+          "type": "book",
+          "on": "carrel",
+          "at": [
+            -0.45,
+            0
+          ],
+          "color": "#c0392b",
+          "open": true
+        },
+        {
+          "type": "chair",
+          "at": [
+            0.35,
+            -0.35
+          ],
+          "rot": -120
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "at": [
+            -0.25,
+            -0.35
+          ],
+          "rot": 200,
+          "pose": "stand"
+        },
+        {
+          "type": "sofa",
+          "at": [
+            1.05,
+            0.85
+          ],
+          "rot": -150,
+          "color": "#2f6b4f",
+          "length": 1.5
+        },
+        {
+          "type": "person",
+          "at": [
+            1.2,
+            0.8
+          ],
+          "rot": -150,
+          "pose": "sit",
+          "skin": "#6f4a33",
+          "shirt": "#d6c6a8",
+          "pants": "#22223b",
+          "hair": "#1e1e1e",
+          "hairStyle": "short",
+          "holding": "phone"
+        },
+        {
+          "type": "rug",
+          "at": [
+            0.2,
+            0.3
+          ],
+          "size": [
+            2.6,
+            1.6
+          ],
+          "color": "#7b2d3b",
+          "pattern": "persian"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -1.95,
+            -1.6
+          ],
+          "kind": "olive",
+          "size": 0.9
+        },
+        {
+          "type": "mug",
+          "on": "carrel",
+          "at": [
+            0.2,
+            0.18
+          ],
+          "color": "#2b3a55"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -1.5,
+            -0.55
+          ],
+          "color": "#2f4f6f",
+          "rot": 30
+        },
+        {
+          "type": "bin",
+          "at": [
+            2,
+            -0.6
+          ],
+          "color": "#5f6b73"
+        },
+        {
+          "type": "book",
+          "at": [
+            -0.5,
+            1.25
+          ],
+          "color": "#2f6b4f",
+          "rot": 30
+        },
+        {
+          "type": "book",
+          "at": [
+            -0.35,
+            1.45
+          ],
+          "color": "#d9a441",
+          "rot": -20
+        },
+        {
+          "type": "stool",
+          "at": [
+            -1.2,
+            0.6
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Jake brings hot chocolate",
+      "moment": "Hours in, under the green lamps and a wall of flashcards, Jake shows up with snow on his cap and two hot chocolates.",
+      "hero": true,
+      "size": "large",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.35
+          ],
+          "size": [
+            5,
+            4.3
+          ],
+          "floor": "wood",
+          "wall": "#e8dcc4",
+          "window": false
+        },
+        {
+          "type": "shelf",
+          "at": [
+            -1.75,
+            -2.3
+          ],
+          "size": [
+            1.4,
+            2.2
+          ],
+          "fill": "books"
+        },
+        {
+          "type": "shelf",
+          "at": [
+            1.75,
+            -2.3
+          ],
+          "size": [
+            1.4,
+            2.2
+          ],
+          "fill": "books"
+        },
+        {
+          "type": "custom",
+          "name": "archWindow",
+          "at": [
+            0,
+            -2.35
+          ],
+          "code": "const g = k.group();\nconst W = 1.5, H = 2.2, frame = k.mat('#e9e2d0'), glass = k.glowMat('#4a5f9e', 0.55), snow = k.mat('#f6f8ff', { rough: 1 });\nk.put(g, k.box(W, H, 0.03, glass), 0, 0.55 + H / 2, -0.02);\nconst arch = k.cyl(W / 2, W / 2, 0.03, glass, 24); k.put(g, arch, 0, 0.55 + H, -0.02, Math.PI / 2, 0, 0);\nk.put(g, k.torus(W / 2, 0.05, frame, 24, Math.PI), 0, 0.55 + H, 0);\nfor (const s of [-1, 1]) k.put(g, k.box(0.1, H, 0.1, frame), s * W / 2, 0.55 + H / 2, 0);\nk.put(g, k.box(0.05, H + W / 2, 0.06, frame), 0, 0.55 + (H + W / 2) / 2, 0);\nfor (let i = 1; i < 4; i++) k.put(g, k.box(W, 0.04, 0.06, frame), 0, 0.55 + i * H / 4, 0);\nk.put(g, k.rbox(W + 0.3, 0.08, 0.3, frame, 0.02), 0, 0.53, 0.08);\nk.put(g, k.rbox(W + 0.2, 0.08, 0.18, k.mat('#c7c2b6'), 0.02), 0, 0.29, 0.02);\nfor (let i = 1; i < 4; i++) { const d = k.cap(0.03, W - 0.1, snow, 6); k.put(g, d, 0, 0.58 + i * H / 4, -0.01, 0, 0, Math.PI / 2); }\nconst flakes = k.mat('#ffffff', { emissive: '#ffffff', emissiveIntensity: 0.6 });\nfor (let i = 0; i < 14; i++) k.put(g, k.sph(0.02, flakes, 4), (k.rand() - 0.5) * (W - 0.15), 0.7 + k.rand() * (H + 0.2), -0.04);\nconst rad = k.group(); for (let i = 0; i < 9; i++) k.put(rad, k.box(0.06, 0.5, 0.12, k.mat('#b9b2a2', { metal: 0.3, rough: 0.5 })), -0.36 + i * 0.09, 0.3, 0);\nk.put(g, rad, 0, 0, 0.2);\nreturn g;"
+        },
+        {
+          "type": "rug",
+          "at": [
+            0,
+            -0.2
+          ],
+          "size": [
+            4.4,
+            3
+          ],
+          "color": "#5b2a2a",
+          "pattern": "persian"
+        },
+        {
+          "type": "table",
+          "id": "long",
+          "at": [
+            0,
+            -0.35
+          ],
+          "size": [
+            3.2,
+            1.05
+          ],
+          "cloth": "none",
+          "color": "#6b4226"
+        },
+        {
+          "type": "desk-lamp",
+          "on": "long",
+          "at": [
+            -1.35,
+            0.1
+          ]
+        },
+        {
+          "type": "desk-lamp",
+          "on": "long",
+          "at": [
+            0.95,
+            0.05
+          ]
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.4,
+            -1.3
+          ],
+          "rot": 0
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "at": [
+            -0.4,
+            -1.3
+          ],
+          "rot": 0,
+          "pose": "sit"
+        },
+        {
+          "type": "person",
+          "who": "Jake",
+          "at": [
+            0.55,
+            -1.35
+          ],
+          "rot": -35,
+          "pose": "wave"
+        },
+        {
+          "type": "custom",
+          "name": "hotChocolate",
+          "at": [
+            0,
+            -0.25
+          ],
+          "on": "long",
+          "code": "const g = k.group();\nconst cup = k.mat('#f3eee4', { rough: 0.8 }), sleeve = k.mat('#a0703f', { rough: 0.95 }), lid = k.mat('#3a2b24', { rough: 0.5 });\nconst cocoa = k.mat('#5a3420', { rough: 0.3 }), mallow = k.mat('#fffaf2', { rough: 0.9 });\nconst make = (x, z, open) => {\n  const c = k.group();\n  k.put(c, k.lathe([[0, 0], [0.04, 0], [0.052, 0.14], [0.054, 0.145], [0, 0.145]], cup, 16), 0, 0, 0);\n  k.put(c, k.cyl(0.05, 0.046, 0.05, sleeve, 16), 0, 0.07, 0);\n  if (open) {\n    k.put(c, k.cyl(0.049, 0.049, 0.005, cocoa, 16), 0, 0.138, 0);\n    [[0.02, 0.01], [-0.018, 0.016], [0.0, -0.022], [-0.024, -0.01], [0.022, -0.016], [0.004, 0.026], [0, 0]].forEach(([mx, mz], i) => k.put(c, k.rbox(0.017, 0.015, 0.017, mallow, 0.005), mx, 0.146 + (i === 6 ? 0.008 : 0), mz, 0, i, 0));\n    const steam = k.mat('#ffffff', { transparent: true, opacity: 0.22, rough: 1 });\n    k.put(c, k.tube([[0, 0.16, 0], [0.02, 0.22, 0], [-0.015, 0.28, 0], [0.01, 0.33, 0]], 0.012, steam, 12), 0, 0, 0);\n  } else {\n    k.put(c, k.cyl(0.056, 0.056, 0.012, lid, 16), 0, 0.15, 0);\n    k.put(c, k.cyl(0.045, 0.05, 0.014, lid, 16), 0, 0.162, 0);\n  }\n  k.put(g, c, x, 0, z);\n};\nmake(0, 0, true); make(0.22, -0.06, false);\nk.put(g, k.cyl(0.05, 0.05, 0.004, lid, 16), -0.12, 0.002, 0.06);\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "flashcards",
+          "at": [
+            -0.62,
+            -0.3
+          ],
+          "on": "long",
+          "code": "const g = k.group();\nconst card = k.mat('#ece4cf', { rough: 0.95 }), red = k.mat('#d64545'), blue = k.mat('#7fa6d6'), yellow = k.mat('#ffe066', { emissive: '#ffe066', emissiveIntensity: 0.15 });\nconst one = (x, z, y, r) => { const c = k.group(); k.put(c, k.box(0.127, 0.003, 0.076, card), 0, 0, 0); k.put(c, k.box(0.11, 0.0035, 0.004, red), 0, 0.0005, -0.026); for (let i = 0; i < 3; i++) k.put(c, k.box(0.1 - i * 0.02, 0.0035, 0.003, blue), -i * 0.01, 0.0005, -0.008 + i * 0.014); k.put(g, c, x, y, z, 0, r, 0); };\nfor (let i = 0; i < 14; i++) one(0, 0, 0.002 + i * 0.004, (k.rand() - 0.5) * 0.12);\nk.put(g, k.torus(0.05, 0.004, k.mat('#c0392b'), 14), 0, 0.03, 0, Math.PI / 2, 0, 0);\nfor (let i = 0; i < 9; i++) one(0.2 + (i % 3) * 0.06, -0.05 + Math.floor(i / 3) * 0.05, 0.002 + i * 0.0035, (i - 4) * 0.12);\nfor (let i = 0; i < 6; i++) one(-0.17 - k.rand() * 0.15, -0.08 + k.rand() * 0.2, 0.002 + i * 0.002, k.rand() * 3);\nfor (let i = 0; i < 8; i++) one(0.42, 0.08, 0.002 + i * 0.004, 0.05 * i);\nk.put(g, k.cyl(0.009, 0.009, 0.13, yellow, 8), 0.05, 0.008, 0.11, 0, 0.3, Math.PI / 2);\nk.put(g, k.cyl(0.009, 0.009, 0.13, k.mat('#ff7eb6'), 8), -0.06, 0.008, 0.14, 0, -0.5, Math.PI / 2);\nreturn g;"
+        },
+        {
+          "type": "book",
+          "on": "long",
+          "at": [
+            -0.3,
+            0.05
+          ],
+          "color": "#c0392b",
+          "open": true
+        },
+        {
+          "type": "book",
+          "id": "hs1",
+          "on": "long",
+          "at": [
+            1.3,
+            -0.25
+          ],
+          "color": "#2b3a55",
+          "rot": 10
+        },
+        {
+          "type": "book",
+          "id": "hs2",
+          "on": "hs1",
+          "at": [
+            0,
+            0
+          ],
+          "color": "#d9a441",
+          "rot": -8
+        },
+        {
+          "type": "book",
+          "on": "hs2",
+          "at": [
+            0,
+            0
+          ],
+          "color": "#2f6b4f",
+          "rot": 4
+        },
+        {
+          "type": "laptop",
+          "on": "long",
+          "at": [
+            0.45,
+            -0.2
+          ],
+          "open": true,
+          "rot": 180
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.95,
+            0.65
+          ],
+          "rot": 180
+        },
+        {
+          "type": "person",
+          "at": [
+            -0.95,
+            0.65
+          ],
+          "rot": 180,
+          "pose": "sit",
+          "skin": "#8d5a3b",
+          "shirt": "#d9a441",
+          "pants": "#2b2d42",
+          "hair": "#120b08",
+          "hairStyle": "curly"
+        },
+        {
+          "type": "laptop",
+          "on": "long",
+          "at": [
+            -0.95,
+            0.28
+          ],
+          "open": true
+        },
+        {
+          "type": "chair",
+          "at": [
+            2.05,
+            -0.35
+          ],
+          "rot": -90
+        },
+        {
+          "type": "person",
+          "at": [
+            2.05,
+            -0.35
+          ],
+          "rot": -90,
+          "pose": "sit",
+          "skin": "#f3d2b3",
+          "shirt": "#8fb996",
+          "pants": "#4a4e69",
+          "hair": "#a8452a",
+          "hairStyle": "long"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -1.15,
+            -1.35
+          ],
+          "color": "#2f4f6f"
+        },
+        {
+          "type": "sofa",
+          "at": [
+            1.25,
+            1.55
+          ],
+          "rot": -25,
+          "color": "#2f6b4f",
+          "length": 1.4
+        },
+        {
+          "type": "person",
+          "at": [
+            1.25,
+            1.55
+          ],
+          "rot": -25,
+          "pose": "sit",
+          "skin": "#6f4a33",
+          "shirt": "#d6c6a8",
+          "pants": "#22223b",
+          "hair": "#1e1e1e",
+          "hairStyle": "short"
+        },
+        {
+          "type": "book",
+          "id": "fp1",
+          "at": [
+            -1.4,
+            1.6
+          ],
+          "color": "#2b3a55",
+          "rot": 20
+        },
+        {
+          "type": "book",
+          "id": "fp2",
+          "on": "fp1",
+          "at": [
+            0,
+            0
+          ],
+          "color": "#7b2d3b",
+          "rot": -15
+        },
+        {
+          "type": "book",
+          "at": [
+            -0.45,
+            1.9
+          ],
+          "color": "#d9a441",
+          "rot": 40,
+          "open": true
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -2.3,
+            0.9
+          ],
+          "kind": "olive",
+          "size": 0.9
+        }
+      ]
+    },
+    {
+      "title": "Every last reaction",
+      "moment": "Near midnight I run the whole whiteboard of mechanisms without peeking, and throw my arms up in the empty study room.",
+      "hero": false,
+      "size": "small",
+      "surface": "carpet",
+      "objects": [
+        {
+          "type": "wall",
+          "at": [
+            0,
+            -1.55
+          ],
+          "length": 3.4,
+          "height": 2.6,
+          "material": "plaster",
+          "color": "#d8cfbd",
+          "window": true
+        },
+        {
+          "type": "custom",
+          "name": "reactionBoard",
+          "at": [
+            -0.2,
+            -1.2
+          ],
+          "rot": 0,
+          "code": "const g = k.group();\nconst frame = k.mat('#b9bec4', { metal: 0.5, rough: 0.4 }), white = k.mat('#fbfbf7', { rough: 0.35 });\nconst blue = k.mat('#2f5fb5'), red = k.mat('#d23b3b'), black = k.mat('#202024'), green = k.mat('#2f8a4a');\nfor (const s of [-1, 1]) { k.put(g, k.cyl(0.02, 0.02, 1.9, frame, 8), s * 0.82, 0.95, 0); k.put(g, k.box(0.05, 0.04, 0.5, frame), s * 0.82, 0.02, 0); }\nk.put(g, k.rbox(1.6, 1.0, 0.04, frame, 0.01), 0, 1.35, 0);\nk.put(g, k.box(1.54, 0.94, 0.045, white), 0, 1.35, 0.002);\nconst hex = (cx, cy, m) => { const pts = []; for (let i = 0; i <= 6; i++) { const a = Math.PI / 2 + i * Math.PI / 3; pts.push([cx + Math.cos(a) * 0.09, cy + Math.sin(a) * 0.09, 0.03]); } for (let i = 0; i < 6; i++) { const [x1, y1] = pts[i], [x2, y2] = pts[i + 1]; const b = k.cyl(0.007, 0.007, 0.09, m, 5); k.put(g, b, (x1 + x2) / 2, (y1 + y2) / 2, 0.03, 0, 0, Math.atan2(y2 - y1, x2 - x1) - Math.PI / 2); } k.put(g, k.torus(0.05, 0.006, m, 16), cx, cy, 0.03); };\nconst arrow = (x1, x2, y, m) => { const a = k.cyl(0.008, 0.008, x2 - x1, m, 5); k.put(g, a, (x1 + x2) / 2, y, 0.03, 0, 0, Math.PI / 2); k.put(g, k.cone(0.025, 0.05, m, 6), x2 + 0.02, y, 0.03, 0, 0, -Math.PI / 2); };\nhex(-0.55, 1.6, blue); arrow(-0.4, -0.12, 1.6, black); hex(0.05, 1.6, blue);\nk.put(g, k.tube([[0.14, 1.62, 0.03], [0.2, 1.68, 0.03], [0.26, 1.64, 0.03], [0.3, 1.7, 0.03]], 0.007, red, 10), 0, 0, 0);\nhex(-0.5, 1.15, green); arrow(-0.35, -0.05, 1.15, black); hex(0.18, 1.15, green);\nk.put(g, k.tube([[-0.42, 1.3, 0.03], [-0.3, 1.38, 0.03], [-0.18, 1.32, 0.03], [-0.25, 1.24, 0.03]], 0.007, red, 12), 0, 0, 0);\nk.put(g, k.tube([[0.45, 1.05, 0.03], [0.5, 0.98, 0.03], [0.6, 1.0, 0.03], [0.68, 1.12, 0.03]], 0.012, green, 12), 0, 0, 0);\nk.put(g, k.box(0.5, 0.035, 0.06, frame), 0, 0.84, 0.05);\nk.put(g, k.cyl(0.012, 0.012, 0.12, red, 8), -0.1, 0.875, 0.05, 0, 0, Math.PI / 2);\nk.put(g, k.cyl(0.012, 0.012, 0.12, blue, 8), 0.08, 0.875, 0.05, 0, 0, Math.PI / 2);\nreturn g;"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "at": [
+            0.55,
+            -0.2
+          ],
+          "rot": -30,
+          "pose": "cheer"
+        },
+        {
+          "type": "desk",
+          "id": "d4",
+          "at": [
+            -0.95,
+            0.25
+          ],
+          "size": [
+            1,
+            0.55
+          ],
+          "color": "#6b4226",
+          "rot": 35
+        },
+        {
+          "type": "desk-lamp",
+          "on": "d4",
+          "at": [
+            -0.3,
+            -0.1
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "flashcards",
+          "at": [
+            0.12,
+            0.02
+          ],
+          "on": "d4",
+          "code": "const g = k.group();\nconst card = k.mat('#ece4cf', { rough: 0.95 }), red = k.mat('#d64545'), blue = k.mat('#7fa6d6'), yellow = k.mat('#ffe066', { emissive: '#ffe066', emissiveIntensity: 0.15 });\nconst one = (x, z, y, r) => { const c = k.group(); k.put(c, k.box(0.127, 0.003, 0.076, card), 0, 0, 0); k.put(c, k.box(0.11, 0.0035, 0.004, red), 0, 0.0005, -0.026); for (let i = 0; i < 3; i++) k.put(c, k.box(0.1 - i * 0.02, 0.0035, 0.003, blue), -i * 0.01, 0.0005, -0.008 + i * 0.014); k.put(g, c, x, y, z, 0, r, 0); };\nfor (let i = 0; i < 14; i++) one(0, 0, 0.002 + i * 0.004, (k.rand() - 0.5) * 0.12);\nk.put(g, k.torus(0.05, 0.004, k.mat('#c0392b'), 14), 0, 0.03, 0, Math.PI / 2, 0, 0);\nfor (let i = 0; i < 9; i++) one(0.2 + (i % 3) * 0.06, -0.05 + Math.floor(i / 3) * 0.05, 0.002 + i * 0.0035, (i - 4) * 0.12);\nfor (let i = 0; i < 6; i++) one(-0.17 - k.rand() * 0.15, -0.08 + k.rand() * 0.2, 0.002 + i * 0.002, k.rand() * 3);\nfor (let i = 0; i < 8; i++) one(0.42, 0.08, 0.002 + i * 0.004, 0.05 * i);\nk.put(g, k.cyl(0.009, 0.009, 0.13, yellow, 8), 0.05, 0.008, 0.11, 0, 0.3, Math.PI / 2);\nk.put(g, k.cyl(0.009, 0.009, 0.13, k.mat('#ff7eb6'), 8), -0.06, 0.008, 0.14, 0, -0.5, Math.PI / 2);\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "molecule",
+          "at": [
+            -0.35,
+            0.12
+          ],
+          "on": "d4",
+          "code": "const g = k.group();\nconst C_ = k.mat('#2a2a2e', { rough: 0.35 }), H = k.mat('#f4f4f0', { rough: 0.35 }), O = k.mat('#d63c3c', { rough: 0.35 }), bond = k.mat('#c9ccd2', { rough: 0.4 });\nconst R = 0.11, y = 0.16;\nconst P = []; for (let i = 0; i < 6; i++) { const a = Math.PI / 6 + i * Math.PI / 3; P.push([Math.cos(a) * R, y, Math.sin(a) * R]); }\nP.forEach(([x, yy, z], i) => {\n  k.put(g, k.sph(0.032, C_, 12), x, yy, z);\n  const [x2, , z2] = P[(i + 1) % 6], mx = (x + x2) / 2, mz = (z + z2) / 2, ang = Math.atan2(z2 - z, x2 - x);\n  const b = k.cyl(0.008, 0.008, R, bond, 6); k.put(g, b, mx, yy, mz, 0, -ang, Math.PI / 2);\n  if (i % 2 === 0) { const b2 = k.cyl(0.006, 0.006, R * 0.7, bond, 6); k.put(g, b2, mx * 0.78, yy, mz * 0.78, 0, -ang, Math.PI / 2); }\n  const ox = x * 1.85, oz = z * 1.85;\n  k.put(g, k.cyl(0.006, 0.006, R * 0.8, bond, 6), (x + ox) / 2, yy, (z + oz) / 2, 0, -Math.atan2(z, x), Math.PI / 2);\n  k.put(g, k.sph(i === 1 ? 0.03 : 0.022, i === 1 ? O : H, 10), ox, yy, oz);\n});\nk.put(g, k.cyl(0.006, 0.006, y, bond, 6), 0, y / 2, 0);\nk.put(g, k.cyl(0.05, 0.06, 0.012, k.mat('#3b6ea5'), 14), 0, 0.006, 0);\nreturn g;"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.55,
+            0.85
+          ],
+          "rot": 160
+        },
+        {
+          "type": "backpack",
+          "at": [
+            1.35,
+            0.35
+          ],
+          "color": "#2f4f6f",
+          "rot": -40
+        },
+        {
+          "type": "mug",
+          "on": "d4",
+          "at": [
+            0.38,
+            -0.12
+          ],
+          "color": "#f3eee4"
+        },
+        {
+          "type": "bin",
+          "at": [
+            1.4,
+            -1.1
+          ],
+          "color": "#5f6b73"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -1.45,
+            -1.15
+          ],
+          "kind": "succulent",
+          "size": 0.7
+        },
+        {
+          "type": "book",
+          "at": [
+            1,
+            1.2
+          ],
+          "color": "#c0392b",
+          "rot": 15
+        },
+        {
+          "type": "book",
+          "at": [
+            0.25,
+            1.45
+          ],
+          "color": "#2b3a55",
+          "rot": -35,
+          "open": true
+        },
+        {
+          "type": "rug",
+          "at": [
+            0.2,
+            0.2
+          ],
+          "size": [
+            2.2,
+            1.4
+          ],
+          "color": "#2f6b4f",
+          "pattern": "plain"
+        },
+        {
+          "type": "stool",
+          "at": [
+            1.45,
+            -0.45
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Dead quiet at midnight",
+      "moment": "I walk home at midnight through fresh snow, the only footprints on the path, and it is completely silent.",
+      "hero": false,
+      "size": "medium",
+      "surface": "snow",
+      "objects": [
+        {
+          "type": "wall",
+          "id": "libwall",
+          "at": [
+            -0.7,
+            -2
+          ],
+          "length": 3,
+          "height": 2.8,
+          "material": "stone",
+          "color": "#b8ae9c",
+          "window": true,
+          "door": true
+        },
+        {
+          "type": "roof",
+          "at": [
+            -0.7,
+            -2
+          ],
+          "y": 2.8,
+          "length": 3.2,
+          "depth": 0.9,
+          "color": "#3a4a5e"
+        },
+        {
+          "type": "tree",
+          "at": [
+            1.55,
+            -1.75
+          ],
+          "kind": "pine",
+          "height": 3.2
+        },
+        {
+          "type": "tree",
+          "at": [
+            2.15,
+            -0.95
+          ],
+          "kind": "pine",
+          "height": 2.4
+        },
+        {
+          "type": "tree",
+          "at": [
+            -2.2,
+            -0.9
+          ],
+          "kind": "pine",
+          "height": 2.6
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            -1.2,
+            0.1
+          ],
+          "height": 2.4
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            1.5,
+            0.75
+          ],
+          "height": 2.4
+        },
+        {
+          "type": "custom",
+          "name": "footprints",
+          "at": [
+            0.2,
+            0.35
+          ],
+          "code": "const g = k.group();\nconst dent = k.mat('#c9d4ea', { rough: 1 }), rim = k.mat('#ffffff', { rough: 1 });\nfor (let i = 0; i < 14; i++) {\n  const t = i / 13, x = -2.0 + t * 2.0, z = Math.sin(t * 2.4) * 0.35, s = i % 2 ? 1 : -1;\n  const ang = Math.atan2(Math.cos(t * 2.4) * 0.35 * 2.4 / 2.0, 1);\n  const p = k.group();\n  const sole = k.cyl(1, 1, 1, dent, 12); sole.scale.set(0.06, 0.012, 0.035); k.put(p, sole, 0.03, 0.004, 0);\n  const heel = k.cyl(1, 1, 1, dent, 10); heel.scale.set(0.035, 0.012, 0.03); k.put(p, heel, -0.07, 0.004, 0);\n  k.put(g, p, x, 0, z + s * 0.07, 0, -ang, 0);\n}\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "meWithBackpack",
+          "at": [
+            0.35,
+            0.35
+          ],
+          "rot": 90,
+          "code": "const g = k.group();\ng.add(k.part('person', { pose: 'walk', skin: '#f1c27d', shirt: '#7b2d3b', pants: '#2f3a4a', hair: '#3a2416', hairStyle: 'bun' }));\nconst p = k.group();\nconst navy = k.mat('#2f4f6f', { rough: 0.9 }), dk = k.mat('#22384f', { rough: 0.9 });\nk.put(p, k.rbox(0.3, 0.38, 0.16, navy, 0.06), 0, 0, 0);\nk.put(p, k.rbox(0.22, 0.16, 0.06, dk, 0.03), 0, -0.08, 0.09);\nk.put(p, k.torus(0.04, 0.01, dk, 10, Math.PI), 0, 0.2, 0);\nfor (const s of [-1, 1]) k.put(p, k.tube([[s * 0.09, 0.17, -0.06], [s * 0.1, 0.25, -0.16], [s * 0.11, 0.05, -0.2], [s * 0.1, -0.12, -0.09]], 0.014, dk, 12), 0, 0, 0);\nk.put(g, p, 0, 0.83, -0.24, -0.08, 0, 0);\nconst scarf = k.mat('#d9a441');\nk.put(g, k.torus(0.075, 0.03, scarf, 14), 0, 0.98, 0.0, Math.PI / 2 - 0.15, 0, 0);\nk.put(g, k.rbox(0.07, 0.2, 0.03, scarf, 0.01), 0.05, 0.86, 0.1, 0.15, 0, 0.1);\nreturn g;"
+        },
+        {
+          "type": "bench",
+          "id": "b5",
+          "at": [
+            0.35,
+            -0.95
+          ],
+          "length": 1.4
+        },
+        {
+          "type": "custom",
+          "name": "snowCap",
+          "at": [
+            0,
+            0
+          ],
+          "on": "b5",
+          "code": "const g = k.group();\nconst snow = k.mat('#f7f9ff', { rough: 1 });\nconst c = k.cap(0.07, 1.3, snow, 8); k.put(g, c, 0, 0.03, 0, 0, 0, Math.PI / 2); c.scale.set(1, 1, 2.0);\nreturn g;"
+        },
+        {
+          "type": "bike",
+          "at": [
+            -1.85,
+            1
+          ],
+          "rot": 60,
+          "color": "#7b2d3b"
+        },
+        {
+          "type": "fence",
+          "at": [
+            -0.3,
+            2.15
+          ],
+          "length": 2.6,
+          "color": "#6b4226"
+        },
+        {
+          "type": "bush",
+          "at": [
+            -0.6,
+            -1.35
+          ],
+          "size": 0.6
+        },
+        {
+          "type": "bush",
+          "at": [
+            0.9,
+            1.75
+          ],
+          "size": 0.5
+        },
+        {
+          "type": "rock",
+          "at": [
+            2,
+            1.55
+          ],
+          "size": 0.35
+        },
+        {
+          "type": "rock",
+          "at": [
+            -1.75,
+            1.6
+          ],
+          "size": 0.25
+        },
+        {
+          "type": "bin",
+          "at": [
+            1.15,
+            -1
+          ],
+          "color": "#2f4a3a"
+        },
+        {
+          "type": "street-sign",
+          "at": [
+            -2.1,
+            0.2
+          ],
+          "kind": "arrow",
+          "rot": 90
+        }
+      ]
+    }
+  ]
+}

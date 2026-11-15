@@ -1,0 +1,1036 @@
+{
+ "title": "Five Stops to the Pole",
+ "caption": "Sunrise switchbacks with Dad, a photo at the summit pole, cows on the way down, and pancakes in a red booth.",
+ "palette": [
+  "#d8b25a",
+  "#c8372d",
+  "#6f8a4a",
+  "#f2b48d"
+ ],
+ "time": "dawn",
+ "biome": "meadow",
+ "landmark": {
+  "type": "custom",
+  "name": "mission-peak-massif",
+  "code": "const g = k.group(), T = k.THREE; const grass = k.mat('#a3a457'), dry = k.mat('#bfae63'), rock = k.mat('#8d8578'), oak = k.mat('#4f6b35'), dirt = k.mat('#cdb08a'); const P = [[1.6, 0], [1.45, 0.3], [1.15, 1.0], [0.8, 2.0], [0.5, 2.8], [0.25, 3.4], [0.08, 3.75], [0, 3.8]]; k.put(g, k.lathe([[0, 0], ...P], grass, 9), 0, 0, 0, 0, 0.3, 0); k.put(g, k.lathe([[0, 0], [0.95, 0], [0.8, 0.45], [0.5, 1.15], [0.2, 1.55], [0, 1.6]], dry, 8), 0.7, 0, -0.4, 0, 0.5, 0); k.put(g, k.lathe([[0, 0], [0.8, 0], [0.6, 0.4], [0.3, 0.8], [0, 0.9]], dry, 7), -0.85, 0, -0.5); const rAt = (h) => { for (let i = 1; i < P.length; i++) if (h <= P[i][1]) { const t = (h - P[i - 1][1]) / (P[i][1] - P[i - 1][1]); return P[i - 1][0] + t * (P[i][0] - P[i - 1][0]); } return 0; }; const trail = []; for (let i = 0; i <= 20; i++) { const t = i / 20, h = 0.05 + t * 3.45, a = 0.2 + t * Math.PI * 2.2, r = rAt(h) + 0.02; trail.push([Math.sin(a) * r, h, Math.cos(a) * r]); } k.put(g, k.tube(trail, 0.045, dirt, 48), 0, 0, 0); const crown = [[0, 3.72, 0, 0.24], [0.18, 3.56, 0.1, 0.18], [-0.18, 3.52, 0.08, 0.19], [0.08, 3.45, -0.22, 0.2], [-0.16, 3.3, -0.18, 0.17], [0.26, 3.2, -0.08, 0.15]]; for (const [x, y, z, s] of crown) k.put(g, new T.Mesh(new T.IcosahedronGeometry(s, 1), rock), x, y, z, k.rand(), k.rand(), 0); for (let i = 0; i < 12; i++) { const h = 0.4 + k.rand() * 2.8, a = k.rand() * Math.PI * 2, r = rAt(h) - 0.04; k.put(g, new T.Mesh(new T.IcosahedronGeometry(0.1 + k.rand() * 0.12, 0), rock), Math.sin(a) * r, h, Math.cos(a) * r, k.rand(), k.rand(), 0); } for (let i = 0; i < 10; i++) { const h = 0.15 + k.rand() * 1.0, a = k.rand() * Math.PI * 2, r = rAt(h) - 0.04; const o = new T.Mesh(new T.IcosahedronGeometry(0.18 + k.rand() * 0.1, i % 2), oak); o.scale.set(1, 0.8, 1); k.put(g, o, Math.sin(a) * r, h + 0.08, Math.cos(a) * r); } return g;"
+ },
+ "cast": [
+  {
+   "name": "me",
+   "skin": "#c68642",
+   "shirt": "#2f6f8f",
+   "pants": "#3a3a44",
+   "hair": "#1f1510",
+   "hairStyle": "short"
+  },
+  {
+   "name": "Dad",
+   "skin": "#b5773d",
+   "shirt": "#d9772b",
+   "pants": "#7a6a52",
+   "hair": "#c9c5bd",
+   "hairStyle": "short"
+  }
+ ],
+ "vignettes": [
+  {
+   "title": "Stop number five",
+   "moment": "Halfway up the switchbacks I flop onto a bench, gasping, while Dad stands over me talking about his garden tomatoes.",
+   "hero": false,
+   "size": "medium",
+   "surface": "sand",
+   "objects": [
+    {
+     "type": "custom",
+     "name": "steep-switchback-ridge",
+     "at": [
+      0,
+      -1.25
+     ],
+     "code": "const g = k.group(), T = k.THREE; const s = new T.Shape(); s.moveTo(-0.75, 0); s.lineTo(0.6, 1.55); s.lineTo(0.75, 1.6); s.lineTo(0.75, 0); s.lineTo(-0.75, 0); const geo = new T.ExtrudeGeometry(s, { depth: 2.7, bevelEnabled: true, bevelThickness: 0.08, bevelSize: 0.08, bevelSegments: 2, curveSegments: 4 }); k.put(g, new T.Mesh(geo, k.mat('#93a65c')), -1.35, 0, 0, 0, Math.PI / 2, 0); const sl = 1.55 / 1.35, n = 0.11 / Math.hypot(1, sl); const pts = [[-1.05, 0.62], [1.0, 0.36], [-0.95, 0.06], [0.9, -0.24], [-0.5, -0.5]].map(([x, z]) => [x, (0.75 - z) * sl + n, z + n * sl]); k.put(g, k.tube(pts, 0.06, k.mat('#d9b98a'), 64), 0, 0, 0); for (let i = 0; i < 10; i++) { const z = 0.6 - k.rand() * 1.1, x = (k.rand() - 0.5) * 2.4; const big = i % 3 === 0; const m = new T.Mesh(new T.IcosahedronGeometry(big ? 0.16 : 0.08 + k.rand() * 0.07, big ? 1 : 0), k.mat(i % 2 ? '#8d8578' : '#5f7a3c')); k.put(g, m, x, (0.75 - z) * sl + 0.08, z + 0.06, k.rand(), k.rand(), 0); } for (let i = 0; i < 3; i++) k.put(g, new T.Mesh(new T.IcosahedronGeometry(0.15, 1), k.mat('#5f7a3c')), -0.9 + i * 0.9, 1.68, -0.68); return g;"
+    },
+    {
+     "type": "tree",
+     "kind": "round",
+     "height": 1.4,
+     "at": [
+      0.9,
+      -2.0
+     ],
+     "y": 1.65
+    },
+    {
+     "type": "bench",
+     "id": "bench",
+     "length": 1.3,
+     "at": [
+      -0.45,
+      0.05
+     ],
+     "color": "#8a6a48"
+    },
+    {
+     "type": "person",
+     "who": "me",
+     "pose": "sit",
+     "at": [
+      -0.75,
+      0.05
+     ],
+     "rot": 0
+    },
+    {
+     "type": "bottle",
+     "on": "bench",
+     "at": [
+      0.42,
+      0.02
+     ],
+     "color": "#2f8fd6"
+    },
+    {
+     "type": "person",
+     "who": "Dad",
+     "pose": "wave",
+     "at": [
+      0.6,
+      0.45
+     ],
+     "rot": -70
+    },
+    {
+     "type": "backpack",
+     "at": [
+      -1.4,
+      0.3
+     ],
+     "rot": 20,
+     "color": "#2f4f6f"
+    },
+    {
+     "type": "backpack",
+     "at": [
+      1.15,
+      0.15
+     ],
+     "rot": -30,
+     "color": "#8a5a2b"
+    },
+    {
+     "type": "bottle",
+     "at": [
+      1.4,
+      0.35
+     ],
+     "color": "#9fc4d8"
+    },
+    {
+     "type": "post",
+     "height": 0.9,
+     "at": [
+      1.75,
+      0.45
+     ]
+    },
+    {
+     "type": "fence",
+     "length": 1.2,
+     "at": [
+      -1.9,
+      0.75
+     ],
+     "rot": 90,
+     "color": "#7a6a55"
+    },
+    {
+     "type": "person",
+     "pose": "walk",
+     "at": [
+      0.95,
+      1.15
+     ],
+     "rot": 200,
+     "shirt": "#7a3b8f",
+     "pants": "#2d2d3a",
+     "hair": "#c9a16a",
+     "hairStyle": "bun"
+    },
+    {
+     "type": "dog",
+     "at": [
+      1.35,
+      1.4
+     ],
+     "rot": 200,
+     "color": "#c08a4b",
+     "size": "medium"
+    },
+    {
+     "type": "custom",
+     "name": "five-stone-cairn",
+     "at": [
+      0.15,
+      1.6
+     ],
+     "scale": 1.3,
+     "code": "const g = k.group(), T = k.THREE, m = [k.mat('#9b9184'), k.mat('#8a8174'), k.mat('#aaa192')]; let y = 0; const s = [[0.17, 0.07], [0.14, 0.06], [0.11, 0.055], [0.085, 0.045], [0.06, 0.04]]; s.forEach(([r, h], i) => { const st = new T.Mesh(new T.DodecahedronGeometry(1, 0), m[i % 3]); st.scale.set(r, h, r * 0.85); k.put(g, st, (k.rand() - 0.5) * 0.03, y + h * 0.8, 0, 0, k.rand() * 3, 0); y += h * 1.6; }); return g;"
+    },
+    {
+     "type": "rock",
+     "size": 0.4,
+     "at": [
+      1.5,
+      -0.3
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.3,
+     "at": [
+      -1.5,
+      1.7
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.28,
+     "at": [
+      2.0,
+      1.0
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.2,
+     "at": [
+      0.9,
+      2.1
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.22,
+     "at": [
+      -0.5,
+      2.1
+     ]
+    },
+    {
+     "type": "bush",
+     "size": 0.5,
+     "at": [
+      -1.6,
+      -0.25
+     ]
+    },
+    {
+     "type": "bush",
+     "size": 0.45,
+     "at": [
+      2.05,
+      0.05
+     ]
+    },
+    {
+     "type": "flower-bed",
+     "size": [
+      0.8,
+      0.35
+     ],
+     "at": [
+      -0.95,
+      1.5
+     ],
+     "flowers": [
+      "#f28c28",
+      "#f6b23c"
+     ]
+    },
+    {
+     "type": "flower-bed",
+     "size": [
+      0.6,
+      0.3
+     ],
+     "at": [
+      1.4,
+      1.75
+     ],
+     "flowers": [
+      "#7b68c9",
+      "#9a8ad8"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "The pole at the top",
+   "moment": "At the summit Dad and I grab the famous metal pole while a stranger snaps our photo and the sun comes up.",
+   "hero": true,
+   "size": "large",
+   "objects": [
+    {
+     "type": "hill",
+     "id": "summit",
+     "size": 4.0,
+     "height": 0.75,
+     "at": [
+      0,
+      -0.7
+     ]
+    },
+    {
+     "type": "custom",
+     "name": "mission-peak-pole",
+     "at": [
+      0,
+      -0.8
+     ],
+     "y": 0.72,
+     "code": "const g = k.group(), T = k.THREE; const steel = k.mat('#aeb3b8', { metal: 0.6, rough: 0.35 }), dark = k.mat('#40454b', { metal: 0.5, rough: 0.4 }), stone = k.mat('#8a8276'); k.put(g, k.cyl(0.28, 0.36, 0.18, k.mat('#a19c92')), 0, 0.09, 0); for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; k.put(g, new T.Mesh(new T.DodecahedronGeometry(0.1 + k.rand() * 0.07, 0), stone), Math.cos(a) * 0.4, 0.07, Math.sin(a) * 0.4, k.rand(), k.rand(), 0); } k.put(g, k.cyl(0.035, 0.042, 1.55, steel), 0, 0.95, 0); k.put(g, k.cyl(0.075, 0.075, 0.07, dark), 0, 1.72, 0); for (let i = 0; i < 9; i++) { const a = i / 9 * Math.PI * 2 + 0.2, arm = k.group(); k.put(arm, k.cyl(0.02, 0.02, 0.32, steel, 10), 0.2, 0, 0, 0, 0, Math.PI / 2); k.put(arm, k.cyl(0.024, 0.024, 0.02, dark, 10), 0.36, 0, 0, 0, 0, Math.PI / 2); k.put(g, arm, 0, 1.74 + (i % 3) * 0.035, 0, 0, a, 0.06 * ((i % 3) - 1)); } k.put(g, k.sph(0.05, dark, 10), 0, 1.86, 0); k.put(g, k.box(0.16, 0.11, 0.012, k.mat('#7a6440', { metal: 0.4 })), 0, 1.15, 0.045); return g;"
+    },
+    {
+     "type": "person",
+     "who": "me",
+     "pose": "cheer",
+     "at": [
+      0.55,
+      -0.45
+     ],
+     "y": 0.66,
+     "rot": -15
+    },
+    {
+     "type": "person",
+     "who": "Dad",
+     "pose": "wave",
+     "at": [
+      -0.5,
+      -0.45
+     ],
+     "y": 0.66,
+     "rot": 15
+    },
+    {
+     "type": "person",
+     "pose": "stand",
+     "holding": "phone",
+     "at": [
+      0.15,
+      1.75
+     ],
+     "rot": 180,
+     "shirt": "#3f8f5a",
+     "pants": "#2d2d3a",
+     "hair": "#3a2416",
+     "hairStyle": "long"
+    },
+    {
+     "type": "person",
+     "pose": "stand",
+     "holding": "phone",
+     "at": [
+      1.75,
+      0.9
+     ],
+     "rot": -120,
+     "shirt": "#e0b43a",
+     "pants": "#44506a",
+     "hair": "#1b120c",
+     "hairStyle": "cap"
+    },
+    {
+     "type": "person",
+     "pose": "stand",
+     "at": [
+      2.3,
+      1.5
+     ],
+     "rot": -130,
+     "shirt": "#b84a6a",
+     "pants": "#2d2d3a",
+     "hair": "#6b3a1e",
+     "hairStyle": "curly"
+    },
+    {
+     "type": "person",
+     "pose": "stand",
+     "at": [
+      2.5,
+      0.3
+     ],
+     "rot": -100,
+     "shirt": "#5a6e8c",
+     "pants": "#6b5a45",
+     "hair": "#2b1d14",
+     "hairStyle": "short"
+    },
+    {
+     "type": "dog",
+     "at": [
+      2.75,
+      0.75
+     ],
+     "rot": -110,
+     "color": "#2b2b2b",
+     "size": "small"
+    },
+    {
+     "type": "person",
+     "pose": "walk",
+     "at": [
+      -2.3,
+      0.6
+     ],
+     "rot": 200,
+     "shirt": "#c0392b",
+     "pants": "#3a3a44",
+     "hair": "#d9c7a0",
+     "hairStyle": "short"
+    },
+    {
+     "type": "backpack",
+     "at": [
+      -1.3,
+      1.9
+     ],
+     "rot": 15,
+     "color": "#2f4f6f"
+    },
+    {
+     "type": "backpack",
+     "at": [
+      -0.85,
+      2.15
+     ],
+     "rot": -20,
+     "color": "#8a5a2b"
+    },
+    {
+     "type": "bottle",
+     "at": [
+      -1.05,
+      2.45
+     ],
+     "color": "#2f8fd6"
+    },
+    {
+     "type": "custom",
+     "name": "golden-grass-tufts",
+     "at": [
+      0,
+      0
+     ],
+     "code": "const g = k.group(), T = k.THREE, ms = [k.mat('#d8b85e'), k.mat('#c7a64e'), k.mat('#9fae5a')]; for (let i = 0; i < 18; i++) { let a = (k.rand() - 0.5) * 2.9; if (Math.abs(a) < 0.25) a += a < 0 ? -0.3 : 0.3; const r = 2.25 + k.rand() * 0.55, x = Math.sin(a) * r, z = Math.cos(a) * r; for (let j = 0; j < 6; j++) { const h = 0.14 + k.rand() * 0.16; k.put(g, new T.Mesh(new T.ConeGeometry(0.018, h, 4), ms[(i + j) % 3]), x + (k.rand() - 0.5) * 0.1, h / 2, z + (k.rand() - 0.5) * 0.1, (k.rand() - 0.5) * 0.6, 0, (k.rand() - 0.5) * 0.6); } } return g;"
+    },
+    {
+     "type": "custom",
+     "name": "soaring-turkey-vulture",
+     "at": [
+      -1.4,
+      -1.6
+     ],
+     "code": "const g = k.group(), b = k.mat('#3a2a22'), pale = k.mat('#a3968a'), red = k.mat('#c9564a'), bird = k.group(); k.put(bird, k.cap(0.05, 0.18, b), 0, 0, 0, Math.PI / 2, 0, 0); for (const s of [-1, 1]) { k.put(bird, k.rbox(0.5, 0.022, 0.16, b, 0.008), s * 0.27, 0.05, 0, 0, 0, s * 0.22); k.put(bird, k.box(0.2, 0.012, 0.09, pale), s * 0.36, 0.04, -0.03, 0, 0, s * 0.22); } k.put(bird, k.sph(0.035, red, 10), 0, 0.01, 0.15); k.put(bird, k.box(0.12, 0.015, 0.1, b), 0, 0, -0.17); k.put(g, bird, 0, 2.7, 0, 0.1, 0.4, 0.15); return g;"
+    },
+    {
+     "type": "rock",
+     "size": 0.7,
+     "at": [
+      -1.5,
+      -1.9
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.8,
+     "at": [
+      1.6,
+      -1.9
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.55,
+     "at": [
+      -2.4,
+      -0.5
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.5,
+     "at": [
+      2.4,
+      -1.0
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.55,
+     "at": [
+      -0.7,
+      -2.6
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.5,
+     "at": [
+      0.8,
+      -2.65
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.35,
+     "at": [
+      -2.45,
+      1.25
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.3,
+     "at": [
+      2.1,
+      2.0
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.25,
+     "at": [
+      -1.7,
+      2.2
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.2,
+     "at": [
+      1.1,
+      2.7
+     ]
+    },
+    {
+     "type": "person",
+     "pose": "stand",
+     "holding": "phone",
+     "at": [
+      -1.6,
+      1.15
+     ],
+     "rot": 150,
+     "shirt": "#e07a5f",
+     "pants": "#2d2d3a",
+     "hair": "#1b120c",
+     "hairStyle": "long"
+    },
+    {
+     "type": "rock",
+     "size": 0.3,
+     "at": [
+      0.45,
+      -1.3
+     ],
+     "y": 0.5
+    },
+    {
+     "type": "rock",
+     "size": 0.35,
+     "at": [
+      -0.5,
+      -1.25
+     ],
+     "y": 0.5
+    }
+   ]
+  },
+  {
+   "title": "Cows on the way down",
+   "moment": "On the way down we stop by the grazing cows while Dad tells me, again, about his garden tomatoes.",
+   "hero": false,
+   "size": "medium",
+   "surface": "grass",
+   "objects": [
+    {
+     "type": "fence",
+     "length": 2.2,
+     "at": [
+      0.1,
+      -1.95
+     ],
+     "color": "#8a7356"
+    },
+    {
+     "type": "fence",
+     "length": 0.8,
+     "at": [
+      -1.45,
+      -1.6
+     ],
+     "rot": 30,
+     "color": "#9aa3a8"
+    },
+    {
+     "type": "cylinder",
+     "size": [
+      0.8,
+      0.32,
+      0.8
+     ],
+     "at": [
+      -1.3,
+      -1.1
+     ],
+     "color": "#9aa3a8"
+    },
+    {
+     "type": "cylinder",
+     "size": [
+      0.72,
+      0.02,
+      0.72
+     ],
+     "at": [
+      -1.3,
+      -1.1
+     ],
+     "y": 0.3,
+     "color": "#5b8fb0"
+    },
+    {
+     "type": "custom",
+     "name": "grazing-cow-brown",
+     "at": [
+      -0.4,
+      -0.4
+     ],
+     "rot": 70,
+     "code": "const C = '#7a4a2b', P = '#f3ede2', up = false; const g = k.group(), hide = k.mat(C), pat = k.mat(P), dark = k.mat('#2a2220'), pink = k.mat('#e3a49a'); k.put(g, k.cap(0.25, 0.55, hide), 0, 0.64, 0, Math.PI / 2, 0, 0); for (const [x, z] of [[0.14, 0.32], [-0.14, 0.32], [0.14, -0.32], [-0.14, -0.32]]) { k.put(g, k.cyl(0.055, 0.045, 0.42, hide, 10), x, 0.25, z); k.put(g, k.cyl(0.055, 0.06, 0.07, dark, 10), x, 0.035, z); } const s1 = k.sph(0.16, pat, 12); s1.scale.set(0.6, 1, 1.4); k.put(g, s1, 0.17, 0.7, 0.05); const s2 = k.sph(0.13, pat, 12); s2.scale.set(0.6, 1, 1.2); k.put(g, s2, -0.17, 0.66, -0.22); k.put(g, k.sph(0.09, pink, 10), 0, 0.4, -0.24); const hy = up ? 0.9 : 0.24, hz = up ? 0.78 : 0.74; k.put(g, k.cap(0.11, 0.3, hide), 0, (0.72 + hy) / 2, (0.45 + hz) / 2, up ? 1.07 : 2.6, 0, 0); const head = k.group(); k.put(head, k.rbox(0.2, 0.2, 0.32, hide, 0.06), 0, 0, 0); k.put(head, k.rbox(0.19, 0.14, 0.1, pink, 0.04), 0, -0.03, 0.17); k.put(head, k.box(0.12, 0.04, 0.06, hide), 0.13, 0.06, -0.08, 0, 0, -0.4); k.put(head, k.box(0.12, 0.04, 0.06, hide), -0.13, 0.06, -0.08, 0, 0, 0.4); k.put(head, k.box(0.21, 0.07, 0.07, P === C ? hide : pat), 0, 0.08, 0.06); k.put(head, k.sph(0.022, dark, 8), 0.09, 0.04, 0.06); k.put(head, k.sph(0.022, dark, 8), -0.09, 0.04, 0.06); k.put(g, head, 0, hy, hz, up ? 0.3 : 1.1, 0, 0); k.put(g, k.tube([[0, 0.78, -0.52], [0, 0.6, -0.6], [0, 0.36, -0.6]], 0.02, hide, 12), 0, 0, 0); k.put(g, k.sph(0.04, dark, 8), 0, 0.34, -0.6); return g;"
+    },
+    {
+     "type": "custom",
+     "name": "standing-cow-black",
+     "at": [
+      1.0,
+      -1.0
+     ],
+     "rot": -100,
+     "code": "const C = '#262322', P = '#262322', up = true; const g = k.group(), hide = k.mat(C), pat = k.mat(P), dark = k.mat('#141212'), pink = k.mat('#c98f86'); k.put(g, k.cap(0.25, 0.55, hide), 0, 0.64, 0, Math.PI / 2, 0, 0); for (const [x, z] of [[0.14, 0.32], [-0.14, 0.32], [0.14, -0.32], [-0.14, -0.32]]) { k.put(g, k.cyl(0.055, 0.045, 0.42, hide, 10), x, 0.25, z); k.put(g, k.cyl(0.055, 0.06, 0.07, dark, 10), x, 0.035, z); } k.put(g, k.sph(0.09, pink, 10), 0, 0.4, -0.24); const hy = up ? 0.9 : 0.24, hz = up ? 0.78 : 0.74; k.put(g, k.cap(0.11, 0.3, hide), 0, (0.72 + hy) / 2, (0.45 + hz) / 2, up ? 1.07 : 2.6, 0, 0); const head = k.group(); k.put(head, k.rbox(0.2, 0.2, 0.32, hide, 0.06), 0, 0, 0); k.put(head, k.rbox(0.19, 0.14, 0.1, pink, 0.04), 0, -0.03, 0.17); k.put(head, k.box(0.12, 0.04, 0.06, hide), 0.13, 0.06, -0.08, 0, 0, -0.4); k.put(head, k.box(0.12, 0.04, 0.06, hide), -0.13, 0.06, -0.08, 0, 0, 0.4); k.put(head, k.box(0.03, 0.05, 0.03, k.mat('#e8c33a')), 0.12, 0.0, -0.06); k.put(head, k.sph(0.022, k.mat('#f5f0e6'), 8), 0.09, 0.04, 0.06); k.put(head, k.sph(0.022, k.mat('#f5f0e6'), 8), -0.09, 0.04, 0.06); k.put(g, head, 0, hy, hz, up ? 0.3 : 1.1, 0, 0); k.put(g, k.tube([[0, 0.78, -0.52], [0, 0.6, -0.6], [0, 0.36, -0.6]], 0.02, hide, 12), 0, 0, 0); k.put(g, k.sph(0.04, dark, 8), 0, 0.34, -0.6); return g;"
+    },
+    {
+     "type": "custom",
+     "name": "grazing-calf",
+     "at": [
+      1.5,
+      0.2
+     ],
+     "rot": -30,
+     "scale": 0.65,
+     "code": "const C = '#8a5a3a', P = '#f3ede2', up = false; const g = k.group(), hide = k.mat(C), pat = k.mat(P), dark = k.mat('#2a2220'), pink = k.mat('#e3a49a'); k.put(g, k.cap(0.25, 0.55, hide), 0, 0.64, 0, Math.PI / 2, 0, 0); for (const [x, z] of [[0.14, 0.32], [-0.14, 0.32], [0.14, -0.32], [-0.14, -0.32]]) { k.put(g, k.cyl(0.055, 0.045, 0.42, hide, 10), x, 0.25, z); k.put(g, k.cyl(0.055, 0.06, 0.07, dark, 10), x, 0.035, z); } const s1 = k.sph(0.16, pat, 12); s1.scale.set(0.6, 1, 1.4); k.put(g, s1, 0.17, 0.7, 0.05); const s2 = k.sph(0.13, pat, 12); s2.scale.set(0.6, 1, 1.2); k.put(g, s2, -0.17, 0.66, -0.22); k.put(g, k.sph(0.09, pink, 10), 0, 0.4, -0.24); const hy = up ? 0.9 : 0.24, hz = up ? 0.78 : 0.74; k.put(g, k.cap(0.11, 0.3, hide), 0, (0.72 + hy) / 2, (0.45 + hz) / 2, up ? 1.07 : 2.6, 0, 0); const head = k.group(); k.put(head, k.rbox(0.2, 0.2, 0.32, hide, 0.06), 0, 0, 0); k.put(head, k.rbox(0.19, 0.14, 0.1, pink, 0.04), 0, -0.03, 0.17); k.put(head, k.box(0.12, 0.04, 0.06, hide), 0.13, 0.06, -0.08, 0, 0, -0.4); k.put(head, k.box(0.12, 0.04, 0.06, hide), -0.13, 0.06, -0.08, 0, 0, 0.4); k.put(head, k.box(0.21, 0.07, 0.07, P === C ? hide : pat), 0, 0.08, 0.06); k.put(head, k.sph(0.022, dark, 8), 0.09, 0.04, 0.06); k.put(head, k.sph(0.022, dark, 8), -0.09, 0.04, 0.06); k.put(g, head, 0, hy, hz, up ? 0.3 : 1.1, 0, 0); k.put(g, k.tube([[0, 0.78, -0.52], [0, 0.6, -0.6], [0, 0.36, -0.6]], 0.02, hide, 12), 0, 0, 0); k.put(g, k.sph(0.04, dark, 8), 0, 0.34, -0.6); return g;"
+    },
+    {
+     "type": "tree",
+     "kind": "round",
+     "height": 2.3,
+     "at": [
+      1.7,
+      -1.4
+     ]
+    },
+    {
+     "type": "person",
+     "who": "me",
+     "pose": "stand",
+     "at": [
+      0.4,
+      0.95
+     ],
+     "rot": -80
+    },
+    {
+     "type": "person",
+     "who": "Dad",
+     "pose": "wave",
+     "at": [
+      -0.4,
+      0.85
+     ],
+     "rot": 80
+    },
+    {
+     "type": "person",
+     "pose": "walk",
+     "at": [
+      -1.9,
+      0.3
+     ],
+     "rot": 250,
+     "shirt": "#4a7c59",
+     "pants": "#2d2d3a",
+     "hair": "#a0522d",
+     "hairStyle": "long"
+    },
+    {
+     "type": "rock",
+     "size": 0.35,
+     "at": [
+      -1.9,
+      1.3
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.4,
+     "at": [
+      2.1,
+      0.75
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.25,
+     "at": [
+      1.2,
+      2.0
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.2,
+     "at": [
+      -0.9,
+      2.05
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.18,
+     "at": [
+      0.55,
+      1.75
+     ]
+    },
+    {
+     "type": "rock",
+     "size": 0.3,
+     "at": [
+      -0.3,
+      -1.65
+     ]
+    },
+    {
+     "type": "flower-bed",
+     "size": [
+      0.6,
+      0.3
+     ],
+     "at": [
+      -1.35,
+      1.75
+     ],
+     "flowers": [
+      "#f28c28",
+      "#f6b23c"
+     ]
+    },
+    {
+     "type": "flower-bed",
+     "size": [
+      0.6,
+      0.3
+     ],
+     "at": [
+      1.6,
+      1.4
+     ],
+     "flowers": [
+      "#7b68c9",
+      "#9a8ad8"
+     ]
+    },
+    {
+     "type": "flower-bed",
+     "size": [
+      0.5,
+      0.3
+     ],
+     "at": [
+      0.0,
+      2.05
+     ],
+     "flowers": [
+      "#f2d43a",
+      "#e8c22a"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Pancakes, red booth",
+   "moment": "Back down, we slide into a red vinyl booth for tall stacks of pancakes and coffee.",
+   "hero": false,
+   "size": "medium",
+   "surface": "tile",
+   "objects": [
+    {
+     "type": "room",
+     "size": [
+      3.4,
+      3.0
+     ],
+     "at": [
+      0,
+      -0.2
+     ],
+     "floor": "tile",
+     "wall": "#f4e6c8",
+     "window": true
+    },
+    {
+     "type": "counter",
+     "id": "ctr",
+     "size": [
+      2.0,
+      0.5
+     ],
+     "at": [
+      0.55,
+      -1.25
+     ],
+     "color": "#c8372d"
+    },
+    {
+     "type": "stool",
+     "at": [
+      0.15,
+      -0.65
+     ],
+     "color": "#c8372d"
+    },
+    {
+     "type": "stool",
+     "at": [
+      0.95,
+      -0.65
+     ],
+     "color": "#c8372d"
+    },
+    {
+     "type": "cake",
+     "kind": "tiramisu",
+     "sparkler": false,
+     "candles": 0,
+     "on": "ctr",
+     "at": [
+      -0.6,
+      0.0
+     ]
+    },
+    {
+     "type": "mug",
+     "on": "ctr",
+     "at": [
+      0.1,
+      0.05
+     ],
+     "color": "#f5f0e6"
+    },
+    {
+     "type": "bottle",
+     "on": "ctr",
+     "at": [
+      0.7,
+      0.08
+     ],
+     "color": "#b3261e"
+    },
+    {
+     "type": "custom",
+     "name": "red-vinyl-booth",
+     "at": [
+      -1.4,
+      0.25
+     ],
+     "rot": 90,
+     "code": "const g = k.group(), red = k.mat('#c42f2a', { rough: 0.45 }), seam = k.mat('#9e2421', { rough: 0.5 }), trim = k.mat('#f1e6d2'), chrome = k.mat('#c9ccd1', { metal: 0.7, rough: 0.3 }), L = 1.1; k.put(g, k.rbox(L, 0.3, 0.5, k.mat('#7a1c1a'), 0.03), 0, 0.15, 0.03); k.put(g, k.rbox(L, 0.14, 0.52, red, 0.06), 0, 0.39, 0.05); k.put(g, k.rbox(L, 0.5, 0.14, red, 0.06), 0, 0.7, -0.25, -0.08, 0, 0); for (let i = 0; i < 5; i++) k.put(g, k.box(0.015, 0.4, 0.02, seam), -0.44 + i * 0.22, 0.72, -0.175, -0.08, 0, 0); k.put(g, k.rbox(L + 0.02, 0.05, 0.18, trim, 0.02), 0, 0.97, -0.27); k.put(g, k.box(L, 0.05, 0.01, chrome), 0, 0.05, 0.285);  return g;"
+    },
+    {
+     "type": "custom",
+     "name": "red-vinyl-booth",
+     "at": [
+      0.0,
+      0.25
+     ],
+     "rot": -90,
+     "code": "const g = k.group(), red = k.mat('#c42f2a', { rough: 0.45 }), seam = k.mat('#9e2421', { rough: 0.5 }), trim = k.mat('#f1e6d2'), chrome = k.mat('#c9ccd1', { metal: 0.7, rough: 0.3 }), L = 1.1; k.put(g, k.rbox(L, 0.3, 0.5, k.mat('#7a1c1a'), 0.03), 0, 0.15, 0.03); k.put(g, k.rbox(L, 0.14, 0.52, red, 0.06), 0, 0.39, 0.05); k.put(g, k.rbox(L, 0.5, 0.14, red, 0.06), 0, 0.7, -0.25, -0.08, 0, 0); for (let i = 0; i < 5; i++) k.put(g, k.box(0.015, 0.4, 0.02, seam), -0.44 + i * 0.22, 0.72, -0.175, -0.08, 0, 0); k.put(g, k.rbox(L + 0.02, 0.05, 0.18, trim, 0.02), 0, 0.97, -0.27); k.put(g, k.box(L, 0.05, 0.01, chrome), 0, 0.05, 0.285);  return g;"
+    },
+    {
+     "type": "table",
+     "id": "bt",
+     "size": [
+      0.7,
+      1.0
+     ],
+     "cloth": "none",
+     "at": [
+      -0.7,
+      0.25
+     ]
+    },
+    {
+     "type": "person",
+     "who": "me",
+     "pose": "sit",
+     "at": [
+      -1.4,
+      0.25
+     ],
+     "rot": 90
+    },
+    {
+     "type": "person",
+     "who": "Dad",
+     "pose": "sit",
+     "at": [
+      0.0,
+      0.25
+     ],
+     "rot": -90
+    },
+    {
+     "type": "plate",
+     "food": "pancakes",
+     "on": "bt",
+     "at": [
+      -0.18,
+      0.1
+     ]
+    },
+    {
+     "type": "plate",
+     "food": "pancakes",
+     "on": "bt",
+     "at": [
+      0.18,
+      -0.1
+     ]
+    },
+    {
+     "type": "mug",
+     "on": "bt",
+     "at": [
+      -0.2,
+      -0.3
+     ],
+     "color": "#f5f0e6"
+    },
+    {
+     "type": "mug",
+     "on": "bt",
+     "at": [
+      0.2,
+      0.3
+     ],
+     "color": "#f5f0e6"
+    },
+    {
+     "type": "glass",
+     "drink": "water",
+     "on": "bt",
+     "at": [
+      -0.22,
+      0.4
+     ]
+    },
+    {
+     "type": "custom",
+     "name": "syrup-caddy",
+     "on": "bt",
+     "at": [
+      0.0,
+      -0.4
+     ],
+     "scale": 1.6,
+     "code": "const g = k.group(), chrome = k.mat('#cfd3d8', { metal: 0.75, rough: 0.25 }); k.put(g, k.cyl(0.035, 0.04, 0.09, k.glassMat('#f3e7d0', 0.4), 14), -0.06, 0.045, 0); k.put(g, k.cyl(0.031, 0.036, 0.06, k.mat('#8a4b12', { rough: 0.3 }), 14), -0.06, 0.032, 0); k.put(g, k.cone(0.037, 0.035, chrome, 14), -0.06, 0.107, 0); k.put(g, k.box(0.012, 0.012, 0.045, chrome), -0.06, 0.122, 0.028); k.put(g, k.cyl(0.016, 0.018, 0.06, k.glassMat('#ffffff', 0.6), 10), 0.03, 0.03, 0.035); k.put(g, k.sph(0.016, chrome, 8), 0.03, 0.062, 0.035); k.put(g, k.cyl(0.016, 0.018, 0.06, k.mat('#3a2f2a'), 10), 0.068, 0.03, 0.035); k.put(g, k.sph(0.016, chrome, 8), 0.068, 0.062, 0.035); k.put(g, k.rbox(0.1, 0.1, 0.05, chrome, 0.01), 0.05, 0.05, -0.04); k.put(g, k.box(0.08, 0.06, 0.006, k.mat('#ffffff')), 0.05, 0.06, -0.013); return g;"
+    },
+    {
+     "type": "person",
+     "pose": "stand",
+     "at": [
+      -0.25,
+      1.2
+     ],
+     "rot": 190,
+     "shirt": "#7fb7a6",
+     "pants": "#2d2d3a",
+     "hair": "#6b3a1e",
+     "hairStyle": "bun"
+    },
+    {
+     "type": "table",
+     "id": "t2",
+     "shape": "round",
+     "size": [
+      0.6
+     ],
+     "cloth": "none",
+     "at": [
+      1.0,
+      0.6
+     ]
+    },
+    {
+     "type": "chair",
+     "at": [
+      1.45,
+      0.6
+     ],
+     "rot": -90,
+     "color": "#c8372d"
+    },
+    {
+     "type": "person",
+     "pose": "sit",
+     "at": [
+      1.45,
+      0.6
+     ],
+     "rot": -90,
+     "shirt": "#5a6e8c",
+     "pants": "#3a3a44",
+     "hair": "#d0ccc4",
+     "hairStyle": "bald"
+    },
+    {
+     "type": "book",
+     "open": true,
+     "on": "t2",
+     "at": [
+      -0.05,
+      0.05
+     ],
+     "color": "#e8e2d0"
+    },
+    {
+     "type": "mug",
+     "on": "t2",
+     "at": [
+      0.12,
+      -0.14
+     ],
+     "color": "#f5f0e6"
+    },
+    {
+     "type": "potted-plant",
+     "kind": "olive",
+     "at": [
+      1.45,
+      -0.45
+     ]
+    }
+   ]
+  }
+ ]
+}

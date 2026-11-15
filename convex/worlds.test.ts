@@ -2,8 +2,14 @@
 import { convexTest } from "convex-test";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { api } from "./_generated/api";
+import { installFakeClaude } from "./fakeClaude.testing";
 import { installFakeGmi } from "./fakeGmi.testing";
 import schema from "./schema";
+
+vi.mock("./generation/anthropic", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("./generation/anthropic")>()),
+  claudeText: vi.fn(),
+}));
 
 const modules = import.meta.glob("./**/*.ts");
 
@@ -24,6 +30,7 @@ beforeEach(() => {
   vi.useFakeTimers();
   vi.stubEnv("GMI_API_KEY", "test-key");
   installFakeGmi();
+  installFakeClaude();
 });
 
 afterEach(() => {

@@ -23,6 +23,7 @@ export type World = {
   palette?: string[];
   imageUrl?: string;
   modelUrl?: string;
+  scene?: string;
   error?: string;
   shared?: boolean;
 };

@@ -21,6 +21,7 @@
     "node_modules",
     "research",
     "tools",
-    "spike"
+    "spike",
+    "src/world/island/kit"
   ]
 }

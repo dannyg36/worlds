@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
     "@expo-google-fonts/albert-sans": "^0.4.2",
+    "@expo-google-fonts/instrument-serif": "^0.4.1",
     "@expo-google-fonts/noto-serif-display": "^0.4.2",
     "@expo/ui": "~58.0.28",
     "convex": "^1.50.0",
@@ -55,7 +57,8 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "test": "vitest",
-    "dev:backend": "convex dev"
+    "dev:backend": "convex dev",
+    "sync:island": "node tools/sync-island-kit.mjs"
   },
   "private": true
 }

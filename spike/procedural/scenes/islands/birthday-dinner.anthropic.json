@@ -1,0 +1,1877 @@
+{
+  "title": "Priya's Sparkler Night",
+  "caption": "String lights, way too much pasta, a singing tiramisu, and a guitar on the pier.",
+  "palette": [
+    "#c0392b",
+    "#f5e6c8",
+    "#2e5e3a",
+    "#f2b84b"
+  ],
+  "time": "dusk",
+  "biome": "meadow",
+  "landmark": {
+    "type": "tree",
+    "kind": "olive",
+    "height": 5
+  },
+  "cast": [
+    {
+      "name": "me",
+      "skin": "#e0ac69",
+      "shirt": "#3b6ea5",
+      "pants": "#2d2d3a",
+      "hair": "#2b1d14",
+      "hairStyle": "short"
+    },
+    {
+      "name": "Priya",
+      "skin": "#c68642",
+      "shirt": "#e8a33d",
+      "pants": "#4a2f27",
+      "hair": "#1b120c",
+      "hairStyle": "long"
+    }
+  ],
+  "vignettes": [
+    {
+      "title": "The tiny trattoria",
+      "moment": "We arrive at the tiny Italian place, its patio glowing under string lights.",
+      "hero": false,
+      "size": "medium",
+      "surface": "cobblestone",
+      "objects": [
+        {
+          "type": "shop-front",
+          "at": [
+            0,
+            -1.9
+          ],
+          "width": 3.6,
+          "kind": "cafe",
+          "color": "#f5e6c8",
+          "awning": [
+            "#c0392b",
+            "#f5e6c8"
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "trattoria-sign",
+          "at": [
+            0,
+            -1.6
+          ],
+          "y": 2.3,
+          "code": "const g = k.group(); k.put(g, k.rbox(1.4, 0.32, 0.06, k.mat('#2e5e3a'), 0.04), 0, 0, 0); k.put(g, k.box(0.36, 0.1, 0.02, k.mat('#2e8b57')), -0.4, 0, 0.04); k.put(g, k.box(0.36, 0.1, 0.02, k.mat('#f5e6c8')), 0, 0, 0.04); k.put(g, k.box(0.36, 0.1, 0.02, k.mat('#c0392b')), 0.4, 0, 0.04); return g;"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -2,
+            -1.4
+          ],
+          "kind": "olive",
+          "size": 0.9
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            2,
+            -1.4
+          ],
+          "kind": "herb",
+          "size": 0.6
+        },
+        {
+          "type": "post",
+          "id": "postL",
+          "at": [
+            -2.2,
+            1.2
+          ],
+          "height": 2.4
+        },
+        {
+          "type": "post",
+          "id": "postR",
+          "at": [
+            2.2,
+            1.2
+          ],
+          "height": 2.4
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -2.2,
+              2.4,
+              1.2
+            ],
+            [
+              -1.6,
+              2.5,
+              -1.6
+            ],
+            [
+              0,
+              2.3,
+              0.4
+            ],
+            [
+              1.6,
+              2.5,
+              -1.6
+            ],
+            [
+              2.2,
+              2.4,
+              1.2
+            ]
+          ],
+          "color": "#f2b84b"
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -2.2,
+              2.4,
+              1.2
+            ],
+            [
+              0,
+              2.1,
+              1
+            ],
+            [
+              2.2,
+              2.4,
+              1.2
+            ]
+          ],
+          "color": "#f2b84b"
+        },
+        {
+          "type": "table",
+          "id": "t1",
+          "at": [
+            -1.1,
+            -0.4
+          ],
+          "shape": "round",
+          "size": [
+            0.8,
+            0.8
+          ],
+          "cloth": "red-check"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -1.1,
+            -1
+          ],
+          "rot": 0,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.5,
+            -0.4
+          ],
+          "rot": -90,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "candle",
+          "on": "t1",
+          "at": [
+            0,
+            0
+          ]
+        },
+        {
+          "type": "vase",
+          "on": "t1",
+          "at": [
+            0.15,
+            0.1
+          ],
+          "flowers": "#c0392b"
+        },
+        {
+          "type": "glass",
+          "on": "t1",
+          "at": [
+            -0.2,
+            0.15
+          ],
+          "drink": "red-wine"
+        },
+        {
+          "type": "table",
+          "id": "t2",
+          "at": [
+            1.2,
+            -0.3
+          ],
+          "shape": "round",
+          "size": [
+            0.8,
+            0.8
+          ],
+          "cloth": "red-check"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.2,
+            -0.9
+          ],
+          "rot": 0,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            1.2,
+            -0.9
+          ],
+          "rot": 0,
+          "pose": "sit",
+          "shirt": "#7a5c8a",
+          "hair": "#6b4423",
+          "hairStyle": "bun",
+          "holding": "glass"
+        },
+        {
+          "type": "candle",
+          "on": "t2",
+          "at": [
+            0,
+            0
+          ]
+        },
+        {
+          "type": "bottle",
+          "on": "t2",
+          "at": [
+            0.15,
+            -0.1
+          ],
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "bread-basket",
+          "on": "t2",
+          "at": [
+            -0.15,
+            0.15
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "waiter-menu-board",
+          "at": [
+            0.2,
+            0.4
+          ],
+          "rot": 20,
+          "code": "const g = k.group(); const w = k.mat('#8b5a2b'); const a = k.box(0.05, 0.9, 0.05, w); a.rotation.x = 0.2; k.put(g, a, -0.22, 0.45, 0.05); const b = k.box(0.05, 0.9, 0.05, w); b.rotation.x = 0.2; k.put(g, b, 0.22, 0.45, 0.05); const s = k.box(0.5, 0.6, 0.03, k.mat('#222')); s.rotation.x = 0.2; k.put(g, s, 0, 0.55, 0.06); const t = k.box(0.34, 0.03, 0.01, k.mat('#f5e6c8')); t.rotation.x = 0.2; k.put(g, t, 0, 0.7, 0.1); k.put(g, t.clone(), 0, 0.58, 0.08); k.put(g, t.clone(), 0, 0.46, 0.05); return g;"
+        },
+        {
+          "type": "person",
+          "at": [
+            -0.7,
+            1
+          ],
+          "rot": 200,
+          "pose": "wave",
+          "who": "Priya"
+        },
+        {
+          "type": "person",
+          "at": [
+            -0.1,
+            1.3
+          ],
+          "rot": 190,
+          "pose": "walk",
+          "who": "me"
+        },
+        {
+          "type": "person",
+          "at": [
+            0.6,
+            1.2
+          ],
+          "rot": 170,
+          "pose": "stand",
+          "shirt": "#3f7f6f",
+          "hair": "#3a2a1a",
+          "hairStyle": "curly"
+        },
+        {
+          "type": "person",
+          "at": [
+            1,
+            0.3
+          ],
+          "rot": 10,
+          "pose": "wave",
+          "shirt": "#ffffff",
+          "pants": "#111111",
+          "hair": "#222222",
+          "hairStyle": "short"
+        },
+        {
+          "type": "planter",
+          "at": [
+            -1.6,
+            2.2
+          ],
+          "length": 1,
+          "flowers": "#e84a5f"
+        },
+        {
+          "type": "planter",
+          "at": [
+            1.6,
+            2.2
+          ],
+          "length": 1,
+          "flowers": "#f2b84b"
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -2.2,
+            0.4
+          ]
+        },
+        {
+          "type": "lantern",
+          "at": [
+            2.2,
+            0.4
+          ]
+        },
+        {
+          "type": "bike",
+          "at": [
+            -1.8,
+            1.6
+          ],
+          "rot": 70,
+          "color": "#c0392b"
+        }
+      ]
+    },
+    {
+      "title": "Way too much pasta",
+      "moment": "Eight of us squeeze around one long table as the pasta just keeps coming.",
+      "hero": false,
+      "size": "medium",
+      "surface": "cobblestone",
+      "objects": [
+        {
+          "type": "wall",
+          "id": "backwall",
+          "at": [
+            0,
+            -2.2
+          ],
+          "length": 4.4,
+          "height": 2.2,
+          "material": "plaster",
+          "color": "#e8c9a0",
+          "window": true,
+          "vines": true
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -2.2,
+              2.2,
+              -2.2
+            ],
+            [
+              -1,
+              2.3,
+              -0.5
+            ],
+            [
+              0,
+              2.2,
+              0.6
+            ],
+            [
+              1,
+              2.3,
+              -0.5
+            ],
+            [
+              2.2,
+              2.2,
+              -2.2
+            ]
+          ],
+          "color": "#f2b84b"
+        },
+        {
+          "type": "post",
+          "at": [
+            -2.2,
+            1.6
+          ],
+          "height": 2.2
+        },
+        {
+          "type": "post",
+          "at": [
+            2.2,
+            1.6
+          ],
+          "height": 2.2
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -2.2,
+              2.2,
+              1.6
+            ],
+            [
+              0,
+              2,
+              1.2
+            ],
+            [
+              2.2,
+              2.2,
+              1.6
+            ]
+          ],
+          "color": "#f2b84b"
+        },
+        {
+          "type": "table",
+          "id": "longtable",
+          "at": [
+            0,
+            0
+          ],
+          "size": [
+            3,
+            0.9
+          ],
+          "shape": "rect",
+          "cloth": "red-check"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -1.1,
+            -0.75
+          ],
+          "rot": 180,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            -1.1,
+            -0.75
+          ],
+          "rot": 180,
+          "pose": "sit",
+          "who": "Priya",
+          "holding": "glass"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.35,
+            -0.75
+          ],
+          "rot": 180,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            -0.35,
+            -0.75
+          ],
+          "rot": 180,
+          "pose": "sit",
+          "shirt": "#7a4b8c",
+          "hairStyle": "curly",
+          "hair": "#5a3a1a",
+          "skin": "#f1c27d"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0.4,
+            -0.75
+          ],
+          "rot": 180,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            0.4,
+            -0.75
+          ],
+          "rot": 180,
+          "pose": "cheer",
+          "shirt": "#c0392b",
+          "hairStyle": "bun",
+          "hair": "#2b1d14",
+          "skin": "#8d5524"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.15,
+            -0.75
+          ],
+          "rot": 180,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            1.15,
+            -0.75
+          ],
+          "rot": 180,
+          "pose": "sit",
+          "shirt": "#f5e6c8",
+          "hairStyle": "short",
+          "hair": "#a0522d",
+          "skin": "#ffdbac"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -1.1,
+            0.75
+          ],
+          "rot": 0,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            -1.1,
+            0.75
+          ],
+          "rot": 0,
+          "pose": "sit",
+          "who": "me"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.35,
+            0.75
+          ],
+          "rot": 0,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            -0.35,
+            0.75
+          ],
+          "rot": 0,
+          "pose": "sit",
+          "shirt": "#3a7d6b",
+          "hairStyle": "long",
+          "hair": "#c9a24a",
+          "skin": "#ffdbac"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0.4,
+            0.75
+          ],
+          "rot": 0,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            0.4,
+            0.75
+          ],
+          "rot": 0,
+          "pose": "sit",
+          "shirt": "#e07b39",
+          "hairStyle": "cap",
+          "hair": "#1b120c",
+          "skin": "#c68642",
+          "holding": "glass"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.15,
+            0.75
+          ],
+          "rot": 0,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            1.15,
+            0.75
+          ],
+          "rot": 0,
+          "pose": "sit",
+          "shirt": "#2d2d3a",
+          "hairStyle": "bald",
+          "skin": "#e0ac69"
+        },
+        {
+          "type": "plate",
+          "on": "longtable",
+          "at": [
+            -1.1,
+            -0.25
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "longtable",
+          "at": [
+            -0.35,
+            -0.25
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "longtable",
+          "at": [
+            0.4,
+            -0.25
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "longtable",
+          "at": [
+            1.15,
+            -0.25
+          ],
+          "food": "salad"
+        },
+        {
+          "type": "plate",
+          "on": "longtable",
+          "at": [
+            -1.1,
+            0.25
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "longtable",
+          "at": [
+            -0.35,
+            0.25
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "longtable",
+          "at": [
+            0.4,
+            0.25
+          ],
+          "food": "pizza"
+        },
+        {
+          "type": "plate",
+          "on": "longtable",
+          "at": [
+            1.15,
+            0.25
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "custom",
+          "name": "pasta-platter",
+          "on": "longtable",
+          "at": [
+            0.75,
+            0
+          ],
+          "code": "const g=k.group();k.put(g,k.cyl(0.2,0.17,0.04,k.mat('#f5f0e6')),0,0.02,0);const m=k.mat('#f2c75c');for(let i=0;i<14;i++){k.put(g,k.torus(0.04,0.014,m),(k.rand()-0.5)*0.22,0.06+k.rand()*0.07,(k.rand()-0.5)*0.22,Math.PI/2*k.rand(),0,k.rand());}k.put(g,k.sph(0.035,k.mat('#c0392b')),0.03,0.14,0.02);k.put(g,k.sph(0.03,k.mat('#c0392b')),-0.05,0.12,-0.04);k.put(g,k.box(0.06,0.01,0.03,k.mat('#3f8f3a')),0,0.17,0);return g;"
+        },
+        {
+          "type": "bread-basket",
+          "on": "longtable",
+          "at": [
+            -0.75,
+            0
+          ]
+        },
+        {
+          "type": "bottle",
+          "on": "longtable",
+          "at": [
+            0,
+            0.05
+          ],
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "glass",
+          "on": "longtable",
+          "at": [
+            -0.75,
+            -0.3
+          ],
+          "drink": "red-wine"
+        },
+        {
+          "type": "glass",
+          "on": "longtable",
+          "at": [
+            0.05,
+            0.3
+          ],
+          "drink": "red-wine"
+        },
+        {
+          "type": "glass",
+          "on": "longtable",
+          "at": [
+            0.8,
+            -0.3
+          ],
+          "drink": "water"
+        },
+        {
+          "type": "candle",
+          "on": "longtable",
+          "at": [
+            -0.2,
+            0
+          ]
+        },
+        {
+          "type": "candle",
+          "on": "longtable",
+          "at": [
+            1.3,
+            0
+          ]
+        },
+        {
+          "type": "person",
+          "at": [
+            1.95,
+            0.1
+          ],
+          "rot": -90,
+          "pose": "stand",
+          "shirt": "#ffffff",
+          "pants": "#1a1a1a",
+          "hairStyle": "short",
+          "hair": "#1b120c",
+          "skin": "#e0ac69"
+        },
+        {
+          "type": "custom",
+          "name": "waiter-pasta-bowl",
+          "at": [
+            1.75,
+            0.1
+          ],
+          "y": 1,
+          "rot": -90,
+          "code": "const g=k.group();k.put(g,k.lathe([[0,0],[0.14,0.02],[0.17,0.09]],k.mat('#f5f0e6')),0,0,0);k.put(g,k.sph(0.13,k.mat('#f2c75c')),0,0.07,0);k.put(g,k.sph(0.03,k.mat('#3f8f3a')),0.02,0.19,0);return g;"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -2,
+            -1.6
+          ],
+          "kind": "olive",
+          "size": 1
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1.9,
+            -1.6
+          ],
+          "kind": "herb",
+          "size": 0.7
+        },
+        {
+          "type": "planter",
+          "at": [
+            0,
+            -1.8
+          ],
+          "length": 2,
+          "flowers": "#c0392b"
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -2,
+            1.9
+          ]
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            2,
+            2
+          ],
+          "kind": "flowers",
+          "size": 0.6,
+          "flowers": "#f2b84b"
+        },
+        {
+          "type": "crate",
+          "at": [
+            -1.9,
+            0.6
+          ],
+          "fill": "bread"
+        }
+      ]
+    },
+    {
+      "title": "Tiramisu with a sparkler",
+      "moment": "The waiters carry out a tiramisu with a fizzing sparkler and sing to Priya.",
+      "hero": true,
+      "size": "large",
+      "surface": "cobblestone",
+      "objects": [
+        {
+          "type": "shop-front",
+          "at": [
+            0,
+            -2.6
+          ],
+          "width": 5.2,
+          "kind": "cafe",
+          "color": "#e9d8b4",
+          "awning": [
+            "#c0392b",
+            "#f5e6c8"
+          ]
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -2.7,
+            -2
+          ],
+          "kind": "olive",
+          "size": 1
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            2.7,
+            -2
+          ],
+          "kind": "herb",
+          "size": 0.7
+        },
+        {
+          "type": "post",
+          "id": "pL",
+          "at": [
+            -2.8,
+            1.6
+          ],
+          "height": 2.6
+        },
+        {
+          "type": "post",
+          "id": "pR",
+          "at": [
+            2.8,
+            1.6
+          ],
+          "height": 2.6
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -2.6,
+              2.5,
+              -2.3
+            ],
+            [
+              -2.8,
+              2.6,
+              1.6
+            ],
+            [
+              0,
+              2.2,
+              0.2
+            ],
+            [
+              2.8,
+              2.6,
+              1.6
+            ],
+            [
+              2.6,
+              2.5,
+              -2.3
+            ]
+          ],
+          "color": "#f2b84b"
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -2.8,
+              2.6,
+              1.6
+            ],
+            [
+              0,
+              2.3,
+              2
+            ],
+            [
+              2.8,
+              2.6,
+              1.6
+            ]
+          ],
+          "color": "#f2b84b"
+        },
+        {
+          "type": "table",
+          "id": "t",
+          "at": [
+            0,
+            -0.4
+          ],
+          "size": [
+            3.6,
+            0.9
+          ],
+          "shape": "rect",
+          "cloth": "white"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0,
+            0.35
+          ],
+          "rot": 180,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "who": "Priya",
+          "at": [
+            0,
+            0.35
+          ],
+          "rot": 180,
+          "pose": "sit"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -1.1,
+            0.35
+          ],
+          "rot": 180,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "at": [
+            -1.1,
+            0.35
+          ],
+          "rot": 180,
+          "pose": "cheer"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.1,
+            0.35
+          ],
+          "rot": 180,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            1.1,
+            0.35
+          ],
+          "rot": 180,
+          "pose": "sit",
+          "shirt": "#7a4b8c",
+          "hair": "#a0522d",
+          "hairStyle": "curly",
+          "holding": "glass"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -1.1,
+            -1.15
+          ],
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            -1.1,
+            -1.15
+          ],
+          "pose": "sit",
+          "shirt": "#d9d2c3",
+          "hair": "#3a2a1a",
+          "hairStyle": "bun"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0,
+            -1.15
+          ],
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            0,
+            -1.15
+          ],
+          "pose": "cheer",
+          "shirt": "#4f7c5a",
+          "hair": "#111111",
+          "hairStyle": "short"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.1,
+            -1.15
+          ],
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            1.1,
+            -1.15
+          ],
+          "pose": "sit",
+          "shirt": "#b5523b",
+          "hair": "#d8b06a",
+          "hairStyle": "long",
+          "holding": "phone"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -2.1,
+            -0.4
+          ],
+          "rot": 90,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            -2.1,
+            -0.4
+          ],
+          "rot": 90,
+          "pose": "sit",
+          "shirt": "#2f4a6d",
+          "hair": "#5a3a22",
+          "hairStyle": "cap"
+        },
+        {
+          "type": "chair",
+          "at": [
+            2.1,
+            -0.4
+          ],
+          "rot": -90,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            2.1,
+            -0.4
+          ],
+          "rot": -90,
+          "pose": "sit",
+          "shirt": "#e0b0c0",
+          "hair": "#2b1d14",
+          "hairStyle": "long"
+        },
+        {
+          "type": "cake",
+          "on": "t",
+          "at": [
+            0,
+            0.15
+          ],
+          "kind": "tiramisu",
+          "sparkler": true
+        },
+        {
+          "type": "custom",
+          "name": "sparkler-burst",
+          "on": "t",
+          "at": [
+            0,
+            0.15
+          ],
+          "code": "const g=k.group();const m=k.glowMat('#ffd27a',3);for(let i=0;i<40;i++){const a=k.rand()*Math.PI*2,b=k.rand()*Math.PI,r=0.06+k.rand()*0.12;k.put(g,k.sph(0.008,m),Math.cos(a)*Math.sin(b)*r,0.42+Math.cos(b)*r,Math.sin(a)*Math.sin(b)*r);}k.addLight([0,0.45,0],'#ffcf70',2.5,4);return g;"
+        },
+        {
+          "type": "plate",
+          "on": "t",
+          "at": [
+            -1.1,
+            0.2
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "t",
+          "at": [
+            1.1,
+            0.2
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "t",
+          "at": [
+            -1.1,
+            -0.2
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "t",
+          "at": [
+            0,
+            -0.2
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "t",
+          "at": [
+            1.1,
+            -0.2
+          ],
+          "food": "none"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            -0.6,
+            0.25
+          ],
+          "drink": "red-wine"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            0.55,
+            -0.25
+          ],
+          "drink": "red-wine"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            1.5,
+            0.1
+          ],
+          "drink": "water"
+        },
+        {
+          "type": "bottle",
+          "on": "t",
+          "at": [
+            -0.5,
+            -0.15
+          ],
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "bread-basket",
+          "on": "t",
+          "at": [
+            0.6,
+            0.1
+          ]
+        },
+        {
+          "type": "candle",
+          "on": "t",
+          "at": [
+            -1.6,
+            0
+          ]
+        },
+        {
+          "type": "candle",
+          "on": "t",
+          "at": [
+            1.6,
+            -0.15
+          ]
+        },
+        {
+          "type": "person",
+          "at": [
+            -0.9,
+            1.6
+          ],
+          "rot": 180,
+          "pose": "cheer",
+          "shirt": "#f5f5f0",
+          "pants": "#1a1a1a",
+          "hair": "#2b1d14",
+          "hairStyle": "short"
+        },
+        {
+          "type": "person",
+          "at": [
+            0.9,
+            1.6
+          ],
+          "rot": 180,
+          "pose": "wave",
+          "shirt": "#f5f5f0",
+          "pants": "#1a1a1a",
+          "hair": "#3a2a1a",
+          "hairStyle": "bun"
+        },
+        {
+          "type": "custom",
+          "name": "waiter-apron-music",
+          "at": [
+            0,
+            1.9
+          ],
+          "code": "const g=k.group();const m=k.glowMat('#f5e6c8',1.2);const n=(x,y)=>{k.put(g,k.sph(0.05,m),x,y,0);k.put(g,k.box(0.015,0.16,0.015,m),x+0.045,y+0.08,0);};n(-0.2,1.8);n(0.05,1.95);n(0.25,1.75);return g;"
+        },
+        {
+          "type": "planter",
+          "at": [
+            -2.2,
+            2.6
+          ],
+          "length": 1.2,
+          "flowers": "#c0392b"
+        },
+        {
+          "type": "planter",
+          "at": [
+            2.2,
+            2.6
+          ],
+          "length": 1.2,
+          "flowers": "#f2b84b"
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -2.8,
+            -1.3
+          ]
+        },
+        {
+          "type": "lantern",
+          "at": [
+            2.8,
+            -1.2
+          ]
+        },
+        {
+          "type": "vase",
+          "at": [
+            0,
+            -2
+          ],
+          "flowers": "#c0392b"
+        }
+      ]
+    },
+    {
+      "title": "Walking to the bay",
+      "moment": "Full and laughing, we wander down toward the bay.",
+      "hero": false,
+      "size": "small",
+      "surface": "grass",
+      "objects": [
+        {
+          "type": "tree",
+          "kind": "cypress",
+          "at": [
+            -1.4,
+            -1.4
+          ],
+          "height": 3
+        },
+        {
+          "type": "tree",
+          "kind": "round",
+          "at": [
+            1.3,
+            -1.5
+          ],
+          "height": 2.6
+        },
+        {
+          "type": "fence",
+          "at": [
+            0,
+            -1.6
+          ],
+          "length": 2.2,
+          "color": "#8b6b4a"
+        },
+        {
+          "type": "bush",
+          "at": [
+            -0.6,
+            -1.2
+          ],
+          "size": 0.5,
+          "flowers": "#f2b84b"
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            1.4,
+            -0.6
+          ],
+          "height": 2.4
+        },
+        {
+          "type": "bench",
+          "at": [
+            -1.2,
+            -0.5
+          ],
+          "rot": 30,
+          "length": 1.1,
+          "color": "#6b4a2f"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "walk",
+          "at": [
+            -0.35,
+            0.1
+          ],
+          "rot": 30
+        },
+        {
+          "type": "person",
+          "who": "Priya",
+          "pose": "cheer",
+          "at": [
+            0.25,
+            0.25
+          ],
+          "rot": 20
+        },
+        {
+          "type": "person",
+          "pose": "walk",
+          "at": [
+            -0.9,
+            0.7
+          ],
+          "rot": 35,
+          "skin": "#f1c27d",
+          "shirt": "#7a9e7e",
+          "pants": "#3a3a48",
+          "hair": "#8a5a2b",
+          "hairStyle": "curly"
+        },
+        {
+          "type": "person",
+          "pose": "walk",
+          "at": [
+            0.8,
+            -0.2
+          ],
+          "rot": 15,
+          "skin": "#8d5524",
+          "shirt": "#c0392b",
+          "pants": "#2d2d3a",
+          "hair": "#1b120c",
+          "hairStyle": "bun",
+          "holding": "phone"
+        },
+        {
+          "type": "person",
+          "pose": "wave",
+          "at": [
+            0.9,
+            0.8
+          ],
+          "rot": 25,
+          "skin": "#ffdbac",
+          "shirt": "#f5e6c8",
+          "pants": "#4a2f27",
+          "hair": "#d9b26a",
+          "hairStyle": "short"
+        },
+        {
+          "type": "custom",
+          "name": "leftovers-bag",
+          "at": [
+            -0.15,
+            0.45
+          ],
+          "code": "const g=k.group();k.put(g,k.rbox(0.22,0.24,0.14,k.mat('#d9c4a0'),0.02),0,0.12,0);k.put(g,k.box(0.18,0.06,0.12,k.mat('#f5e6c8')),0,0.27,0);k.put(g,k.torus(0.06,0.008,k.mat('#8b6b4a')),0,0.3,0);return g;"
+        },
+        {
+          "type": "street-sign",
+          "kind": "arrow",
+          "at": [
+            1.5,
+            0.4
+          ],
+          "rot": -60
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -1.5,
+            0.3
+          ]
+        },
+        {
+          "type": "flower-bed",
+          "at": [
+            -1.1,
+            1.4
+          ],
+          "size": [
+            0.8,
+            0.4
+          ],
+          "flowers": [
+            "#f2b84b",
+            "#c0392b",
+            "#f5e6c8"
+          ]
+        },
+        {
+          "type": "rock",
+          "at": [
+            1.3,
+            1.3
+          ],
+          "size": 0.3
+        },
+        {
+          "type": "rock",
+          "at": [
+            1.55,
+            1.05
+          ],
+          "size": 0.18
+        },
+        {
+          "type": "bush",
+          "at": [
+            0.2,
+            -1.3
+          ],
+          "size": 0.4,
+          "flowers": "#c0392b"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -1.5,
+            -0.9
+          ],
+          "kind": "flowers",
+          "size": 0.4,
+          "flowers": "#f2b84b"
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -1.5,
+              1.1,
+              0.3
+            ],
+            [
+              0,
+              1.6,
+              -1.6
+            ],
+            [
+              1.4,
+              2.2,
+              -0.6
+            ]
+          ],
+          "color": "#f2b84b"
+        }
+      ]
+    },
+    {
+      "title": "Guitar on the pier",
+      "moment": "Someone plays guitar on the pier while we sit over the dark water.",
+      "hero": false,
+      "size": "medium",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "dock",
+          "id": "pier",
+          "at": [
+            0,
+            -0.2
+          ],
+          "length": 4.2,
+          "width": 1.8,
+          "rot": 0
+        },
+        {
+          "type": "custom",
+          "name": "dark-bay-water",
+          "at": [
+            0,
+            -1.6
+          ],
+          "code": "const g=k.group();const w=k.box(4.6,0.04,1.4,k.mat('#1c2a44',{rough:0.3,metal:0.2}));k.put(g,w,0,0.02,0);for(let i=0;i<6;i++){const r=k.box(0.3+k.rand()*0.3,0.01,0.03,k.glowMat('#f2b84b',0.6));k.put(g,r,-1.8+i*0.7,0.05,-0.4+k.rand()*0.8);}return g;"
+        },
+        {
+          "type": "post",
+          "at": [
+            -0.95,
+            -1.9
+          ],
+          "height": 1.8
+        },
+        {
+          "type": "post",
+          "at": [
+            0.95,
+            -1.9
+          ],
+          "height": 1.8
+        },
+        {
+          "type": "post",
+          "at": [
+            0.95,
+            1.4
+          ],
+          "height": 1.8
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -0.95,
+              1.8,
+              -1.9
+            ],
+            [
+              0,
+              1.6,
+              -1.9
+            ],
+            [
+              0.95,
+              1.8,
+              -1.9
+            ],
+            [
+              0.95,
+              1.6,
+              -0.3
+            ],
+            [
+              0.95,
+              1.8,
+              1.4
+            ]
+          ],
+          "color": "#f2b84b"
+        },
+        {
+          "type": "boat",
+          "kind": "row",
+          "color": "#c0392b",
+          "at": [
+            -1.7,
+            -1.3
+          ],
+          "rot": 20
+        },
+        {
+          "type": "boat",
+          "kind": "sail",
+          "color": "#f5e6c8",
+          "at": [
+            1.8,
+            -1.8
+          ],
+          "rot": -30,
+          "scale": 0.7
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            -0.5,
+            -1
+          ],
+          "rot": 180,
+          "y": 0.4
+        },
+        {
+          "type": "person",
+          "who": "Priya",
+          "pose": "sit",
+          "at": [
+            0.1,
+            -1.05
+          ],
+          "rot": 180,
+          "y": 0.4
+        },
+        {
+          "type": "person",
+          "pose": "play-guitar",
+          "at": [
+            0.3,
+            0.1
+          ],
+          "rot": -20,
+          "y": 0.4,
+          "shirt": "#2e5e3a",
+          "pants": "#2d2d3a",
+          "hair": "#5a3b22",
+          "hairStyle": "curly",
+          "skin": "#f1c27d"
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            -0.5,
+            0.3
+          ],
+          "rot": 60,
+          "y": 0.4,
+          "shirt": "#8e44ad",
+          "pants": "#3a3a4a",
+          "hair": "#c49a5a",
+          "hairStyle": "bun",
+          "skin": "#f5d0a9"
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            0.6,
+            -0.6
+          ],
+          "rot": -110,
+          "y": 0.4,
+          "shirt": "#d35400",
+          "pants": "#2d2d3a",
+          "hair": "#1b120c",
+          "hairStyle": "short",
+          "skin": "#8d5524"
+        },
+        {
+          "type": "person",
+          "pose": "cheer",
+          "at": [
+            -0.2,
+            0.9
+          ],
+          "rot": 0,
+          "y": 0.4,
+          "shirt": "#f5e6c8",
+          "pants": "#4a2f27",
+          "hair": "#2b1d14",
+          "hairStyle": "long",
+          "skin": "#e0ac69",
+          "holding": "phone"
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -0.75,
+            -0.3
+          ],
+          "y": 0.4
+        },
+        {
+          "type": "lantern",
+          "at": [
+            0.75,
+            0.8
+          ],
+          "y": 0.4
+        },
+        {
+          "type": "bottle",
+          "at": [
+            -0.2,
+            -0.5
+          ],
+          "y": 0.4,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "glass",
+          "drink": "red-wine",
+          "at": [
+            0.05,
+            -0.55
+          ],
+          "y": 0.4
+        },
+        {
+          "type": "glass",
+          "drink": "red-wine",
+          "at": [
+            -0.65,
+            -0.6
+          ],
+          "y": 0.4
+        },
+        {
+          "type": "custom",
+          "name": "leftover-tiramisu-box",
+          "at": [
+            0.2,
+            0.55
+          ],
+          "code": "const g=k.group();k.put(g,k.rbox(0.22,0.08,0.16,k.mat('#f5e6c8'),0.02),0,0.44,0);k.put(g,k.box(0.18,0.005,0.12,k.mat('#c0392b')),0,0.485,0);return g;"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -0.7,
+            0.8
+          ],
+          "y": 0.4,
+          "color": "#3b6ea5"
+        },
+        {
+          "type": "rock",
+          "at": [
+            -1.9,
+            0.9
+          ],
+          "size": 0.4
+        },
+        {
+          "type": "rock",
+          "at": [
+            1.8,
+            1.3
+          ],
+          "size": 0.3
+        },
+        {
+          "type": "bush",
+          "at": [
+            -1.8,
+            1.8
+          ],
+          "size": 0.5,
+          "flowers": "#f2b84b"
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            1.6,
+            1.9
+          ],
+          "height": 2.2
+        },
+        {
+          "type": "bench",
+          "at": [
+            -1.5,
+            1.4
+          ],
+          "rot": 30,
+          "length": 1,
+          "color": "#6b4a2f"
+        },
+        {
+          "type": "custom",
+          "name": "bollard-with-rope",
+          "at": [
+            -0.9,
+            1.6
+          ],
+          "code": "const g=k.group();k.put(g,k.cyl(0.07,0.09,0.3,k.mat('#333')),0,0.15,0);k.put(g,k.torus(0.08,0.025,k.mat('#c9a56b')),0,0.25,0,Math.PI/2,0,0);return g;"
+        }
+      ]
+    }
+  ]
+}

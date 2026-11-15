@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { falModels, gmiModels } from "./models";
+import { claudeIslandWriter, falModels, gmiModels, gmiSceneWriter } from "./models";
 
 const SCENE = {
   title: "Ramen and Rain",
@@ -9,15 +9,27 @@ const SCENE = {
 };
 
 describe("GMI models", () => {
-  test("the scene writer reads the chat reply", () => {
+  test("the island writer is Claude, and 3D sculpting is off", () => {
+    expect(gmiModels.dreaming).toBe(claudeIslandWriter);
+    expect(claudeIslandWriter.id).toBe("claude-opus-5-5");
+    expect(gmiModels.sculpt).toBe(false);
+    expect(gmiModels.painting.input({ ...SCENE, imagePrompt: "an island" })).toMatchObject({
+      prompt: "an island",
+    });
+  });
+
+  test("the legacy scene writer reads the chat reply", () => {
     const reply = {
       choices: [{ message: { role: "assistant", content: JSON.stringify(SCENE) } }],
     };
-    expect(gmiModels.dreaming.output(reply)).toEqual({
-      ...SCENE,
-      palette: ["#334155", "#f59e0b", "#e2e8f0"],
+    expect(gmiSceneWriter.output(reply)).toEqual({
+      scene: {
+        ...SCENE,
+        palette: ["#334155", "#f59e0b", "#e2e8f0"],
+        imagePrompt: expect.stringContaining(SCENE.imagePrompt),
+      },
     });
-    expect(() => gmiModels.dreaming.output({ choices: [] })).toThrow(
+    expect(() => gmiSceneWriter.output({ choices: [] })).toThrow(
       "The model returned no content.",
     );
   });
@@ -71,7 +83,9 @@ describe("GMI models", () => {
 
 describe("fal models", () => {
   test("read fal's response shapes", () => {
-    expect(falModels.dreaming.output({ output: JSON.stringify(SCENE) }).title).toBe(SCENE.title);
+    expect(falModels.dreaming.output({ output: JSON.stringify(SCENE) }).scene.title).toBe(
+      SCENE.title,
+    );
     expect(
       falModels.painting.output({ images: [{ url: "https://v3.fal.media/files/a.jpg" }] }),
     ).toBe("https://v3.fal.media/files/a.jpg");

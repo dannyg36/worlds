@@ -116,6 +116,7 @@ export async function present(ctx: QueryCtx, world: Doc<"worlds">) {
     title: world.title,
     caption: world.caption,
     palette: world.palette,
+    scene: world.scene,
     imageUrl: imageUrl ?? undefined,
     modelUrl: modelUrl ?? undefined,
     error: world.error,

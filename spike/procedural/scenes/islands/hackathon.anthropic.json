@@ -1,0 +1,1372 @@
+{
+  "title": "The First World Renders",
+  "caption": "A crammed table by the window, too many Red Bulls, a database fight, and a scream at sunset.",
+  "palette": [
+    "#e8622c",
+    "#2b3a55",
+    "#f2c14e"
+  ],
+  "time": "dusk",
+  "biome": "city",
+  "landmark": {
+    "type": "lamp-post",
+    "height": 4
+  },
+  "cast": [
+    {
+      "name": "me",
+      "skin": "#e0ac69",
+      "shirt": "#3b6ea5",
+      "pants": "#2d2d3a",
+      "hair": "#2b1d14",
+      "hairStyle": "short"
+    },
+    {
+      "name": "Danny",
+      "skin": "#f1c27d",
+      "shirt": "#5a8f4e",
+      "pants": "#3a3a44",
+      "hair": "#6b4423",
+      "hairStyle": "curly"
+    }
+  ],
+  "vignettes": [
+    {
+      "title": "Nine at the office",
+      "moment": "I walk up to the office door at nine, backpack on, ready for the hackathon.",
+      "hero": false,
+      "size": "small",
+      "surface": "asphalt",
+      "objects": [
+        {
+          "type": "shop-front",
+          "at": [
+            0,
+            -1.4
+          ],
+          "width": 3.2,
+          "kind": "office",
+          "color": "#2b3a55",
+          "awning": [
+            "#e8622c",
+            "#f2c14e"
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "yc-hackathon-sign",
+          "at": [
+            1.2,
+            -0.95
+          ],
+          "code": "const g = k.group(); k.put(g, k.cyl(0.03, 0.03, 0.9, k.mat('#333')), 0, 0.45, 0); k.put(g, k.rbox(0.5, 0.36, 0.05, k.mat('#e8622c'), 0.03), 0, 1.0, 0); k.put(g, k.box(0.18, 0.18, 0.02, k.mat('#ffffff')), 0, 1.04, 0.035); k.put(g, k.box(0.06, 0.1, 0.02, k.mat('#e8622c')), 0, 1.02, 0.05); k.put(g, k.box(0.36, 0.04, 0.02, k.mat('#f2c14e')), 0, 0.88, 0.035); return g;"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "walk",
+          "at": [
+            -0.2,
+            0.3
+          ],
+          "rot": 180,
+          "holding": "phone"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -0.2,
+            0.12
+          ],
+          "y": 0.75,
+          "color": "#e8622c"
+        },
+        {
+          "type": "custom",
+          "name": "coffee-cup",
+          "at": [
+            0.15,
+            0.35
+          ],
+          "y": 0.75,
+          "code": "const g = k.group(); k.put(g, k.cyl(0.05, 0.04, 0.13, k.mat('#f5e6c8')), 0, 0.065, 0); k.put(g, k.cyl(0.055, 0.055, 0.02, k.mat('#2b2b2b')), 0, 0.14, 0); k.put(g, k.cyl(0.052, 0.052, 0.04, k.mat('#8b5a2b')), 0, 0.06, 0); return g;"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -1.3,
+            -0.8
+          ],
+          "kind": "succulent",
+          "size": 0.6
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1.4,
+            -0.6
+          ],
+          "kind": "olive",
+          "size": 0.8
+        },
+        {
+          "type": "bike",
+          "at": [
+            -1.3,
+            0.2
+          ],
+          "rot": 80,
+          "color": "#3b6ea5"
+        },
+        {
+          "type": "bin",
+          "at": [
+            -1.5,
+            -0.3
+          ],
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            1.5,
+            0.6
+          ],
+          "height": 2.4
+        },
+        {
+          "type": "hydrant",
+          "at": [
+            1.1,
+            1.2
+          ],
+          "color": "#c0392b"
+        },
+        {
+          "type": "street-sign",
+          "at": [
+            -1.5,
+            1
+          ],
+          "kind": "arrow",
+          "rot": 30
+        },
+        {
+          "type": "traffic-cone",
+          "at": [
+            0.6,
+            1.5
+          ]
+        },
+        {
+          "type": "traffic-cone",
+          "at": [
+            0.9,
+            1.6
+          ],
+          "rot": 20
+        },
+        {
+          "type": "bench",
+          "at": [
+            0.9,
+            0.1
+          ],
+          "rot": -90,
+          "length": 1,
+          "color": "#6b4423"
+        },
+        {
+          "type": "mug",
+          "at": [
+            0.9,
+            0.25
+          ],
+          "y": 0.45,
+          "color": "#f2c14e"
+        },
+        {
+          "type": "planter",
+          "at": [
+            -0.6,
+            -0.85
+          ],
+          "length": 0.8,
+          "flowers": "#f2c14e"
+        },
+        {
+          "type": "custom",
+          "name": "clock-nine",
+          "at": [
+            -0.9,
+            -1.05
+          ],
+          "y": 1.4,
+          "code": "const g = k.group(); k.put(g, k.cyl(0.2, 0.2, 0.05, k.mat('#f5e6c8')), 0, 0, 0, Math.PI/2, 0, 0); k.put(g, k.torus(0.2, 0.025, k.mat('#2b3a55')), 0, 0, 0.01); k.put(g, k.box(0.02, 0.13, 0.02, k.mat('#111')), 0, 0.065, 0.04); k.put(g, k.box(0.11, 0.02, 0.02, k.mat('#111')), -0.055, 0, 0.04); return g;"
+        },
+        {
+          "type": "rock",
+          "at": [
+            -0.4,
+            1.6
+          ],
+          "size": 0.25
+        },
+        {
+          "type": "bush",
+          "at": [
+            1.5,
+            -1.2
+          ],
+          "size": 0.5,
+          "flowers": "#e8622c"
+        }
+      ]
+    },
+    {
+      "title": "One table, too many cans",
+      "moment": "The whole team crams around one table by the window, buried in laptops and Red Bull cans.",
+      "hero": false,
+      "size": "medium",
+      "surface": "carpet",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.3
+          ],
+          "size": [
+            4.6,
+            3.8
+          ],
+          "floor": "carpet",
+          "wall": "#d9d4c7",
+          "window": true,
+          "door": false
+        },
+        {
+          "type": "custom",
+          "name": "big-window-sunlit",
+          "at": [
+            0,
+            -2.15
+          ],
+          "code": "const g = k.group(); const frame = k.mat('#2b3a55'); k.put(g, k.box(2.4, 0.08, 0.08, frame), 0, 0.9, 0); k.put(g, k.box(2.4, 0.08, 0.08, frame), 0, 2.2, 0); k.put(g, k.box(0.08, 1.38, 0.08, frame), -1.16, 1.55, 0); k.put(g, k.box(0.08, 1.38, 0.08, frame), 1.16, 1.55, 0); k.put(g, k.box(0.06, 1.38, 0.06, frame), 0, 1.55, 0); k.put(g, k.box(2.3, 1.3, 0.02, k.glassMat('#bfe3ff', 0.35)), 0, 1.55, 0); k.put(g, k.box(2.4, 0.06, 0.2, k.mat('#f2efe6')), 0, 0.87, 0.08); return g;"
+        },
+        {
+          "type": "table",
+          "id": "tbl",
+          "at": [
+            0,
+            -0.5
+          ],
+          "size": [
+            2,
+            1
+          ],
+          "shape": "rect",
+          "cloth": "none",
+          "height": 0.75
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.6,
+            0.25
+          ],
+          "rot": 180,
+          "color": "#2b3a55"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            -0.6,
+            0.25
+          ],
+          "rot": 180
+        },
+        {
+          "type": "chair",
+          "at": [
+            0.6,
+            0.25
+          ],
+          "rot": 180,
+          "color": "#2b3a55"
+        },
+        {
+          "type": "person",
+          "who": "Danny",
+          "pose": "sit",
+          "at": [
+            0.6,
+            0.25
+          ],
+          "rot": 180
+        },
+        {
+          "type": "chair",
+          "at": [
+            -1.3,
+            -0.5
+          ],
+          "rot": 90,
+          "color": "#2b3a55"
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            -1.3,
+            -0.5
+          ],
+          "rot": 90,
+          "skin": "#8d5524",
+          "shirt": "#e8622c",
+          "pants": "#2d2d3a",
+          "hair": "#111111",
+          "hairStyle": "bun"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.3,
+            -0.5
+          ],
+          "rot": -90,
+          "color": "#2b3a55"
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            1.3,
+            -0.5
+          ],
+          "rot": -90,
+          "skin": "#ffdbac",
+          "shirt": "#f2c14e",
+          "pants": "#4a4a55",
+          "hair": "#c9a15a",
+          "hairStyle": "cap"
+        },
+        {
+          "type": "person",
+          "pose": "stand",
+          "at": [
+            0,
+            -1.35
+          ],
+          "rot": 0,
+          "skin": "#c68642",
+          "shirt": "#7a4fa0",
+          "pants": "#2d2d3a",
+          "hair": "#1b120c",
+          "hairStyle": "curly",
+          "holding": "phone"
+        },
+        {
+          "type": "laptop",
+          "on": "tbl",
+          "at": [
+            -0.6,
+            0.25
+          ],
+          "rot": 0,
+          "open": true
+        },
+        {
+          "type": "laptop",
+          "on": "tbl",
+          "at": [
+            0.6,
+            0.25
+          ],
+          "rot": 0,
+          "open": true
+        },
+        {
+          "type": "laptop",
+          "on": "tbl",
+          "at": [
+            -0.8,
+            -0.1
+          ],
+          "rot": -90,
+          "open": true
+        },
+        {
+          "type": "laptop",
+          "on": "tbl",
+          "at": [
+            0.8,
+            -0.1
+          ],
+          "rot": 90,
+          "open": true
+        },
+        {
+          "type": "custom",
+          "name": "red-bull-can-pile",
+          "on": "tbl",
+          "at": [
+            0,
+            0.05
+          ],
+          "code": "const g = k.group(); const blue = k.mat('#2a4a9a', { metal: 0.4, rough: 0.4 }); const silver = k.mat('#c8ccd4', { metal: 0.6, rough: 0.3 }); const red = k.mat('#d62828'); const spots = [[0,0],[0.09,0.03],[-0.08,0.05],[0.04,-0.08],[-0.05,-0.07],[0.13,-0.05],[-0.14,-0.02]]; spots.forEach(([x,z],i) => { const c = k.group(); k.put(c, k.cyl(0.033, 0.033, 0.13, i % 2 ? blue : silver), 0, 0.065, 0); k.put(c, k.cyl(0.034, 0.034, 0.03, red), 0, 0.07, 0); k.put(g, c, x, 0, z); }); const tipped = k.cyl(0.033, 0.033, 0.13, blue); k.put(g, tipped, 0.22, 0.033, 0.08, 0, 0.6, Math.PI / 2); return g;"
+        },
+        {
+          "type": "glass",
+          "on": "tbl",
+          "at": [
+            -0.35,
+            0.3
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "tbl",
+          "at": [
+            0.35,
+            0.3
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "tbl",
+          "at": [
+            -0.75,
+            -0.35
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "mug",
+          "on": "tbl",
+          "at": [
+            0.75,
+            -0.35
+          ],
+          "color": "#e8622c"
+        },
+        {
+          "type": "custom",
+          "name": "cable-tangle-power-strip",
+          "on": "tbl",
+          "at": [
+            0.1,
+            -0.35
+          ],
+          "code": "const g = k.group(); k.put(g, k.rbox(0.3, 0.04, 0.06, k.mat('#f0f0f0'), 0.01), 0, 0.02, 0); const black = k.mat('#1a1a1a'); k.put(g, k.tube([[-0.12,0.03,0],[-0.3,0.02,0.15],[-0.55,0.02,0.4]], 0.008, black), 0, 0, 0); k.put(g, k.tube([[0.12,0.03,0],[0.3,0.02,0.12],[0.6,0.02,0.4]], 0.008, black), 0, 0, 0); k.put(g, k.tube([[0,0.03,0.02],[0.05,0.02,0.2],[-0.1,0.02,0.3]], 0.008, k.mat('#ffffff')), 0, 0, 0); return g;"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -2,
+            -1.8
+          ],
+          "kind": "succulent",
+          "size": 0.6
+        },
+        {
+          "type": "bin",
+          "at": [
+            1.95,
+            -1.7
+          ],
+          "color": "#3a3a44"
+        },
+        {
+          "type": "custom",
+          "name": "overflowing-can-bin",
+          "at": [
+            1.95,
+            -1.7
+          ],
+          "code": "const g = k.group(); const blue = k.mat('#2a4a9a', { metal: 0.4 }); const silver = k.mat('#c8ccd4', { metal: 0.6 }); for (let i = 0; i < 6; i++) { const a = i * 1.1; k.put(g, k.cyl(0.033, 0.033, 0.13, i % 2 ? blue : silver), Math.cos(a) * 0.1, 0.62 + (i % 3) * 0.04, Math.sin(a) * 0.1, a, 0, 1.2); } return g;"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -1.95,
+            0.6
+          ],
+          "rot": 30,
+          "color": "#3b6ea5"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            1.9,
+            0.7
+          ],
+          "rot": -20,
+          "color": "#5a8f4e"
+        },
+        {
+          "type": "custom",
+          "name": "red-bull-four-pack",
+          "at": [
+            0.3,
+            1.5
+          ],
+          "rot": 15,
+          "code": "const g = k.group(); k.put(g, k.rbox(0.3, 0.02, 0.18, k.mat('#c9a66b'), 0.01), 0, 0.01, 0); const blue = k.mat('#2a4a9a', { metal: 0.4 }); const silver = k.mat('#c8ccd4', { metal: 0.6 }); [[-0.07,-0.045],[0.07,-0.045],[-0.07,0.045],[0.07,0.045]].forEach(([x,z],i) => k.put(g, k.cyl(0.033, 0.033, 0.13, i % 2 ? blue : silver), x, 0.085, z)); return g;"
+        },
+        {
+          "type": "custom",
+          "name": "crushed-can",
+          "at": [
+            -0.5,
+            1.7
+          ],
+          "code": "const g = k.group(); const c = k.cyl(0.035, 0.035, 0.05, k.mat('#2a4a9a', { metal: 0.4 })); k.put(g, c, 0, 0.035, 0, Math.PI / 2, 0, 0.3); return g;"
+        },
+        {
+          "type": "custom",
+          "name": "crushed-can-2",
+          "at": [
+            1.2,
+            1.3
+          ],
+          "code": "const g = k.group(); const c = k.cyl(0.035, 0.035, 0.06, k.mat('#c8ccd4', { metal: 0.6 })); k.put(g, c, 0, 0.035, 0, Math.PI / 2, 0, -0.6); return g;"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -1.6,
+            1.8
+          ],
+          "kind": "flowers",
+          "size": 0.4,
+          "flowers": "#f2c14e"
+        }
+      ]
+    },
+    {
+      "title": "The database argument",
+      "moment": "Danny and I argue about the database at the whiteboard for twenty minutes.",
+      "hero": false,
+      "size": "medium",
+      "surface": "tile",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.3
+          ],
+          "size": [
+            4.6,
+            4
+          ],
+          "floor": "tile",
+          "wall": "#d9dde3",
+          "window": true,
+          "door": false
+        },
+        {
+          "type": "whiteboard",
+          "id": "wb",
+          "at": [
+            0,
+            -1.9
+          ],
+          "rot": 0
+        },
+        {
+          "type": "custom",
+          "name": "schema-scribbles",
+          "at": [
+            0,
+            -1.82
+          ],
+          "code": "const g = k.group(); const blue = k.mat('#2b5ea8'); const red = k.mat('#c0392b'); const blk = k.mat('#222'); k.put(g, k.box(0.36, 0.22, 0.01, k.mat('#ffffff')), -0.45, 1.35, 0); k.put(g, k.box(0.34, 0.02, 0.012, blue), -0.45, 1.42, 0.005); k.put(g, k.box(0.36, 0.22, 0.01, k.mat('#ffffff')), 0.45, 1.35, 0); k.put(g, k.box(0.34, 0.02, 0.012, red), 0.45, 1.42, 0.005); k.put(g, k.box(0.03, 0.18, 0.012, blk), -0.45, 1.3, 0.006); k.put(g, k.box(0.03, 0.18, 0.012, blk), 0.45, 1.3, 0.006); k.put(g, k.box(0.5, 0.025, 0.012, red), 0, 1.36, 0.008, 0, 0, 0.5); k.put(g, k.box(0.5, 0.025, 0.012, red), 0, 1.36, 0.008, 0, 0, -0.5); k.put(g, k.box(0.12, 0.04, 0.012, blue), -0.2, 1.1, 0.006); k.put(g, k.box(0.12, 0.04, 0.012, blue), 0.2, 1.1, 0.006); return g;"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "wave",
+          "at": [
+            -0.7,
+            -0.7
+          ],
+          "rot": 25
+        },
+        {
+          "type": "person",
+          "who": "Danny",
+          "pose": "stand",
+          "at": [
+            0.75,
+            -0.7
+          ],
+          "rot": -25
+        },
+        {
+          "type": "custom",
+          "name": "marker-in-hand",
+          "at": [
+            -0.95,
+            -0.55
+          ],
+          "code": "const g = k.group(); k.put(g, k.cyl(0.015, 0.015, 0.13, k.mat('#2b5ea8')), 0, 1.0, 0, 0, 0, 0.6); k.put(g, k.cyl(0.016, 0.016, 0.03, k.mat('#1a3d73')), 0.04, 1.05, 0, 0, 0, 0.6); return g;"
+        },
+        {
+          "type": "custom",
+          "name": "argument-bubbles",
+          "at": [
+            0,
+            -0.6
+          ],
+          "code": "const g = k.group(); const w = k.mat('#ffffff'); k.put(g, k.rbox(0.42, 0.24, 0.05, w, 0.08), -0.55, 1.75, 0); k.put(g, k.sph(0.04, w), -0.62, 1.55, 0); k.put(g, k.rbox(0.42, 0.24, 0.05, w, 0.08), 0.55, 1.85, 0); k.put(g, k.sph(0.04, w), 0.62, 1.63, 0); k.put(g, k.box(0.28, 0.035, 0.06, k.mat('#2b5ea8')), -0.55, 1.78, 0); k.put(g, k.box(0.2, 0.035, 0.06, k.mat('#2b5ea8')), -0.58, 1.71, 0); k.put(g, k.box(0.28, 0.035, 0.06, k.mat('#c0392b')), 0.55, 1.88, 0); k.put(g, k.box(0.2, 0.035, 0.06, k.mat('#c0392b')), 0.52, 1.81, 0); return g;"
+        },
+        {
+          "type": "custom",
+          "name": "wall-clock-20min",
+          "at": [
+            1.5,
+            -2.15
+          ],
+          "code": "const g = k.group(); const face = k.cyl(0.18, 0.18, 0.04, k.mat('#fafafa')); face.rotation.x = Math.PI / 2; k.put(g, face, 0, 1.9, 0); const rim = k.torus(0.18, 0.02, k.mat('#2b3a55')); k.put(g, rim, 0, 1.9, 0.01); k.put(g, k.box(0.015, 0.12, 0.01, k.mat('#222')), 0, 1.95, 0.03); k.put(g, k.box(0.015, 0.09, 0.01, k.mat('#222')), 0.04, 1.88, 0.03, 0, 0, -1.2); k.put(g, k.sph(0.015, k.mat('#c0392b')), 0, 1.9, 0.035); return g;"
+        },
+        {
+          "type": "shelf",
+          "at": [
+            -2.1,
+            -1
+          ],
+          "rot": 90,
+          "size": [
+            1,
+            1.4
+          ],
+          "color": "#8a6a4a",
+          "fill": "books"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -2.05,
+            0.2
+          ],
+          "kind": "olive",
+          "size": 0.9
+        },
+        {
+          "type": "desk",
+          "id": "desk",
+          "at": [
+            1.6,
+            0.3
+          ],
+          "rot": -90,
+          "size": [
+            1.2,
+            0.6
+          ],
+          "color": "#b48a5a"
+        },
+        {
+          "type": "laptop",
+          "on": "desk",
+          "at": [
+            0,
+            0.05
+          ],
+          "open": true,
+          "rot": -90
+        },
+        {
+          "type": "glass",
+          "on": "desk",
+          "at": [
+            0.15,
+            -0.4
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "desk",
+          "at": [
+            -0.15,
+            -0.42
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "mug",
+          "on": "desk",
+          "at": [
+            0.1,
+            0.42
+          ],
+          "color": "#e8622c"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1,
+            0.3
+          ],
+          "rot": 90,
+          "color": "#2b3a55"
+        },
+        {
+          "type": "glass",
+          "at": [
+            -0.3,
+            -1.6
+          ],
+          "drink": "red-bull",
+          "y": 0
+        },
+        {
+          "type": "custom",
+          "name": "marker-tray",
+          "at": [
+            0,
+            -1.75
+          ],
+          "code": "const g = k.group(); k.put(g, k.box(0.6, 0.03, 0.08, k.mat('#cfcfcf')), 0, 0.95, 0); const cols = ['#2b5ea8', '#c0392b', '#222', '#3a8f4e']; for (let i = 0; i < 4; i++) { const m = k.cyl(0.014, 0.014, 0.12, k.mat(cols[i])); m.rotation.z = Math.PI / 2; k.put(g, m, -0.18 + i * 0.12, 0.98, 0); } return g;"
+        },
+        {
+          "type": "stool",
+          "at": [
+            -1.2,
+            0.6
+          ],
+          "color": "#f2c14e"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -1.25,
+            1.25
+          ],
+          "color": "#3b6ea5",
+          "rot": 20
+        },
+        {
+          "type": "bin",
+          "at": [
+            2,
+            1.4
+          ],
+          "color": "#2b3a55"
+        },
+        {
+          "type": "custom",
+          "name": "crumpled-papers",
+          "at": [
+            1.5,
+            1.6
+          ],
+          "code": "const g = k.group(); const p = k.mat('#f4f1ea'); k.put(g, k.sph(0.06, p), 0, 0.06, 0); k.put(g, k.sph(0.05, p), 0.18, 0.05, 0.1); k.put(g, k.sph(0.055, p), -0.15, 0.055, 0.15); return g;"
+        },
+        {
+          "type": "rug",
+          "at": [
+            0,
+            0.4
+          ],
+          "size": [
+            2.2,
+            1.4
+          ],
+          "color": "#2b3a55",
+          "pattern": "stripes"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            0.6,
+            1.9
+          ],
+          "kind": "succulent",
+          "size": 0.5
+        },
+        {
+          "type": "book",
+          "at": [
+            -0.4,
+            1.7
+          ],
+          "color": "#e8622c",
+          "open": true
+        }
+      ]
+    },
+    {
+      "title": "It renders!",
+      "moment": "At sunset the first world finally renders on screen and everybody screams.",
+      "hero": true,
+      "size": "large",
+      "surface": "carpet",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.6
+          ],
+          "size": [
+            5.6,
+            4.4
+          ],
+          "floor": "carpet",
+          "wall": "#2b3a55",
+          "window": true,
+          "door": false
+        },
+        {
+          "type": "custom",
+          "name": "sunset-window",
+          "at": [
+            -1.2,
+            -2.7
+          ],
+          "code": "const g=k.group();k.put(g,k.box(2.2,1.3,0.06,k.glowMat('#e8622c',1.2)),0,1.5,0);k.put(g,k.box(2.2,0.45,0.07,k.glowMat('#f2c14e',1.4)),0,1.0,0.01);k.put(g,k.sph(0.22,k.glowMat('#ffd27a',2)),0.4,1.15,0.04);k.put(g,k.box(2.3,0.08,0.1,k.mat('#e9e4da')),0,0.82,0.03);k.put(g,k.box(2.3,0.08,0.1,k.mat('#e9e4da')),0,2.18,0.03);k.put(g,k.box(0.06,1.4,0.1,k.mat('#e9e4da')),0,1.5,0.03);k.addLight([0,1.4,0.6],'#ff9a4d',1.6,6);return g;"
+        },
+        {
+          "type": "table",
+          "id": "t",
+          "at": [
+            0,
+            -0.4
+          ],
+          "size": [
+            2.6,
+            1.2
+          ],
+          "shape": "rect",
+          "cloth": "none",
+          "height": 0.75
+        },
+        {
+          "type": "custom",
+          "name": "big-monitor-world",
+          "on": "t",
+          "at": [
+            0,
+            -0.35
+          ],
+          "code": "const g=k.group();k.put(g,k.box(0.1,0.3,0.1,k.mat('#333')),0,0.15,0);k.put(g,k.rbox(1.0,0.62,0.06,k.mat('#222'),0.02),0,0.6,0);k.put(g,k.box(0.92,0.54,0.01,k.glowMat('#7ec8e3',1.1)),0,0.6,0.035);const isl=k.cyl(0.18,0.1,0.08,k.glowMat('#4caf50',1.3));k.put(g,isl,0,0.52,0.05);k.put(g,k.cone(0.07,0.16,k.glowMat('#2e7d32',1.2)),-0.06,0.63,0.06);k.put(g,k.sph(0.04,k.glowMat('#f2c14e',1.5)),0.07,0.6,0.07);k.addLight([0,0.6,0.4],'#9fdcff',1.2,3);return g;"
+        },
+        {
+          "type": "laptop",
+          "on": "t",
+          "at": [
+            -0.9,
+            0.2
+          ],
+          "open": true,
+          "rot": 20
+        },
+        {
+          "type": "laptop",
+          "on": "t",
+          "at": [
+            0.9,
+            0.2
+          ],
+          "open": true,
+          "rot": -20
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            -0.5,
+            0.3
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            0.55,
+            0.35
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            1.15,
+            -0.3
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            -1.15,
+            -0.3
+          ],
+          "drink": "red-bull"
+        },
+        {
+          "type": "mug",
+          "on": "t",
+          "at": [
+            0.35,
+            0.4
+          ],
+          "color": "#f2c14e"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "at": [
+            -0.4,
+            0.8
+          ],
+          "rot": 180,
+          "pose": "cheer"
+        },
+        {
+          "type": "person",
+          "who": "Danny",
+          "at": [
+            0.5,
+            0.85
+          ],
+          "rot": 200,
+          "pose": "cheer"
+        },
+        {
+          "type": "person",
+          "at": [
+            -1.6,
+            0.5
+          ],
+          "rot": 150,
+          "pose": "cheer",
+          "skin": "#8d5524",
+          "shirt": "#e8622c",
+          "pants": "#2d2d3a",
+          "hair": "#111",
+          "hairStyle": "bun"
+        },
+        {
+          "type": "person",
+          "at": [
+            1.7,
+            0.4
+          ],
+          "rot": -150,
+          "pose": "wave",
+          "skin": "#ffdbac",
+          "shirt": "#7b5ea7",
+          "pants": "#3a3a44",
+          "hair": "#c9a15b",
+          "hairStyle": "long"
+        },
+        {
+          "type": "person",
+          "at": [
+            2.1,
+            1.5
+          ],
+          "rot": -130,
+          "pose": "cheer",
+          "skin": "#c68642",
+          "shirt": "#d94f70",
+          "pants": "#2b3a55",
+          "hair": "#1b120c",
+          "hairStyle": "cap"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -1,
+            1.3
+          ],
+          "rot": 160,
+          "color": "#555"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.1,
+            1.4
+          ],
+          "rot": -170,
+          "color": "#555"
+        },
+        {
+          "type": "custom",
+          "name": "scream-burst",
+          "at": [
+            0,
+            0.9
+          ],
+          "code": "const g=k.group();const c=['#f2c14e','#e8622c','#7ec8e3','#d94f70'];for(let i=0;i<40;i++){const m=k.box(0.05,0.05,0.01,k.mat(c[i%4]));k.put(g,m,(k.rand()-0.5)*2.6,1.6+k.rand()*0.9,(k.rand()-0.5)*1.2,k.rand()*3,k.rand()*3,0);}return g;"
+        },
+        {
+          "type": "shelf",
+          "at": [
+            2.4,
+            -2.4
+          ],
+          "rot": -90,
+          "size": [
+            1.2,
+            1.6
+          ],
+          "fill": "books",
+          "color": "#6b4f3a"
+        },
+        {
+          "type": "whiteboard",
+          "at": [
+            -2.4,
+            -1.2
+          ],
+          "rot": 90
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -2.5,
+            -2.4
+          ],
+          "kind": "olive",
+          "size": 1
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -2.6,
+              2.2,
+              -2.7
+            ],
+            [
+              0,
+              2,
+              -2.7
+            ],
+            [
+              2.6,
+              2.2,
+              -2.7
+            ]
+          ],
+          "color": "#f2c14e"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -2.2,
+            1.6
+          ],
+          "color": "#2b3a55",
+          "rot": 30
+        },
+        {
+          "type": "backpack",
+          "at": [
+            2.5,
+            0.4
+          ],
+          "color": "#e8622c",
+          "rot": -40
+        },
+        {
+          "type": "custom",
+          "name": "crushed-red-bull-cans",
+          "at": [
+            0.6,
+            2.4
+          ],
+          "code": "const g=k.group();const m=k.mat('#3a5fa8',{metal:0.4,rough:0.4});for(let i=0;i<6;i++){const c=k.cyl(0.033,0.033,0.12,m);k.put(g,c,(k.rand()-0.5)*0.7,0.04,(k.rand()-0.5)*0.4,Math.PI/2,k.rand()*3,0);}return g;"
+        },
+        {
+          "type": "bin",
+          "at": [
+            -0.9,
+            2.5
+          ],
+          "color": "#555"
+        },
+        {
+          "type": "pizza-box",
+          "at": [
+            1.8,
+            2.4
+          ],
+          "rot": 15,
+          "open": false
+        }
+      ]
+    },
+    {
+      "title": "Cold pizza, floor seats",
+      "moment": "We sit on the office floor eating cold pizza straight from the boxes.",
+      "hero": false,
+      "size": "small",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.3
+          ],
+          "size": [
+            3.4,
+            2.6
+          ],
+          "floor": "wood",
+          "wall": "#d9d4c7",
+          "window": true
+        },
+        {
+          "type": "custom",
+          "name": "sunset-window-glow",
+          "at": [
+            0.6,
+            -1.55
+          ],
+          "code": "const g = k.group(); k.put(g, k.box(1.0, 0.7, 0.03, k.glowMat('#f08a3c', 0.9)), 0, 1.2, 0); k.put(g, k.box(1.0, 0.04, 0.05, k.mat('#2b3a55')), 0, 1.2, 0.02); k.put(g, k.box(0.04, 0.7, 0.05, k.mat('#2b3a55')), 0, 1.2, 0.02); k.addLight([0, 1.2, 0.4], '#f2a05a', 0.6, 3); return g;"
+        },
+        {
+          "type": "desk",
+          "id": "desk1",
+          "at": [
+            -0.9,
+            -1.3
+          ],
+          "size": [
+            1.2,
+            0.6
+          ],
+          "color": "#8a6a4a"
+        },
+        {
+          "type": "monitor",
+          "on": "desk1",
+          "at": [
+            0.2,
+            -0.1
+          ]
+        },
+        {
+          "type": "laptop",
+          "on": "desk1",
+          "at": [
+            -0.3,
+            0.05
+          ],
+          "open": true
+        },
+        {
+          "type": "custom",
+          "name": "red-bull-can",
+          "on": "desk1",
+          "at": [
+            0.45,
+            0.15
+          ],
+          "code": "const g=k.group(); k.put(g,k.cyl(0.033,0.033,0.12,k.mat('#2b4a9e')),0,0.06,0); k.put(g,k.cyl(0.034,0.034,0.03,k.mat('#c9ccd4',{metal:0.6})),0,0.07,0); k.put(g,k.sph(0.012,k.mat('#d8282f')),0,0.07,0.034); return g;"
+        },
+        {
+          "type": "rug",
+          "at": [
+            0.1,
+            0.4
+          ],
+          "size": [
+            2.2,
+            1.6
+          ],
+          "color": "#2b3a55",
+          "pattern": "stripes"
+        },
+        {
+          "type": "pizza-box",
+          "id": "pb1",
+          "at": [
+            0,
+            0.35
+          ],
+          "rot": 10,
+          "open": true
+        },
+        {
+          "type": "pizza-box",
+          "at": [
+            0.55,
+            0.05
+          ],
+          "rot": -25,
+          "open": true
+        },
+        {
+          "type": "pizza-box",
+          "at": [
+            -0.55,
+            0.95
+          ],
+          "rot": 35
+        },
+        {
+          "type": "custom",
+          "name": "cold-pizza-slice",
+          "at": [
+            0.35,
+            0.75
+          ],
+          "rot": 40,
+          "code": "const g=k.group(); const s=k.cyl(0.13,0.13,0.02,k.mat('#e8b04a'),); s.scale.set(1,1,1); const t=new k.THREE.Mesh(new k.THREE.CylinderGeometry(0.16,0.16,0.02,3,1,false),k.mat('#e8b04a')); k.put(g,t,0,0.01,0); k.put(g,k.sph(0.025,k.mat('#b5332a')),0.03,0.025,0.02); k.put(g,k.sph(0.022,k.mat('#b5332a')),-0.05,0.025,-0.03); k.put(g,k.cap(0.025,0.18,k.mat('#c98a3a')),0,0.025,-0.09,0,0,Math.PI/2); return g;"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            -0.75,
+            0.35
+          ],
+          "rot": 70
+        },
+        {
+          "type": "person",
+          "who": "Danny",
+          "pose": "sit",
+          "at": [
+            0.85,
+            0.55
+          ],
+          "rot": -80
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            0.05,
+            -0.45
+          ],
+          "rot": 0,
+          "shirt": "#e8622c",
+          "pants": "#2d2d3a",
+          "skin": "#8d5524",
+          "hair": "#1b120c",
+          "hairStyle": "bun"
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            -0.2,
+            1.1
+          ],
+          "rot": 170,
+          "shirt": "#f2c14e",
+          "pants": "#3a3a44",
+          "skin": "#c68642",
+          "hair": "#2b1d14",
+          "hairStyle": "cap"
+        },
+        {
+          "type": "custom",
+          "name": "red-bull-can",
+          "at": [
+            -0.4,
+            0
+          ],
+          "code": "const g=k.group(); k.put(g,k.cyl(0.033,0.033,0.12,k.mat('#2b4a9e')),0,0.06,0); k.put(g,k.cyl(0.034,0.034,0.03,k.mat('#c9ccd4',{metal:0.6})),0,0.07,0); k.put(g,k.sph(0.012,k.mat('#d8282f')),0,0.07,0.034); return g;"
+        },
+        {
+          "type": "custom",
+          "name": "crushed-red-bull",
+          "at": [
+            0.7,
+            1.1
+          ],
+          "code": "const g=k.group(); const c=k.cyl(0.035,0.035,0.06,k.mat('#2b4a9e')); k.put(g,c,0,0.035,0,Math.PI/2,0,0.3); k.put(g,k.cyl(0.036,0.036,0.015,k.mat('#c9ccd4',{metal:0.6})),0,0.035,0,Math.PI/2,0,0.3); return g;"
+        },
+        {
+          "type": "custom",
+          "name": "red-bull-can",
+          "at": [
+            1.05,
+            0.15
+          ],
+          "code": "const g=k.group(); k.put(g,k.cyl(0.033,0.033,0.12,k.mat('#2b4a9e')),0,0.06,0); k.put(g,k.cyl(0.034,0.034,0.03,k.mat('#c9ccd4',{metal:0.6})),0,0.07,0); k.put(g,k.sph(0.012,k.mat('#d8282f')),0,0.07,0.034); return g;"
+        },
+        {
+          "type": "laptop",
+          "at": [
+            -1.1,
+            0.9
+          ],
+          "rot": 30,
+          "open": true
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -1.4,
+            -0.4
+          ],
+          "rot": 20,
+          "color": "#2b3a55"
+        },
+        {
+          "type": "backpack",
+          "at": [
+            1.35,
+            -0.6
+          ],
+          "rot": -15,
+          "color": "#e8622c"
+        },
+        {
+          "type": "bin",
+          "at": [
+            1.4,
+            -1.3
+          ],
+          "color": "#555a63"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1.5,
+            1.3
+          ],
+          "kind": "succulent",
+          "size": 0.6
+        },
+        {
+          "type": "mug",
+          "at": [
+            0.95,
+            1.35
+          ],
+          "color": "#f2c14e"
+        },
+        {
+          "type": "desk-lamp",
+          "on": "desk1",
+          "at": [
+            -0.5,
+            -0.15
+          ]
+        }
+      ]
+    }
+  ]
+}

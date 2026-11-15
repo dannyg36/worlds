@@ -1,0 +1,1120 @@
+{
+  "title": "Cat in the Rain",
+  "caption": "A missed bus, an umbrella flipped inside out twice, a cat drawn in latte foam on Valencia, an afternoon of meetings, and ramen under a rainy skylight.",
+  "palette": [
+    "#2f4a3a",
+    "#e3b23c",
+    "#2c3e66",
+    "#efe6d2",
+    "#7d8da1"
+  ],
+  "time": "rain",
+  "biome": "city",
+  "landmark": {
+    "type": "tree",
+    "kind": "round",
+    "height": 4.5
+  },
+  "cast": [
+    {
+      "name": "me",
+      "skin": "#e0ac69",
+      "shirt": "#e3b23c",
+      "pants": "#2d3142",
+      "hair": "#2b1d14",
+      "hairStyle": "short"
+    }
+  ],
+  "vignettes": [
+    {
+      "title": "Missed the bus",
+      "moment": "I wave my arm at the bus as it pulls away from the stop without me.",
+      "hero": false,
+      "size": "medium",
+      "surface": "asphalt",
+      "objects": [
+        {
+          "type": "bus",
+          "at": [
+            0.6,
+            -1.3
+          ],
+          "rot": 90,
+          "scale": 0.8,
+          "color": "#c0392b"
+        },
+        {
+          "type": "custom",
+          "name": "exhaust",
+          "at": [
+            -0.75,
+            -1.2
+          ],
+          "rot": 60,
+          "code": "const g = k.group();\nconst puff = k.mat('#c9ced6', { transparent: true, opacity: 0.55, rough: 0.9 });\n[[0, 0.25, 0, 0.11], [-0.2, 0.33, 0.05, 0.15], [-0.45, 0.42, -0.02, 0.19], [-0.72, 0.5, 0.06, 0.22]].forEach(([x, y, z, r]) => k.put(g, k.sph(r, puff), x, y, z));\nreturn g;"
+        },
+        {
+          "type": "bus-stop",
+          "id": "stop",
+          "at": [
+            -1.5,
+            -0.2
+          ],
+          "rot": 70
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            -1.5,
+            -0.25
+          ],
+          "rot": 70,
+          "shirt": "#7d8da1",
+          "pants": "#3a3a44",
+          "hairStyle": "bun"
+        },
+        {
+          "type": "person",
+          "pose": "stand",
+          "holding": "phone",
+          "at": [
+            -1.35,
+            0.55
+          ],
+          "rot": 60,
+          "shirt": "#5a6b5a",
+          "pants": "#2d2d2d",
+          "hairStyle": "long"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "wave",
+          "holding": "umbrella",
+          "at": [
+            -0.2,
+            -0.05
+          ],
+          "rot": 60
+        },
+        {
+          "type": "street-sign",
+          "at": [
+            -2,
+            -0.95
+          ],
+          "kind": "bus"
+        },
+        {
+          "type": "custom",
+          "name": "puddles",
+          "at": [
+            0.65,
+            0.85
+          ],
+          "code": "const g = k.group(), T = k.THREE;\nconst water = k.mat('#9fb6cf', { rough: 0.04, metal: 0.45 }), ring = k.mat('#a9bccf', { rough: 0.2 });\nconst leaf = [k.mat('#d98a2b'), k.mat('#b5542a'), k.mat('#e6b23a')];\nconst spots = [[0, 0, 0.5, 0.32], [0.78, 0.32, 0.26, 0.18], [-0.62, 0.34, 0.22, 0.15]];\nfor (const [x, z, sx, sz] of spots) {\n  const p = k.cyl(1, 1, 0.012, water);\n  p.scale.set(sx, 1, sz);\n  k.put(g, p, x, 0.026, z);\n  for (const f of [0.35, 0.7]) {\n    const r = new T.Mesh(new T.TorusGeometry(sx * f * 0.6, 0.004, 3, 24), ring);\n    k.put(g, r, x + 0.06, 0.034, z - 0.02, Math.PI / 2, 0, 0);\n  }\n}\nfor (let i = 0; i < 7; i++) {\n  const l = k.sph(0.035, leaf[i % 3]);\n  l.scale.set(1, 0.15, 0.6);\n  k.put(g, l, (k.rand() - 0.5) * 1.8, 0.03, (k.rand() - 0.5) * 0.8, 0, k.rand() * 3, 0);\n}\nreturn g;"
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            2,
+            0.25
+          ],
+          "height": 2.6
+        },
+        {
+          "type": "hydrant",
+          "at": [
+            1.6,
+            1.2
+          ],
+          "color": "#f2f0e6"
+        },
+        {
+          "type": "traffic-cone",
+          "at": [
+            -0.35,
+            1.55
+          ]
+        },
+        {
+          "type": "bin",
+          "at": [
+            -1.95,
+            0.95
+          ],
+          "color": "#2f4a3a"
+        },
+        {
+          "type": "planter",
+          "at": [
+            0.55,
+            1.95
+          ],
+          "length": 1,
+          "flowers": "#e3b23c"
+        },
+        {
+          "type": "bush",
+          "at": [
+            -1.1,
+            1.75
+          ],
+          "size": 0.5
+        },
+        {
+          "type": "bush",
+          "at": [
+            2.05,
+            0.95
+          ],
+          "size": 0.4,
+          "flowers": "#f2f0e6"
+        },
+        {
+          "type": "rock",
+          "at": [
+            -0.8,
+            2.05
+          ],
+          "size": 0.25
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1,
+            1.5
+          ],
+          "kind": "flowers",
+          "flowers": "#c0392b",
+          "size": 0.45
+        }
+      ]
+    },
+    {
+      "title": "Inside out, twice",
+      "moment": "Walking to work past the painted houses, my umbrella flips inside out for the second time.",
+      "hero": false,
+      "size": "small",
+      "surface": "cobblestone",
+      "objects": [
+        {
+          "type": "house",
+          "at": [
+            0,
+            -0.95
+          ],
+          "size": "small",
+          "scale": 0.7,
+          "color": "#d9a7b0",
+          "roof": "#4a4a5a"
+        },
+        {
+          "type": "tree",
+          "at": [
+            -1.35,
+            -0.85
+          ],
+          "kind": "round",
+          "height": 2.2
+        },
+        {
+          "type": "tree",
+          "at": [
+            1.35,
+            -0.85
+          ],
+          "kind": "round",
+          "height": 2
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "wave",
+          "at": [
+            -0.2,
+            0.4
+          ],
+          "rot": 75
+        },
+        {
+          "type": "custom",
+          "name": "insideOutHeld",
+          "at": [
+            -0.2,
+            0.4
+          ],
+          "rot": 75,
+          "code": "const g = k.group(), T = k.THREE, V = T.Vector3;\nconst u = k.group();\nk.put(g, u, -0.335, 1.27, 0.08, 0.3, 0, 0.4);\nconst metal = k.mat('#9aa0a8', { metal: 0.6, rough: 0.4 }), navy = k.mat('#2c3e66', { rough: 0.6 });\nk.put(u, k.cyl(0.012, 0.012, 0.62, metal), 0, 0.27, 0);\nk.put(u, k.tube([[0, -0.02, 0], [0, -0.1, 0], [0.04, -0.15, 0], [0.08, -0.11, 0]], 0.016, k.mat('#3a2a20')), 0, 0, 0);\nconst pts = [[0.02, 0], [0.16, 0.07], [0.32, 0.18], [0.46, 0.34]];\nconst out = new T.Mesh(new T.LatheGeometry(pts.map(([r, y]) => new T.Vector2(r, y)), 8), navy);\nconst inn = new T.Mesh(new T.LatheGeometry(pts.slice().reverse().map(([r, y]) => new T.Vector2(r * 0.97, y + 0.006)), 8), navy);\nk.put(u, out, 0, 0.56, 0, 0, 0, 0.12);\nk.put(u, inn, 0, 0.56, 0, 0, 0, 0.12);\nfor (let i = 0; i < 8; i++) {\n  const a = (i / 8) * Math.PI * 2 + 0.2, L = 0.5 + k.rand() * 0.14, up = 0.36 + (i % 3 === 0 ? 0.16 : 0) + k.rand() * 0.05;\n  const p = new V(0, 0.56, 0), q = new V(Math.cos(a) * L, 0.56 + up, Math.sin(a) * L);\n  const rib = k.cyl(0.007, 0.007, p.distanceTo(q), metal);\n  rib.position.copy(p).lerp(q, 0.5);\n  rib.quaternion.setFromUnitVectors(new V(0, 1, 0), q.clone().sub(p).normalize());\n  u.add(rib);\n}\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "puddles",
+          "at": [
+            0.1,
+            1.1
+          ],
+          "rot": 180,
+          "scale": 0.8,
+          "code": "const g = k.group(), T = k.THREE;\nconst water = k.mat('#9fb6cf', { rough: 0.04, metal: 0.45 }), ring = k.mat('#a9bccf', { rough: 0.2 });\nconst leaf = [k.mat('#d98a2b'), k.mat('#b5542a'), k.mat('#e6b23a')];\nconst spots = [[0, 0, 0.5, 0.32], [0.78, 0.32, 0.26, 0.18], [-0.62, 0.34, 0.22, 0.15]];\nfor (const [x, z, sx, sz] of spots) {\n  const p = k.cyl(1, 1, 0.012, water);\n  p.scale.set(sx, 1, sz);\n  k.put(g, p, x, 0.026, z);\n  for (const f of [0.35, 0.7]) {\n    const r = new T.Mesh(new T.TorusGeometry(sx * f * 0.6, 0.004, 3, 24), ring);\n    k.put(g, r, x + 0.06, 0.034, z - 0.02, Math.PI / 2, 0, 0);\n  }\n}\nfor (let i = 0; i < 7; i++) {\n  const l = k.sph(0.035, leaf[i % 3]);\n  l.scale.set(1, 0.15, 0.6);\n  k.put(g, l, (k.rand() - 0.5) * 1.8, 0.03, (k.rand() - 0.5) * 0.8, 0, k.rand() * 3, 0);\n}\nreturn g;"
+        },
+        {
+          "type": "planter",
+          "at": [
+            -0.55,
+            -0.12
+          ],
+          "length": 0.45,
+          "flowers": "#c0392b"
+        },
+        {
+          "type": "planter",
+          "at": [
+            0.55,
+            -0.12
+          ],
+          "length": 0.45,
+          "flowers": "#e3b23c"
+        },
+        {
+          "type": "person",
+          "pose": "walk",
+          "holding": "umbrella",
+          "at": [
+            0.95,
+            0.25
+          ],
+          "rot": -100,
+          "shirt": "#2f6fb5",
+          "pants": "#2d2d2d",
+          "hairStyle": "curly"
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            1.5,
+            0.55
+          ],
+          "height": 2.4
+        },
+        {
+          "type": "hydrant",
+          "at": [
+            -1.4,
+            0.4
+          ],
+          "color": "#f2f0e6"
+        },
+        {
+          "type": "bench",
+          "at": [
+            -0.95,
+            1.05
+          ],
+          "rot": 20,
+          "length": 0.9,
+          "color": "#2f4a3a"
+        },
+        {
+          "type": "bin",
+          "at": [
+            1.2,
+            1.1
+          ],
+          "color": "#2f4a3a"
+        },
+        {
+          "type": "street-sign",
+          "at": [
+            -1.6,
+            -0.2
+          ],
+          "kind": "arrow",
+          "rot": 30
+        },
+        {
+          "type": "bush",
+          "at": [
+            -0.95,
+            -0.35
+          ],
+          "size": 0.4,
+          "flowers": "#f2f0e6"
+        },
+        {
+          "type": "bush",
+          "at": [
+            0.95,
+            -0.35
+          ],
+          "size": 0.35
+        },
+        {
+          "type": "traffic-cone",
+          "at": [
+            0.7,
+            1.55
+          ]
+        }
+      ]
+    },
+    {
+      "title": "A cat in my latte",
+      "moment": "At the little coffee place on Valencia the barista slides over my latte with a cat drawn in the foam, and I take a photo.",
+      "hero": true,
+      "size": "large",
+      "surface": "tile",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.25
+          ],
+          "size": [
+            4.4,
+            3.6
+          ],
+          "height": 2.4,
+          "floor": "tile",
+          "wall": "#2f4a3a",
+          "window": true,
+          "door": false
+        },
+        {
+          "type": "counter",
+          "id": "c",
+          "at": [
+            0.35,
+            -1.25
+          ],
+          "size": [
+            2.4,
+            0.6
+          ],
+          "color": "#6e4128"
+        },
+        {
+          "type": "custom",
+          "name": "espresso",
+          "at": [
+            -0.6,
+            0
+          ],
+          "on": "c",
+          "code": "const g = k.group();\nconst chrome = k.mat('#d8dce2', { metal: 0.8, rough: 0.25 }), green = k.mat('#2f4a3a', { rough: 0.4 }), dark = k.mat('#2a2a2a'), cup = k.mat('#f6f0e6');\nk.put(g, k.rbox(0.66, 0.4, 0.42, chrome, 0.04), 0, 0.2, -0.04);\nk.put(g, k.rbox(0.68, 0.07, 0.44, green, 0.02), 0, 0.43, -0.04);\nk.put(g, k.box(0.5, 0.18, 0.012, green), 0, 0.27, 0.175);\nfor (const x of [-0.18, 0.18]) {\n  k.put(g, k.cyl(0.055, 0.05, 0.06, chrome), x, 0.25, 0.21);\n  k.put(g, k.cyl(0.045, 0.04, 0.04, chrome), x, 0.2, 0.22);\n  k.put(g, k.cap(0.016, 0.12, dark), x, 0.2, 0.33, Math.PI / 2, 0, 0);\n  k.put(g, k.cyl(0.032, 0.026, 0.06, cup), x, 0.06, 0.22);\n}\nk.put(g, k.box(0.6, 0.03, 0.14, k.mat('#555a60', { metal: 0.6, rough: 0.4 })), 0, 0.015, 0.25);\nk.put(g, k.tube([[0.3, 0.32, 0.12], [0.37, 0.27, 0.2], [0.37, 0.1, 0.22]], 0.009, chrome), 0, 0, 0);\nfor (const x of [-0.06, 0.06]) k.put(g, k.cyl(0.04, 0.04, 0.012, k.mat('#f4f1e6')), x, 0.33, 0.18, Math.PI / 2, 0, 0);\nfor (const x of [-0.22, -0.11, 0, 0.11, 0.22]) k.put(g, k.cyl(0.036, 0.028, 0.06, cup), x, 0.5, -0.04, Math.PI, 0, 0);\nk.put(g, k.lathe([[0.0, 0.0], [0.06, 0.0], [0.08, 0.12], [0.03, 0.2], [0.0, 0.2]], k.glassMat('#5a3a22', 0.6)), 0.25, 0.47, -0.12);\nreturn g;"
+        },
+        {
+          "type": "glass",
+          "on": "c",
+          "at": [
+            0.05,
+            0.12
+          ],
+          "drink": "latte"
+        },
+        {
+          "type": "mug",
+          "on": "c",
+          "at": [
+            0.28,
+            0.08
+          ],
+          "color": "#f6f0e6"
+        },
+        {
+          "type": "bread-basket",
+          "on": "c",
+          "at": [
+            0.68,
+            0.02
+          ]
+        },
+        {
+          "type": "vase",
+          "on": "c",
+          "at": [
+            1.02,
+            0.08
+          ],
+          "flowers": "#f2f0e6"
+        },
+        {
+          "type": "person",
+          "pose": "stand",
+          "at": [
+            0.6,
+            -1.72
+          ],
+          "rot": 0,
+          "skin": "#c68642",
+          "shirt": "#efe6d2",
+          "pants": "#2b2b2b",
+          "hair": "#4a2f27",
+          "hairStyle": "bun"
+        },
+        {
+          "type": "shelf",
+          "id": "shelf",
+          "at": [
+            -1.5,
+            -1.78
+          ],
+          "size": [
+            1,
+            1.6
+          ],
+          "fill": "jars",
+          "color": "#6e4128"
+        },
+        {
+          "type": "lantern",
+          "on": "shelf",
+          "at": [
+            0.25,
+            0
+          ]
+        },
+        {
+          "type": "string-lights",
+          "points": [
+            [
+              -2.05,
+              2.3,
+              -1.9
+            ],
+            [
+              -0.7,
+              2.05,
+              -1.88
+            ],
+            [
+              0.7,
+              2.05,
+              -1.88
+            ],
+            [
+              2.15,
+              2.3,
+              -1.9
+            ]
+          ],
+          "color": "#ffd38a"
+        },
+        {
+          "type": "table",
+          "id": "t1",
+          "at": [
+            -0.85,
+            0.35
+          ],
+          "size": [
+            0.75,
+            0.75
+          ],
+          "shape": "round",
+          "cloth": "none",
+          "color": "#c99a5e"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.85,
+            -0.2
+          ],
+          "rot": 0,
+          "color": "#2f4a3a"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "holding": "phone",
+          "at": [
+            -0.85,
+            -0.2
+          ],
+          "rot": 0
+        },
+        {
+          "type": "custom",
+          "name": "latteCat",
+          "at": [
+            0,
+            0.12
+          ],
+          "on": "t1",
+          "code": "const g = k.group(), T = k.THREE;\nconst cup = k.mat('#f6f0e6', { rough: 0.3 }), foam = k.mat('#f6ead2', { rough: 0.6 }), crema = k.mat('#a8673a', { rough: 0.45 }), ink = k.mat('#6b3e22', { rough: 0.6 });\nk.put(g, k.lathe([[0, 0], [0.17, 0], [0.205, 0.022], [0.195, 0.028], [0.12, 0.016], [0, 0.016]], cup), 0, 0, 0);\nk.put(g, k.lathe([[0, 0.014], [0.07, 0.014], [0.085, 0.024], [0.118, 0.1], [0.124, 0.128], [0.114, 0.128], [0.108, 0.118]], cup), 0, 0, 0);\nk.put(g, k.cyl(0.11, 0.11, 0.01, crema), 0, 0.115, 0);\nk.put(g, new T.Mesh(new T.TorusGeometry(0.038, 0.011, 8, 16), cup), 0.13, 0.07, 0);\nconst face = k.group();\nk.put(g, face, 0, 0.121, 0.008);\nconst head = k.cyl(0.058, 0.058, 0.006, foam);\nhead.scale.x = 1.15;\nk.put(face, head, 0, 0, 0);\nfor (const s of [-1, 1]) {\n  k.put(face, new T.Mesh(new T.CylinderGeometry(0.03, 0.03, 0.006, 3), foam), 0.04 * s, 0, -0.05, 0, Math.PI + 0.35 * s, 0);\n  k.put(face, k.cyl(0.009, 0.009, 0.004, ink), 0.024 * s, 0.004, -0.008);\n  for (const dz of [0.012, 0.026]) k.put(face, k.box(0.045, 0.003, 0.0035, ink), 0.06 * s, 0.004, dz, 0, 0.18 * s * (dz > 0.02 ? -1 : 1), 0);\n}\nk.put(face, k.cyl(0.008, 0.008, 0.004, k.mat('#c46b6b')), 0, 0.004, 0.012);\nk.put(face, k.box(0.02, 0.003, 0.003, ink), -0.009, 0.004, 0.026, 0, 0.5, 0);\nk.put(face, k.box(0.02, 0.003, 0.003, ink), 0.009, 0.004, 0.026, 0, -0.5, 0);\nk.put(g, k.rbox(0.014, 0.006, 0.13, k.mat('#c9ccd2', { metal: 0.7, rough: 0.3 }), 0.002), -0.15, 0.03, 0.06, 0, 0.5, 0);\nreturn g;"
+        },
+        {
+          "type": "table",
+          "id": "t2",
+          "at": [
+            1,
+            0.45
+          ],
+          "size": [
+            0.7,
+            0.7
+          ],
+          "shape": "round",
+          "cloth": "none",
+          "color": "#c99a5e"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.55,
+            0.45
+          ],
+          "rot": -90,
+          "color": "#2f4a3a"
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            1.55,
+            0.45
+          ],
+          "rot": -90,
+          "skin": "#f0c9a5",
+          "shirt": "#9b6bd6",
+          "pants": "#2d2d3a",
+          "hairStyle": "long"
+        },
+        {
+          "type": "laptop",
+          "on": "t2",
+          "at": [
+            0.08,
+            0
+          ],
+          "rot": 90,
+          "open": true
+        },
+        {
+          "type": "mug",
+          "on": "t2",
+          "at": [
+            -0.15,
+            0.12
+          ],
+          "color": "#2f4a3a"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1,
+            -0.1
+          ],
+          "rot": 0,
+          "color": "#2f4a3a"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -1.8,
+            -0.1
+          ],
+          "kind": "olive",
+          "size": 0.9
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1.95,
+            -1.55
+          ],
+          "kind": "herb",
+          "size": 0.6
+        },
+        {
+          "type": "bench",
+          "at": [
+            1.25,
+            2
+          ],
+          "length": 1,
+          "color": "#6e4128"
+        },
+        {
+          "type": "bike",
+          "at": [
+            -1.3,
+            2.15
+          ],
+          "rot": 70,
+          "color": "#e3b23c"
+        },
+        {
+          "type": "person",
+          "pose": "stand",
+          "holding": "phone",
+          "at": [
+            0.15,
+            -0.5
+          ],
+          "rot": 165,
+          "skin": "#8d5a3b",
+          "shirt": "#c0392b",
+          "pants": "#2d2d3a",
+          "hairStyle": "cap"
+        },
+        {
+          "type": "table",
+          "id": "t3",
+          "at": [
+            0.1,
+            1.25
+          ],
+          "size": [
+            0.65,
+            0.65
+          ],
+          "shape": "round",
+          "cloth": "none",
+          "color": "#c99a5e"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0.1,
+            0.75
+          ],
+          "rot": 0,
+          "color": "#2f4a3a"
+        },
+        {
+          "type": "vase",
+          "on": "t3",
+          "at": [
+            0,
+            0
+          ],
+          "flowers": "#e3b23c"
+        },
+        {
+          "type": "planter",
+          "at": [
+            0,
+            2.25
+          ],
+          "length": 0.9,
+          "flowers": "#f2f0e6"
+        }
+      ]
+    },
+    {
+      "title": "Meetings, all afternoon",
+      "moment": "Back-to-back video calls fill the whole afternoon while the coffee mugs pile up.",
+      "hero": false,
+      "size": "small",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.05
+          ],
+          "size": [
+            2.6,
+            2.4
+          ],
+          "floor": "carpet",
+          "wall": "#dfe3e8",
+          "window": false,
+          "door": false
+        },
+        {
+          "type": "custom",
+          "name": "videoCallTV",
+          "at": [
+            0.66,
+            -1.12
+          ],
+          "code": "const g = k.group(), T = k.THREE;\nk.put(g, k.rbox(1.1, 0.68, 0.05, k.mat('#1c1e23'), 0.02), 0, 1.5, 0);\nconst tiles = ['#3b5b8a', '#5a3b6b', '#2f6b5a', '#6b4a2f', '#30343c', '#6b2f3f'];\nconst skins = ['#f2d2b0', '#c68642', '#e0ac69', '#8d5a3b', '#000', '#f0c9a5'];\nconst shirts = ['#e8a33d', '#3b6ea5', '#9fe3c4', '#c0392b', '#000', '#7a5bb5'];\nconst head = new T.SphereGeometry(0.045, 10, 6);\nfor (let i = 0; i < 6; i++) {\n  const x = -0.345 + (i % 3) * 0.345, y = 1.645 - Math.floor(i / 3) * 0.295;\n  k.put(g, k.box(0.33, 0.28, 0.006, k.glowMat(tiles[i], 0.9)), x, y, 0.028);\n  if (i === 4) { k.put(g, k.cyl(0.06, 0.06, 0.008, k.glowMat('#7a7f8a', 0.9)), x, y, 0.034, Math.PI / 2, 0, 0); continue; }\n  k.put(g, new T.Mesh(head, k.glowMat(skins[i], 0.6)), x, y + 0.025, 0.036);\n  k.put(g, k.box(0.14, 0.07, 0.01, k.glowMat(shirts[i], 0.6)), x, y - 0.08, 0.034);\n}\nk.put(g, k.box(0.07, 0.03, 0.01, k.glowMat('#e04848', 2)), 0, 1.13, 0.03);\nk.addLight([0, 1.7, 0.25], '#9fb8ff', 0.35, 2);\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "bookedCalendar",
+          "at": [
+            -0.31,
+            -1.1
+          ],
+          "code": "const g = k.group();\nk.put(g, k.rbox(0.74, 0.8, 0.03, k.mat('#f7f5ef'), 0.01), 0, 1.45, 0);\nk.put(g, k.box(0.74, 0.09, 0.036, k.mat('#c0392b')), 0, 1.8, 0);\nconst cols = ['#5b8def', '#f2a541', '#9b6bd6', '#4fb286', '#e86b6b'];\nfor (let d = 0; d < 5; d++) {\n  for (let h = 0; h < 8; h++) {\n    const busy = (d === 0 && h >= 3) || (d * 8 + h) % 5 === 1;\n    if (busy) k.put(g, k.box(0.105, d === 0 ? 0.074 : 0.06, 0.01, k.mat(cols[d === 0 ? h % 5 : 3])), -0.24 + d * 0.12, 1.69 - h * 0.08, 0.02);\n  }\n}\nk.put(g, k.box(0.12, 0.66, 0.006, k.mat('#ffe9a8')), -0.24, 1.4, 0.016);\nreturn g;"
+        },
+        {
+          "type": "table",
+          "id": "mt",
+          "at": [
+            0.1,
+            0
+          ],
+          "size": [
+            1.5,
+            0.75
+          ],
+          "shape": "rect",
+          "cloth": "none",
+          "color": "#a87b4f"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -0.95,
+            0
+          ],
+          "rot": 90,
+          "color": "#3b4a6b"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            -0.95,
+            0
+          ],
+          "rot": 90
+        },
+        {
+          "type": "chair",
+          "at": [
+            1.15,
+            0
+          ],
+          "rot": -90,
+          "color": "#3b4a6b"
+        },
+        {
+          "type": "person",
+          "pose": "sit",
+          "at": [
+            1.15,
+            0
+          ],
+          "rot": -90,
+          "skin": "#8d5a3b",
+          "shirt": "#4fb286",
+          "pants": "#2d2d3a",
+          "hairStyle": "curly"
+        },
+        {
+          "type": "laptop",
+          "on": "mt",
+          "at": [
+            -0.45,
+            -0.05
+          ],
+          "rot": -90,
+          "open": true
+        },
+        {
+          "type": "laptop",
+          "on": "mt",
+          "at": [
+            0.5,
+            -0.05
+          ],
+          "rot": 90,
+          "open": true
+        },
+        {
+          "type": "mug",
+          "on": "mt",
+          "at": [
+            -0.15,
+            0.25
+          ],
+          "color": "#c0392b"
+        },
+        {
+          "type": "mug",
+          "on": "mt",
+          "at": [
+            0.1,
+            -0.25
+          ],
+          "color": "#efe6d2"
+        },
+        {
+          "type": "mug",
+          "on": "mt",
+          "at": [
+            -0.62,
+            0.28
+          ],
+          "color": "#2c3e66"
+        },
+        {
+          "type": "book",
+          "on": "mt",
+          "at": [
+            -0.12,
+            -0.05
+          ],
+          "open": true,
+          "color": "#e3b23c"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1,
+            -0.85
+          ],
+          "kind": "succulent",
+          "size": 0.5
+        },
+        {
+          "type": "bin",
+          "at": [
+            -0.85,
+            0.85
+          ],
+          "color": "#7d8da1"
+        },
+        {
+          "type": "bottle",
+          "at": [
+            0.55,
+            0.9
+          ],
+          "color": "#9fd3e6"
+        }
+      ]
+    },
+    {
+      "title": "Ramen under the skylight",
+      "moment": "Home at last, I eat a steaming bowl of ramen I cooked myself while the rain drums on the skylight.",
+      "hero": false,
+      "size": "medium",
+      "surface": "wood",
+      "objects": [
+        {
+          "type": "room",
+          "at": [
+            0,
+            -0.2
+          ],
+          "size": [
+            3.3,
+            3
+          ],
+          "height": 2.5,
+          "floor": "wood",
+          "wall": "#e9dcc3",
+          "window": true,
+          "door": false
+        },
+        {
+          "type": "kitchen",
+          "id": "kitchen",
+          "at": [
+            -0.65,
+            -1.3
+          ],
+          "length": 1.6,
+          "color": "#e9e4da"
+        },
+        {
+          "type": "mug",
+          "on": "kitchen",
+          "at": [
+            0.68,
+            0.08
+          ],
+          "color": "#e3b23c"
+        },
+        {
+          "type": "potted-plant",
+          "on": "kitchen",
+          "at": [
+            -0.7,
+            0.05
+          ],
+          "kind": "herb",
+          "size": 0.3
+        },
+        {
+          "type": "shelf",
+          "at": [
+            -1.38,
+            -0.2
+          ],
+          "rot": 90,
+          "size": [
+            0.9,
+            1.4
+          ],
+          "fill": "jars",
+          "color": "#8a5a3a"
+        },
+        {
+          "type": "custom",
+          "name": "skylight",
+          "at": [
+            0.45,
+            -0.65
+          ],
+          "code": "const g = k.group();\nconst wood = k.mat('#8a5a3a'), glass = k.glassMat('#a9c4dc', 0.28), drop = k.mat('#e4f2ff', { rough: 0.05, transparent: true, opacity: 0.85 });\nconst sky = k.group();\nk.put(g, sky, 0, 2.15, 0, 0.32, 0, 0);\nk.put(sky, k.box(1.3, 0.02, 0.9, glass), 0, 0, 0);\nfor (const s of [-1, 1]) {\n  k.put(sky, k.box(1.42, 0.08, 0.07, wood), 0, 0, 0.48 * s);\n  k.put(sky, k.box(0.08, 0.1, 1.62, wood), 0.69 * s, 0, -0.3);\n}\nk.put(sky, k.box(0.05, 0.05, 0.9, wood), 0, 0, 0);\nfor (let i = 0; i < 16; i++) {\n  const x = -0.6 + k.rand() * 1.2, z = -0.42 + k.rand() * 0.55, l = 0.12 + k.rand() * 0.28;\n  k.put(sky, k.box(0.008, 0.006, l, drop), x, 0.014, z + l / 2);\n}\nconst bead = new k.THREE.SphereGeometry(0.014, 6, 4);\nfor (let i = 0; i < 30; i++) {\n  const b = new k.THREE.Mesh(bead, drop);\n  b.scale.y = 0.5;\n  k.put(sky, b, -0.62 + k.rand() * 1.24, 0.016, -0.42 + k.rand() * 0.84);\n}\nk.addLight([0, 1.9, 0], '#a9c8ec', 1.0, 3.5);\nreturn g;"
+        },
+        {
+          "type": "rug",
+          "at": [
+            0.45,
+            -0.15
+          ],
+          "size": [
+            1.6,
+            1.5
+          ],
+          "color": "#b5523b",
+          "pattern": "persian"
+        },
+        {
+          "type": "table",
+          "id": "t",
+          "at": [
+            0.45,
+            -0.2
+          ],
+          "size": [
+            0.85,
+            0.85
+          ],
+          "shape": "round",
+          "cloth": "none",
+          "color": "#c99a5e"
+        },
+        {
+          "type": "chair",
+          "at": [
+            0.45,
+            -0.8
+          ],
+          "rot": 0,
+          "color": "#8a5a3a"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "pose": "sit",
+          "at": [
+            0.45,
+            -0.8
+          ],
+          "rot": 0
+        },
+        {
+          "type": "custom",
+          "name": "ramen",
+          "at": [
+            0,
+            0.12
+          ],
+          "on": "t",
+          "code": "const g = k.group(), T = k.THREE;\nconst bowl = k.mat('#23232b', { rough: 0.35 }), inner = k.mat('#b8322a', { rough: 0.4 }), white = k.mat('#fbf7ee');\nk.put(g, k.lathe([[0.05, 0], [0.075, 0.006], [0.125, 0.06], [0.155, 0.115]], bowl), 0, 0, 0);\nk.put(g, k.lathe([[0.148, 0.115], [0.118, 0.06], [0.068, 0.012], [0, 0.012]], inner), 0, 0, 0);\nk.put(g, k.cyl(0.14, 0.14, 0.008, k.mat('#d79a4e', { rough: 0.2 })), 0, 0.098, 0);\nconst noodle = k.mat('#f2dc8f');\nconst tube = (pts, r, m) => new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts.map((p) => new T.Vector3(...p))), 14, r, 5), m);\nfor (const dz of [-0.04, 0, 0.035]) k.put(g, tube([[-0.1, 0.103, dz], [-0.05, 0.11, dz + 0.03], [0, 0.103, dz - 0.02], [0.05, 0.11, dz + 0.02], [0.09, 0.103, dz - 0.01]], 0.007, noodle), 0, 0, 0);\nk.put(g, k.cyl(0.032, 0.03, 0.012, white), 0.06, 0.112, 0.045);\nk.put(g, k.cyl(0.016, 0.016, 0.006, k.mat('#f0a530')), 0.06, 0.12, 0.045);\nk.put(g, k.box(0.08, 0.1, 0.004, k.mat('#1f2b1f')), -0.03, 0.135, -0.1, -0.35, 0, 0);\nk.put(g, k.cyl(0.04, 0.04, 0.012, k.mat('#c98a6a')), -0.065, 0.108, 0.05, 0.15, 0, 0);\nconst green = k.mat('#5aa84a');\nfor (let i = 0; i < 9; i++) k.put(g, k.cyl(0.009, 0.009, 0.006, green), (k.rand() - 0.5) * 0.18, 0.106, (k.rand() - 0.5) * 0.16);\nconst wood = k.mat('#c49a62');\nfor (const dx of [-0.015, 0.015]) k.put(g, k.box(0.012, 0.012, 0.36, wood), 0.04 + dx, 0.125, 0.02, 0, 0.35, 0);\nconst steam = k.mat('#ffffff', { transparent: true, opacity: 0.45 });\nfor (const [x, z] of [[-0.05, 0], [0.03, -0.04], [0.0, 0.05]]) {\n  k.put(g, tube([[x, 0.13, z], [x + 0.03, 0.22, z], [x - 0.02, 0.32, z], [x + 0.025, 0.42, z], [x, 0.5, z]], 0.012, steam), 0, 0, 0);\n}\nk.addLight([0, 0.3, 0.1], '#ffcf8a', 0.5, 1.5);\nreturn g;"
+        },
+        {
+          "type": "glass",
+          "on": "t",
+          "at": [
+            0.25,
+            -0.1
+          ],
+          "drink": "water"
+        },
+        {
+          "type": "stool",
+          "id": "stool",
+          "at": [
+            1.35,
+            -0.95
+          ],
+          "color": "#8a5a3a"
+        },
+        {
+          "type": "desk-lamp",
+          "on": "stool",
+          "at": [
+            0,
+            0
+          ],
+          "rot": -30
+        },
+        {
+          "type": "sofa",
+          "id": "sofa",
+          "at": [
+            -0.9,
+            0.65
+          ],
+          "rot": 90,
+          "length": 1.4,
+          "color": "#6b8f71"
+        },
+        {
+          "type": "book",
+          "on": "sofa",
+          "at": [
+            0.1,
+            0.15
+          ],
+          "open": true,
+          "color": "#2c3e66"
+        },
+        {
+          "type": "custom",
+          "name": "umbrellaInBin",
+          "at": [
+            1.4,
+            0.9
+          ],
+          "code": "const g = k.group(), T = k.THREE, V = T.Vector3;\nk.put(g, k.cyl(0.16, 0.13, 0.44, k.mat('#5a6b5a')), 0, 0.22, 0);\nk.put(g, k.torus(0.155, 0.015, k.mat('#46564a')), 0, 0.44, 0, Math.PI / 2, 0, 0);\nconst u = k.group();\nk.put(g, u, 0.03, 0.2, 0, 0.12, 0, -0.18);\nconst metal = k.mat('#9aa0a8', { metal: 0.6, rough: 0.4 }), navy = k.mat('#2c3e66', { rough: 0.6 });\nk.put(u, k.cyl(0.012, 0.012, 0.6, metal), 0, 0.3, 0);\nconst pts = [[0.02, 0], [0.12, 0.05], [0.24, 0.14], [0.34, 0.27]];\nk.put(u, new T.Mesh(new T.LatheGeometry(pts.map(([r, y]) => new T.Vector2(r, y)), 8), navy), 0, 0.58, 0, 0.2, 0, 0.15);\nk.put(u, new T.Mesh(new T.LatheGeometry(pts.slice().reverse().map(([r, y]) => new T.Vector2(r * 0.97, y + 0.006)), 8), navy), 0, 0.58, 0, 0.2, 0, 0.15);\nfor (let i = 0; i < 6; i++) {\n  const a = i + 0.4, p = new V(0, 0.6, 0), q = new V(Math.cos(a) * 0.42, 0.85 + k.rand() * 0.15, Math.sin(a) * 0.42);\n  const rib = k.cyl(0.006, 0.006, p.distanceTo(q), metal);\n  rib.position.copy(p).lerp(q, 0.5);\n  rib.quaternion.setFromUnitVectors(new V(0, 1, 0), q.clone().sub(p).normalize());\n  u.add(rib);\n}\nconst wet = k.mat('#4a5568', { rough: 0.05, metal: 0.3 });\nfor (let i = 0; i < 6; i++) {\n  const fp = k.cyl(0.05, 0.05, 0.006, wet);\n  fp.scale.set(0.7, 1, 1.4);\n  k.put(g, fp, -0.3 - i * 0.17 + (i % 2) * 0.08, 0.025, 0.3 + i * 0.2 - (i % 2) * 0.05, 0, -0.7, 0);\n}\nreturn g;"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1.5,
+            -1.4
+          ],
+          "kind": "olive",
+          "size": 0.8
+        },
+        {
+          "type": "backpack",
+          "at": [
+            -0.1,
+            1.2
+          ],
+          "color": "#2c3e66",
+          "rot": 20
+        },
+        {
+          "type": "mug",
+          "at": [
+            0.6,
+            1.15
+          ],
+          "color": "#c0392b"
+        },
+        {
+          "type": "rug",
+          "at": [
+            0.7,
+            1.75
+          ],
+          "size": [
+            0.8,
+            0.5
+          ],
+          "color": "#6b5a4a",
+          "pattern": "stripes"
+        }
+      ]
+    }
+  ]
+}
