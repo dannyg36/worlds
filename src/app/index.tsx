@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "convex/react";
-import { Link, useTheme } from "expo-router";
+import { router, useTheme } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import {
@@ -110,19 +110,18 @@ export default function WorldsScreen() {
           </View>
         )}
       />
-      <Link href="/record" asChild>
-        <Pressable
-          accessibilityRole="button"
-          style={[styles.recordButton, { backgroundColor: colors.primary }]}
-        >
-          <SymbolView
-            name={{ ios: "mic.fill", android: "mic", web: "mic" }}
-            size={20}
-            tintColor="#FFFFFF"
-          />
-          <Text style={styles.buttonLabel}>Record your day</Text>
-        </Pressable>
-      </Link>
+      <Pressable
+        accessibilityRole="button"
+        onPress={() => router.push("/record")}
+        style={[styles.recordButton, { backgroundColor: colors.primary }]}
+      >
+        <SymbolView
+          name={{ ios: "mic.fill", android: "mic", web: "mic" }}
+          size={20}
+          tintColor="#FFFFFF"
+        />
+        <Text style={styles.buttonLabel}>Record your day</Text>
+      </Pressable>
     </>
   );
 }
