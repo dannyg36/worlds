@@ -4,6 +4,7 @@
 // GET  /...            files under spike/walkable/splats/ (index.html at /), with Range and gzip support
 // POST /stats          JSON body, appended as one line to stats.jsonl
 // POST /clip?name=x    raw video body from the in-page recorder, saved under recordings/
+// POST /frame?name=x&i=n  one JPEG frame from the offline renderer (?offline=N), saved under recordings/frames/x/
 // GET  /stats.jsonl    the stats log so far
 import http from "node:http";
 import fs from "node:fs";
@@ -70,6 +71,16 @@ async function handleStats(req, res) {
   }
   const line = { server_ts: new Date().toISOString(), ua: req.headers["user-agent"] ?? null, ...data };
   fs.appendFileSync(statsPath, JSON.stringify(line) + "\n");
+  send(res, 204, "");
+}
+
+async function handleFrame(req, res, url) {
+  const name = (url.searchParams.get("name") || "frames").replace(/[^a-z0-9._-]+/gi, "_").slice(0, 80);
+  const i = Math.max(0, Math.min(99999, Number(url.searchParams.get("i") || 0)));
+  const body = await readBody(req, 20 * 1024 * 1024);
+  const dir = path.join(clipsDir, "frames", name);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, String(i).padStart(5, "0") + ".jpg"), body);
   send(res, 204, "");
 }
 
@@ -147,6 +158,7 @@ const server = http.createServer(async (req, res) => {
     }
     if (req.method === "POST" && url.pathname === "/stats") return await handleStats(req, res);
     if (req.method === "POST" && url.pathname === "/clip") return await handleClip(req, res, url);
+    if (req.method === "POST" && url.pathname === "/frame") return await handleFrame(req, res, url);
     if (req.method === "GET" || req.method === "HEAD") return serveFile(req, res, url);
     send(res, 405, "method not allowed");
   } catch (e) {

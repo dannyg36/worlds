@@ -17,6 +17,11 @@ const cfg = {
   rec: Number(qs.get("rec") || 0),
   stdev: Number(qs.get("stdev")) || 0,
   mode: qs.get("mode"),
+  file: qs.get("file"),
+  radius: Number(qs.get("radius")) || 0,
+  offline: Number(qs.get("offline") || 0),
+  fps: Number(qs.get("fps") || 24),
+  name: qs.get("name") || "",
 };
 const $ = (id) => document.getElementById(id);
 const session = Math.random().toString(36).slice(2, 10);
@@ -310,7 +315,7 @@ function makeSynthetic(n) {
   for (let i = 0; i < n; i++) {
     const r = rnd();
     let k = 0;
-    while (cum[k] < r) k++;
+    while (k < cum.length - 1 && cum[k] < r) k++;
     const jit = 0.9 + 0.2 * rnd();
     let x, y, z, qx, qy, qz, qw, col;
     if (k < quads.length) {
@@ -387,9 +392,10 @@ function raycastDown(x, z, top, bottom) {
 async function loadAsset(manifest) {
   const entries = manifest.assets.filter((a) => a.src && (a.day === cfg.day || a.day === "*"));
   let entry = null;
-  if (cfg.bench === "synthetic" || (cfg.bench === "suite" && cfg.set === "synthetic")) {
+  if (cfg.bench === "synthetic" || (cfg.bench === "suite" && cfg.n > 0) || (cfg.bench === "suite" && !cfg.file && !qs.get("src"))) {
     buildBar(manifest, entries, null);
     const n = cfg.n || (cfg.bench === "suite" ? SUITES[cfg.set]?.[cfg.step]?.n : 0) || 1e6;
+    if (cfg.bench === "suite") $("bar").style.display = "none";
     setLoading("Generating " + (n / 1e6).toFixed(2) + "M synthetic splats…", 0.5, "");
     await sleep(30);
     const t0 = performance.now();
@@ -402,14 +408,17 @@ async function loadAsset(manifest) {
     view.eye.set(0, 0, 0);
     view.radius = 2;
   } else {
-    entry = entries.find((a) => a.src === cfg.src && a.day === cfg.day) || entries.find((a) => a.src === cfg.src) || entries.find((a) => a.day === cfg.day) || entries[0];
+    entry = cfg.file
+      ? { id: "file", src: "file", path: cfg.file, label: cfg.file.split("/").pop(), kind: "local-file", local: true, view: { mode: "walk", radius: cfg.radius || 1.5 } }
+      : entries.find((a) => a.src === cfg.src && a.day === cfg.day) || entries.find((a) => a.src === cfg.src) || entries.find((a) => a.day === cfg.day) || entries[0];
     if (!entry) throw new Error("no splat asset for day=" + cfg.day + " in manifest.json (run fetch-assets.mjs?)");
     buildBar(manifest, entries, entry);
+    if (cfg.bench === "suite") $("bar").style.display = "none";
     loadState.label = entry.label || entry.id;
     loadState.kind = entry.kind;
     loadState.file = entry.path;
     setLoading("Loading " + loadState.label, 0, "");
-    const { buf, ms } = await fetchBytes("assets/" + entry.path);
+    const { buf, ms } = await fetchBytes((entry.local ? "" : "assets/") + entry.path);
     loadState.bytes = buf.length;
     loadState.fetchMs = ms;
     setLoading("Decoding splats…", 1, mb(buf.length) + " in " + fmt(ms / 1000, 1) + " s");
@@ -433,6 +442,7 @@ async function loadAsset(manifest) {
   const mode = cfg.mode || v.mode || "walk";
   if (v.eye) view.eye.fromArray(v.eye);
   if (v.radius) view.radius = v.radius;
+  if (cfg.radius) view.radius = cfg.radius;
   yaw = THREE.MathUtils.degToRad(v.yaw ?? 0);
   pitch = THREE.MathUtils.degToRad(v.pitch ?? 0);
   pos.copy(view.eye);
@@ -514,35 +524,81 @@ async function recordClip(seconds, name) {
 }
 
 // ---------- benchmark suite ----------
+// ?bench=suite&set=<name>&step=0&run=<tag>&auto=1 walks through SUITES[set], reloading the page between steps so each
+// configuration starts from a fresh tab. A step that was running when the page reloaded is reported as a crash.
 const SUITES = {
-  synthetic: [250e3, 500e3, 1e6, 2e6, 3e6, 4e6, 6e6, 8e6].map((n) => ({ n })),
+  synthetic: [250e3, 500e3, 1e6, 2e6, 3e6, 4e6, 6e6, 8e6].map((n) => ({ bench: "suite", n })),
+  real: [
+    { src: "marble" },
+    { src: "marble2m" },
+    { src: "marble2m", lod: "1" },
+    { file: "work/dev-box/dev-box-1280.spz" },
+    { file: "work/dev-box/dev-box-1810.spz" },
+    { file: "work/dev-box/dev-box-2560.spz" },
+    { file: "work/dev-box/dev-box-2560.spz", lod: "1" },
+  ],
+  dpr: [{ n: 1e6, dpr: "1" }, { n: 1e6, dpr: "2" }, { n: 1e6, dpr: "3" }],
 };
+function benchUrl(step) {
+  const def = SUITES[cfg.set][step];
+  const p = new URLSearchParams({ bench: "suite", set: cfg.set, step: String(step), auto: "1", run: qs.get("run") || "r" });
+  if (qs.get("dpr") && !def.dpr) p.set("dpr", qs.get("dpr"));
+  for (const [k, v] of Object.entries(def)) if (k !== "bench") p.set(k, String(v));
+  return "?" + p.toString();
+}
 async function runBenchStep() {
   const steps = SUITES[cfg.set] ?? [];
-  const key = "splatbench:" + cfg.set + ":" + cfg.step + ":" + (cfg.lod ? "lod" : "raw") + ":" + cfg.dpr;
-  const prev = localStorage.getItem(key);
+  const key = "splatbench:" + (qs.get("run") || "r") + ":" + cfg.set + ":" + cfg.step;
+  let prev = null;
+  try { prev = JSON.parse(localStorage.getItem(key) || "null"); } catch {}
   const next = () => {
-    if (cfg.step + 1 >= steps.length) { post("bench-done", { set: cfg.set }); setLoading("Benchmark finished", 1, ""); return; }
-    const p = new URLSearchParams(location.search);
-    p.set("step", String(cfg.step + 1));
-    p.set("n", String(steps[cfg.step + 1].n ?? ""));
-    location.replace("?" + p.toString());
+    if (cfg.step + 1 >= steps.length) { post("bench-done", { set: cfg.set }); setLoading("Benchmark finished", 1, ""); loadingEl.classList.remove("done"); return; }
+    location.replace(benchUrl(cfg.step + 1));
   };
-  if (prev === "started") {
-    post("bench-crash", { set: cfg.set, step: cfg.step, n: cfg.n, note: "page reloaded while this step was running" });
-    localStorage.setItem(key, "crashed");
-    setLoading("Step " + cfg.step + " crashed the tab last time; stopping here", 1, "");
+  if (prev && prev.state === "started" && Date.now() - prev.t < 180000) {
+    post("bench-crash", { set: cfg.set, step: cfg.step, def: steps[cfg.step], note: "page reloaded while this step was running (tab killed?)" });
+    localStorage.setItem(key, JSON.stringify({ state: "crashed", t: Date.now() }));
+    await sleep(1500);
+    next();
     return;
   }
-  localStorage.setItem(key, "started");
-  post("bench-start", { set: cfg.set, step: cfg.step, n: cfg.n });
+  localStorage.setItem(key, JSON.stringify({ state: "started", t: Date.now() }));
+  post("bench-start", { set: cfg.set, step: cfg.step, def: steps[cfg.step] });
   await sleep(3000);
   frames.length = 0;
+  sortStats.recent.length = 0;
   await sleep(12000);
-  post("bench-result", { set: cfg.set, step: cfg.step, n: cfg.n, ...summary(), stats: windowStats(12000) });
-  localStorage.setItem(key, "done");
+  post("bench-result", { set: cfg.set, step: cfg.step, def: steps[cfg.step], ...summary(), stats: windowStats(12000) });
+  localStorage.setItem(key, JSON.stringify({ state: "done", t: Date.now() }));
   await sleep(500);
   next();
+}
+
+// ---------- offline renderer (?offline=frames&fps=24&name=x) ----------
+// Steps the auto camera path frame by frame, waits for Spark's sort to settle, and posts each frame as a JPEG,
+// so a GPU-less machine can still produce a smooth video (stitch with ffmpeg).
+async function renderOffline() {
+  renderer.setAnimationLoop(null);
+  spark.autoUpdate = false;
+  cfg.auto = true;
+  const name = cfg.name || (loadState.file || "synthetic").replace(/[^a-z0-9]+/gi, "_");
+  const t0 = performance.now();
+  for (let i = 0; i < cfg.offline; i++) {
+    updateControls(i === 0 ? 0 : 1 / cfg.fps, i / cfg.fps);
+    syncWalkScale();
+    applyCamera();
+    camera.updateMatrixWorld(true);
+    for (let k = 0; k < 3; k++) {
+      await spark.update({ scene, camera });
+      for (let w = 0; w < 500 && spark.sorting; w++) await sleep(10);
+      if (!spark.sortDirty) break;
+    }
+    renderer.render(scene, camera);
+    const blob = await new Promise((r) => canvas.toBlob(r, "image/jpeg", 0.9));
+    await fetch("frame?name=" + encodeURIComponent(name) + "&i=" + i, { method: "POST", body: blob });
+    $("hud").textContent = "offline render " + (i + 1) + "/" + cfg.offline;
+  }
+  post("offline-done", { name, frames: cfg.offline, seconds: (performance.now() - t0) / 1000 });
 }
 
 // ---------- main ----------
@@ -573,6 +629,7 @@ try {
   post("hello", { device, t_module_ms: Math.round(T_MODULE), t_html_ms: Math.round(window.__T_HTML ?? 0) });
   await loadAsset(manifest);
   if (cfg.bench === "suite") runBenchStep();
+  if (cfg.offline) { loadingEl.classList.add("done"); await renderOffline(); }
   if (cfg.rec) {
     while (!loadState.firstFrameAt) await sleep(100);
     await sleep(1000);
