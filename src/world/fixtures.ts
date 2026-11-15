@@ -169,14 +169,13 @@ export function isFixtureWorldId(id: string) {
 }
 
 export function useFixtureWorlds() {
-  return useSyncExternalStore(subscribe, () => worlds);
+  const snapshot = () => worlds;
+  return useSyncExternalStore(subscribe, snapshot, snapshot);
 }
 
 export function useFixtureWorld(id: string) {
-  return useSyncExternalStore(
-    subscribe,
-    () => worlds.find((world) => world._id === id) ?? null,
-  );
+  const snapshot = () => worlds.find((world) => world._id === id) ?? null;
+  return useSyncExternalStore(subscribe, snapshot, snapshot);
 }
 
 export async function retryFixtureWorld(id: string) {

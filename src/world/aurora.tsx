@@ -10,7 +10,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { lightness, mix, saturation, withAlpha } from "@/world/color";
+import { auroraBase, auroraGlows, withAlpha } from "@/world/color";
 
 const drifts = [
   { x: -0.35, y: -0.18, dx: 0.12, dy: 0.08, duration: 9000 },
@@ -18,17 +18,8 @@ const drifts = [
   { x: -0.2, y: 0.62, dx: 0.14, dy: -0.07, duration: 13500 },
 ];
 
-export function auroraBase(palette: string[]) {
-  const darkest = [...palette].sort((a, b) => lightness(a) - lightness(b))[0];
-  return mix(darkest, "#05040C", 0.6);
-}
-
 export function Aurora({ palette }: { palette: string[] }) {
-  const glows = [...palette]
-    .sort(
-      (a, b) => saturation(b) + lightness(b) - (saturation(a) + lightness(a)),
-    )
-    .slice(0, 3);
+  const glows = auroraGlows(palette);
 
   return (
     <View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.root]}>

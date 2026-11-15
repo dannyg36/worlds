@@ -22,6 +22,7 @@ export default function RootLayout() {
             options={{
               headerTransparent: true,
               headerTitle: "",
+              headerTintColor: "#FFFFFF",
               headerBackButtonDisplayMode: "minimal",
             }}
           />

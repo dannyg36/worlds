@@ -1,11 +1,11 @@
 import * as Haptics from "expo-haptics";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
-  PlatformColor,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -22,7 +22,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Aurora, auroraBase } from "@/world/aurora";
+import { Aurora } from "@/world/aurora";
+import { auroraBase } from "@/world/color";
 import { GlassCard } from "@/world/glass-card";
 import { WorldForming } from "@/world/forming";
 import WorldViewer from "@/world/viewer";
@@ -43,32 +44,33 @@ export default function WorldScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const world = useWorld(id);
 
-  if (world === undefined) {
-    return (
-      <View
-        style={[styles.screen, { backgroundColor: auroraBase(defaultPalette) }]}
-      >
-        <Aurora palette={defaultPalette} />
-        <ActivityIndicator color="#FFFFFF" style={styles.loading} />
-      </View>
-    );
-  }
-  if (world === null) {
-    return (
-      <View
-        style={[styles.screen, { backgroundColor: auroraBase(defaultPalette) }]}
-      >
-        <Aurora palette={defaultPalette} />
-        <View style={styles.centerContent}>
-          <Text style={styles.messageTitle}>This world isn’t here</Text>
-          <Text style={styles.messageBody}>
-            It may have been deleted, or the link is wrong.
-          </Text>
+  return (
+    <>
+      <StatusBar style="light" />
+      {world ? (
+        <WorldScene world={world} />
+      ) : (
+        <View
+          style={[
+            styles.screen,
+            { backgroundColor: auroraBase(defaultPalette) },
+          ]}
+        >
+          <Aurora palette={defaultPalette} />
+          {world === undefined ? (
+            <ActivityIndicator color="#FFFFFF" style={styles.loading} />
+          ) : (
+            <View style={styles.centerContent}>
+              <Text style={styles.messageTitle}>This world isn’t here</Text>
+              <Text style={styles.messageBody}>
+                It may have been deleted, or the link is wrong.
+              </Text>
+            </View>
+          )}
         </View>
-      </View>
-    );
-  }
-  return <WorldScene world={world} />;
+      )}
+    </>
+  );
 }
 
 function WorldScene({ world }: { world: World }) {
@@ -127,7 +129,12 @@ function WorldScene({ world }: { world: World }) {
                   <SymbolView
                     name={walking ? "xmark" : "figure.walk"}
                     size={20}
-                    tintColor={PlatformColor("label")}
+                    tintColor="#FFFFFF"
+                    fallback={
+                      <Text style={styles.headerFallback}>
+                        {walking ? "Done" : "Walk"}
+                      </Text>
+                    }
                   />
                 </Pressable>
               )
@@ -419,7 +426,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 36,
     justifyContent: "center",
-    width: 36,
+    minWidth: 36,
+  },
+  headerFallback: {
+    color: "#FFFFFF",
+    fontSize: 17,
+    fontWeight: "600",
   },
   cardWrap: {
     left: 12,

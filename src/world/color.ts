@@ -23,6 +23,19 @@ export function lightness(hex: string) {
   return (Math.max(r, g, b) + Math.min(r, g, b)) / 510;
 }
 
+export function auroraBase(palette: string[]) {
+  const darkest = [...palette].sort((a, b) => lightness(a) - lightness(b))[0];
+  return mix(darkest, "#05040C", 0.6);
+}
+
+export function auroraGlows(palette: string[]) {
+  return [...palette]
+    .sort(
+      (a, b) => saturation(b) + lightness(b) - (saturation(a) + lightness(a)),
+    )
+    .slice(0, 3);
+}
+
 export function saturation(hex: string) {
   const { r, g, b } = hexToRgb(hex);
   const max = Math.max(r, g, b) / 255;

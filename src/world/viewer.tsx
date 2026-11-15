@@ -11,6 +11,14 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { HorizontalBlurShader } from "three/addons/shaders/HorizontalBlurShader.js";
 import { VerticalBlurShader } from "three/addons/shaders/VerticalBlurShader.js";
 
+import {
+  auroraBase,
+  auroraGlows,
+  lightness,
+  mix,
+  saturation,
+} from "@/world/color";
+
 type Props = {
   modelUrl: string;
   palette: string[];
@@ -114,8 +122,16 @@ html, body, #root {
 }
 .world-viewer { position: fixed; inset: 0; }
 .world-viewer canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.world-viewer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(130% 95% at 50% 45%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.32) 100%);
+}
 .world-joystick {
   position: absolute;
+  z-index: 1;
   left: 28px;
   width: 132px;
   height: 132px;
@@ -146,6 +162,7 @@ html, body, #root {
 .world-joystick.dragging .world-joystick-knob { transition: none; }
 .world-stats {
   position: absolute;
+  z-index: 1;
   left: 12px;
   top: 110px;
   padding: 8px 10px;
@@ -167,39 +184,59 @@ void main() {
 }
 `;
 
+const dither = `
+gl_FragColor.rgb += (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 255.0;
+`;
+
 const backdropFragment = `
-uniform vec3 uSky;
+uniform vec3 uZenith;
 uniform vec3 uHorizon;
-uniform vec3 uGround;
+uniform vec3 uFloor;
+uniform vec3 uGlows[3];
 varying vec3 vDirection;
+const vec3 glowDirections[3] = vec3[3](
+  vec3(-0.68, 0.36, -0.64),
+  vec3(0.83, 0.27, -0.49),
+  vec3(0.12, 0.52, 0.85)
+);
 void main() {
-  float y = normalize(vDirection).y;
+  vec3 direction = normalize(vDirection);
+  float y = direction.y;
   vec3 color = y > 0.0
-    ? mix(uHorizon, uSky, pow(smoothstep(0.0, 0.9, y), 0.75))
-    : mix(uHorizon, uGround, pow(smoothstep(0.0, 0.35, -y), 0.8));
+    ? mix(uHorizon, uZenith, pow(smoothstep(0.0, 0.8, y), 0.55))
+    : mix(uHorizon, uFloor, smoothstep(0.0, 0.16, -y));
+  for (int i = 0; i < 3; i++) {
+    float lobe = pow(max(dot(direction, normalize(glowDirections[i])), 0.0), 5.0);
+    color = mix(color, uGlows[i], lobe * smoothstep(-0.08, 0.12, y) * 0.6);
+  }
   gl_FragColor = vec4(color, 1.0);
   #include <colorspace_fragment>
-  gl_FragColor.rgb += (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 255.0;
+  ${dither}
 }
 `;
 
 const groundVertex = `
-varying vec2 vLocal;
+varying vec2 vWorld;
 void main() {
-  vLocal = position.xy;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  vec4 world = modelMatrix * vec4(position, 1.0);
+  vWorld = world.xz;
+  gl_Position = projectionMatrix * viewMatrix * world;
 }
 `;
 
 const groundFragment = `
-uniform vec3 uGround;
-uniform vec3 uHorizon;
-varying vec2 vLocal;
+uniform vec3 uPool;
+uniform vec3 uFloor;
+uniform vec2 uPoolRadius;
+uniform float uRadius;
+varying vec2 vWorld;
 void main() {
-  float radius = length(vLocal);
-  vec3 color = mix(uGround, uHorizon, smoothstep(0.15, 1.0, radius) * 0.55);
-  gl_FragColor = vec4(color, 1.0 - smoothstep(0.2, 1.0, radius));
+  float radius = length(vWorld);
+  float light = 1.0 - smoothstep(uPoolRadius.x, uPoolRadius.y, radius);
+  vec3 color = mix(uFloor, uPool, light * light);
+  gl_FragColor = vec4(color, 1.0 - smoothstep(uRadius * 0.6, uRadius, radius));
   #include <colorspace_fragment>
+  ${dither}
 }
 `;
 
@@ -336,28 +373,33 @@ function createViewer(
   const pmrem = new THREE.PMREMGenerator(renderer);
   const environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   scene.environment = environment;
-  scene.environmentIntensity = 0.85;
+  scene.environmentIntensity = 0.8;
 
   const colors = {
-    sky: new THREE.Color(),
+    zenith: new THREE.Color(),
     horizon: new THREE.Color(),
-    ground: new THREE.Color(),
+    floor: new THREE.Color(),
+    pool: new THREE.Color(),
+    glows: [new THREE.Color(), new THREE.Color(), new THREE.Color()],
     shadow: new THREE.Color(),
     accent: new THREE.Color(),
   };
 
-  const hemisphere = new THREE.HemisphereLight(0xffffff, 0x444444, 0.75);
-  const sun = new THREE.DirectionalLight(0xfff2e0, 1.5);
+  const hemisphere = new THREE.HemisphereLight(0xffffff, 0x000000, 0.5);
+  const sun = new THREE.DirectionalLight(0xfff1e0, 2);
   sun.position.set(2.5, 4, 3);
-  scene.add(hemisphere, sun);
+  const rim = new THREE.DirectionalLight(0xffffff, 2.4);
+  const rimDirection = new THREE.Vector3();
+  scene.add(hemisphere, sun, rim);
 
   const backdrop = new THREE.Mesh(
     new THREE.SphereGeometry(1, 48, 32),
     new THREE.ShaderMaterial({
       uniforms: {
-        uSky: { value: colors.sky },
+        uZenith: { value: colors.zenith },
         uHorizon: { value: colors.horizon },
-        uGround: { value: colors.ground },
+        uFloor: { value: colors.floor },
+        uGlows: { value: colors.glows },
       },
       vertexShader: backdropVertex,
       fragmentShader: backdropFragment,
@@ -370,12 +412,16 @@ function createViewer(
   backdrop.renderOrder = -3;
   scene.add(backdrop);
 
+  const groundRadius = 7;
+  const poolRadius = new THREE.Vector2(0.6, 2.4);
   const ground = new THREE.Mesh(
-    new THREE.CircleGeometry(1, 96),
+    new THREE.CircleGeometry(groundRadius, 96),
     new THREE.ShaderMaterial({
       uniforms: {
-        uGround: { value: colors.ground },
-        uHorizon: { value: colors.horizon },
+        uPool: { value: colors.pool },
+        uFloor: { value: colors.floor },
+        uPoolRadius: { value: poolRadius },
+        uRadius: { value: groundRadius },
       },
       vertexShader: groundVertex,
       fragmentShader: groundFragment,
@@ -384,7 +430,6 @@ function createViewer(
     }),
   );
   ground.rotation.x = -Math.PI / 2;
-  ground.scale.setScalar(7);
   ground.renderOrder = -2;
   scene.add(ground);
 
@@ -545,31 +590,28 @@ function createViewer(
   };
 
   function setPalette(palette: string[]) {
-    const parsed = palette.map((hex) => new THREE.Color(hex));
-    const byLightness = [...parsed].sort(
-      (a, b) =>
-        a.getHSL({ h: 0, s: 0, l: 0 }).l - b.getHSL({ h: 0, s: 0, l: 0 }).l,
+    const base = auroraBase(palette);
+    const glows = auroraGlows(palette);
+    const lightest = [...palette].sort(
+      (a, b) => lightness(b) - lightness(a),
+    )[0];
+    const vividness = (hex: string) =>
+      saturation(hex) * (1 - Math.abs(lightness(hex) - 0.55));
+    const accent = [...palette].sort((a, b) => vividness(b) - vividness(a))[0];
+    colors.zenith.set(mix(base, "#000000", 0.25));
+    colors.horizon.set(mix(base, glows[0], 0.2));
+    colors.floor.set(base);
+    colors.pool.set(mix(mix(base, "#FFFFFF", 0.16), lightest, 0.08));
+    colors.glows.forEach((color, index) =>
+      color.set(mix(base, glows[index % glows.length], 0.42)),
     );
-    const darkest = byLightness[0];
-    const lightest = byLightness[byLightness.length - 1];
-    const middle = byLightness[Math.floor(byLightness.length / 2)];
-    const accent = [...parsed].sort((a, b) => {
-      const ha = a.getHSL({ h: 0, s: 0, l: 0 });
-      const hb = b.getHSL({ h: 0, s: 0, l: 0 });
-      return (
-        hb.s * (1 - Math.abs(hb.l - 0.55)) - ha.s * (1 - Math.abs(ha.l - 0.55))
-      );
-    })[0];
-    const white = new THREE.Color(1, 1, 1);
-    colors.sky.copy(lightest).lerp(white, 0.3);
-    colors.horizon.copy(middle).lerp(lightest, 0.45).lerp(white, 0.12);
-    colors.ground.copy(middle).lerp(darkest, 0.35).lerp(colors.horizon, 0.35);
-    colors.shadow.copy(darkest).multiplyScalar(0.35);
-    colors.accent.copy(accent).lerp(white, 0.2);
-    hemisphere.color.copy(colors.sky);
-    hemisphere.groundColor.copy(colors.ground);
-    document.body.style.backgroundColor =
-      "#" + colors.horizon.getHexString(THREE.SRGBColorSpace);
+    colors.shadow.set(mix(base, "#000000", 0.7));
+    colors.accent.set(mix(accent, "#FFFFFF", 0.2));
+    rim.color.set(mix(accent, "#FFFFFF", 0.45));
+    hemisphere.color.set(mix(lightest, "#FFFFFF", 0.5));
+    hemisphere.groundColor.copy(colors.floor);
+    (ripple.material as THREE.MeshBasicMaterial).color.copy(colors.accent);
+    document.body.style.backgroundColor = base;
     if (model && revealDone) {
       renderContactShadow();
     }
@@ -715,7 +757,7 @@ function createViewer(
   }
 
   function renderContactShadow() {
-    if (!model || !shadowPlane) {
+    if (!shadowPlane) {
       return;
     }
     const shadowCamera = shadowGroup.children.find(
@@ -726,6 +768,8 @@ function createViewer(
       return;
     }
     const blurPlane = new THREE.Mesh(shadowPlane.geometry);
+    blurPlane.position.y = shadowGroup.position.y + 0.01;
+    blurPlane.layers.set(1);
     const previousTarget = renderer.getRenderTarget();
     const previousClear = renderer.getClearColor(new THREE.Color());
     const previousAlpha = renderer.getClearAlpha();
@@ -1242,6 +1286,7 @@ function createViewer(
 
     const footprint =
       Math.max(bounds.max.x - bounds.min.x, bounds.max.z - bounds.min.z) * 1.9;
+    poolRadius.set(footprint * 0.2, footprint * 1.05);
     const planeGeometry = new THREE.PlaneGeometry(footprint, footprint).rotateX(
       Math.PI / 2,
     );
@@ -1487,6 +1532,9 @@ function createViewer(
       controls.update(dt);
       clampTarget();
     }
+
+    camera.getWorldDirection(rimDirection).setY(0).normalize();
+    rim.position.set(rimDirection.x * 4, 3, rimDirection.z * 4);
 
     if (ripple.visible) {
       const t = clamp01((now - rippleStart) / 700);
