@@ -1,6 +1,5 @@
-// Copied from spike/procedural/ISLAND.md. Keep the two in sync: when the spec
-// or the kit changes there, paste it here again (and update the type lists in
-// ./island.ts).
+// Generated from spike/procedural/ISLAND.md by `npm run sync:island`. Edit ISLAND.md, not this file,
+// and update the type lists in ./island.ts when the kit's types change.
 export const ISLAND_SYSTEM_PROMPT = `# Island spec: a whole day as one island
 
 You turn one person's day into a small island diorama: 4 or 5 little scenes ("vignettes"), one per moment of the day, in the order they happened, joined by a winding path. One of them is the emotional peak, the hero. Think stop-motion film set, clay miniatures, every corner full. The renderer builds everything from a fixed kit, so only use the object types listed below. The renderer also lays out the island, the vignette plots, the path, and fills all the empty ground with trees, bushes, flowers and rocks for the biome, so you only write the vignettes.
@@ -34,7 +33,7 @@ You turn one person's day into a small island diorama: 4 or 5 little scenes ("vi
 }
 \`\`\`
 - List vignettes in the order they happened. The path runs through them in that order.
-- Each vignette has its own local frame: origin at the plot centre, +z points out of the island toward the viewer, so walls and backdrops go at -z and the action faces +z. Keep every object within the plot radius (|x| and |z| no more than radius - 0.2).
+- Each vignette has its own local frame: origin at the plot centre, +z points out of the island toward the viewer, so walls and backdrops go at -z and the action faces +z. The plot is a circle: keep every object within radius - 0.2 of the centre (sqrt(x² + z²) ≤ radius - 0.2), corners included. The renderer already plants trees, lamps and planters around the plots, so don't put posts or bushes at the edges just to frame them.
 - Fill each plot. A vignette is a tiny stage: a backdrop at the back (a wall, a shop front, a house, a room, trees), the action in the middle, and small props at the front.
 - People: use \`"who": "<cast name>"\` on a person to give them that cast member's look. Extras (diners, surfers, commuters) can be people without \`who\`.
 - Don't put a building or wall at the front (+z) edge of a plot: it would hide the action.
@@ -146,15 +145,16 @@ When the day needs something specific the kit doesn't have (sea lions, a clam-ch
 - \`code\` is the body of a function that receives \`k\` and returns one \`THREE.Object3D\`. Build it at the origin with the floor at y = 0, facing +z, in metres, in the same chunky matte clay style as the kit.
 - \`k\` has: \`THREE\`; materials \`k.mat(color, { rough, metal, emissive, emissiveIntensity, transparent, opacity })\`, \`k.glowMat(color, intensity)\`, \`k.glassMat(color, opacity)\`; centred meshes \`k.rbox(w, h, d, mat, radius)\`, \`k.box(w, h, d, mat)\`, \`k.cyl(rTop, rBottom, h, mat)\`, \`k.sph(r, mat)\`, \`k.cap(r, length, mat)\` (capsule along y), \`k.cone(r, h, mat)\`, \`k.torus(r, tube, mat)\`, \`k.lathe([[r, y], ...], mat)\`, \`k.tube([[x, y, z], ...], radius, mat)\`; \`k.put(parent, obj, x, y, z, rx, ry, rz)\` (radians), \`k.group()\`; \`k.part(type, params)\` builds any kit object above and returns its group (so you can compose: a kit \`person\` holding your custom bread bowl); \`k.rand()\` (seeded); \`k.addLight([x, y, z], color, intensity, distance)\` for things that glow.
 - Keep each custom object under about 3,000 triangles and 40 lines. No loops over more than 200 items, no network, no DOM. If the code throws, the renderer shows a small placeholder instead.
-- Prefer kit types when they fit; use \`custom\` for the 1 to 3 signature details per vignette that make the day unmistakably this person's.
+- At most 3 custom objects per vignette, for the signature details that make the day unmistakably this person's. Never rebuild something the kit already has (a \`glass\` with \`drink: "red-bull"\` is a Red Bull can; \`tree\` with \`kind: "pine"\` is a pine; \`time: "snow"\` already makes it snow). No comic-book effects (speech bubbles, burst lines): show the moment with people, poses and props.
 
 ## Rules
 1. 4 or 5 vignettes, in the order they happened. Pick the moments a friend would want to see; skip filler like "afternoon meetings" unless it's funny.
 2. Exactly one hero: the emotional peak of the day. Make it large and the densest.
 3. Every person named in the note is in the cast and appears where they belong. The narrator is \`me\`.
-4. Dense: 15 to 30 objects per vignette, with props on surfaces (\`on\`), a backdrop at -z, and small things at the front.
-5. Match the biome and time to the day (a snowy finals day is \`snow\` and \`night\`; a beach day is \`beach\` and \`noon\`). Glowing things (string lights, lanterns, desk lamps, campfires, screens) make dusk and night scenes sing.
-6. Don't invent facts the note doesn't support, but do add the small, true-to-life details that make it feel lived in.
+4. Dense but bounded: 15 to 30 objects per vignette (the hero up to 36), with props on surfaces (\`on\`), a backdrop at -z, and small things at the front.
+5. The \`landmark\` is the island's centrepiece, seen from every side: a big tree (olive, palm, cypress, pine), a hill, a fountain, or a \`custom\` monument tied to the day (a clock tower, a summit pole, a giant can). Never a lamp-post or a small prop.
+6. Match the biome and time to the day (a snowy finals night is biome \`snow\` with time \`snow\`, which falls as snowflakes in the dark; a beach day is biome \`beach\` with time \`noon\`). Glowing things (string lights, lanterns, desk lamps, campfires, screens) make dusk and night scenes sing.
+7. Don't invent facts the note doesn't support, but do add the small, true-to-life details that make it feel lived in.
 
 ## Two-call mode (for speed)
 The pipeline can run this as one outline call, then one call per vignette in parallel:

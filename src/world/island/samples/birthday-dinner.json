@@ -1,0 +1,1388 @@
+{
+  "title": "A Sparkler for Priya",
+  "caption": "Eight of us at one long table, way too much pasta, a singing tiramisu, and a guitar on the pier.",
+  "palette": [
+    "#c0392b",
+    "#f5e6c8",
+    "#2e5e3a",
+    "#e8a33d",
+    "#2b3a55"
+  ],
+  "time": "dusk",
+  "biome": "meadow",
+  "landmark": {
+    "type": "tree",
+    "kind": "olive",
+    "height": 5
+  },
+  "cast": [
+    {
+      "name": "me",
+      "skin": "#e0ac69",
+      "shirt": "#3b6ea5",
+      "pants": "#2d2d3a",
+      "hair": "#2b1d14",
+      "hairStyle": "short"
+    },
+    {
+      "name": "Priya",
+      "skin": "#a8704a",
+      "shirt": "#e8a33d",
+      "pants": "#4a2f27",
+      "hair": "#1b120c",
+      "hairStyle": "long"
+    },
+    {
+      "name": "guitar friend",
+      "skin": "#f1c9a5",
+      "shirt": "#2a9d8f",
+      "pants": "#264653",
+      "hair": "#7a4a2a",
+      "hairStyle": "curly"
+    },
+    {
+      "name": "friend in coral",
+      "skin": "#8d5a3b",
+      "shirt": "#e76f51",
+      "pants": "#2b2d42",
+      "hair": "#120b08",
+      "hairStyle": "bun"
+    },
+    {
+      "name": "friend in sage",
+      "skin": "#f3d2b3",
+      "shirt": "#8fb996",
+      "pants": "#4a4e69",
+      "hair": "#e0c068",
+      "hairStyle": "long"
+    },
+    {
+      "name": "friend in lilac",
+      "skin": "#6f4a33",
+      "shirt": "#9b8ec4",
+      "pants": "#22223b",
+      "hair": "#1e1e1e",
+      "hairStyle": "short"
+    },
+    {
+      "name": "friend in navy",
+      "skin": "#d8a47f",
+      "shirt": "#1f3a68",
+      "pants": "#c9b79c",
+      "hair": "#3a2618",
+      "hairStyle": "cap"
+    },
+    {
+      "name": "friend in wine",
+      "skin": "#c68b5e",
+      "shirt": "#7b2d3b",
+      "pants": "#1d3557",
+      "hair": "#a8452a",
+      "hairStyle": "long"
+    },
+    {
+      "name": "waiter",
+      "skin": "#d9a679",
+      "shirt": "#f4f1ea",
+      "pants": "#1d1d1f",
+      "hair": "#2a1a12",
+      "hairStyle": "short"
+    },
+    {
+      "name": "second waiter",
+      "skin": "#e8bc96",
+      "shirt": "#f4f1ea",
+      "pants": "#1d1d1f",
+      "hair": "#5a3a24",
+      "hairStyle": "bun"
+    }
+  ],
+  "vignettes": [
+    {
+      "title": "The tiny trattoria",
+      "moment": "Priya waves us in under the string lights while the waiter holds the door, her present swinging from my hand.",
+      "hero": false,
+      "size": "medium",
+      "surface": "cobblestone",
+      "objects": [
+        {
+          "type": "shop-front",
+          "at": [
+            0,
+            -1.95
+          ],
+          "width": 3.6,
+          "kind": "cafe",
+          "color": "#e3b07c",
+          "awning": [
+            "#2e5e3a",
+            "#f5e6c8"
+          ]
+        },
+        {
+          "type": "post",
+          "at": [
+            -2.15,
+            0.7
+          ],
+          "height": 2.3
+        },
+        {
+          "type": "post",
+          "at": [
+            2.15,
+            0.7
+          ],
+          "height": 2.3
+        },
+        {
+          "type": "string-lights",
+          "at": [
+            0,
+            0
+          ],
+          "color": "#ffd58a",
+          "points": [
+            [
+              -2.15,
+              2.25,
+              0.7
+            ],
+            [
+              -1.7,
+              2.75,
+              -1.85
+            ],
+            [
+              0,
+              2.55,
+              -1.85
+            ],
+            [
+              1.7,
+              2.75,
+              -1.85
+            ],
+            [
+              2.15,
+              2.25,
+              0.7
+            ]
+          ]
+        },
+        {
+          "type": "string-lights",
+          "at": [
+            0,
+            0
+          ],
+          "color": "#ffd58a",
+          "points": [
+            [
+              -2.15,
+              2.25,
+              0.7
+            ],
+            [
+              0,
+              1.95,
+              0.75
+            ],
+            [
+              2.15,
+              2.25,
+              0.7
+            ]
+          ]
+        },
+        {
+          "type": "person",
+          "who": "waiter",
+          "at": [
+            0.55,
+            -1.15
+          ],
+          "rot": -10,
+          "pose": "stand"
+        },
+        {
+          "type": "person",
+          "who": "Priya",
+          "at": [
+            -0.35,
+            -0.75
+          ],
+          "rot": 20,
+          "pose": "wave"
+        },
+        {
+          "type": "custom",
+          "name": "meWithGift",
+          "at": [
+            0.35,
+            0.55
+          ],
+          "rot": 200,
+          "code": "const g = k.group();\ng.add(k.part('person', { pose: 'stand', skin: '#e0ac69', shirt: '#3b6ea5', pants: '#2d2d3a', hair: '#2b1d14', hairStyle: 'short' }));\nconst bag = k.group();\nk.put(bag, k.rbox(0.22, 0.25, 0.11, k.mat('#c0392b'), 0.012), 0, 0.125, 0);\nk.put(bag, k.box(0.224, 0.03, 0.114, k.mat('#e8c35a', { rough: 0.4, metal: 0.3 })), 0, 0.2, 0);\nk.put(bag, k.cone(0.05, 0.13, k.mat('#f5e6c8'), 5), -0.045, 0.29, 0, 0, 0, 0.25);\nk.put(bag, k.cone(0.045, 0.12, k.mat('#f2b8c6'), 5), 0.04, 0.28, 0.01, 0, 0, -0.3);\nk.put(bag, k.cone(0.04, 0.11, k.mat('#f5e6c8'), 5), 0.0, 0.29, -0.02, 0.2, 0, 0);\nk.put(bag, k.torus(0.055, 0.007, k.mat('#e8c35a'), 12, Math.PI), 0, 0.245, 0);\nk.put(g, bag, -0.225, 0.27, 0.06);\nreturn g;"
+        },
+        {
+          "type": "person",
+          "who": "friend in coral",
+          "at": [
+            -1.05,
+            0.35
+          ],
+          "rot": 160,
+          "pose": "walk"
+        },
+        {
+          "type": "person",
+          "who": "friend in sage",
+          "at": [
+            1.25,
+            0.95
+          ],
+          "rot": 205,
+          "pose": "walk"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -2,
+            -1.45
+          ],
+          "kind": "olive",
+          "size": 1
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            1.95,
+            -1.5
+          ],
+          "kind": "herb",
+          "size": 0.8
+        },
+        {
+          "type": "planter",
+          "at": [
+            -1.05,
+            -1.5
+          ],
+          "length": 0.9,
+          "flowers": "#c0392b"
+        },
+        {
+          "type": "custom",
+          "name": "chalkboard",
+          "at": [
+            1.45,
+            -0.55
+          ],
+          "rot": -25,
+          "code": "const g = k.group();\nconst wood = k.mat('#7a5232'), slate = k.mat('#24312b', { rough: 0.95 }), chalk = k.mat('#f3efe4'), red = k.mat('#d9534f');\nfor (const s of [-1, 1]) {\n  const leaf = k.group();\n  k.put(leaf, k.rbox(0.52, 0.82, 0.035, wood, 0.012), 0, -0.41, 0);\n  k.put(leaf, k.box(0.42, 0.66, 0.012, slate), 0, -0.42, 0.02 * -s);\n  k.put(g, leaf, 0, 0.8, 0, s * 0.2, 0, 0);\n}\nconst face = k.group();\nk.put(face, k.box(0.3, 0.03, 0.006, chalk), 0, -0.16, 0);\nk.put(face, k.box(0.22, 0.018, 0.006, chalk), -0.03, -0.3, 0);\nk.put(face, k.box(0.26, 0.018, 0.006, chalk), -0.01, -0.38, 0);\nk.put(face, k.box(0.18, 0.018, 0.006, chalk), -0.05, -0.46, 0);\nk.put(face, k.tube([[-0.13, -0.6, 0], [-0.08, -0.55, 0], [-0.03, -0.62, 0], [0.02, -0.55, 0], [0.07, -0.62, 0], [0.12, -0.56, 0]], 0.007, chalk, 20), 0, 0, 0);\nk.put(face, k.sph(0.022, red, 8), 0.115, -0.3, 0); k.put(face, k.sph(0.022, red, 8), 0.145, -0.3, 0);\nk.put(face, k.cone(0.036, 0.04, red, 8), 0.13, -0.33, 0, Math.PI, 0, 0);\nk.put(g, face, 0, 0.8, 0.028, -0.2, 0, 0);\nreturn g;"
+        },
+        {
+          "type": "table",
+          "id": "bistro",
+          "at": [
+            -1.65,
+            -0.35
+          ],
+          "shape": "round",
+          "size": [
+            0.7
+          ],
+          "cloth": "white"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -2.05,
+            0.15
+          ],
+          "rot": 140,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "at": [
+            -2.05,
+            0.15
+          ],
+          "rot": 140,
+          "pose": "sit",
+          "holding": "glass",
+          "skin": "#f0c9a0",
+          "shirt": "#d6c6a8",
+          "pants": "#3a3a3a",
+          "hair": "#9a948c",
+          "hairStyle": "bald"
+        },
+        {
+          "type": "candle",
+          "on": "bistro",
+          "at": [
+            0.05,
+            0.05
+          ]
+        },
+        {
+          "type": "glass",
+          "on": "bistro",
+          "at": [
+            -0.15,
+            0.12
+          ],
+          "drink": "red-wine"
+        },
+        {
+          "type": "vase",
+          "on": "bistro",
+          "at": [
+            0.12,
+            -0.12
+          ],
+          "flowers": "#f5e6c8"
+        },
+        {
+          "type": "bike",
+          "at": [
+            2,
+            -0.35
+          ],
+          "rot": 80,
+          "color": "#2b3a55"
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -0.95,
+            -1.35
+          ]
+        },
+        {
+          "type": "bush",
+          "at": [
+            1.6,
+            1.7
+          ],
+          "size": 0.6,
+          "flowers": "#e8a33d"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            -0.4,
+            1.6
+          ],
+          "kind": "flowers",
+          "size": 0.6,
+          "flowers": "#e76f51"
+        },
+        {
+          "type": "rock",
+          "at": [
+            1.1,
+            2
+          ],
+          "size": 0.25
+        }
+      ]
+    },
+    {
+      "title": "Way too much pasta",
+      "moment": "The kitchen keeps sending plates of pasta out to our long table, faster than eight people can eat them.",
+      "hero": false,
+      "size": "medium",
+      "surface": "tile",
+      "objects": [
+        {
+          "type": "wall",
+          "at": [
+            0,
+            -2.2
+          ],
+          "length": 4.6,
+          "height": 2.5,
+          "material": "brick",
+          "color": "#b5543a",
+          "window": true
+        },
+        {
+          "type": "kitchen",
+          "id": "kitchen",
+          "at": [
+            -1.05,
+            -1.75
+          ],
+          "length": 2.1,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "shelf",
+          "id": "pantry",
+          "at": [
+            1.45,
+            -1.95
+          ],
+          "size": [
+            1.3,
+            1.7
+          ],
+          "fill": "jars"
+        },
+        {
+          "type": "custom",
+          "name": "pastaPot",
+          "at": [
+            -0.5,
+            0
+          ],
+          "on": "kitchen",
+          "code": "const g = k.group();\nconst steel = k.mat('#b9bec4', { metal: 0.6, rough: 0.35 }), noodle = k.mat('#f3c35d', { rough: 0.5 });\nk.put(g, k.lathe([[0, 0], [0.19, 0], [0.2, 0.02], [0.2, 0.3], [0.21, 0.31], [0.185, 0.31], [0.185, 0.03], [0, 0.03]], steel, 18), 0, 0, 0);\nk.put(g, k.cyl(0.185, 0.185, 0.02, k.mat('#e8e2cf', { rough: 0.2 }), 18), 0, 0.27, 0);\nfor (const s of [-1, 1]) k.put(g, k.torus(0.04, 0.012, steel, 10, Math.PI), s * 0.205, 0.26, 0, 0, 0, s * Math.PI / 2);\nfor (let i = 0; i < 6; i++) {\n  const a = i * 1.05, r = 0.05 + (i % 3) * 0.035;\n  k.put(g, k.tube([[Math.cos(a) * r, 0.2, Math.sin(a) * r], [Math.cos(a + 0.4) * (r + 0.05), 0.33, Math.sin(a + 0.4) * (r + 0.05)], [Math.cos(a + 0.9) * (r + 0.12), 0.31, Math.sin(a + 0.9) * (r + 0.12)]], 0.008, noodle, 10), 0, 0, 0);\n}\nconst steam = k.mat('#ffffff', { transparent: true, opacity: 0.28, rough: 1 });\n[[0, 0.48, 0, 0.11], [0.06, 0.66, -0.03, 0.09], [-0.04, 0.84, 0.02, 0.075], [0.03, 1.0, 0, 0.055]].forEach(([x, y, z, r]) => k.put(g, k.sph(r, steam, 10), x, y, z));\nreturn g;"
+        },
+        {
+          "type": "potted-plant",
+          "on": "kitchen",
+          "at": [
+            -0.85,
+            -0.1
+          ],
+          "kind": "herb",
+          "size": 0.5
+        },
+        {
+          "type": "counter",
+          "id": "pass",
+          "at": [
+            0.55,
+            -0.55
+          ],
+          "size": [
+            1.8,
+            0.6
+          ],
+          "color": "#5c3a21"
+        },
+        {
+          "type": "person",
+          "at": [
+            0.55,
+            -1.25
+          ],
+          "rot": 0,
+          "pose": "stand",
+          "skin": "#c99a74",
+          "shirt": "#ffffff",
+          "pants": "#3a3a3a",
+          "hair": "#2a1a12",
+          "hairStyle": "cap"
+        },
+        {
+          "type": "custom",
+          "name": "pastaMountain",
+          "at": [
+            -0.15,
+            0.02
+          ],
+          "on": "pass",
+          "code": "const g = k.group();\nconst china = k.mat('#f1e8d6', { rough: 0.4 }), noodle = k.mat('#f3c35d', { rough: 0.5 }), sauce = k.mat('#c0281a', { rough: 0.3 });\nk.put(g, k.lathe([[0, 0], [0.12, 0], [0.24, 0.035], [0.27, 0.06], [0.255, 0.065], [0.2, 0.04], [0, 0.03]], china, 22), 0, 0, 0);\nconst mound = k.sph(0.17, noodle, 14); mound.scale.set(1, 0.62, 1); k.put(g, mound, 0, 0.06, 0);\nfor (let j = 0; j < 4; j++) {\n  const pts = [];\n  for (let i = 0; i < 12; i++) { const t = i / 11, a = j * 1.6 + t * 9, r = 0.03 + 0.15 * t; pts.push([Math.cos(a) * r, 0.17 - 0.1 * t * t + 0.01 * j, Math.sin(a) * r]); }\n  k.put(g, k.tube(pts, 0.009, noodle, 24), 0, 0, 0);\n}\nconst top = k.sph(0.07, sauce, 12); top.scale.set(1, 0.45, 1); k.put(g, top, 0.01, 0.17, 0);\n[[0.09, 0.13, 0.06], [-0.08, 0.13, 0.07], [0.02, 0.15, -0.09], [-0.1, 0.11, -0.05], [0.12, 0.1, -0.04]].forEach(([x, y, z]) => k.put(g, k.sph(0.032, k.mat('#7a3b22'), 9), x, y, z));\n[[0.0, 0.2, 0.02], [0.04, 0.19, -0.03]].forEach(([x, y, z], i) => { const l = k.sph(0.025, k.mat('#2f9a34'), 6); l.scale.set(1, 0.25, 0.55); k.put(g, l, x, y, z, 0, i * 1.4, 0); });\nk.put(g, k.cyl(0.006, 0.006, 0.34, k.mat('#c8ccd2', { metal: 0.7, rough: 0.3 }), 6), 0.13, 0.2, 0.02, 0, 0, -1.0);\nreturn g;"
+        },
+        {
+          "type": "plate",
+          "on": "pass",
+          "at": [
+            0.3,
+            0.1
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "pass",
+          "at": [
+            0.62,
+            -0.08
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "pass",
+          "at": [
+            0.68,
+            0.16
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "pass",
+          "at": [
+            -0.62,
+            0.12
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "bread-basket",
+          "on": "pass",
+          "at": [
+            -0.65,
+            -0.14
+          ]
+        },
+        {
+          "type": "bottle",
+          "on": "pass",
+          "at": [
+            0.08,
+            -0.18
+          ],
+          "color": "#1f3d2b"
+        },
+        {
+          "type": "person",
+          "who": "waiter",
+          "at": [
+            -0.45,
+            0.35
+          ],
+          "rot": 125,
+          "pose": "walk"
+        },
+        {
+          "type": "person",
+          "who": "second waiter",
+          "at": [
+            1.2,
+            0.45
+          ],
+          "rot": 150,
+          "pose": "walk",
+          "holding": "none"
+        },
+        {
+          "type": "custom",
+          "name": "trayStand",
+          "at": [
+            -1.55,
+            0.25
+          ],
+          "rot": 20,
+          "code": "const g = k.group();\nconst wood = k.mat('#6b4226');\nfor (const s of [-1, 1]) {\n  k.put(g, k.cyl(0.015, 0.015, 0.78, wood, 6), s * 0.18, 0.37, 0, s * 0.35, 0, 0);\n  k.put(g, k.cyl(0.015, 0.015, 0.78, wood, 6), s * 0.18, 0.37, 0, -s * 0.35, 0, 0);\n}\nk.put(g, k.rbox(0.5, 0.025, 0.36, k.mat('#2b2b2b', { rough: 0.5 }), 0.01), 0, 0.74, 0);\nfor (const s of [-1, 1]) k.put(g, k.box(0.36, 0.03, 0.02, k.mat('#c8a46a')), s * 0.15, 0.5, 0, 0, Math.PI / 2, 0);\nconst china = k.mat('#f1e8d6', { rough: 0.4 }), noodle = k.mat('#f3c35d', { rough: 0.5 }), sauce = k.mat('#c0281a', { rough: 0.3 });\n[[-0.12, 0.06], [0.12, -0.05], [0.0, 0.0]].forEach(([x, z], i) => {\n  const y = 0.755 + (i === 2 ? 0.06 : 0);\n  k.put(g, k.cyl(0.11, 0.085, 0.018, china, 16), x, y, z);\n  const m = k.sph(0.065, noodle, 10); m.scale.set(1, 0.55, 1); k.put(g, m, x, y + 0.03, z);\n  const s = k.sph(0.035, sauce, 8); s.scale.set(1, 0.4, 1); k.put(g, s, x, y + 0.06, z);\n});\nreturn g;"
+        },
+        {
+          "type": "crate",
+          "at": [
+            -2,
+            -0.75
+          ],
+          "fill": "apples"
+        },
+        {
+          "type": "crate",
+          "at": [
+            -1.95,
+            -0.2
+          ],
+          "fill": "bread",
+          "rot": 15
+        },
+        {
+          "type": "stool",
+          "at": [
+            1.95,
+            -0.85
+          ]
+        },
+        {
+          "type": "bin",
+          "at": [
+            2.1,
+            -1.4
+          ],
+          "color": "#5f6b73"
+        },
+        {
+          "type": "string-lights",
+          "at": [
+            0,
+            0
+          ],
+          "color": "#ffd58a",
+          "points": [
+            [
+              -2.2,
+              2.4,
+              -2.05
+            ],
+            [
+              0,
+              2.2,
+              -2.05
+            ],
+            [
+              2.2,
+              2.4,
+              -2.05
+            ]
+          ]
+        },
+        {
+          "type": "rug",
+          "at": [
+            0.2,
+            1.2
+          ],
+          "size": [
+            1.4,
+            0.6
+          ],
+          "color": "#c0392b",
+          "pattern": "stripes"
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            2.1,
+            1.3
+          ],
+          "kind": "olive",
+          "size": 0.8
+        }
+      ]
+    },
+    {
+      "title": "Happy birthday, Priya",
+      "moment": "The waiters carry out a tiramisu with a sparkler and the whole table sings to Priya.",
+      "hero": true,
+      "size": "large",
+      "surface": "cobblestone",
+      "objects": [
+        {
+          "type": "wall",
+          "at": [
+            0,
+            -2.75
+          ],
+          "length": 5.2,
+          "height": 2.7,
+          "material": "plaster",
+          "color": "#e6b98a",
+          "window": true,
+          "door": true,
+          "vines": true
+        },
+        {
+          "type": "post",
+          "at": [
+            -2.4,
+            1.85
+          ],
+          "height": 2.7
+        },
+        {
+          "type": "post",
+          "at": [
+            2.4,
+            1.85
+          ],
+          "height": 2.7
+        },
+        {
+          "type": "string-lights",
+          "at": [
+            0,
+            0
+          ],
+          "color": "#ffd58a",
+          "points": [
+            [
+              -2.5,
+              2.65,
+              -2.6
+            ],
+            [
+              -2.4,
+              2.6,
+              1.85
+            ],
+            [
+              0,
+              2.7,
+              -2.6
+            ],
+            [
+              2.4,
+              2.6,
+              1.85
+            ],
+            [
+              2.5,
+              2.65,
+              -2.6
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "id": "long",
+          "at": [
+            0,
+            -0.35
+          ],
+          "size": [
+            3.4,
+            1
+          ],
+          "cloth": "red-check"
+        },
+        {
+          "type": "bench",
+          "at": [
+            0,
+            -1.25
+          ],
+          "length": 3.1
+        },
+        {
+          "type": "person",
+          "who": "friend in sage",
+          "at": [
+            -1.2,
+            -1.25
+          ],
+          "rot": 0,
+          "pose": "sit",
+          "holding": "glass"
+        },
+        {
+          "type": "person",
+          "who": "Priya",
+          "at": [
+            -0.4,
+            -1.25
+          ],
+          "rot": 0,
+          "pose": "sit"
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "at": [
+            0.4,
+            -1.25
+          ],
+          "rot": 0,
+          "pose": "sit",
+          "holding": "phone"
+        },
+        {
+          "type": "person",
+          "who": "friend in lilac",
+          "at": [
+            1.2,
+            -1.25
+          ],
+          "rot": 0,
+          "pose": "sit",
+          "holding": "glass"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -2.15,
+            -0.35
+          ],
+          "rot": 90,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "who": "friend in coral",
+          "at": [
+            -2.15,
+            -0.35
+          ],
+          "rot": 90,
+          "pose": "sit"
+        },
+        {
+          "type": "chair",
+          "at": [
+            2.15,
+            -0.35
+          ],
+          "rot": -90,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "who": "friend in navy",
+          "at": [
+            2.15,
+            -0.35
+          ],
+          "rot": -90,
+          "pose": "sit"
+        },
+        {
+          "type": "chair",
+          "at": [
+            -1,
+            0.55
+          ],
+          "rot": 180,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "who": "guitar friend",
+          "at": [
+            -1,
+            0.55
+          ],
+          "rot": 180,
+          "pose": "sit"
+        },
+        {
+          "type": "chair",
+          "at": [
+            1,
+            0.55
+          ],
+          "rot": 180,
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "person",
+          "who": "friend in wine",
+          "at": [
+            1,
+            0.55
+          ],
+          "rot": 180,
+          "pose": "sit",
+          "holding": "glass"
+        },
+        {
+          "type": "person",
+          "who": "waiter",
+          "at": [
+            -1.05,
+            -1.95
+          ],
+          "rot": 15,
+          "pose": "cheer"
+        },
+        {
+          "type": "person",
+          "who": "second waiter",
+          "at": [
+            0.3,
+            -2
+          ],
+          "rot": -10,
+          "pose": "cheer"
+        },
+        {
+          "type": "cake",
+          "on": "long",
+          "at": [
+            -0.4,
+            -0.18
+          ],
+          "kind": "tiramisu",
+          "sparkler": true
+        },
+        {
+          "type": "custom",
+          "name": "singingNotes",
+          "at": [
+            -0.35,
+            -2
+          ],
+          "code": "const g = k.group();\nconst m = k.glowMat('#fff1cf', 1.4);\nconst note = (beam) => {\n  const n = k.group();\n  const head = k.sph(0.055, m, 10); head.scale.set(1.3, 0.9, 0.6); k.put(n, head, 0, 0, 0, 0, 0, 0.45);\n  k.put(n, k.cyl(0.011, 0.011, 0.25, m, 6), 0.06, 0.125, 0);\n  if (beam) {\n    const h2 = k.sph(0.055, m, 10); h2.scale.set(1.3, 0.9, 0.6); k.put(n, h2, 0.18, -0.03, 0, 0, 0, 0.45);\n    k.put(n, k.cyl(0.011, 0.011, 0.25, m, 6), 0.24, 0.095, 0);\n    k.put(n, k.box(0.2, 0.035, 0.02, m), 0.15, 0.24, 0, 0, 0, 0.17);\n  } else k.put(n, k.box(0.09, 0.03, 0.015, m), 0.1, 0.21, 0, 0, 0, -0.7);\n  return n;\n};\n[[-0.55, 1.75, 0, 0.15, 0], [-0.2, 2.05, 0.05, -0.12, 1], [0.25, 1.82, -0.05, 0.1, 0], [0.5, 2.25, 0, -0.18, 0], [0.0, 2.45, 0.02, 0.2, 1], [-0.65, 2.3, 0, -0.1, 0]].forEach(([x, y, z, r, b]) => k.put(g, note(b), x, y, z, 0, 0, r));\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "centrepiece",
+          "at": [
+            0,
+            0.02
+          ],
+          "on": "long",
+          "code": "const g = k.group();\nconst china = k.mat('#f1e8d6', { rough: 0.4 }), noodle = k.mat('#f3c35d', { rough: 0.5 }), sauce = k.mat('#c0281a', { rough: 0.3 });\nconst bowl = k.group();\nk.put(bowl, k.lathe([[0, 0], [0.09, 0], [0.17, 0.05], [0.2, 0.12], [0.185, 0.122], [0.15, 0.06], [0, 0.045]], china, 20), 0, 0, 0);\nconst mound = k.sph(0.15, noodle, 14); mound.scale.set(1, 0.7, 1); k.put(bowl, mound, 0, 0.1, 0);\nfor (let j = 0; j < 3; j++) {\n  const pts = [];\n  for (let i = 0; i < 10; i++) { const t = i / 9, a = j * 2.1 + t * 8, r = 0.025 + 0.13 * t; pts.push([Math.cos(a) * r, 0.21 - 0.08 * t * t, Math.sin(a) * r]); }\n  k.put(bowl, k.tube(pts, 0.008, noodle, 22), 0, 0, 0);\n}\nconst s = k.sph(0.06, sauce, 10); s.scale.set(1, 0.45, 1); k.put(bowl, s, 0, 0.2, 0);\n[[0.07, 0.17, 0.06], [-0.07, 0.17, 0.05], [0.0, 0.18, -0.08]].forEach(([x, y, z]) => k.put(bowl, k.sph(0.03, k.mat('#7a3b22'), 8), x, y, z));\nk.put(g, bowl, 0.5, 0, 0.02);\nconst fiasco = (x, z) => {\n  const f = k.group();\n  k.put(f, k.lathe([[0, 0], [0.07, 0.01], [0.085, 0.07], [0.07, 0.13], [0.025, 0.17], [0.018, 0.27], [0, 0.27]], k.mat('#2f5a2e', { rough: 0.3 }), 14), 0, 0, 0);\n  k.put(f, k.lathe([[0, 0], [0.075, 0.008], [0.091, 0.07], [0.082, 0.1], [0, 0.1]], k.mat('#d9b56b', { rough: 0.95 }), 14), 0, 0, 0);\n  k.put(f, k.cyl(0.02, 0.02, 0.12, k.mat('#f4ecd8'), 10), 0, 0.33, 0);\n  k.put(f, k.cap(0.008, 0.06, k.mat('#f4ecd8'), 6), 0.02, 0.27, 0.0);\n  k.put(f, k.cap(0.007, 0.08, k.mat('#c0392b'), 6), -0.019, 0.23, 0.01);\n  k.put(f, k.cone(0.012, 0.04, k.glowMat('#ffc46b', 5), 8), 0, 0.415, 0);\n  k.addLight([x, 0.45, z], '#ffb35c', 0.7, 2.5);\n  k.put(g, f, x, 0, z);\n};\nfiasco(-0.75, 0.08); fiasco(1.45, -0.02);\nreturn g;"
+        },
+        {
+          "type": "plate",
+          "on": "long",
+          "at": [
+            -1.2,
+            -0.27
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "long",
+          "at": [
+            0.4,
+            -0.27
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "long",
+          "at": [
+            1.2,
+            -0.27
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "long",
+          "at": [
+            -1,
+            0.28
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "plate",
+          "on": "long",
+          "at": [
+            1,
+            0.28
+          ],
+          "food": "pasta"
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -2.2,
+            2.25
+          ]
+        },
+        {
+          "type": "planter",
+          "at": [
+            1.7,
+            2.45
+          ],
+          "length": 1.1,
+          "flowers": "#c0392b"
+        }
+      ]
+    },
+    {
+      "title": "Down to the bay",
+      "moment": "Full of pasta, we wander downhill to the water, the leftovers swinging in a paper bag.",
+      "hero": false,
+      "size": "small",
+      "surface": "cobblestone",
+      "objects": [
+        {
+          "type": "house",
+          "at": [
+            -0.45,
+            -1.25
+          ],
+          "size": "small",
+          "color": "#e9c46a",
+          "roof": "#b5543a"
+        },
+        {
+          "type": "lamp-post",
+          "at": [
+            1.25,
+            -1.2
+          ],
+          "height": 2.5
+        },
+        {
+          "type": "lantern",
+          "at": [
+            -1.55,
+            -0.75
+          ]
+        },
+        {
+          "type": "potted-plant",
+          "at": [
+            0.55,
+            -1.3
+          ],
+          "kind": "flowers",
+          "size": 0.6,
+          "flowers": "#e76f51"
+        },
+        {
+          "type": "person",
+          "who": "Priya",
+          "at": [
+            0.75,
+            0.15
+          ],
+          "rot": 100,
+          "pose": "walk"
+        },
+        {
+          "type": "custom",
+          "name": "meWithLeftovers",
+          "at": [
+            -0.1,
+            0.45
+          ],
+          "rot": 95,
+          "code": "const g = k.group();\ng.add(k.part('person', { pose: 'walk', skin: '#e0ac69', shirt: '#3b6ea5', pants: '#2d2d3a', hair: '#2b1d14', hairStyle: 'short' }));\nconst bag = k.group();\nk.put(bag, k.rbox(0.24, 0.2, 0.15, k.mat('#c8a477', { rough: 0.95 }), 0.01), 0, 0.1, 0);\nk.put(bag, k.rbox(0.2, 0.05, 0.12, k.mat('#cfd3d8', { metal: 0.6, rough: 0.35 }), 0.008), 0, 0.215, 0);\nk.put(bag, k.box(0.21, 0.012, 0.13, k.mat('#f4f1ea')), 0, 0.243, 0);\nk.put(bag, k.box(0.07, 0.06, 0.004, k.mat('#2e5e3a')), 0, 0.12, 0.077);\nk.put(bag, k.torus(0.06, 0.007, k.mat('#c8a477'), 12, Math.PI), 0, 0.2, 0);\nk.put(g, bag, -0.2, 0.31, 0.17);\nreturn g;"
+        },
+        {
+          "type": "custom",
+          "name": "guitarFriendWithCase",
+          "at": [
+            -0.95,
+            0.05
+          ],
+          "rot": 85,
+          "code": "const g = k.group();\ng.add(k.part('person', { pose: 'walk', skin: '#f1c9a5', shirt: '#2a9d8f', pants: '#264653', hair: '#7a4a2a', hairStyle: 'curly' }));\nconst c = k.group();\nconst shell = k.mat('#1f1f24', { rough: 0.6 });\nconst lower = k.rbox(0.36, 0.34, 0.12, shell, 0.06); k.put(c, lower, 0, 0, 0);\nk.put(c, k.rbox(0.28, 0.24, 0.115, shell, 0.05), 0, 0.26, 0);\nk.put(c, k.rbox(0.1, 0.42, 0.08, shell, 0.03), 0, 0.58, 0);\nk.put(c, k.rbox(0.13, 0.12, 0.085, shell, 0.03), 0, 0.84, 0);\nk.put(c, k.box(0.06, 0.03, 0.02, k.mat('#c9a35a', { metal: 0.6, rough: 0.3 })), 0.12, 0.02, 0.065);\nk.put(g, c, 0.02, 0.7, -0.24, -0.12, 0, 0.32);\nk.put(g, k.tube([[-0.16, 1.18, 0.02], [-0.02, 1.0, 0.15], [0.14, 0.78, 0.12], [0.18, 0.62, -0.05]], 0.012, k.mat('#5b3a29'), 16), 0, 0, 0);\nreturn g;"
+        },
+        {
+          "type": "person",
+          "who": "friend in navy",
+          "at": [
+            -1.45,
+            0.85
+          ],
+          "rot": 80,
+          "pose": "walk"
+        },
+        {
+          "type": "person",
+          "who": "friend in wine",
+          "at": [
+            1.35,
+            0.85
+          ],
+          "rot": 110,
+          "pose": "walk"
+        },
+        {
+          "type": "street-sign",
+          "at": [
+            1.55,
+            -0.35
+          ],
+          "kind": "arrow",
+          "rot": -90
+        },
+        {
+          "type": "bush",
+          "at": [
+            -1.35,
+            -1.3
+          ],
+          "size": 0.5,
+          "flowers": "#f2b8c6"
+        },
+        {
+          "type": "fence",
+          "at": [
+            0.9,
+            1.55
+          ],
+          "length": 1.4,
+          "color": "#f5e6c8"
+        },
+        {
+          "type": "rock",
+          "at": [
+            -0.6,
+            1.55
+          ],
+          "size": 0.2
+        },
+        {
+          "type": "flower-bed",
+          "at": [
+            -1.1,
+            1.45
+          ],
+          "size": [
+            0.7,
+            0.35
+          ],
+          "flowers": [
+            "#e8a33d",
+            "#f5e6c8",
+            "#c0392b"
+          ]
+        },
+        {
+          "type": "bin",
+          "at": [
+            1.6,
+            -0.95
+          ],
+          "color": "#2e5e3a"
+        },
+        {
+          "type": "hydrant",
+          "at": [
+            -1.65,
+            0.35
+          ],
+          "color": "#c0392b"
+        }
+      ]
+    },
+    {
+      "title": "Guitar on the pier",
+      "moment": "Out on the pier, someone pulls out a guitar and we sit with our feet dangling over the bay.",
+      "hero": false,
+      "size": "medium",
+      "surface": "water",
+      "objects": [
+        {
+          "type": "dock",
+          "id": "pier",
+          "at": [
+            0,
+            -0.25
+          ],
+          "rot": 90,
+          "length": 4.6,
+          "width": 1.6
+        },
+        {
+          "type": "boat",
+          "at": [
+            -1.55,
+            -1.95
+          ],
+          "rot": 70,
+          "kind": "sail",
+          "color": "#f5e6c8"
+        },
+        {
+          "type": "boat",
+          "at": [
+            1.65,
+            1.75
+          ],
+          "rot": -25,
+          "kind": "row",
+          "color": "#c0392b"
+        },
+        {
+          "type": "lamp-post",
+          "on": "pier",
+          "at": [
+            0.6,
+            -2
+          ],
+          "height": 2.4,
+          "rot": -90
+        },
+        {
+          "type": "post",
+          "on": "pier",
+          "at": [
+            0.65,
+            2.05
+          ],
+          "height": 2.1,
+          "rot": -90
+        },
+        {
+          "type": "string-lights",
+          "at": [
+            0,
+            0
+          ],
+          "color": "#ffd58a",
+          "points": [
+            [
+              -2,
+              2.8,
+              -0.85
+            ],
+            [
+              0,
+              2.45,
+              -0.9
+            ],
+            [
+              2.05,
+              2.6,
+              -0.9
+            ]
+          ]
+        },
+        {
+          "type": "person",
+          "who": "guitar friend",
+          "at": [
+            0.35,
+            -0.2
+          ],
+          "rot": -75,
+          "pose": "play-guitar",
+          "on": "pier"
+        },
+        {
+          "type": "custom",
+          "name": "openGuitarCase",
+          "at": [
+            0.35,
+            0.45
+          ],
+          "on": "pier",
+          "rot": -15,
+          "code": "const g = k.group();\nconst shell = k.mat('#1f1f24', { rough: 0.6 }), plush = k.mat('#8a1d2c', { rough: 1 });\nconst half = (m, h, B) => {\n  const s = k.group();\n  k.put(s, B(0.38, h, 0.36, m, 0.04), 0, h / 2, 0);\n  k.put(s, B(0.3, h, 0.26, m, 0.04), 0, h / 2, -0.3);\n  k.put(s, B(0.11, h, 0.44, m, 0.02), 0, h / 2, -0.62);\n  k.put(s, B(0.14, h, 0.14, m, 0.03), 0, h / 2, -0.9);\n  return s;\n};\nk.put(g, half(shell, 0.08, k.rbox), 0, 0, 0);\nconst lin = half(plush, 0.02, k.box); k.put(g, lin, 0, 0.07, 0); lin.scale.set(0.88, 1, 0.94);\nconst lid = k.group(); k.put(lid, half(shell, 0.07, k.rbox), 0.22, 0, 0, 0, 0, 0);\nk.put(g, lid, 0.2, 0.08, 0, 0, 0, 1.9);\nconst gold = k.mat('#e2b84a', { metal: 0.7, rough: 0.3 }), silver = k.mat('#c8ccd2', { metal: 0.7, rough: 0.3 });\n[[0.05, 0.06], [-0.08, -0.04], [0.1, -0.12], [-0.02, 0.12], [0.0, -0.25], [-0.1, 0.08], [0.07, 0.15]].forEach(([x, z], i) => k.put(g, k.cyl(0.022, 0.022, 0.006, i % 2 ? gold : silver, 12), x, 0.095, z, 0.15 * (i % 3), 0, 0.1));\nk.put(g, k.box(0.06, 0.003, 0.11, k.mat('#6fa86b')), -0.06, 0.094, -0.15, 0, 0.4, 0);\nreturn g;"
+        },
+        {
+          "type": "person",
+          "who": "Priya",
+          "at": [
+            -0.62,
+            0.55
+          ],
+          "rot": -90,
+          "pose": "sit",
+          "on": "pier",
+          "y": -0.47
+        },
+        {
+          "type": "person",
+          "who": "me",
+          "at": [
+            -0.62,
+            1.15
+          ],
+          "rot": -90,
+          "pose": "sit",
+          "on": "pier",
+          "y": -0.47
+        },
+        {
+          "type": "person",
+          "who": "friend in sage",
+          "at": [
+            -0.62,
+            -0.75
+          ],
+          "rot": -90,
+          "pose": "sit",
+          "on": "pier",
+          "y": -0.47
+        },
+        {
+          "type": "person",
+          "who": "friend in coral",
+          "at": [
+            -0.62,
+            -1.35
+          ],
+          "rot": -90,
+          "pose": "sit",
+          "on": "pier",
+          "y": -0.47,
+          "holding": "phone"
+        },
+        {
+          "type": "person",
+          "who": "friend in lilac",
+          "at": [
+            0.35,
+            1.55
+          ],
+          "rot": -130,
+          "pose": "cheer",
+          "on": "pier"
+        },
+        {
+          "type": "person",
+          "who": "friend in navy",
+          "at": [
+            0.4,
+            -1.35
+          ],
+          "rot": -65,
+          "pose": "stand",
+          "on": "pier"
+        },
+        {
+          "type": "person",
+          "who": "friend in wine",
+          "at": [
+            0.45,
+            1
+          ],
+          "rot": -110,
+          "pose": "stand",
+          "on": "pier"
+        },
+        {
+          "type": "custom",
+          "name": "bollard",
+          "at": [
+            -0.5,
+            -2
+          ],
+          "on": "pier",
+          "code": "const g = k.group();\nconst iron = k.mat('#2b2d33', { metal: 0.4, rough: 0.5 }), rope = k.mat('#c9a66b', { rough: 1 });\nk.put(g, k.cyl(0.09, 0.11, 0.32, iron, 14), 0, 0.16, 0);\nk.put(g, k.cyl(0.13, 0.13, 0.05, iron, 14), 0, 0.33, 0);\nk.put(g, k.sph(0.06, iron, 10), 0, 0.36, 0);\nk.put(g, k.torus(0.115, 0.022, rope, 18), 0, 0.22, 0, Math.PI / 2, 0, 0);\nfor (let i = 0; i < 3; i++) k.put(g, k.torus(0.17 - i * 0.03, 0.024, rope, 18), 0.32, 0.024 + i * 0.045, 0.05, Math.PI / 2, 0, 0);\nk.put(g, k.tube([[0.1, 0.22, 0.05], [0.2, 0.12, 0.1], [0.3, 0.15, 0.08]], 0.022, rope, 10), 0, 0, 0);\nreturn g;",
+          "rot": -90
+        },
+        {
+          "type": "lantern",
+          "on": "pier",
+          "at": [
+            -0.55,
+            2.05
+          ],
+          "rot": -90
+        },
+        {
+          "type": "crate",
+          "on": "pier",
+          "at": [
+            0.45,
+            -1.85
+          ],
+          "fill": "none",
+          "rot": -90
+        },
+        {
+          "type": "custom",
+          "name": "waterGlints",
+          "at": [
+            -1,
+            0.75
+          ],
+          "code": "const g = k.group();\nconst warm = k.glowMat('#ffcf85', 1.6), cool = k.glowMat('#f5e6ff', 0.9);\n[[0, 0.0, 0.11, 0.05], [0.03, 0.22, 0.09, 0.04], [-0.02, 0.42, 0.13, 0.035], [0.02, 0.62, 0.08, 0.03], [-0.01, 0.8, 0.1, 0.025], [0.02, 0.98, 0.06, 0.02]].forEach(([x, z, w, d], i) => {\n  const s = k.sph(1, warm, 10); s.scale.set(w, 0.004, d); k.put(g, s, x, 0.01, z);\n});\n[[1.1, 0.4, 0.12, 0.03], [1.2, 0.6, 0.08, 0.025], [0.95, 0.75, 0.1, 0.02]].forEach(([x, z, w, d]) => {\n  const s = k.sph(1, cool, 10); s.scale.set(w, 0.004, d); k.put(g, s, x, 0.01, z);\n});\nreturn g;"
+        },
+        {
+          "type": "rock",
+          "at": [
+            -1.8,
+            1.6
+          ],
+          "size": 0.35
+        },
+        {
+          "type": "rock",
+          "at": [
+            1.85,
+            -1.6
+          ],
+          "size": 0.3
+        }
+      ]
+    }
+  ]
+}

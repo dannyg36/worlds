@@ -1,6 +1,7 @@
 // Copies the procedural island kit from spike/procedural into the app.
 //   kit:     core.js, surfaces.js, world.js, island.js, scatter.js, parts/*.js -> src/world/island/kit/
 //   samples: scenes/islands/*.json (except names starting with "_")       -> src/world/island/samples/
+//   prompt:  ISLAND.md -> convex/generation/islandPrompt.ts (the live scene writer's system prompt)
 // `three/addons/` imports become `three/examples/jsm/` so Metro resolves them.
 // Hand-written files in kit/ (world.d.ts) are kept; copied .js files and samples are replaced.
 // Usage: npm run sync:island
@@ -52,7 +53,7 @@ const copied = [...kitFiles, ...parts].filter(copyKitFile);
 
 const islands = path.join(source, "scenes/islands");
 const samples = fs.existsSync(islands)
-  ? fs.readdirSync(islands).filter((name) => name.endsWith(".json") && !name.startsWith("_")).sort()
+  ? fs.readdirSync(islands).filter((name) => name.endsWith(".json") && !name.startsWith("_") && name.split(".").length === 2).sort()
   : [];
 const synced = samples.filter((name) => {
   try {
@@ -67,3 +68,15 @@ const synced = samples.filter((name) => {
 
 console.log(`kit: ${copied.length} files -> ${path.relative(root, kitDir)}`);
 console.log(`samples: ${synced.length ? synced.join(", ") : "none"} -> ${path.relative(root, samplesDir)}`);
+
+// The scene-writer prompt: ISLAND.md -> convex/generation/islandPrompt.ts, escaped for a template literal.
+const promptSource = fs.readFileSync(path.join(source, "ISLAND.md"), "utf8");
+const escaped = promptSource.replace(/\\/g, "\\\\").replace(/`/g, "\\`").replace(/\$\{/g, "\\${");
+const promptFile = path.join(root, "convex/generation/islandPrompt.ts");
+fs.writeFileSync(
+  promptFile,
+  "// Generated from spike/procedural/ISLAND.md by `npm run sync:island`. Edit ISLAND.md, not this file,\n" +
+    "// and update the type lists in ./island.ts when the kit's types change.\n" +
+    "export const ISLAND_SYSTEM_PROMPT = `" + escaped + "`;\n",
+);
+console.log(`prompt: ISLAND.md -> ${path.relative(root, promptFile)}`);

@@ -379,7 +379,7 @@ function boat(p, ctx) {
   for (const zu of sail ? [-0.5, 0.0] : [-0.5, 0.0, 0.5]) b.add(RB(halfW(zu) * 2, 0.04, 0.17, 0.012), jitter(r, "#a77c52", 0.05), [0, seatY, zu * IL * (L / 2)], [0, 0, 0], 1, { grad: 0.2 });
   if (!sail) {
     for (const sx of [-1, 1]) {
-      const yaw = sx * 0.07, c = V(sx * 0.15, seatY + 0.045, -0.12), d = V(Math.sin(yaw), 0, Math.cos(yaw));
+      const yaw = sx * 0.07, c = V(sx * 0.15, seatY + 0.045, 0.02), d = V(Math.sin(yaw), 0, Math.cos(yaw));
       b.add(CY(0.017, 0.017, 1.25, 7), "#b48a5a", c, qYX(yaw, Math.PI / 2), 1, { grad: 0 });
       b.add(RB(0.11, 0.014, 0.3, 0.006), "#b48a5a", c.clone().addScaledVector(d, -0.72), qYX(yaw), 1, { grad: 0 });
       b.add(CY(0.022, 0.022, 0.1, 7), "#6e4a2e", c.clone().addScaledVector(d, 0.6), qYX(yaw, Math.PI / 2), 1, { grad: 0 });
@@ -601,8 +601,12 @@ function picnicBlanket(p, ctx) {
     UV.setXY(i, (x + w / 2) / check, (z + d / 2) / check);
   }
   geo.computeVertexNormals();
-  const g = new THREE.Group();
+  const g = new THREE.Group(), b = new Batch(), hem = shade(p.color ?? "#c8312f", -0.05);
   g.add(new THREE.Mesh(geo, mat("#ffffff", { map: checkTex(p.color ?? "#c8312f", "#f7f1e6", 8), rough: 0.95, side: THREE.DoubleSide })));
+  // A rolled hem so it reads as thick cloth rather than a decal.
+  for (const sz of [-1, 1]) b.add(RB(w + 0.03, 0.02, 0.03, 0.009), hem, [0, 0.01, (sz * d) / 2], [0, 0, 0], 1, { grad: 0.2 });
+  for (const sx of [-1, 1]) b.add(RB(0.03, 0.02, d, 0.009), hem, [(sx * w) / 2, 0.01, 0], [0, 0, 0], 1, { grad: 0.2 });
+  g.add(b.mesh());
   return { group: g, top: 0.015 };
 }
 
@@ -641,8 +645,11 @@ function beachUmbrella(p, ctx) {
 function surfboard(p, ctx) {
   const r = ctx.rand, c = p.color ?? "#3aa6c4", L = 2.0, Wd = 0.56, T = 0.07;
   const upright = p.upright === true || p.pose === "upright" || p.pose === "stand";
-  const geo = SP(20, 10);
-  const P = geo.attributes.position;
+  // Sphere with its poles at nose and tail, so the deck has a clean centre line for a crisp stripe.
+  const geo = SP(16, 24).rotateX(Math.PI / 2);
+  const P = geo.attributes.position, ang = new Float32Array(P.count);
+  for (let i = 0; i < P.count; i++) ang[i] = Math.abs(Math.atan2(P.getX(i), P.getY(i)));
+  geo.setAttribute("ang", new THREE.BufferAttribute(ang, 1));
   for (let i = 0; i < P.count; i++) {
     let x = P.getX(i), y = P.getY(i), z = P.getZ(i);
     x *= z > 0 ? 1 - 0.5 * z * z : 1 - 0.15 * z * z;
@@ -650,8 +657,16 @@ function surfboard(p, ctx) {
     P.setXYZ(i, (x * Wd) / 2, (y * T) / 2 + 0.07 * Math.pow(Math.max(0, z), 4), (z * L) / 2);
   }
   geo.computeVertexNormals();
-  const b = new Batch(), stripe = "#f6f1e6";
-  b.add(geo, c, [0, 0, 0], [0, 0, 0], 1, { grad: 0.25, fn: (x, y, z) => (Math.abs(x) < 0.022 || Math.abs(z - 0.55) < 0.03 ? stripe : c) });
+  // Stripe = the two face columns either side of the deck's centre line.
+  const flat = geo.toNonIndexed(), A = flat.attributes.ang, col = new Float32Array(A.count * 3);
+  const C = new THREE.Color(c), S = new THREE.Color("#f6f1e6");
+  for (let i = 0; i < A.count; i += 3) {
+    const k = Math.max(A.getX(i), A.getX(i + 1), A.getX(i + 2)) < 0.4 ? S : C;
+    for (let j = 0; j < 3; j++) col.set([k.r, k.g, k.b], (i + j) * 3);
+  }
+  flat.setAttribute("color", new THREE.BufferAttribute(col, 3));
+  const b = new Batch();
+  b.add(flat, null, [0, 0, 0], [0, 0, 0], 1, { grad: 0.25 });
   b.add(RB(0.012, 0.12, 0.14, 0.005), shade(c, -0.2), [0, -0.07, -L / 2 + 0.16], [0.3, 0, 0], 1, { grad: 0 });
   const g = new THREE.Group(), inner = new THREE.Group();
   inner.add(b.mesh());
@@ -720,7 +735,7 @@ function hill(p, ctx) {
   const b = new Batch();
   b.add(radialGeo(40, 10, at, (t, a) => _c.copy(dark).lerp(light, Math.pow(1 - t, 0.8) * 0.8 + 0.2 * (0.5 + 0.5 * Math.sin(a * 3 + t * 6 + s0)))), null, [0, 0, 0], [0, 0, 0], 1, { grad: 0 });
   const onHill = (t, a, lift = 0) => { const q = at(t, a); return V(q[0], q[1] + lift, q[2]); };
-  const tufts = Math.round(8 + R * R * 4);
+  const tufts = Math.round(12 + R * R * 6);
   for (let i = 0; i < tufts; i++) {
     const c = onHill(0.15 + r() * 0.8, r() * TAU);
     for (let k = 0; k < 5; k++) {
@@ -729,7 +744,7 @@ function hill(p, ctx) {
     }
   }
   const fl = hexes(p.flowers, ["#f6f1e6", "#f2c230", "#e86a8a"]);
-  for (let i = 0; i < 12; i++) daisy(b, r, onHill(0.1 + r() * 0.8, r() * TAU, 0.035), pick(r, fl), 0.075);
+  for (let i = 0; i < 18; i++) daisy(b, r, onHill(0.1 + r() * 0.8, r() * TAU, 0.035), pick(r, fl), 0.08);
   for (let i = 0; i < 2; i++) {
     const s = 0.2 + r() * 0.12, c = onHill(0.55 + r() * 0.3, r() * TAU);
     b.add(stone(r), jitter(r, pick(r, GREYS), 0.08), [c.x, c.y + s * 0.08, c.z], [0, r() * TAU, 0], [s * 0.6, s * 0.4, s * 0.5], { grad: 0.4 });
@@ -751,21 +766,21 @@ function flowerBed(p, ctx) {
   const iw = w - 2 * bt, id = d - 2 * bt;
   b.add(RB(iw, 0.1, id, 0.03), "#4a3426", [0, 0.06, 0], [0, 0, 0], 1, { grad: 0.2 });
   // Leafy mounds on a jittered grid, then flower heads poking out of them.
-  const leaf = cached("bedleaf", () => lumpy(SP(6, 4), 0.12, 3));
-  const cols = Math.max(2, Math.round(Math.sqrt((iw * id) / 0.03) * Math.sqrt(iw / id))), rows = Math.max(1, Math.round((iw * id) / 0.03 / cols));
+  const leaf = cached("bedleaf", () => lumpy(SP(7, 5), 0.12, 3));
+  const sp = Math.max(0.15, Math.sqrt((iw * id) / 30)), cols = Math.max(2, Math.round(iw / sp)), rows = Math.max(1, Math.round(id / sp));
   for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
-    const x = -iw / 2 + (iw * (i + 0.5 + (r() - 0.5) * 0.5)) / cols, z = -id / 2 + (id * (j + 0.5 + (r() - 0.5) * 0.5)) / rows, s = 0.08 + r() * 0.03;
-    b.add(leaf, jitter(r, pick(r, GRASS.slice(0, 3)), 0.06), [x, 0.13, z], [0, r() * TAU, 0], [s, s * 0.7, s], { grad: 0.45 });
+    const x = -iw / 2 + (iw * (i + 0.5 + (r() - 0.5) * 0.4)) / cols, z = -id / 2 + (id * (j + 0.5 + (r() - 0.5) * 0.4)) / rows, s = sp * (0.68 + r() * 0.22);
+    b.add(leaf, jitter(r, pick(r, GRASS.slice(0, 3)), 0.06), [x, 0.12, z], [0, r() * TAU, 0], [s, s * 0.65, s], { grad: 0.45 });
   }
   const star = cached("star", () => radialGeo(10, 1, (t, a) => { const rr = t * (0.55 + 0.45 * Math.abs(Math.cos(2.5 * a))); return [Math.cos(a) * rr, t === 0 ? 0.25 : 0.12 * rr * rr, Math.sin(a) * rr]; }));
   const ball = cached("ball", () => SP(5, 4));
-  const n = clamp(Math.round(iw * id * 150), 12, 140);
+  const n = clamp(Math.round(iw * id * 110), 12, 110);
   for (let i = 0; i < n; i++) {
-    const x = (r() - 0.5) * (iw - 0.06), z = (r() - 0.5) * (id - 0.06), y = 0.17 + r() * 0.07, c = pick(r, fl);
+    const x = (r() - 0.5) * (iw - 0.05), z = (r() - 0.5) * (id - 0.05), y = 0.19 + r() * 0.06, c = pick(r, fl);
     if (r() < 0.7) {
-      const s = 0.032 + r() * 0.012;
+      const s = 0.042 + r() * 0.014;
       b.add(star, jitter(r, c, 0.05), [x, y, z], [(r() - 0.5) * 0.5, r() * TAU, (r() - 0.5) * 0.5], s, { grad: 0, fn: (x2, y2) => (y2 > 0.2 ? (String(c).toLowerCase() === "#f4c542" ? "#e07a22" : "#f2c230") : null) });
-    } else b.add(ball, jitter(r, c, 0.08), [x, y, z], [0, 0, 0], 0.028 + r() * 0.01, { grad: 0.35 });
+    } else b.add(ball, jitter(r, c, 0.08), [x, y + 0.01, z], [0, 0, 0], 0.032 + r() * 0.01, { grad: 0.35 });
   }
   g.add(b.mesh());
   return { group: g, top: 0.15 };

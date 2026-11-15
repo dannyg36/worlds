@@ -623,7 +623,7 @@ function sofa(p, ctx) {
   const pc = col(p.pillow, "#e0a63c");
   for (const s of [-1, 1]) {
     const pm = mat(s < 0 ? pc : CREAM, { rough: 0.95 });
-    put(g, rb(0.34, 0.32, 0.12, pm, 0.06), s * (IW / 2 - 0.19), 0.62, -0.1, -0.3, s * 0.25, s * 0.18);
+    put(g, rb(0.34, 0.32, 0.12, pm, 0.06), s * (IW / 2 - 0.2), 0.62, -0.03, -0.22, s * 0.22, s * 0.16);
   }
   return { group: merged(g), top: 0.46 };
 }
@@ -927,20 +927,21 @@ function pizzaBox(p, ctx) {
   const open = flag(p.open, false);
   const S = 1.1;
   const [g, k] = wrap(S);
-  const B = 0.4, BH = 0.045;
+  const B = 0.4, BH = 0.045, LIFT = 0.025; // LIFT: solid base so it still reads when half-sunk into a rug or plot floor
   const card = mat("#cfa877", { rough: 0.95 }), cardL = mat("#dcbf95", { rough: 0.95 });
   if (!open) {
-    put(k, rb(B, BH, B, card, 0.006), 0, BH / 2, 0);
-    put(k, bx(B - 0.05, 0.002, B - 0.05, tmat("pizzaprint", () => mat("#fff", { map: pizzaPrintTex(), rough: 0.9 }))), 0, BH + 0.001, 0);
-    return { group: merged(g), top: BH * S };
+    put(k, rb(B, BH + LIFT, B, card, 0.006), 0, (BH + LIFT) / 2, 0);
+    put(k, bx(B - 0.012, 0.004, B - 0.012, cardL), 0, LIFT + BH - 0.012, 0);
+    put(k, bx(B - 0.05, 0.002, B - 0.05, tmat("pizzaprint", () => mat("#fff", { map: pizzaPrintTex(), rough: 0.9 }))), 0, BH + LIFT + 0.001, 0);
+    return { group: merged(g), top: (BH + LIFT) * S };
   }
   const t = 0.006;
-  put(k, bx(B, t, B, card), 0, t / 2, 0);
+  put(k, rb(B, LIFT + t, B, card, 0.006), 0, (LIFT + t) / 2, 0);
   for (const s of [-1, 1]) {
-    put(k, bx(B, BH, t, card), 0, BH / 2, s * (B / 2 - t / 2));
-    put(k, bx(t, BH, B, card), s * (B / 2 - t / 2), BH / 2, 0);
+    put(k, bx(B, BH, t, card), 0, LIFT + BH / 2, s * (B / 2 - t / 2));
+    put(k, bx(t, BH, B, card), s * (B / 2 - t / 2), LIFT + BH / 2, 0);
   }
-  const lid = put(k, group(), 0, BH, -B / 2, -THREE.MathUtils.degToRad(102), 0, 0);
+  const lid = put(k, group(), 0, LIFT + BH, -B / 2, -THREE.MathUtils.degToRad(102), 0, 0);
   put(lid, bx(B, t, B, cardL), 0, t / 2, B / 2);
   put(lid, bx(B, 0.035, t, card), 0, -0.0175 + t, B - t / 2);
   // pizza: eight slices, one already gone
@@ -960,7 +961,7 @@ function pizzaBox(p, ctx) {
     if (i === gone) continue;
     const a0 = (i / 8) * Math.PI * 2, a1 = a0 + Math.PI / 4, b = (a0 + a1) / 2;
     const ox = Math.cos(b) * 0.004, oz = -Math.sin(b) * 0.004;
-    const sl = put(k, group(), ox, t, oz);
+    const sl = put(k, group(), ox, LIFT + t, oz);
     sl.add(new THREE.Mesh(wedge(R, a0 + 0.012, a1 - 0.012, 0.012), crust));
     put(sl, new THREE.Mesh(wedge(R - 0.018, a0 + 0.03, a1 - 0.03, 0.005), cheese), 0, 0.012, 0);
     const cr = new THREE.TorusGeometry(R - 0.01, 0.011, 4, 4, a1 - a0 - 0.03);
@@ -1034,8 +1035,8 @@ function rug(p, ctx) {
       for (let i = 0; i <= n; i++) {
         const t = -L / 2 + 0.03 + i * ((L - 0.06) / n);
         const tassel = bx(along ? 0.05 : 0.012, 0.005, along ? 0.012 : 0.05, fm);
-        if (along) put(g, tassel, s * (E / 2 + 0.02), 0.004, t, 0, (Math.sin(i * 7.3) * 0.25), 0);
-        else put(g, tassel, t, 0.004, s * (E / 2 + 0.02), 0, (Math.sin(i * 7.3) * 0.25), 0);
+        if (along) put(g, tassel, s * (E / 2 + 0.02), T - 0.006, t, 0, Math.sin(i * 7.3) * 0.25, 0);
+        else put(g, tassel, t, T - 0.006, s * (E / 2 + 0.02), 0, Math.sin(i * 7.3) * 0.25, 0);
       }
   }
   return { group: merged(g) };
