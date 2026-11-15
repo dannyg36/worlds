@@ -94,6 +94,14 @@ export default function RootLayout() {
                 headerBackButtonDisplayMode: "minimal",
               }}
             />
+            <Stack.Screen
+              name="stories/[person]"
+              options={{
+                presentation: "fullScreenModal",
+                headerShown: false,
+                animation: "fade",
+              }}
+            />
           </Stack>
         </ThemeProvider>
         <PushNotifications />

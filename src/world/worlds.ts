@@ -24,6 +24,7 @@ export type World = {
   imageUrl?: string;
   modelUrl?: string;
   error?: string;
+  shared?: boolean;
 };
 
 export function useWorlds(): World[] | undefined {

@@ -73,9 +73,12 @@ function stageLabel(stage: Stage, progress: number | null) {
 export function WorldForming({
   world,
   progress,
+  bottomInset,
 }: {
   world: World;
   progress: number | null;
+  /** Space to leave under the progress, when the host draws its own chrome there. */
+  bottomInset?: number;
 }) {
   const insets = useSafeAreaInsets();
   const stage = stageOf(world);
@@ -86,7 +89,10 @@ export function WorldForming({
       <View
         style={[
           styles.content,
-          { paddingTop: insets.top + 56, paddingBottom: insets.bottom + 28 },
+          {
+            paddingTop: insets.top + 56,
+            paddingBottom: Math.max(bottomInset ?? 0, insets.bottom + 28),
+          },
         ]}
       >
         <View style={styles.center}>

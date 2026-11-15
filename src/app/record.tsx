@@ -1,4 +1,5 @@
 import { useConvexConnectionState, useMutation } from "convex/react";
+import { ConvexError } from "convex/values";
 import { Asset } from "expo-asset";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useState } from "react";
@@ -27,7 +28,9 @@ import { haptics } from "@/design/haptics";
 import { withAlpha } from "@/design/palette";
 import { color, font, layout, radius, space, type } from "@/design/tokens";
 import { type SpeechError, useSpeechToText } from "@/hooks/use-speech-to-text";
+import { isFixtureWorldId, retryFixtureWorld } from "@/world/fixtures";
 import { api } from "../../convex/_generated/api";
+import type { Id } from "../../convex/_generated/dataModel";
 
 const MAX_SECONDS = 20;
 const canRecord = Platform.OS !== "web";
@@ -99,12 +102,16 @@ const ripple = {
 export default function RecordScreen() {
   const navigation = useNavigation();
   const { bottom } = useSafeAreaInsets();
-  const { source } = useLocalSearchParams<{ source?: string }>();
+  // With worldId, the sheet adds to today's world instead of starting a new one.
+  const { source, worldId } = useLocalSearchParams<{ source?: string; worldId?: string }>();
   const addWorld = useMutation(api.worlds.add);
+  const extendWorld = useMutation(api.worlds.extend);
+  const adding = worldId !== undefined;
   const { isWebSocketConnected } = useConvexConnectionState();
   const [draft, setDraft] = useState<string | null>(canRecord ? null : "");
   const [saving, setSaving] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const speech = useSpeechToText({
     maxSeconds: MAX_SECONDS,
     onFinish: setDraft,
@@ -127,9 +134,17 @@ export default function RecordScreen() {
     setSaving(true);
     setSaveFailed(false);
     try {
-      await addWorld({ transcript: draft });
+      if (worldId && isFixtureWorldId(worldId)) {
+        await retryFixtureWorld(worldId);
+      } else if (worldId) {
+        await extendWorld({ id: worldId as Id<"worlds">, transcript: draft });
+      } else {
+        await addWorld({ transcript: draft });
+      }
       navigation.goBack();
-    } catch {
+    } catch (error) {
+      // ConvexError carries a message meant for people, like "Today's world is full."
+      setSaveMessage(error instanceof ConvexError ? String(error.data) : null);
       setSaveFailed(true);
       setSaving(false);
     }
@@ -137,11 +152,17 @@ export default function RecordScreen() {
 
   const subtitle =
     draft === ""
-      ? "Type a few lines about your day."
+      ? adding
+        ? "Type what happened since."
+        : "Type a few lines about your day."
       : draft !== null
-        ? "Check your words, then make your world."
+        ? adding
+          ? "Check your words, then add them to your world."
+          : "Check your words, then make your world."
         : speech.status === "idle"
-          ? `Talk for up to ${MAX_SECONDS} seconds. We'll turn it into a world you can explore.`
+          ? adding
+            ? `Talk for up to ${MAX_SECONDS} seconds. Your world will grow to hold it.`
+            : `Talk for up to ${MAX_SECONDS} seconds. We'll turn it into a world you can explore.`
           : "Listening. Tap stop when you're done.";
 
   return (
@@ -158,7 +179,7 @@ export default function RecordScreen() {
       <View style={styles.header}>
         <View style={styles.titleRow}>
           <Text accessibilityRole="header" style={styles.title}>
-            {"Tell me about\nyour day"}
+            {adding ? "What else\nhappened?" : "Tell me about\nyour day"}
           </Text>
           <View style={styles.close}>
             <IconButton
@@ -199,8 +220,8 @@ export default function RecordScreen() {
           )}
           {saveFailed && (
             <Notice
-              title="Couldn't make your world"
-              message="Something went wrong on our end. Try again in a moment."
+              title={adding ? "Couldn't add to your world" : "Couldn't make your world"}
+              message={saveMessage ?? "Something went wrong on our end. Try again in a moment."}
             />
           )}
           <View style={styles.compose}>
@@ -216,7 +237,15 @@ export default function RecordScreen() {
             />
             <View style={styles.actions}>
               <Button
-                label={saving ? "Making your world…" : "Make my world"}
+                label={
+                  adding
+                    ? saving
+                      ? "Adding to your world…"
+                      : "Add to my world"
+                    : saving
+                      ? "Making your world…"
+                      : "Make my world"
+                }
                 icon={icons.sparkles}
                 loading={saving}
                 disabled={!canCreate}
