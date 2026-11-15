@@ -28,7 +28,7 @@ type Models = {
 export const gmiModels: Models = {
   dreaming: {
     provider: gmiChat,
-    id: "deepseek-ai/deepseek-v4.1-flash-1017",
+    id: "google/gemini-3.8-flash",
     input: (transcript) => ({
       messages: [
         { role: "system", content: SCENE_WRITER_SYSTEM_PROMPT },
@@ -36,6 +36,7 @@ export const gmiModels: Models = {
       ],
       temperature: 0.8,
       max_tokens: 1500,
+      reasoning_effort: "low",
       response_format: { type: "json_object" },
     }),
     output: (result) => parseScene(chatText(result)),
