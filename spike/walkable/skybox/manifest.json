@@ -17,6 +17,13 @@
           "file": "_sample/pano-indoor.jpg",
           "width": 2048,
           "height": 1024
+        },
+        {
+          "id": "sample-4k",
+          "label": "Placeholder office 4K",
+          "file": "_sample/pano-indoor-4k.jpg",
+          "width": 4096,
+          "height": 2048
         }
       ],
       "diorama": {
@@ -39,6 +46,13 @@
           "file": "_sample/pano-outdoor.jpg",
           "width": 2048,
           "height": 1024
+        },
+        {
+          "id": "sample-4k",
+          "label": "Placeholder cliffside 4K",
+          "file": "_sample/pano-outdoor-4k.jpg",
+          "width": 4096,
+          "height": 2048
         }
       ],
       "diorama": {

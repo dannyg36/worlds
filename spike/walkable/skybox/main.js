@@ -84,7 +84,7 @@ const occluder = new THREE.Mesh(
 occluder.renderOrder = -1;
 world.add(occluder);
 
-const shadowCatcher = new THREE.Mesh(new THREE.PlaneGeometry(1, 1).rotateX(-Math.PI / 2), new THREE.ShadowMaterial({ opacity: 0.32, depthWrite: false }));
+const shadowCatcher = new THREE.Mesh(new THREE.PlaneGeometry(1, 1).rotateX(-Math.PI / 2), new THREE.ShadowMaterial({ opacity: 0.2, depthWrite: false }));
 shadowCatcher.receiveShadow = true;
 shadowCatcher.position.y = 0.003;
 world.add(shadowCatcher);
@@ -130,6 +130,7 @@ orbit.addEventListener("start", () => {
 
 let manifest, dayCfg, pano, dio, skybox;
 let interactions = 0;
+let ready = false;
 const metrics = { ttff: null, firstRenderMs: null, bootAt: performance.now() };
 const player = { pos: new THREE.Vector3(0, 1.6, 0), vel: new THREE.Vector3() };
 const look = { yaw: FORWARD_YAW, pitch: -0.1, yawOffset: 0 };
@@ -179,7 +180,7 @@ function analyzePano(ctx, W, H) {
   const peak = best / 9;
   const u = (bx + 0.5) / GW, v = (by + 0.5) / GH;
   const theta = 2 * Math.PI * u - Math.PI;
-  const lat = Math.max(Math.PI * (0.5 - v), THREE.MathUtils.degToRad(28));
+  const lat = Math.max(Math.PI * (0.5 - v), THREE.MathUtils.degToRad(42));
   const sunDir = new THREE.Vector3(Math.cos(lat) * Math.cos(theta), Math.sin(lat), Math.cos(lat) * Math.sin(theta)).normalize();
   const k = by * GW + bx;
   const sunColor = new THREE.Color().setRGB(col[k * 3], col[k * 3 + 1], col[k * 3 + 2], THREE.SRGBColorSpace);
@@ -524,7 +525,7 @@ canvas.addEventListener("pointermove", (e) => {
   if (p.kind === "look") {
     const k = (0.0045 * camera.fov) / 70;
     const dx = (e.clientX - p.x) * k, dy = (e.clientY - p.y) * k;
-    if (gyro.active) look.yawOffset += dx;
+    if (gyro.active && gyro.has) look.yawOffset += dx;
     else {
       look.yaw += dx;
       look.pitch = THREE.MathUtils.clamp(look.pitch + dy, -1.45, 1.45);
@@ -713,6 +714,7 @@ function snapshot(reason) {
     pano_load: pano ? { file: pano.meta.file, bytes: pano.bytes, w: pano.width, h: pano.height, ms: mapRound(pano.ms), env_rt: [pano.envRT.width, pano.envRT.height], seam_ratio: +pano.analysis.seamRatio.toFixed(2), sun_contrast: +pano.analysis.contrast.toFixed(2), first_render_ms: pano.firstRenderMs ?? null } : null,
     glb_load: dio ? { file: dio.meta.file, bytes: dio.bytes, ms: mapRound(dio.ms), tris: dio.stats.tris, verts: dio.stats.verts, meshes: dio.stats.meshes, textures: dio.stats.textures } : null,
     ttff_ms: metrics.ttff,
+    compile_ms: metrics.compileMs ?? null,
     nav: { hw: navigator.hardwareConcurrency ?? null, mem: navigator.deviceMemory ?? null, touch: navigator.maxTouchPoints ?? null, platform: navigator.platform ?? null, lang: navigator.language },
     errors: errors.slice(-5),
   };
@@ -746,7 +748,7 @@ function updateHud() {
   ];
   if (pano) lines.push("pano " + pano.meta.id + " " + pano.width + "x" + pano.height + " " + kb(pano.bytes), "  fetch " + Math.round(pano.ms.fetch) + " dec " + Math.round(pano.ms.decode) + " pmrem " + Math.round(pano.ms.pmrem) + " up " + Math.round(pano.firstRenderMs ?? 0) + " ms");
   if (dio) lines.push("glb " + kb(dio.bytes) + " · " + (dio.stats.tris / 1000).toFixed(0) + "k tris", "  fetch " + Math.round(dio.ms.fetch) + " parse " + Math.round(dio.ms.parse) + " ms · " + (dio.stats.textures[0] || "no tex"));
-  lines.push("TTFF " + (metrics.ttff ? (metrics.ttff / 1000).toFixed(2) + " s" : "…") + " · GPU~" + estGpuMB().toFixed(0) + " MB");
+  lines.push("TTFF " + (metrics.ttff ? (metrics.ttff / 1000).toFixed(2) + " s" : "…") + " · compile " + (metrics.compileMs ?? "…") + " ms · GPU~" + estGpuMB().toFixed(0) + " MB");
   lines.push(state.mode + (state.mode === "stand" ? "/" + state.scale : "") + " · gyro " + (gyro.active ? "on " + gyro.events : "off") + " · boot " + session.boots + (recording ? " · REC" : ""));
   $("hud").textContent = lines.join("\n");
 }
@@ -819,7 +821,7 @@ function frame(now) {
   frames.push({ t: now, dt });
   if (frames.length > 900) frames.splice(0, frames.length - 900);
   if (dt > 50) longFrames++;
-  if (!pano || !dio) return;
+  if (!ready || !pano || !dio) return;
   if (dio.mixer) dio.mixer.update(Math.min(dt, 100) / 1000);
   if (tour) updateTour(now);
   if (state.mode === "orbit") orbit.update();
@@ -854,6 +856,13 @@ async function main() {
   const [_, d] = await Promise.all([switchPano(wanted), loadDiorama(dayCfg.diorama)]);
   dio = d;
   setMode(state.mode);
+  $("loading").classList.remove("done");
+  $("loading").textContent = "Compiling shaders…";
+  const c0 = performance.now();
+  await renderer.compileAsync(scene, camera);
+  metrics.compileMs = Math.round(performance.now() - c0);
+  $("loading").classList.add("done");
+  ready = true;
   const h = joyHome();
   placeJoy(h.x, h.y);
   updateUi();
