@@ -2,9 +2,12 @@
 import { convexTest } from "convex-test";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { api, internal } from "./_generated/api";
+import { memorySpace } from "./memory";
 import schema from "./schema";
 
 const modules = import.meta.glob("./**/*.ts");
+
+const OWNER = "https://worlds.test|ana";
 
 type Respond = (
   path: string,
@@ -81,20 +84,25 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-test("adding a world schedules remember, which saves the day to the shared space", async () => {
+test("adding a world schedules remember, which saves the day to its owner's space", async () => {
   vi.useFakeTimers();
   const calls = stubSupermemory(() => ({ id: "doc", status: "queued" }));
   const t = convexTest(schema, modules);
+  const space = await memorySpace(OWNER);
+  expect(space).toMatch(/^worlds-u-[0-9a-f]{32}$/);
+  expect(await memorySpace("https://worlds.test|ben")).not.toBe(space);
 
-  const worldId = await t.mutation(api.worlds.add, {
-    transcript: "  Took Mochi to Blue Door Café.  ",
-  });
+  const worldId = await t
+    .withIdentity({ tokenIdentifier: OWNER })
+    .mutation(api.worlds.add, {
+      transcript: "  Took Mochi to Blue Door Café.  ",
+    });
   expect(calls).toHaveLength(0);
 
   await t.finishAllScheduledFunctions(vi.runAllTimers);
   expect(calls).toEqual([
     {
-      path: "/ns/worlds-shared/document",
+      path: `/ns/${space}/document`,
       body: {
         id: worldId,
         content: "Took Mochi to Blue Door Café.",
@@ -115,12 +123,15 @@ test.each([
     vi.useFakeTimers();
     const calls = stubSupermemory(respond);
     const t = convexTest(schema, modules);
+    const owner = t.withIdentity({ tokenIdentifier: OWNER });
 
-    const worldId = await t.mutation(api.worlds.add, {
+    const worldId = await owner.mutation(api.worlds.add, {
       transcript: "Took Mochi to the park.",
     });
     expect(calls).toHaveLength(0);
-    expect(await t.query(api.worlds.list)).toMatchObject([{ _id: worldId }]);
+    expect(await owner.query(api.worlds.list)).toMatchObject([
+      { _id: worldId },
+    ]);
 
     await t.finishAllScheduledFunctions(vi.runAllTimers);
     const runs = await t.run((ctx) =>
@@ -137,7 +148,9 @@ test.each([
     expect(console.error).toHaveBeenLastCalledWith(
       expect.stringContaining(`world ${worldId} on attempt 4`),
     );
-    expect(await t.query(api.worlds.list)).toMatchObject([{ _id: worldId }]);
+    expect(await owner.query(api.worlds.list)).toMatchObject([
+      { _id: worldId },
+    ]);
   },
 );
 
@@ -380,7 +393,9 @@ test("without an API key, remember and recall skip Supermemory", async () => {
   const calls = stubSupermemory(down);
   const t = convexTest(schema, modules);
 
-  await t.mutation(api.worlds.add, { transcript: "Took Mochi to the park." });
+  await t
+    .withIdentity({ tokenIdentifier: OWNER })
+    .mutation(api.worlds.add, { transcript: "Took Mochi to the park." });
   await t.finishAllScheduledFunctions(vi.runAllTimers);
   expect(
     await t.action(internal.memory.recall, { transcript: "Walked Mochi." }),
