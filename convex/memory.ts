@@ -2,6 +2,7 @@ import { v } from "convex/values";
 import { Supermemory } from "supermemory";
 import { internal } from "./_generated/api";
 import { env, internalAction } from "./_generated/server";
+import { sha256Hex } from "./sha256";
 
 /**
  * Memory of the people, pets, places and things that keep coming back in
@@ -43,14 +44,22 @@ import { env, internalAction } from "./_generated/server";
  * first. When the second round misses the deadline, recall ranks what the
  * first round found.
  *
- * Spaces: everyone shares SHARED_SPACE until device profiles land. Then pass
- * each person's own space to remember (from worlds.add) and to recall.
- * Supermemory namespaces allow letters, digits, "-", "_" and ":", up to 100
- * characters, so derive the space from identity.tokenIdentifier, for example
- * as a hash of it, instead of using the raw value.
+ * Spaces: each person has their own, memorySpace(their tokenIdentifier).
+ * worlds.add passes the owner's space to remember, and the scene writer should
+ * pass the world owner's space to recall. SHARED_SPACE is only the default
+ * for callers that pass no space.
  */
 
 export const SHARED_SPACE = "worlds-shared";
+
+/**
+ * The memory space for one person. Supermemory namespaces allow letters,
+ * digits, "-", "_" and ":", up to 100 characters, so it is a hash of the
+ * person's tokenIdentifier rather than the raw value.
+ */
+export async function memorySpace(tokenIdentifier: string) {
+  return `worlds-u-${(await sha256Hex(tokenIdentifier)).slice(0, 32)}`;
+}
 
 const RETRY_DELAYS_MS = [60_000, 10 * 60_000, 60 * 60_000];
 const RECALL_TIMEOUT_MS = 4_000;

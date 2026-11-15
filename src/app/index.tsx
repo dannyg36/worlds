@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "convex/react";
-import { useTheme } from "expo-router";
+import { Link, Stack, useTheme } from "expo-router";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -13,11 +13,14 @@ import {
 } from "react-native";
 
 import { api } from "../../convex/_generated/api";
+import type { Id } from "../../convex/_generated/dataModel";
 
 export default function WorldsScreen() {
   const { colors } = useTheme();
-  const worlds = useQuery(api.worlds.list);
+  const worlds = useQuery(api.feed.list);
   const addWorld = useMutation(api.worlds.add);
+  const shareWorld = useMutation(api.sharing.share);
+  const unshareWorld = useMutation(api.sharing.unshare);
   const [transcript, setTranscript] = useState("");
   const [adding, setAdding] = useState(false);
   const canAdd = transcript.trim().length > 0 && !adding;
@@ -37,77 +40,121 @@ export default function WorldsScreen() {
     }
   }
 
+  async function toggleShared(worldId: Id<"worlds">, shared: boolean) {
+    try {
+      await (shared ? unshareWorld : shareWorld)({ worldId });
+    } catch (error) {
+      Alert.alert(
+        shared ? "Couldn't stop sharing" : "Couldn't share your world",
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+
   return (
-    <FlatList
-      data={worlds ?? []}
-      keyExtractor={(world) => world._id}
-      contentInsetAdjustmentBehavior="automatic"
-      keyboardShouldPersistTaps="handled"
-      keyboardDismissMode="on-drag"
-      contentContainerStyle={styles.content}
-      ListHeaderComponent={
-        <View
-          style={[
-            styles.card,
-            { backgroundColor: colors.card, borderColor: colors.border },
-          ]}
-        >
-          <TextInput
-            value={transcript}
-            onChangeText={setTranscript}
-            placeholder="What happened today?"
-            placeholderTextColor={secondaryText}
-            accessibilityLabel="Describe your day"
-            multiline
-            style={[styles.input, { color: colors.text }]}
-          />
-          <Pressable
-            accessibilityRole="button"
-            accessibilityState={{ disabled: !canAdd }}
-            disabled={!canAdd}
-            onPress={handleAdd}
+    <>
+      <Stack.Screen
+        options={{
+          headerRight: () => (
+            <Link
+              href="/friends"
+              style={[styles.headerLink, { color: colors.primary }]}
+            >
+              Friends
+            </Link>
+          ),
+        }}
+      />
+      <FlatList
+        data={worlds ?? []}
+        keyExtractor={(world) => world._id}
+        contentInsetAdjustmentBehavior="automatic"
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
+        contentContainerStyle={styles.content}
+        ListHeaderComponent={
+          <View
             style={[
-              styles.button,
-              { backgroundColor: colors.primary, opacity: canAdd ? 1 : 0.4 },
+              styles.card,
+              { backgroundColor: colors.card, borderColor: colors.border },
             ]}
           >
-            <Text style={styles.buttonLabel}>
-              {adding ? "Adding…" : "Add world"}
+            <TextInput
+              value={transcript}
+              onChangeText={setTranscript}
+              placeholder="What happened today?"
+              placeholderTextColor={secondaryText}
+              accessibilityLabel="Describe your day"
+              multiline
+              style={[styles.input, { color: colors.text }]}
+            />
+            <Pressable
+              accessibilityRole="button"
+              accessibilityState={{ disabled: !canAdd }}
+              disabled={!canAdd}
+              onPress={handleAdd}
+              style={[
+                styles.button,
+                { backgroundColor: colors.primary, opacity: canAdd ? 1 : 0.4 },
+              ]}
+            >
+              <Text style={styles.buttonLabel}>
+                {adding ? "Adding…" : "Add world"}
+              </Text>
+            </Pressable>
+          </View>
+        }
+        ListEmptyComponent={
+          worlds === undefined ? (
+            <ActivityIndicator style={styles.empty} />
+          ) : (
+            <Text style={styles.empty}>
+              No worlds yet. Describe your day to make the first one.
             </Text>
-          </Pressable>
-        </View>
-      }
-      ListEmptyComponent={
-        worlds === undefined ? (
-          <ActivityIndicator style={styles.empty} />
-        ) : (
-          <Text style={styles.empty}>
-            No worlds yet. Describe your day to make the first one.
-          </Text>
-        )
-      }
-      renderItem={({ item }) => (
-        <View
-          style={[
-            styles.card,
-            { backgroundColor: colors.card, borderColor: colors.border },
-          ]}
-        >
-          <Text style={styles.date}>
-            {new Date(item._creationTime).toLocaleString(undefined, {
-              weekday: "short",
-              month: "short",
-              day: "numeric",
-              hour: "numeric",
-              minute: "2-digit",
-            })}
-          </Text>
-          <Text style={[styles.transcript, { color: colors.text }]}>
-            {item.transcript}
-          </Text>
-        </View>
-      )}
-    />
+          )
+        }
+        renderItem={({ item }) => (
+          <View
+            style={[
+              styles.card,
+              { backgroundColor: colors.card, borderColor: colors.border },
+            ]}
+          >
+            <Text style={styles.date}>
+              {item.mine ? "" : `${item.authorName} · `}
+              {new Date(item._creationTime).toLocaleString(undefined, {
+                weekday: "short",
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+              })}
+            </Text>
+            <Text style={[styles.transcript, { color: colors.text }]}>
+              {item.transcript}
+            </Text>
+            {item.mine && (
+              <View style={styles.shareRow}>
+                <Text style={styles.date}>
+                  {item.shared
+                    ? "Shared with your friends"
+                    : "Only you can see this"}
+                </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  hitSlop={8}
+                  onPress={() => toggleShared(item._id, item.shared)}
+                >
+                  <Text style={[styles.shareAction, { color: colors.primary }]}>
+                    {item.shared ? "Unshare" : "Share"}
+                  </Text>
+                </Pressable>
+              </View>
+            )}
+          </View>
+        )}
+      />
+    </>
   );
 }
 
@@ -148,6 +195,18 @@ const styles = StyleSheet.create({
   transcript: {
     fontSize: 17,
     lineHeight: 24,
+  },
+  shareRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  shareAction: {
+    fontSize: 15,
+    fontWeight: "600",
+  },
+  headerLink: {
+    fontSize: 17,
   },
   empty: {
     color: secondaryText,
