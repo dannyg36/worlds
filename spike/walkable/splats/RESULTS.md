@@ -80,12 +80,12 @@ One UI nit showed up: on a 393-pt-wide screen, the walk stick overlaps the world
 |---|---|---|
 | Wall time, whole pipeline | 61.7 s | 60.1 s (first build); 113 s rebuild while a render shared the CPU |
 | MoGe-2 on 6 faces | 46.0 s wall, 162.5 CPU-s, model load 0.5 s | 45.0 s wall, 158.7 CPU-s |
-| Everything else | 13 s, mostly writing the 2.9M level | about the same |
+| Everything else | 13 s, half of it writing the 2.9M level | about the same |
 | Peak RSS | 1.93 GB | 1.96 GB |
 | Camera height from MoGe | 1.43 units → scale ×1.12 | 5.71 units → scale ×0.28 |
 | Face scale spread | 0.72 to 1.21, 12 overlapping pairs | 0.75 to 1.47, 8 pairs; `up` had no overlap (sky) |
 | Range in the world | 0.71 to 7.45 m | 1.44 to 114 m |
-| Sky share / fallback splats | 0% / 2.4% | 44% / 47% (sky splats count as fallback) |
+| Sky share / fallback splats at the 1448 level | 0% / 2.0% | 44% / 47% (sky splats count as fallback) |
 | Level 2896 | 2,889,056 splats, 30.8 MB | 2,889,056, 28.7 MB |
 | Level 2048 (`pano-hi`) | 1,444,466, 16.1 MB | 15.0 MB |
 | **Level 1448 (`pano`, default)** | **722,134, 8.2 MB** | **7.6 MB** |
@@ -138,7 +138,7 @@ uv pip install --python .venv/bin/python torch==2.15.0 torchvision==0.29.2 --ind
 uv pip install --python .venv/bin/python "git+https://github.com/microsoft/MoGe.git@74fbce054ebed49800de42d0ad0e83495065719a"
 ```
 
-The venv is 2.4 GB and the model weights add 135 MB on first run.
+The venv is 2.4 GB and the model weights add 135 MB on first run. Crew threads can skip the build: copy `<day>-pano-1448.spz` from the captain drive (`renders/YCCO-10/splats/`) into `spike/walkable/splats/work/<day>-pano/`. The bytes and sha256 match the manifest.
 
 WebKit stand-in check: `cd spike/walkable/splats && npx playwright install --with-deps webkit && node tools/webkit-check.mjs`. It writes `work/webkit/*.png` and `webkit-check.json`.
 
@@ -153,13 +153,26 @@ Controls: drag to look; the on-screen stick or WASD to move.
 
 ## Files
 
-* Captain drive `renders/YCCO-10/splats/`:
+* In the repo, `research/walkable-worlds/splats/` (each file under 5 MB):
+  * `hackathon-walk.mp4`: 4.2 s, 1280×632, 0.56 MB, a deterministic offline render in Chromium on SwiftShader. **WIP:** I stopped it at 101 of 168 frames for the wrap-up.
+  * the WebKit iPhone-emulation screenshots and `webkit-check.json`
+  * `hackathon-desktop.jpg`, the range maps, and both days' `*-pano-summary.json` with the build numbers
+* Captain drive `renders/YCCO-10/splats/` holds the same media plus the larger files that stay out of git:
+  * `hackathon-pano-1448.spz` (8.2 MB) and `santa-cruz-pano-1448.spz` (7.6 MB)
+  * `REPORT.md`
   * `hackathon-walk.mp4` (deterministic offline render, Chromium on SwiftShader)
   * `hackathon-iphone-webkit.png`, `santa-cruz-iphone-webkit.png` and `santa-cruz-iphone-webkit-look.png` (WebKit, iPhone 15 Pro emulation)
   * `hackathon-desktop.jpg`
   * `<day>-pano-range.png`
   * `<day>-pano-1448.spz` (the default worlds, for other threads to load)
 * Repo: `stats.jsonl` (every phone and browser session; WebKit runs carry `run=webkit` in the query, and their iPhone UA is emulated), `manifest.json`, `tools/pano-world.mjs`, `tools/moge_faces.py`, `tools/splatlib.mjs`, `tools/webkit-check.mjs`
+
+## Unfinished (WIP at wrap-up)
+
+* Every real-iPhone check above is **pending (phones down, DAN-20)**.
+* The offline MP4 stopped at 101 of 168 frames. There's no Santa Cruz clip.
+* The video → VGGT stretch was cut, and no GMI video was generated.
+* The day worlds have no public URL, so re-hosting them takes `fetch-assets.mjs --build` (or the drive copies). A bucket or `FAL_KEY` would fix that.
 
 ## Cost
 
