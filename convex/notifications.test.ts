@@ -149,7 +149,7 @@ describe("nightly reminder", () => {
         to: tokenOf("tokyo"),
         title: "Tell me about your day",
         body: "Talk for 20 seconds and it becomes tonight's world.",
-        data: { url: "/" },
+        data: { url: "/record" },
         ttl: 7200,
         sound: "default",
         channelId: "default",

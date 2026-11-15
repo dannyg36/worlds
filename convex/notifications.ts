@@ -15,7 +15,7 @@ import {
   startOfLocalDay,
 } from "./localTime";
 
-export const RECORD_PATH = "/";
+export const RECORD_PATH = "/record";
 
 const DEFAULT_REMINDER_MINUTES = 21 * 60;
 const REMINDER_BATCH = 100;
