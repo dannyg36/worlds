@@ -1,0 +1,110 @@
+{
+  "day": "santa-cruz",
+  "spec": {
+    "day": "santa-cruz",
+    "title": "Cliffs, surfers, sea lions",
+    "transcript": "Took the day off and drove to Santa Cruz with Maya. Foggy in the morning but it cleared up around noon. We rented bikes, rode along the cliffs, saw like a hundred surfers. Got clam chowder in a bread bowl on the wharf and watched the sea lions yelling at each other. Sunburnt now.",
+    "time_of_day": "noon",
+    "weather": "sunny, last wisps of morning fog over the water",
+    "palette": "ocean blue, sand, cypress green, sun-bleached wood",
+    "ground": {
+      "type": "grassy cliff top over sand and ocean",
+      "material": "grass, sandstone, sand, water",
+      "island_radius_m": 8
+    },
+    "objects": [
+      {
+        "id": "wharf",
+        "prompt": "a section of an old wooden wharf on stilts",
+        "size_m": 6,
+        "count": 1,
+        "place": "over water"
+      },
+      {
+        "id": "sealion",
+        "prompt": "a sea lion barking with its head up",
+        "size_m": 1.5,
+        "count": 3,
+        "place": "on wharf beams"
+      },
+      {
+        "id": "bike",
+        "prompt": "a red rental beach cruiser bicycle",
+        "size_m": 1.8,
+        "count": 2,
+        "place": "cliff path"
+      },
+      {
+        "id": "surfer",
+        "prompt": "a surfer riding a surfboard",
+        "size_m": 1.7,
+        "count": 3,
+        "place": "in water"
+      },
+      {
+        "id": "chowder",
+        "prompt": "a small seaside chowder stand with a bread bowl sign",
+        "size_m": 2.5,
+        "count": 1,
+        "place": "near wharf"
+      },
+      {
+        "id": "cypress",
+        "prompt": "a windswept Monterey cypress tree",
+        "size_m": 5,
+        "count": 2,
+        "place": "cliff edge"
+      },
+      {
+        "id": "bench",
+        "prompt": "a weathered wooden bench",
+        "size_m": 1.5,
+        "count": 1,
+        "place": "cliff path"
+      }
+    ],
+    "style": "Stylized 3D animated-film look, soft clay-like materials, warm cinematic light"
+  },
+  "panorama": {
+    "file": "sample/umhlanga_sunrise.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/HDRIs/extra/Tonemapped%20JPG/umhlanga_sunrise.jpg",
+    "yaw_deg": 0,
+    "height_m": 1.7
+  },
+  "default_set": "sample",
+  "sets": {
+    "sample": {
+      "label": "dev stand-ins (Khronos CC0 models), not generated",
+      "objects": {
+        "wharf": {
+          "file": "sample/GlamVelvetSofa.glb",
+          "bytes": 3149844
+        },
+        "sealion": {
+          "file": "sample/Fox.glb",
+          "bytes": 162852
+        },
+        "bike": {
+          "file": "sample/ToyCar.glb",
+          "bytes": 5422412
+        },
+        "surfer": {
+          "file": "sample/CesiumMan.glb",
+          "bytes": 438044
+        },
+        "chowder": {
+          "file": "sample/ChairDamaskPurplegold.glb",
+          "bytes": 2028924
+        },
+        "cypress": {
+          "file": "sample/Lantern.glb",
+          "bytes": 9564264
+        },
+        "bench": {
+          "file": "sample/SheenChair.glb",
+          "bytes": 4125648
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "day": "hackathon",
+  "spec": {
+    "day": "hackathon",
+    "title": "The first world renders",
+    "transcript": "Okay so today was the YC hackathon. Got to the office at like nine, the whole team crammed around one table by the window, way too many Red Bulls. Danny and I argued about the database for twenty minutes. Around sunset we finally got the first world to render and everybody screamed. Ate cold pizza on the floor.",
+    "time_of_day": "sunset",
+    "weather": "clear, golden light through big windows",
+    "palette": "warm gold, amber, teal shadows",
+    "ground": {
+      "type": "office floor",
+      "material": "warm wood planks",
+      "island_radius_m": 6
+    },
+    "objects": [
+      {
+        "id": "table",
+        "prompt": "a long wooden office table crowded with laptops and glowing monitors",
+        "size_m": 3,
+        "count": 1,
+        "place": "center"
+      },
+      {
+        "id": "monitor",
+        "prompt": "a computer monitor showing a tiny colorful 3D world",
+        "size_m": 0.7,
+        "count": 1,
+        "place": "on table"
+      },
+      {
+        "id": "cans",
+        "prompt": "a messy pile of Red Bull energy drink cans",
+        "size_m": 0.4,
+        "count": 1,
+        "place": "on table"
+      },
+      {
+        "id": "pizza",
+        "prompt": "two open pizza boxes with cold pizza slices",
+        "size_m": 0.6,
+        "count": 1,
+        "place": "floor near table"
+      },
+      {
+        "id": "person",
+        "prompt": "a young person cheering with both arms raised, casual hoodie",
+        "size_m": 1.7,
+        "count": 4,
+        "place": "around table"
+      },
+      {
+        "id": "whiteboard",
+        "prompt": "a rolling whiteboard covered in database diagrams",
+        "size_m": 1.8,
+        "count": 1,
+        "place": "edge"
+      },
+      {
+        "id": "beanbag",
+        "prompt": "a big orange beanbag chair",
+        "size_m": 1,
+        "count": 1,
+        "place": "edge"
+      },
+      {
+        "id": "window",
+        "prompt": "a tall floor-to-ceiling window frame glowing with sunset light",
+        "size_m": 3,
+        "count": 1,
+        "place": "backdrop"
+      }
+    ],
+    "style": "Stylized 3D animated-film look, soft clay-like materials, warm cinematic light"
+  },
+  "panorama": {
+    "file": "sample/lebombo.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/HDRIs/extra/Tonemapped%20JPG/lebombo.jpg",
+    "yaw_deg": 0,
+    "height_m": 1.7
+  },
+  "default_set": "sample",
+  "sets": {
+    "sample": {
+      "label": "dev stand-ins (Khronos CC0 models), not generated",
+      "objects": {
+        "table": {
+          "file": "sample/GlamVelvetSofa.glb",
+          "bytes": 3149844
+        },
+        "monitor": {
+          "file": "sample/BoomBox.glb",
+          "bytes": 10614184
+        },
+        "cans": {
+          "file": "sample/WaterBottle.glb",
+          "bytes": 8966700
+        },
+        "pizza": {
+          "file": "sample/IridescentDishWithOlives.glb",
+          "bytes": 5742828
+        },
+        "person": {
+          "file": "sample/CesiumMan.glb",
+          "bytes": 438044
+        },
+        "whiteboard": {
+          "file": "sample/Lantern.glb",
+          "bytes": 9564264
+        },
+        "beanbag": {
+          "file": "sample/SheenChair.glb",
+          "bytes": 4125648
+        },
+        "window": {
+          "file": "sample/ChairDamaskPurplegold.glb",
+          "bytes": 2028924
+        }
+      }
+    }
+  }
+}
