@@ -1,6 +1,6 @@
 import { useConvexConnectionState, useMutation } from "convex/react";
 import { Asset } from "expo-asset";
-import { router, useLocalSearchParams, useTheme } from "expo-router";
+import { useLocalSearchParams, useNavigation, useTheme } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useState } from "react";
 import {
@@ -84,6 +84,7 @@ const pulse = {
 
 export default function RecordScreen() {
   const { colors } = useTheme();
+  const navigation = useNavigation();
   const { bottom } = useSafeAreaInsets();
   const { source } = useLocalSearchParams<{ source?: string }>();
   const addWorld = useMutation(api.worlds.add);
@@ -112,7 +113,7 @@ export default function RecordScreen() {
     setSaveFailed(false);
     try {
       await addWorld({ transcript: draft });
-      router.back();
+      navigation.goBack();
     } catch {
       setSaveFailed(true);
       setSaving(false);
@@ -145,7 +146,7 @@ export default function RecordScreen() {
           accessibilityRole="button"
           accessibilityLabel="Close"
           hitSlop={12}
-          onPress={() => router.back()}
+          onPress={() => navigation.goBack()}
           style={[styles.closeButton, { backgroundColor: colors.background }]}
         >
           <SymbolView
@@ -203,6 +204,7 @@ export default function RecordScreen() {
             placeholderTextColor={secondaryText}
             accessibilityLabel="Your day"
             autoFocus={draft === ""}
+            editable={!saving}
             multiline
             style={[
               styles.input,

@@ -4,6 +4,7 @@ import {
   useSpeechRecognitionEvent,
 } from "expo-speech-recognition";
 import { useEffect, useRef, useState } from "react";
+import { Platform } from "react-native";
 
 export type SpeechError =
   | "microphone-denied"
@@ -31,6 +32,19 @@ const ERROR_KINDS: Partial<
 const NATIVE_CHUNK_FRAMES = 4096;
 const CLIP_SAMPLE_RATE = 16_000;
 
+function transcriptOf({
+  finals,
+  interim,
+}: {
+  finals: string[];
+  interim: string;
+}) {
+  return [...finals, interim]
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .join(" ");
+}
+
 export function useSpeechToText({
   maxSeconds,
   onFinish,
@@ -44,7 +58,7 @@ export function useSpeechToText({
   const [deadline, setDeadline] = useState<number | null>(null);
   const [remainingMs, setRemainingMs] = useState(maxSeconds * 1000);
   const session = useRef({
-    final: "",
+    finals: [] as string[],
     interim: "",
     error: null as SpeechError | null,
     running: false,
@@ -61,28 +75,26 @@ export function useSpeechToText({
     const current = session.current;
     const text = results[0]?.transcript ?? "";
     if (isFinal) {
-      current.final += text;
+      current.finals.push(text);
       current.interim = "";
     } else {
       current.interim = text;
     }
-    setTranscript((current.final + current.interim).trim());
+    setTranscript(transcriptOf(current));
   });
 
   useSpeechRecognitionEvent("error", (event) => {
     if (event.error === "aborted") return;
     const current = session.current;
     const kind = ERROR_KINDS[event.error] ?? "failed";
-    if (kind === "no-speech" && (current.final + current.interim).trim()) {
-      return;
-    }
+    if (kind === "no-speech" && transcriptOf(current)) return;
     current.error = kind;
     setError(kind);
   });
 
   useSpeechRecognitionEvent("end", () => {
     const current = session.current;
-    const text = (current.final + current.interim).trim();
+    const text = transcriptOf(current);
     current.running = false;
     setStatus("idle");
     setDeadline(null);
@@ -125,7 +137,7 @@ export function useSpeechToText({
     const current = session.current;
     if (current.running) return;
     current.running = true;
-    current.final = "";
+    current.finals = [];
     current.interim = "";
     current.error = null;
     setTranscript("");
@@ -133,7 +145,6 @@ export function useSpeechToText({
     setStatus("starting");
 
     if (
-      !clipUri &&
       !(await ExpoSpeechRecognitionModule.requestMicrophonePermissionsAsync())
         .granted
     ) {
@@ -158,8 +169,7 @@ export function useSpeechToText({
       maxAlternatives: 1,
       addsPunctuation: true,
       iosTaskHint: "dictation",
-      requiresOnDeviceRecognition:
-        ExpoSpeechRecognitionModule.supportsOnDeviceRecognition(),
+      requiresOnDeviceRecognition: Platform.OS === "ios",
       audioSource: clipUri
         ? {
             uri: clipUri,
