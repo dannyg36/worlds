@@ -215,6 +215,14 @@ for (let a = 0; a < FACES.length; a++) for (let b = a + 1; b < FACES.length; b++
     pairs.push({ a, b, m: ratios[ratios.length >> 1], n: ratios.length });
   }
 }
+const linked = new Set([0]);
+for (let grew = true; grew; ) {
+  grew = false;
+  for (const p of pairs) if (linked.has(p.a) !== linked.has(p.b)) { linked.add(p.a); linked.add(p.b); grew = true; }
+}
+const unlinked = depthMode === "box" ? [] : FACES.filter((F, i) => !linked.has(i));
+for (const F of unlinked) F.range.fill(NaN);
+if (unlinked.length) console.error("[" + id + "] faces with no depth overlap, treated as sky: " + unlinked.map((F) => F.name).join(", "));
 const logS = new Array(FACES.length).fill(0);
 if (depthMode !== "box") {
   for (let iter = 0; iter < 200; iter++) {
@@ -367,7 +375,7 @@ timings.total_s = +((Date.now() - T0) / 1000).toFixed(2);
 const summary = {
   id, day: args.day ?? null, pano: { source: args.pano, width: PW, height: PH }, depth: depthMode, fov, faceSize, kScale, skyRange,
   camHeight_depth_units: +camHeight.toFixed(3), metric_scale_applied: +g.toFixed(4),
-  face_scales: FACES.map((F) => ({ face: F.name, scale: +F.scale.toFixed(4), ...(F.plyInfo ?? {}) })), pairs: pairs.map((p) => ({ a: FACES[p.a].name, b: FACES[p.b].name, log_ratio: +p.m.toFixed(4), n: p.n })),
+  face_scales: FACES.map((F) => ({ face: F.name, scale: +F.scale.toFixed(4), ...(F.plyInfo ?? {}) })), unlinked_faces: unlinked.map((F) => F.name), pairs: pairs.map((p) => ({ a: FACES[p.a].name, b: FACES[p.b].name, log_ratio: +p.m.toFixed(4), n: p.n })),
   fal_calls: falCalls, depth_meta: depthMeta && { model: depthMeta.model, load_s: depthMeta.load_s, total_wall_s: depthMeta.total_wall_s, cpu_s: +depthMeta.faces.reduce((s, f) => s + f.cpu_s, 0).toFixed(1), threads: depthMeta.threads }, timings, outputs,
 };
 fs.writeFileSync(path.join(workDir, "summary.json"), JSON.stringify(summary, null, 2));
