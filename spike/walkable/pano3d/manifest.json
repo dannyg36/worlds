@@ -165,7 +165,7 @@
           },
           "edgeDeg": 86,
           "walk": {
-            "radius": 2.5,
+            "radius": 1.25,
             "eye": 1.6,
             "grid": {
               "n": 41,
@@ -201,7 +201,7 @@
           },
           "edgeDeg": 86,
           "walk": {
-            "radius": 2.5,
+            "radius": 1.25,
             "eye": 1.6,
             "grid": {
               "n": 41,
@@ -237,7 +237,7 @@
           },
           "edgeDeg": 86,
           "walk": {
-            "radius": 2.5,
+            "radius": 1.25,
             "eye": 1.6,
             "grid": {
               "n": 41,
