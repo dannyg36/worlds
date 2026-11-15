@@ -1,0 +1,121 @@
+{
+  "note": "Shared base images per primary day, all from GMI. concept: isometric diorama on white for image-to-3D (seedream-5.0-lite 2048x2048). eye: eye-level view (seedream-5.0-lite 2560x1440). pano: equirectangular panorama (seedream-5.0-lite 4096x2048; pano_candidates keeps both the eye-referenced and the text-only take, pano is the pick). diorama_glb: hunyuan-3d-pro from the concept image, run one at a time.",
+  "days": {
+    "hackathon": {
+      "concept": {
+        "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_d94ad038-0d35-46ce-bfcf-d1525f625fd3ae3b80c5-c028-412c-8961-274321becd30.png",
+        "bytes": 5171374,
+        "latency_s": 32.12,
+        "queue_wait_s": 32.12,
+        "request_id": "d94ad038-0d35-46ce-bfcf-d1525f625fd3",
+        "model": "seedream-5.0-lite",
+        "size": "2048x2048",
+        "prompt": "A cozy miniature diorama of a startup office during a hackathon at sunset, on a small round floating island base: one long wooden table by a big window crowded with laptops and glowing monitors, a pile of Red Bull cans, open pizza boxes on the floor, four tiny people cheering with arms raised around a monitor showing a little 3D world. Warm golden sunset light through the window. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light, isometric three-quarter view, centered, plain white background."
+      },
+      "eye": {
+        "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_846b09d9-ef35-4e94-a91d-bffc0c521a8e26d4b587-1ff4-40de-a8e7-69a105afc68e.png",
+        "bytes": 4875687,
+        "latency_s": 67.57,
+        "queue_wait_s": 67.57,
+        "request_id": "846b09d9-ef35-4e94-a91d-bffc0c521a8e",
+        "model": "seedream-5.0-lite",
+        "size": "2560x1440",
+        "prompt": "Eye-level view standing inside a startup office during a hackathon at sunset: a long wooden table by floor-to-ceiling windows crowded with laptops, monitors and Red Bull cans, open pizza boxes on the floor, a few people cheering around a screen showing a 3D world, golden sunset over the city outside. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light, wide angle."
+      },
+      "pano_candidates": {
+        "ref": {
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_561754fa-cba4-4176-a3d5-50db793aabd2fe5373c8-fee2-4c98-9f00-d8a1e1dc9af0.png",
+          "bytes": 11498767,
+          "latency_s": 79.62,
+          "queue_wait_s": 79.62,
+          "request_id": "561754fa-cba4-4176-a3d5-50db793aabd2",
+          "model": "seedream-5.0-lite",
+          "size": "4096x2048",
+          "reference": "eye",
+          "prompt": "equirectangular 360 degree panorama, eye level, inside a startup office during a hackathon at sunset: long wooden tables crowded with laptops and monitors, floor-to-ceiling windows with a golden sunset over the city, Red Bull cans, open pizza boxes on the floor, whiteboards covered in diagrams, beanbags. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light Full 360 by 180 degree equirectangular projection, 2:1, the left and right edges join seamlessly, level horizon across the vertical middle, ceiling or sky filling the top edge, floor or ground filling the bottom edge, no people cut off at the seam, no text, no watermark."
+        },
+        "text": {
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a17cd8f-6021-4420-af25-dced6c24718eb7bff6fe-a6cc-4c2d-a8bf-7c6ab8cfba4a.png",
+          "bytes": 10748297,
+          "latency_s": 166.76,
+          "queue_wait_s": 166.76,
+          "request_id": "3a17cd8f-6021-4420-af25-dced6c24718e",
+          "model": "seedream-5.0-lite",
+          "size": "4096x2048",
+          "reference": null,
+          "prompt": "equirectangular 360 degree panorama, eye level, inside a startup office during a hackathon at sunset: long wooden tables crowded with laptops and monitors, floor-to-ceiling windows with a golden sunset over the city, Red Bull cans, open pizza boxes on the floor, whiteboards covered in diagrams, beanbags. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light Full 360 by 180 degree equirectangular projection, 2:1, the left and right edges join seamlessly, level horizon across the vertical middle, ceiling or sky filling the top edge, floor or ground filling the bottom edge, no people cut off at the seam, no text, no watermark."
+        }
+      },
+      "pano": {
+        "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a17cd8f-6021-4420-af25-dced6c24718eb7bff6fe-a6cc-4c2d-a8bf-7c6ab8cfba4a.png",
+        "bytes": 10748297,
+        "latency_s": 166.76,
+        "queue_wait_s": 166.76,
+        "request_id": "3a17cd8f-6021-4420-af25-dced6c24718e",
+        "model": "seedream-5.0-lite",
+        "size": "4096x2048",
+        "reference": null,
+        "prompt": "equirectangular 360 degree panorama, eye level, inside a startup office during a hackathon at sunset: long wooden tables crowded with laptops and monitors, floor-to-ceiling windows with a golden sunset over the city, Red Bull cans, open pizza boxes on the floor, whiteboards covered in diagrams, beanbags. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light Full 360 by 180 degree equirectangular projection, 2:1, the left and right edges join seamlessly, level horizon across the vertical middle, ceiling or sky filling the top edge, floor or ground filling the bottom edge, no people cut off at the seam, no text, no watermark.",
+        "pick_reason": "text-only take reads as a truer equirectangular (curved ceiling and horizon lines, wraparound composition); the eye-referenced take matches the eye image more closely but looks like a flat wide-angle photo stretched to 2:1"
+      }
+    },
+    "santa-cruz": {
+      "concept": {
+        "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_50d9e737-3bcb-423b-a21b-85850cad8f5b9b5cb125-ba91-4243-937f-0439de52331f.png",
+        "bytes": 5205241,
+        "latency_s": 97.18,
+        "queue_wait_s": 97.18,
+        "request_id": "50d9e737-3bcb-423b-a21b-85850cad8f5b",
+        "model": "seedream-5.0-lite",
+        "size": "2048x2048",
+        "prompt": "A cozy miniature diorama of the Santa Cruz coast on a small round floating island base: a wooden wharf on stilts over the water with sea lions lounging on the beams, two rental bikes parked on a cliffside path, tiny surfers riding waves below the cliffs, a little chowder stand with a bread bowl sign, thin fog clearing into a sunny noon. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light, isometric three-quarter view, centered, plain white background."
+      },
+      "eye": {
+        "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_17e28e59-8f1a-4215-9d6c-d32ac2de7a1e1d352928-8935-4ac1-88b3-b645a1854262.png",
+        "bytes": 5563478,
+        "latency_s": 37.99,
+        "queue_wait_s": 37.99,
+        "request_id": "17e28e59-8f1a-4215-9d6c-d32ac2de7a1e",
+        "model": "seedream-5.0-lite",
+        "size": "2560x1440",
+        "prompt": "Eye-level view on a cliffside bike path in Santa Cruz at noon: the ocean with dozens of surfers in the waves, a long wooden wharf in the distance with sea lions on the pilings, two rental bikes on the path, last wisps of fog over the water, sunny. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light, wide angle."
+      },
+      "pano_candidates": {
+        "ref": {
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_f4d0ad2c-6dc1-4948-988a-d5c3081aa370bd6d6d98-2e16-4aa1-8276-e754b9c13bcd.png",
+          "bytes": 11088560,
+          "latency_s": 104.87,
+          "queue_wait_s": 104.87,
+          "request_id": "f4d0ad2c-6dc1-4948-988a-d5c3081aa370",
+          "model": "seedream-5.0-lite",
+          "size": "4096x2048",
+          "reference": "eye",
+          "prompt": "equirectangular 360 degree panorama, eye level, standing on a sunny cliffside bike path in Santa Cruz at noon: Pacific ocean with many surfers in the waves, a long wooden wharf with sea lions on the pilings, coastal cliffs and cypress trees, a beach boardwalk in the distance, wisps of fog on the horizon. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light Full 360 by 180 degree equirectangular projection, 2:1, the left and right edges join seamlessly, level horizon across the vertical middle, ceiling or sky filling the top edge, floor or ground filling the bottom edge, no people cut off at the seam, no text, no watermark."
+        },
+        "text": {
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_ac8d810a-868c-400a-8f44-3311e8df35527e4b4469-a952-48bd-aa36-12585c8f0732.png",
+          "bytes": 12018209,
+          "latency_s": 67.1,
+          "queue_wait_s": 67.1,
+          "request_id": "ac8d810a-868c-400a-8f44-3311e8df3552",
+          "model": "seedream-5.0-lite",
+          "size": "4096x2048",
+          "reference": null,
+          "prompt": "equirectangular 360 degree panorama, eye level, standing on a sunny cliffside bike path in Santa Cruz at noon: Pacific ocean with many surfers in the waves, a long wooden wharf with sea lions on the pilings, coastal cliffs and cypress trees, a beach boardwalk in the distance, wisps of fog on the horizon. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light Full 360 by 180 degree equirectangular projection, 2:1, the left and right edges join seamlessly, level horizon across the vertical middle, ceiling or sky filling the top edge, floor or ground filling the bottom edge, no people cut off at the seam, no text, no watermark."
+        }
+      },
+      "pano": {
+        "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_ac8d810a-868c-400a-8f44-3311e8df35527e4b4469-a952-48bd-aa36-12585c8f0732.png",
+        "bytes": 12018209,
+        "latency_s": 67.1,
+        "queue_wait_s": 67.1,
+        "request_id": "ac8d810a-868c-400a-8f44-3311e8df3552",
+        "model": "seedream-5.0-lite",
+        "size": "4096x2048",
+        "reference": null,
+        "prompt": "equirectangular 360 degree panorama, eye level, standing on a sunny cliffside bike path in Santa Cruz at noon: Pacific ocean with many surfers in the waves, a long wooden wharf with sea lions on the pilings, coastal cliffs and cypress trees, a beach boardwalk in the distance, wisps of fog on the horizon. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light Full 360 by 180 degree equirectangular projection, 2:1, the left and right edges join seamlessly, level horizon across the vertical middle, ceiling or sky filling the top edge, floor or ground filling the bottom edge, no people cut off at the seam, no text, no watermark.",
+        "pick_reason": "text-only take reads as a truer equirectangular (curved ceiling and horizon lines, wraparound composition); the eye-referenced take matches the eye image more closely but looks like a flat wide-angle photo stretched to 2:1"
+      }
+    }
+  }
+}

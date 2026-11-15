@@ -1,0 +1,218 @@
+{
+  "note": "Hand-written scene specs standing in for the LLM scene writer (YCCO-9 owns the real one and the house style). Keep prompts identical across approaches so results compare. Transcripts come from the captain drive handoffs/sample-days.md.",
+  "style": "Stylized 3D animated-film look, soft clay-like materials, warm cinematic light",
+  "primary": [
+    "hackathon",
+    "santa-cruz"
+  ],
+  "days": {
+    "hackathon": {
+      "transcript": "Okay so today was the YC hackathon. Got to the office at like nine, the whole team crammed around one table by the window, way too many Red Bulls. Danny and I argued about the database for twenty minutes. Around sunset we finally got the first world to render and everybody screamed. Ate cold pizza on the floor.",
+      "title": "The first world renders",
+      "time_of_day": "sunset",
+      "weather": "clear, golden light through big windows",
+      "palette": "warm gold, amber, teal shadows",
+      "concept_prompt": "A cozy miniature diorama of a startup office during a hackathon at sunset, on a small round floating island base: one long wooden table by a big window crowded with laptops and glowing monitors, a pile of Red Bull cans, open pizza boxes on the floor, four tiny people cheering with arms raised around a monitor showing a little 3D world. Warm golden sunset light through the window. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light, isometric three-quarter view, centered, plain white background.",
+      "eye_level_prompt": "Eye-level view standing inside a startup office during a hackathon at sunset: a long wooden table by floor-to-ceiling windows crowded with laptops, monitors and Red Bull cans, open pizza boxes on the floor, a few people cheering around a screen showing a 3D world, golden sunset over the city outside. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light, wide angle.",
+      "panorama_prompt": "equirectangular 360 degree panorama, eye level, inside a startup office during a hackathon at sunset: long wooden tables crowded with laptops and monitors, floor-to-ceiling windows with a golden sunset over the city, Red Bull cans, open pizza boxes on the floor, whiteboards covered in diagrams, beanbags. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light",
+      "ground": {
+        "type": "office floor",
+        "material": "warm wood planks",
+        "island_radius_m": 6
+      },
+      "objects": [
+        {
+          "id": "table",
+          "prompt": "a long wooden office table crowded with laptops and glowing monitors",
+          "size_m": 3,
+          "count": 1,
+          "place": "center"
+        },
+        {
+          "id": "monitor",
+          "prompt": "a computer monitor showing a tiny colorful 3D world",
+          "size_m": 0.7,
+          "count": 1,
+          "place": "on table"
+        },
+        {
+          "id": "cans",
+          "prompt": "a messy pile of Red Bull energy drink cans",
+          "size_m": 0.4,
+          "count": 1,
+          "place": "on table"
+        },
+        {
+          "id": "pizza",
+          "prompt": "two open pizza boxes with cold pizza slices",
+          "size_m": 0.6,
+          "count": 1,
+          "place": "floor near table"
+        },
+        {
+          "id": "person",
+          "prompt": "a young person cheering with both arms raised, casual hoodie",
+          "size_m": 1.7,
+          "count": 4,
+          "place": "around table"
+        },
+        {
+          "id": "whiteboard",
+          "prompt": "a rolling whiteboard covered in database diagrams",
+          "size_m": 1.8,
+          "count": 1,
+          "place": "edge"
+        },
+        {
+          "id": "beanbag",
+          "prompt": "a big orange beanbag chair",
+          "size_m": 1,
+          "count": 1,
+          "place": "edge"
+        },
+        {
+          "id": "window",
+          "prompt": "a tall floor-to-ceiling window frame glowing with sunset light",
+          "size_m": 3,
+          "count": 1,
+          "place": "backdrop"
+        }
+      ]
+    },
+    "santa-cruz": {
+      "transcript": "Took the day off and drove to Santa Cruz with Maya. Foggy in the morning but it cleared up around noon. We rented bikes, rode along the cliffs, saw like a hundred surfers. Got clam chowder in a bread bowl on the wharf and watched the sea lions yelling at each other. Sunburnt now.",
+      "title": "Cliffs, surfers, sea lions",
+      "time_of_day": "noon",
+      "weather": "sunny, last wisps of morning fog over the water",
+      "palette": "ocean blue, sand, cypress green, sun-bleached wood",
+      "concept_prompt": "A cozy miniature diorama of the Santa Cruz coast on a small round floating island base: a wooden wharf on stilts over the water with sea lions lounging on the beams, two rental bikes parked on a cliffside path, tiny surfers riding waves below the cliffs, a little chowder stand with a bread bowl sign, thin fog clearing into a sunny noon. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light, isometric three-quarter view, centered, plain white background.",
+      "eye_level_prompt": "Eye-level view on a cliffside bike path in Santa Cruz at noon: the ocean with dozens of surfers in the waves, a long wooden wharf in the distance with sea lions on the pilings, two rental bikes on the path, last wisps of fog over the water, sunny. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light, wide angle.",
+      "panorama_prompt": "equirectangular 360 degree panorama, eye level, standing on a sunny cliffside bike path in Santa Cruz at noon: Pacific ocean with many surfers in the waves, a long wooden wharf with sea lions on the pilings, coastal cliffs and cypress trees, a beach boardwalk in the distance, wisps of fog on the horizon. Stylized 3D animated-film look, soft clay-like materials, warm cinematic light",
+      "ground": {
+        "type": "grassy cliff top over sand and ocean",
+        "material": "grass, sandstone, sand, water",
+        "island_radius_m": 8
+      },
+      "objects": [
+        {
+          "id": "wharf",
+          "prompt": "a section of an old wooden wharf on stilts",
+          "size_m": 6,
+          "count": 1,
+          "place": "over water"
+        },
+        {
+          "id": "sealion",
+          "prompt": "a sea lion barking with its head up",
+          "size_m": 1.5,
+          "count": 3,
+          "place": "on wharf beams"
+        },
+        {
+          "id": "bike",
+          "prompt": "a red rental beach cruiser bicycle",
+          "size_m": 1.8,
+          "count": 2,
+          "place": "cliff path"
+        },
+        {
+          "id": "surfer",
+          "prompt": "a surfer riding a surfboard",
+          "size_m": 1.7,
+          "count": 3,
+          "place": "in water"
+        },
+        {
+          "id": "chowder",
+          "prompt": "a small seaside chowder stand with a bread bowl sign",
+          "size_m": 2.5,
+          "count": 1,
+          "place": "near wharf"
+        },
+        {
+          "id": "cypress",
+          "prompt": "a windswept Monterey cypress tree",
+          "size_m": 5,
+          "count": 2,
+          "place": "cliff edge"
+        },
+        {
+          "id": "bench",
+          "prompt": "a weathered wooden bench",
+          "size_m": 1.5,
+          "count": 1,
+          "place": "cliff path"
+        }
+      ]
+    },
+    "rainy-monday": {
+      "setting": "a little coffee shop on Valencia Street on a rainy Monday, latte with cat art, then ramen at home under a skylight with rain",
+      "time_of_day": "grey daytime into rainy evening",
+      "key_props": [
+        "inside-out umbrella",
+        "latte with cat latte art",
+        "bus stop",
+        "bowl of ramen",
+        "rainy skylight"
+      ]
+    },
+    "dolores-park": {
+      "setting": "Dolores Park hill on a sunny lazy Sunday morning with the city skyline behind, a dog with a tennis ball, frisbee players",
+      "time_of_day": "morning, getting windy",
+      "key_props": [
+        "golden retriever with tennis ball",
+        "picnic blanket",
+        "split burrito",
+        "frisbee",
+        "palm trees",
+        "city skyline"
+      ]
+    },
+    "birthday-dinner": {
+      "setting": "a tiny Italian restaurant patio with string lights, a long table for eight, then a pier on the bay with a guitar",
+      "time_of_day": "night",
+      "key_props": [
+        "string lights",
+        "long table with pasta",
+        "tiramisu with a sparkler",
+        "guitar",
+        "pier over the bay"
+      ]
+    },
+    "finals-library": {
+      "setting": "a grand library reading room with green desk lamps and huge windows while snow falls outside, then a silent snowy street at midnight",
+      "time_of_day": "late afternoon into midnight",
+      "key_props": [
+        "green banker's lamps",
+        "stacks of chemistry books",
+        "hot chocolate",
+        "tall arched windows with snow",
+        "snowy street lamps"
+      ]
+    },
+    "mission-peak": {
+      "setting": "the summit of Mission Peak at sunrise with the metal pole, steep grassy hills, cows grazing, a diner with red booths after",
+      "time_of_day": "sunrise",
+      "key_props": [
+        "metal summit pole",
+        "steep trail",
+        "grazing cows",
+        "garden tomatoes",
+        "stack of pancakes",
+        "red diner booths"
+      ]
+    },
+    "farmers-market": {
+      "setting": "the Saturday farmers market at the Ferry Building with produce stalls, then a balcony at golden hour with a peach galette",
+      "time_of_day": "morning into golden hour",
+      "key_props": [
+        "Ferry Building clock tower",
+        "crates of peaches",
+        "sourdough loaves",
+        "giant purple carrots",
+        "rustic peach galette",
+        "balcony"
+      ]
+    }
+  }
+}
