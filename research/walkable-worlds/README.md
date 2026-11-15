@@ -1,40 +1,31 @@
 # Walkable worlds spike (YCCO-10): ranked recommendation
 
-How far past a single 3D diorama can we go toward a world you stand inside and look around on an iPhone? Five approaches were prototyped in parallel on 2026-11-15. The provider moved from fal to GMI Cloud mid-spike, GMI's only 3D model (`hunyuan-3d-pro`) failed for the whole account with `ResourceInsufficient`, and cloud iPhones stopped starting at about 21:00 UTC (DAN-20), so some checks are pending. Everything below says which numbers were measured and which are pending.
+The question: how far past a single 3D diorama can we go toward a world you stand inside and look around on an iPhone? Five approaches were prototyped in parallel on 2026-11-15. Partway through, the provider moved from fal to GMI Cloud. GMI's only 3D model (`hunyuan-3d-pro`) then failed for the whole account with `ResourceInsufficient`, and cloud iPhones stopped starting at about 21:00 UTC (DAN-20). The cloud-iPhone numbers below come from before 21:00, on a device that may be a simulator, so treat its FPS as an upper bound. "WebKit" means Playwright WebKit with iPhone emulation and software GL, which shows the pages work but says nothing about phone FPS.
 
 ## Ranking
 
-| Rank | Approach | Verdict | Why |
+| Rank | Approach (branch) | Verdict | Evidence |
 | --- | --- | --- | --- |
-| 1 | **Diorama inside a 360° panorama** (`skybox`) | **Ship for the demo** | One extra image call. GMI `seedream-5.0-lite` makes a native 4096×2048 equirectangular panorama for $0.035 from the scene text; the takes in `shared-inputs/` read as real 360s with level horizons. Three.js renders it as background, image-based lighting and a `GroundedSkybox` floor you can stand on. Its harness held 60 FPS on a cloud iPhone with a 142k-triangle stand-in model, and MAX_TEXTURE_SIZE was 8192, so 4096×2048 fits. |
-| 2 | **Depth-lifted panorama: splats or displaced mesh** (`splats`, `pano3d`) | **Stretch** | CPU depth (MoGe-2 on six cube faces of the panorama) turns the same panorama into a 0.72M-splat .spz (8 MB) in about 60 s per day on 4 CPU cores, at $0 beyond the panorama. Spark held about 60 FPS on the cloud iPhone from 0.25M to 8M splats (an upper bound; the device may be a simulator). You get look-around plus leaning or stepping about a metre with real parallax, not walking: nothing exists behind objects. |
-| 3 | **Composite of separate assets** (`composite`) | **Stretch, true 3D blocked** | The renderer, procedural island layout and walk controls are built. True 3D objects need `hunyuan-3d-pro` (down) or fal; with one 3D job at a time the object count multiplies latency. The image-cutout variant works without 3D but reads as a paper diorama. |
-| 4 | **Real-time world models** (`worldmodels`) | **Not yet** | Nothing on GMI qualifies; `Krea-Realtime-14B` has no movement controls. On fal, `robbyant/lingbot-world-2` and `alibaba/abot-world-0` cost $0.00125 per second ($0.075 per minute) over WebRTC. The guarded proxy, phone page and probes are built and mock-tested, but no live session has run because FAL_KEY is deferred. Nothing persists between sessions, so a world in the feed has to be re-imagined every visit. |
+| 1 | **Diorama inside a 360° panorama** (`capy/walkable-skybox`) | **Ship for the demo, at orbit and table scale** | The GMI pipeline (`gpt-image-2.5-flare-generate` 2048×1024, then a `bria-genfill` seam fix, then a `bria-image-increase-resolution` 2× upscale) costs $0.088 and takes about 60 s of GMI time per world, and the phone downloads a 1.1–1.7 MB JPEG. The seam fix takes the seam ratio from 7.76 and 3.03 down to 0.90 and 0.88. The upscaler isn't wrap-aware and pushes it back to 2.46 and 1.65. The viewer held 60 FPS on the cloud iPhone with a heavier placeholder scene (142k triangles). Life size needs a real day GLB, which is **blocked (GMI 3D down)**. |
+| 2 | **Depth-lifted panorama** (`capy/walkable-pano3d` mesh, `capy/walkable-splats` splats) | **Stretch** | Real parallax for 0.5 to 1 m of movement; the mesh tears at about 1.4 m. You can look around and lean, but not walk across, because nothing exists behind objects. Depth on CPU is the bottleneck: MoGe-2 on 14 crops takes 5 to 9 min per world, and MoGe-2 on 6 cube faces takes about 60 s per world (0.72M splats, 8 MB .spz). On the cloud iPhone, a 1.3M-triangle mesh ran at 60 FPS and Spark held about 60 FPS from 0.25M to 8M splats. |
+| 3 | **Composite of separate assets** (`capy/walkable-composite`) | **Image cards: stretch, as a "step inside" mode. True 3D: not yet (blocked)** | Each card world took 35 to 44 s and $0.48 to $0.54, with a 1.8 MB download. It reads as the day from the front and as a paper theater from the side. A true-3D composite of 6 objects takes 6 to 18 min with one 3D job at a time, or 2 to 6 min with three; fal would cost $0.60 to $1.50 per world. |
+| 4 | **Real-time world models** (`capy/walkable-worldmodels`) | **Live: not yet. GMI branching video walk: teaser only** | GMI has no interactive world model. `Krea-Realtime-14B` is an async job, and the one probe sat queued for more than 11 minutes. On fal, `robbyant/lingbot-world-2` costs $0.075 per minute; its client and guarded proxy are built and mock-tested on the cloud iPhone but have never run live, because FAL_KEY is deferred. The branching walk (Hailuo-2.3-Fast or wan3.0 at 480p) takes 57 to 112 s and about $0.60 per three-move node, and it feels like choosing between short films. As a GPU option, Matrix-Game 2.0 on a GMI H100 at $2.00 to $2.60 per hour works out to about $0.033 to $0.043 per user-minute. |
 
-The demo pick is rank 1, upgraded to rank 2 if there's a day to spare. That holds as long as GMI or fal 3D comes back for the diorama itself. If 3D stays down, the panorama world alone (stand mode, with a cutout of the concept image as a centerpiece) is still a demo.
+The recommendation for the demo is rank 1. Upgrade it to rank 2 if a hosted depth model becomes available, for example fal `microsoft/moge-2` at $0.01 per megapixel. If 3D stays down, rank 1 still demos, with a cutout card of the concept image on a pedestal in place of the GLB.
 
 ## Latency against the one-minute budget
 
-GMI image latency was the surprise. `seedream-5.0-lite` took 38 to 167 s per image across 8 calls (concept 97 s, eye-level 38 s, panoramas 67 to 167 s; see `root-ledger.jsonl`). Run serially (scene, concept image, image-to-3D, panorama) that blows the one-minute budget, so the panorama call must start from the scene text in parallel with the concept-to-3D chain. It needs no reference image: the text-only take was the better 360 on both days. Then it adds no wall time as long as it finishes before the GLB.
+GMI image latency varies widely. `seedream-5.0-lite` took 38 to 167 s per image and `gpt-image-2.5-flare` took 21 to 25 s. `Flux2-Klein`, `Flux2-Dev` and `Qwen-Image-2512` never finished; GMI reports `qworkers: 0` for them, meaning no warm workers. The panorama chain needs only the scene text, so it should start right after the scene writer, in parallel with the concept-image-to-3D chain. Then it adds no wall time as long as the GLB takes longer.
 
-## Files
+## Files in this folder
 
-- `shared-inputs/`: the base images every approach used, per day: concept diorama (2048²), eye-level (2560×1440), and two panorama takes (text-only, which is the pick, and eye-referenced). Full-resolution panorama JPEGs are included; the original PNGs are at the URLs in `inputs.json`.
-- `scenes.json`: hand-written scene specs and every prompt, standing in for the scene writer.
-- `inputs.json`: models, sizes, prompts, latencies and URLs for the shared inputs.
-- `catalog/gmi-2026-11-15.md` and `catalog/fal-2026-11-15.md`: what each provider hosts for this problem, with prices. Per-model GMI JSON is in `spike/walkable/catalog/gmi-models/`.
-- `root-ledger.jsonl`: every GMI call this thread made, with latency and estimated cost.
-- Per-approach results: `spike/walkable/<approach>/RESULTS.md` and `research/walkable-worlds/<approach>/` on each `capy/walkable-<approach>` branch.
+- `REPORT.md`: the handoff: what works, what's unfinished, how to run it, what's blocked, and the next three steps.
+- `shared-inputs/`: the base images every approach used, per day: concept diorama, eye-level image, and the two seedream panorama takes. The final seam-fixed panoramas are in `research/walkable-worlds/skybox/` on the skybox branch.
+- `scenes.json`: the hand-written scene specs and every prompt. `inputs.json`: models, sizes, latencies and URLs for the shared inputs.
+- `catalog/`: what GMI and fal host for this problem, with prices (snapshot from 2026-11-15).
+- `root-ledger.jsonl`: every GMI call the root thread made.
+- Each approach branch has `spike/walkable/<approach>/RESULTS.md` and `research/walkable-worlds/<approach>/`.
 
-## Branches
+## Merging
 
-| Branch | Contents |
-| --- | --- |
-| `capy/walkable-worlds-spike` | kit (budgeted GMI and fal runners), scene specs, shared inputs, catalogs, this recommendation |
-| `capy/walkable-skybox` | panorama skybox prototype |
-| `capy/walkable-pano3d` | panorama-to-depth-mesh prototype |
-| `capy/walkable-splats` | Spark splat viewer, pano-to-splat CPU pipeline, iPhone benchmark |
-| `capy/walkable-worldmodels` | guarded fal WMA proxy and phone page for real-time world models |
-| `capy/walkable-composite` | walkable composite renderer and asset pipeline |
-
-All six branches fork from `capy/google-apple-sign-in`, so they contain the shelved sign-in commit b8c47ca. Every spike change is confined to `spike/walkable/` and `research/walkable-worlds/`, so the easiest merge is `git checkout origin/<branch> -- spike/walkable research/walkable-worlds` onto a main-based branch.
+All six branches fork from `capy/google-apple-sign-in`, so they contain the shelved sign-in commit b8c47ca. Every spike change is confined to `spike/walkable/` and `research/walkable-worlds/`, so the clean way onto a main-based branch is `git checkout origin/<branch> -- spike/walkable research/walkable-worlds`, once per branch. Of the shared files, `spike/walkable/kit/`, `scenes.json`, `inputs.json` and `catalog/` are newest on `capy/walkable-worlds-spike`.
