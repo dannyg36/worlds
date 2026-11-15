@@ -23,10 +23,10 @@ export function GlassChip({
   const pulse = useSharedValue(1);
   useEffect(() => {
     pulse.set(pulsing
-      ? withRepeat(withTiming(0.5, { duration: 900, easing: Easing.inOut(Easing.sin) }), -1, true)
+      ? withRepeat(withTiming(0.7, { duration: 900, easing: Easing.inOut(Easing.sin) }), -1, true)
       : 1);
   }, [pulsing, pulse]);
-  const dotStyle = useAnimatedStyle(() => ({ opacity: pulse.value }));
+  const dotStyle = useAnimatedStyle(() => ({ opacity: pulse.value, transform: [{ scale: 1.6 - pulse.value * 0.6 }] }));
 
   return (
     <GlassSurface radius={radius.pill} strong style={styles.chip}>
