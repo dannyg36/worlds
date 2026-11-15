@@ -26,7 +26,7 @@ let proxyLib;
 let kit;
 try {
   proxyLib = require("@fal-ai/server-proxy");
-  kit = await import("../kit/fal.mjs");
+  kit = await import("../kit/ledger.mjs");
 } catch (e) {
   console.error("Dependencies are missing. Run `node spike/walkable/worldmodels/fetch-assets.mjs` first.\n" + e.message);
   process.exit(1);
