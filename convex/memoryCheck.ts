@@ -1,19 +1,29 @@
+import { v } from "convex/values";
 import { internalAction } from "./_generated/server";
-import { recallCast, rememberDay, supermemoryClient } from "./memory";
+import {
+  gatherCast,
+  recallCast,
+  rememberDay,
+  supermemoryClient,
+} from "./memory";
 
 /**
  * Live check of convex/memory.ts against the real Supermemory API, run on a
  * deployment that has SUPERMEMORY_API_KEY:
  *
  *   npx convex run memoryCheck:run
+ *   npx convex run memoryCheck:run '{"space":"worlds-livecheck-1794775859755"}'
  *
- * It remembers four sample days that share a dog, a friend and a café in a
- * fresh space, one day at a time and each fully processed before the next, the
- * way nightly days arrive. Then it recalls the cast for a new day that only
- * says "the dog" and "our usual café". It returns what Supermemory learned from
- * each day, the recall block, how long recall took, and which expected details
- * the block is missing. It never touches the worlds table or the shared space,
- * and it leaves its space in Supermemory for inspection.
+ * Without a space, it remembers four sample days that share a dog, a friend
+ * and a café in a fresh space, one day at a time and each fully processed
+ * before the next, the way nightly days arrive, and returns what Supermemory
+ * learned from each day. With the space of an earlier run, it skips straight
+ * to recall. Then it recalls the cast for two new days that only say "the dog"
+ * and "our usual café". For each one it returns the recall block, how long
+ * recall took, which expected details the block is missing, the cast members
+ * recall looked up, and every fact it weighed, as "stable" or "event", then
+ * similarity, then the fact. It never touches the worlds table or the shared
+ * space, and it leaves its space in Supermemory for inspection.
  */
 
 const SAMPLE_DAYS = [
@@ -39,8 +49,10 @@ const SAMPLE_DAYS = [
   },
 ];
 
-const NEW_DAY =
-  "Slow Sunday. Met Priya at our usual café for pastries and the dog came too, begging for croissant the whole time. Then we walked home through the drizzle.";
+const NEW_DAYS = [
+  "Slow Sunday. Met Priya at our usual café for pastries and the dog came too, begging for croissant the whole time. Then we walked home through the drizzle.",
+  "Met Priya at our usual café and the dog came too.",
+];
 
 const EXPECTED_DETAILS = [
   "Mochi",
@@ -56,15 +68,15 @@ const EXPECTED_DETAILS = [
 const PROCESSING_TIMEOUT_MS = 90_000;
 
 export const run = internalAction({
-  args: {},
-  handler: async () => {
+  args: { space: v.optional(v.string()) },
+  handler: async (_ctx, args) => {
     const client = supermemoryClient();
     if (!client) {
       throw new Error("SUPERMEMORY_API_KEY isn't set on this deployment.");
     }
-    const space = `worlds-livecheck-${Date.now()}`;
+    const space = args.space ?? `worlds-livecheck-${Date.now()}`;
     const days = [];
-    for (const [i, day] of SAMPLE_DAYS.entries()) {
+    for (const [i, day] of args.space ? [] : SAMPLE_DAYS.entries()) {
       const id = `day-${i + 1}`;
       await rememberDay(client, space, { id, ...day });
       const deadline = Date.now() + PROCESSING_TIMEOUT_MS;
@@ -74,7 +86,9 @@ export const run = internalAction({
         doc = await client.documents.get(space, id, { include: "memories" });
       } while (
         doc.system.status !== "failed" &&
-        !(doc.system.status === "done" && doc.system.dreamingStatus === "done") &&
+        !(
+          doc.system.status === "done" && doc.system.dreamingStatus === "done"
+        ) &&
         Date.now() < deadline
       );
       days.push({
@@ -84,17 +98,33 @@ export const run = internalAction({
         learned: (doc.memories ?? []).map((memory) => memory.memory),
       });
     }
-    const started = Date.now();
-    const cast = await recallCast(NEW_DAY, space);
-    return {
-      space,
-      days,
-      newDay: NEW_DAY,
-      recallMs: Date.now() - started,
-      cast,
-      missing: EXPECTED_DETAILS.filter(
-        (detail) => !cast.toLowerCase().includes(detail.toLowerCase()),
-      ),
-    };
+    const recalls = [];
+    for (const transcript of NEW_DAYS) {
+      const started = Date.now();
+      const cast = await recallCast(transcript, space);
+      const recallMs = Date.now() - started;
+      const { members, recalled } = await gatherCast(
+        client,
+        space,
+        transcript,
+        new AbortController().signal,
+      );
+      recalls.push({
+        transcript,
+        recallMs,
+        cast,
+        missing: EXPECTED_DETAILS.filter(
+          (detail) => !cast.toLowerCase().includes(detail.toLowerCase()),
+        ),
+        members,
+        weighed: recalled
+          .sort((a, b) => b.similarity - a.similarity)
+          .map(
+            (r) =>
+              `${r.stable ? "stable" : "event"} ${r.similarity.toFixed(2)} ${r.fact}`,
+          ),
+      });
+    }
+    return { space, days, recalls };
   },
 });

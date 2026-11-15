@@ -6,7 +6,11 @@ import schema from "./schema";
 
 const modules = import.meta.glob("./**/*.ts");
 
-type Respond = (path: string, signal?: AbortSignal) => unknown;
+type Respond = (
+  path: string,
+  body: { query?: string },
+  signal?: AbortSignal,
+) => unknown;
 
 function stubSupermemory(respond: Respond) {
   const calls: { path: string; body: unknown; authorization: string | null }[] =
@@ -15,12 +19,13 @@ function stubSupermemory(respond: Respond) {
     "fetch",
     vi.fn(async (input: string | URL | Request, init?: RequestInit) => {
       const path = new URL(String(input)).pathname;
+      const body = JSON.parse(String(init?.body ?? "{}"));
       calls.push({
         path,
-        body: JSON.parse(String(init?.body ?? "{}")),
+        body,
         authorization: new Headers(init?.headers).get("authorization"),
       });
-      const result = await respond(path, init?.signal ?? undefined);
+      const result = await respond(path, body, init?.signal ?? undefined);
       return result instanceof Response ? result : Response.json(result);
     }),
   );
@@ -31,17 +36,17 @@ const down: Respond = () => {
   throw new TypeError("fetch failed");
 };
 
-const neverAnswers: Respond = (_path, signal) =>
+const neverAnswers: Respond = (_path, _body, signal) =>
   new Promise((_resolve, reject) => {
     signal?.addEventListener("abort", () => reject(signal.reason));
   });
 
-function searchResults(...memories: string[]) {
+function searchResults(...memories: [string, number][]) {
   return {
-    results: memories.map((memory, i) => ({
+    results: memories.map(([memory, similarity], i) => ({
       id: `mem_${i}`,
       memory,
-      similarity: 0.9 - i / 10,
+      similarity,
       metadata: {},
       isLatest: true,
       isInference: false,
@@ -55,7 +60,9 @@ function profile(...memories: string[]) {
   return {
     profile: {
       static: memories.map((memory, i) => ({ id: `static_${i}`, memory })),
-      dynamic: [{ id: "dyn_0", memory: "[2026-11-14] User walked on Ocean Beach" }],
+      dynamic: [
+        { id: "dyn_0", memory: "[2026-11-14] User walked on Ocean Beach" },
+      ],
       buckets: {},
     },
   };
@@ -134,42 +141,124 @@ test.each([
   },
 );
 
-test("recall turns search results and the profile into one cast block", async () => {
-  const calls = stubSupermemory((path) =>
-    path.endsWith("/search")
-      ? searchResults(
-          "Mochi is the user's orange corgi with a red collar",
-          "Blue Door Café has a bright blue door and ivy on the front",
-        )
-      : profile(
-          "Mochi is the user's orange corgi with a red collar",
-          "Priya is the user's best friend, with curly black hair",
-        ),
-  );
+const TODAY =
+  "Slow Sunday. Met Priya at our usual café for pastries and the dog came too, begging for croissant the whole time. Then we walked home through the drizzle.";
+
+const lookUp = (name: string) =>
+  `Who or what is ${name}, and what does ${name} look like?`;
+
+const SEARCHES: Record<string, [string, number][]> = {
+  [TODAY]: [
+    ["User walked on Ocean Beach with Mochi and Priya on Saturday.", 0.62],
+    [
+      "Priya wore a yellow raincoat during the walk on Ocean Beach on Saturday.",
+      0.58,
+    ],
+    ["Priya visited after work.", 0.55],
+    ["Priya generally wears a mustard yellow raincoat.", 0.52],
+    ["Sam gave Mochi a biscuit on 2026-11-14 morning.", 0.5],
+    [
+      "Mochi came home with sand in her orange fur after the walk on Ocean Beach on Saturday.",
+      0.48,
+    ],
+    [
+      "Mochi rolled in the sand during the walk on Ocean Beach on Saturday.",
+      0.46,
+    ],
+    [
+      "User worked from Blue Door Café on 2026-11-14 morning at the window table under hanging plants.",
+      0.44,
+    ],
+    ["It was rainy on 2026-11-14.", 0.41],
+    ["User had a cortado on the bench outside Blue Door Café.", 0.36],
+  ],
+  [lookUp("Priya")]: [
+    ["Priya has curly black hair.", 0.71],
+    ["Priya generally wears a mustard yellow raincoat.", 0.66],
+    ["Priya is a best friend from college.", 0.6],
+    [
+      "Priya wore a yellow raincoat during the walk on Ocean Beach on Saturday.",
+      0.55,
+    ],
+  ],
+  [lookUp("Ocean Beach")]: [
+    ["User walked on Ocean Beach with Mochi and Priya on Saturday.", 0.69],
+    [
+      "Mochi rolled in the sand during the walk on Ocean Beach on Saturday.",
+      0.6,
+    ],
+  ],
+  [lookUp("Mochi")]: [
+    [
+      "User has a pet named Mochi, a corgi, orange and fluffy, wearing a red collar with a little brass bell.",
+      0.74,
+    ],
+    [
+      "Mochi came home with sand in her orange fur after the walk on Ocean Beach on Saturday.",
+      0.57,
+    ],
+    ["Mochi's collar bell jingles whenever she begs for more.", 0.55],
+    ["Mochi stole a kid's tennis ball and refused to return it.", 0.41],
+  ],
+  [lookUp("Blue Door Café")]: [
+    [
+      "Blue Door Café on Valencia is a tiny place with a bright blue door and ivy all over the front.",
+      0.73,
+    ],
+    ["Sam is the owner of Blue Door Café.", 0.6],
+    ["User had a cortado on the bench outside Blue Door Café.", 0.45],
+  ],
+  [lookUp("Sam")]: [
+    ["Sam is the owner of Blue Door Café.", 0.7],
+    ["Sam gave Mochi a biscuit on 2026-11-14 morning.", 0.56],
+  ],
+};
+
+const sampleSpace: Respond = (path, body) =>
+  path.endsWith("/profile")
+    ? profile()
+    : searchResults(...(SEARCHES[body.query ?? ""] ?? []));
+
+function castBlock(...facts: string[]) {
+  return [
+    "<recurring_cast>",
+    'People, pets, places and things from this person\'s earlier days. Put one in the scene only when today\'s voice note brings it up, by name or by role ("my dog", "our usual café"), and then keep its name, relationship and look exactly as described here.',
+    ...facts.map((fact) => `- ${fact}`),
+    "</recurring_cast>",
+  ].join("\n");
+}
+
+test("recall leads with what each recurring member looks like, then events", async () => {
+  const calls = stubSupermemory(sampleSpace);
   const t = convexTest(schema, modules);
 
-  const cast = await t.action(internal.memory.recall, {
-    transcript: "Met Priya at our usual café and the dog came too.",
-  });
+  const cast = await t.action(internal.memory.recall, { transcript: TODAY });
 
   expect(cast).toBe(
-    [
-      "<recurring_cast>",
-      'People, pets, places and things from this person\'s earlier days. Put one in the scene only when today\'s voice note brings it up, by name or by role ("my dog", "our usual café"), and then keep its name, relationship and look exactly as described here.',
-      "- Mochi is the user's orange corgi with a red collar",
-      "- Blue Door Café has a bright blue door and ivy on the front",
-      "- Priya is the user's best friend, with curly black hair",
-      "</recurring_cast>",
-    ].join("\n"),
+    castBlock(
+      "Priya has curly black hair.",
+      "User has a pet named Mochi, a corgi, orange and fluffy, wearing a red collar with a little brass bell.",
+      "Blue Door Café on Valencia is a tiny place with a bright blue door and ivy all over the front.",
+      "Sam is the owner of Blue Door Café.",
+      "Priya generally wears a mustard yellow raincoat.",
+      "Priya is a best friend from college.",
+      "Mochi's collar bell jingles whenever she begs for more.",
+      "User walked on Ocean Beach with Mochi and Priya on Saturday.",
+      "Mochi rolled in the sand during the walk on Ocean Beach on Saturday.",
+      "Priya wore a yellow raincoat during the walk on Ocean Beach on Saturday.",
+      "Mochi came home with sand in her orange fur after the walk on Ocean Beach on Saturday.",
+      "Sam gave Mochi a biscuit on 2026-11-14 morning.",
+    ),
   );
+  expect(calls).toHaveLength(7);
   expect(calls).toEqual(
     expect.arrayContaining([
       {
         path: "/ns/worlds-shared/search",
         body: {
-          query: "Met Priya at our usual café and the dog came too.",
+          query: TODAY,
           searchMode: "memories",
-          limit: 8,
+          limit: 20,
           rewriteQuery: true,
         },
         authorization: "Bearer sm_test",
@@ -179,7 +268,45 @@ test("recall turns search results and the profile into one cast block", async ()
         body: {},
         authorization: "Bearer sm_test",
       },
+      ...["Priya", "Ocean Beach", "Mochi", "Blue Door Café", "Sam"].map(
+        (name) => ({
+          path: "/ns/worlds-shared/search",
+          body: { query: lookUp(name), searchMode: "memories", limit: 5 },
+          authorization: "Bearer sm_test",
+        }),
+      ),
     ]),
+  );
+});
+
+test("recall ranks what the first search found when the look-ups miss the deadline", async () => {
+  vi.useFakeTimers();
+  stubSupermemory((path, body, signal) =>
+    path.endsWith("/profile") || body.query === TODAY
+      ? sampleSpace(path, body, signal)
+      : neverAnswers(path, body, signal),
+  );
+  const t = convexTest(schema, modules);
+
+  const cast = t.action(internal.memory.recall, { transcript: TODAY });
+  await vi.advanceTimersByTimeAsync(4_000);
+
+  expect(await cast).toBe(
+    castBlock(
+      "Priya generally wears a mustard yellow raincoat.",
+      "User walked on Ocean Beach with Mochi and Priya on Saturday.",
+      "Priya wore a yellow raincoat during the walk on Ocean Beach on Saturday.",
+      "Priya visited after work.",
+      "Sam gave Mochi a biscuit on 2026-11-14 morning.",
+      "Mochi came home with sand in her orange fur after the walk on Ocean Beach on Saturday.",
+      "Mochi rolled in the sand during the walk on Ocean Beach on Saturday.",
+      "User worked from Blue Door Café on 2026-11-14 morning at the window table under hanging plants.",
+      "It was rainy on 2026-11-14.",
+      "User had a cortado on the bench outside Blue Door Café.",
+    ),
+  );
+  expect(console.warn).toHaveBeenCalledWith(
+    expect.stringContaining("Supermemory look-up failed"),
   );
 });
 
@@ -213,7 +340,9 @@ test("recall keeps what one call found when the other fails", async () => {
     transcript: "Walked the dog.",
   });
 
-  expect(cast).toContain("- Mochi is the user's orange corgi with a red collar");
+  expect(cast).toContain(
+    "- Mochi is the user's orange corgi with a red collar",
+  );
   expect(console.warn).toHaveBeenCalledWith(
     expect.stringContaining("Supermemory search failed"),
   );
