@@ -1,0 +1,430 @@
+{
+  "ranAt": "2026-11-15T21:10Z",
+  "note": "Scene writer deepseek-ai/deepseek-v4.1-flash-1017 (since replaced by google/gemini-3.8-flash), concept image seedream-4-0-250828, 3D step stubbed with a sample GLB because hunyuan-3d-pro was failing for the account.",
+  "worlds": [
+    {
+      "day": "hackathon",
+      "status": "ready",
+      "scene": {
+        "caption": "Too many Red Bulls, one database fight, and a sunset render worth screaming for.",
+        "imagePrompt": "A tiny round diorama of a hackathon office at sunset: a crowded table by a big window, laptops glowing with a simple colorful 3D world, scattered Red Bull cans, a pizza box with cold slices on the floor, and small stylized teammates gathered around, one pair mid-argument. Warm orange sunset light spills across the room, deep blue shadows, a few excited figures cheering as the screen glows. All on one round base.",
+        "palette": [
+          "#f6a24a",
+          "#2e4057",
+          "#7bc8d9",
+          "#d94f4f",
+          "#f2e8d5"
+        ],
+        "title": "Sunset First Render"
+      },
+      "durationsMs": {
+        "dreaming": 2920,
+        "painting": 10638,
+        "sculpting": 104,
+        "total": 13662
+      },
+      "tasks": [
+        {
+          "step": "dreaming",
+          "attempt": 1,
+          "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+          "outcome": "ok",
+          "providerMs": 2894,
+          "storeMs": 1,
+          "totalMs": 2895
+        },
+        {
+          "step": "painting",
+          "attempt": 1,
+          "model": "seedream-4-0-250828",
+          "outcome": "ok",
+          "providerMs": 10483,
+          "storeMs": 138,
+          "totalMs": 10621
+        },
+        {
+          "step": "sculpting",
+          "attempt": 1,
+          "model": "hunyuan-3d-pro",
+          "outcome": "ok",
+          "providerMs": 6,
+          "storeMs": 79,
+          "totalMs": 85
+        }
+      ],
+      "conceptImageBytes": 414933
+    },
+    {
+      "day": "santa-cruz",
+      "status": "ready",
+      "scene": {
+        "caption": "Fog burned off, we biked the cliffs, and I'm sunburnt but so happy.",
+        "imagePrompt": "A round diorama of a seaside cliff town: two small stylized cyclists on a bike path above pale surf, a wooden wharf with a bread bowl of chowder on a railing, sea lions clustered on pilings barking, morning fog peeling away at the left edge into warm noon light over a blue bay. Bright overhead sun, crisp shadows, salt haze.",
+        "palette": [
+          "#4a8fa8",
+          "#e8d9be",
+          "#d96f4a",
+          "#f2f0e6",
+          "#8c9a8b"
+        ],
+        "title": "Fog to Sunburn Santa Cruz"
+      },
+      "durationsMs": {
+        "dreaming": 1315,
+        "painting": 9229,
+        "sculpting": 52,
+        "total": 10596
+      },
+      "tasks": [
+        {
+          "step": "dreaming",
+          "attempt": 1,
+          "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+          "outcome": "ok",
+          "providerMs": 1301,
+          "storeMs": 1,
+          "totalMs": 1302
+        },
+        {
+          "step": "painting",
+          "attempt": 1,
+          "model": "seedream-4-0-250828",
+          "outcome": "ok",
+          "providerMs": 9086,
+          "storeMs": 111,
+          "totalMs": 9197
+        },
+        {
+          "step": "sculpting",
+          "attempt": 1,
+          "model": "hunyuan-3d-pro",
+          "outcome": "ok",
+          "providerMs": 17,
+          "storeMs": 11,
+          "totalMs": 28
+        }
+      ],
+      "conceptImageBytes": 457535
+    },
+    {
+      "day": "rainy-monday",
+      "status": "ready",
+      "scene": {
+        "caption": "Missed the bus and flipped my umbrella twice, but a cat in my latte fixed the whole day.",
+        "imagePrompt": "A round base holding a tiny kitchen table beneath a slanted skylight streaked with rain, in blue-grey evening light. On the table: a steaming bowl of ramen with chopsticks and a latte cup with a cat drawn in the foam. By the door leans an umbrella flipped inside out, dripping a small puddle. Two small faceless figures sit and lean nearby. Wet dusk blues with a warm amber lamp glow.",
+        "palette": [
+          "#4e5d6b",
+          "#9fb0bc",
+          "#e8dcc8",
+          "#c08a52",
+          "#2c343c"
+        ],
+        "title": "Cat in the Latte"
+      },
+      "durationsMs": {
+        "dreaming": 3671,
+        "painting": 7424,
+        "sculpting": 34,
+        "total": 11129
+      },
+      "tasks": [
+        {
+          "step": "dreaming",
+          "attempt": 1,
+          "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+          "outcome": "ok",
+          "providerMs": 3651,
+          "storeMs": 2,
+          "totalMs": 3653
+        },
+        {
+          "step": "painting",
+          "attempt": 1,
+          "model": "seedream-4-0-250828",
+          "outcome": "ok",
+          "providerMs": 7285,
+          "storeMs": 118,
+          "totalMs": 7403
+        },
+        {
+          "step": "sculpting",
+          "attempt": 1,
+          "model": "hunyuan-3d-pro",
+          "outcome": "ok",
+          "providerMs": 12,
+          "storeMs": 7,
+          "totalMs": 19
+        }
+      ],
+      "conceptImageBytes": 401884
+    },
+    {
+      "day": "dolores-park",
+      "status": "ready",
+      "scene": {
+        "caption": "Biscuit found a tennis ball, we split a burrito, and the wind sent us home to nap.",
+        "imagePrompt": "A round base holding a grassy hill sloping down to a city park. A small stylized figure sits beside a second figure with a halved burrito in foil between them; a tiny scruffy dog grips a tennis ball, refusing to drop it. Below, small figures toss a frisbee. Palm fronds bend sideways in rising wind, and a folded nap blanket waits nearby. Late morning sun, hazy gold light thickening to windy gray-blue shadows.",
+        "palette": [
+          "#e8b75a",
+          "#7fa05a",
+          "#a8c6d8",
+          "#f2ead9",
+          "#c97b4a"
+        ],
+        "title": "Biscuit's Park Sunday"
+      },
+      "durationsMs": {
+        "dreaming": 2417,
+        "painting": 9392,
+        "sculpting": 50,
+        "total": 11859
+      },
+      "tasks": [
+        {
+          "step": "dreaming",
+          "attempt": 1,
+          "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+          "outcome": "ok",
+          "providerMs": 2397,
+          "storeMs": 0,
+          "totalMs": 2397
+        },
+        {
+          "step": "painting",
+          "attempt": 1,
+          "model": "seedream-4-0-250828",
+          "outcome": "ok",
+          "providerMs": 9250,
+          "storeMs": 120,
+          "totalMs": 9370
+        },
+        {
+          "step": "sculpting",
+          "attempt": 1,
+          "model": "hunyuan-3d-pro",
+          "outcome": "ok",
+          "providerMs": 14,
+          "storeMs": 9,
+          "totalMs": 23
+        }
+      ],
+      "conceptImageBytes": 414956
+    },
+    {
+      "day": "birthday-dinner",
+      "status": "ready",
+      "scene": {
+        "caption": "Eight of us, too much pasta, and a sparkler in the tiramisu, then guitar on the pier.",
+        "imagePrompt": "A long table on a tiny Italian patio, string lights strung overhead, eight small faceless figures leaning in, bowls of pasta and a tiramisu crowned with a lit sparkler. Behind the patio, the base curves into a wooden pier over calm bay water, a small figure with a guitar. Dusk light: warm amber bulbs against a deep blue evening sky, soft reflections on the water.",
+        "palette": [
+          "#f5b95c",
+          "#2e4a6b",
+          "#f4e3c1",
+          "#6b4226",
+          "#fff3d0"
+        ],
+        "title": "String Lights and Sparklers"
+      },
+      "durationsMs": {
+        "dreaming": 3645,
+        "painting": 9781,
+        "sculpting": 42,
+        "total": 13468
+      },
+      "tasks": [
+        {
+          "step": "dreaming",
+          "attempt": 1,
+          "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+          "outcome": "ok",
+          "providerMs": 3626,
+          "storeMs": 1,
+          "totalMs": 3627
+        },
+        {
+          "step": "painting",
+          "attempt": 1,
+          "model": "seedream-4-0-250828",
+          "outcome": "ok",
+          "providerMs": 9648,
+          "storeMs": 108,
+          "totalMs": 9756
+        },
+        {
+          "step": "sculpting",
+          "attempt": 1,
+          "model": "hunyuan-3d-pro",
+          "outcome": "ok",
+          "providerMs": 12,
+          "storeMs": 9,
+          "totalMs": 21
+        }
+      ],
+      "conceptImageBytes": 444302
+    },
+    {
+      "day": "finals-library",
+      "status": "ready",
+      "scene": {
+        "caption": "Eleven hours of reactions, then Jake's hot chocolate and a silent walk home through the snow.",
+        "imagePrompt": "A round base holding a miniature library study carrel lit by a green desk lamp, thick organic chemistry notes and a steaming mug of hot chocolate beside it. Tall windows behind show snow falling in blue dusk light. Outside, a tiny stylized figure walks home through fresh snow under a dark midnight sky, footprints trailing behind. Quiet, lamplit, cold blue and warm amber contrast.",
+        "palette": [
+          "#1f3a34",
+          "#3f6b52",
+          "#e8d9b8",
+          "#a8c4d4",
+          "#f2f6f8"
+        ],
+        "title": "Eleven Hours, First Snow"
+      },
+      "durationsMs": {
+        "dreaming": 1332,
+        "painting": 10709,
+        "sculpting": 62,
+        "total": 12103
+      },
+      "tasks": [
+        {
+          "step": "dreaming",
+          "attempt": 1,
+          "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+          "outcome": "ok",
+          "providerMs": 1316,
+          "storeMs": 1,
+          "totalMs": 1317
+        },
+        {
+          "step": "painting",
+          "attempt": 1,
+          "model": "seedream-4-0-250828",
+          "outcome": "ok",
+          "providerMs": 10534,
+          "storeMs": 153,
+          "totalMs": 10687
+        },
+        {
+          "step": "sculpting",
+          "attempt": 1,
+          "model": "hunyuan-3d-pro",
+          "outcome": "ok",
+          "providerMs": 17,
+          "storeMs": 14,
+          "totalMs": 31
+        }
+      ],
+      "conceptImageBytes": 383384
+    },
+    {
+      "day": "mission-peak",
+      "status": "ready",
+      "scene": {
+        "caption": "Five stops, one weird metal pole, and Dad's tomatoes all the way down.",
+        "imagePrompt": "A round base rising into a steep dusty summit at first light, warm gold sun low behind it and cool blue sky above. On top, a thin leaning metal pole with two small stylized figures beside it, one gesturing downhill. Below, three tiny cows graze on a green slope. A red vinyl diner booth sits at the base's edge with a short stack of pancakes and a single ripe tomato on the table.",
+        "palette": [
+          "#e8a24c",
+          "#6e8fb8",
+          "#c4a882",
+          "#b03a2e",
+          "#7a8b5a"
+        ],
+        "title": "Sunrise on Mission Peak"
+      },
+      "durationsMs": {
+        "dreaming": 2090,
+        "painting": 8381,
+        "sculpting": 39,
+        "total": 10510
+      },
+      "tasks": [
+        {
+          "step": "dreaming",
+          "attempt": 1,
+          "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+          "outcome": "ok",
+          "providerMs": 2068,
+          "storeMs": 0,
+          "totalMs": 2068
+        },
+        {
+          "step": "painting",
+          "attempt": 1,
+          "model": "seedream-4-0-250828",
+          "outcome": "ok",
+          "providerMs": 8158,
+          "storeMs": 202,
+          "totalMs": 8360
+        },
+        {
+          "step": "sculpting",
+          "attempt": 1,
+          "model": "hunyuan-3d-pro",
+          "outcome": "ok",
+          "providerMs": 12,
+          "storeMs": 10,
+          "totalMs": 22
+        }
+      ],
+      "conceptImageBytes": 351370
+    },
+    {
+      "day": "farmers-market",
+      "status": "ready",
+      "scene": {
+        "caption": "Ugly galette, perfect peaches, and Mom on FaceTime — the whole day tasted like summer.",
+        "imagePrompt": "A round base holding a small apartment balcony at golden hour: a paper bag spilling ripe peaches, a scored round sourdough loaf, three giant purple carrots, and a lopsided peach galette on a plate with a slice missing. A phone leans against the railing, a small figure glowing on its screen; a second small faceless figure sits in a chair with a fork. Warm low amber sunlight, long soft shadows, clear evening sky.",
+        "palette": [
+          "#e8a44c",
+          "#f2c6a0",
+          "#6b3f7a",
+          "#b5763c",
+          "#a8c6d8"
+        ],
+        "title": "Market Morning, Balcony Golden Hour"
+      },
+      "durationsMs": {
+        "dreaming": 12600,
+        "painting": 12612,
+        "sculpting": 44,
+        "total": 25256
+      },
+      "tasks": [
+        {
+          "step": "dreaming",
+          "attempt": 1,
+          "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+          "outcome": "failed",
+          "error": "The model returned no content.",
+          "totalMs": 6415
+        },
+        {
+          "step": "dreaming",
+          "attempt": 2,
+          "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+          "outcome": "ok",
+          "providerMs": 4161,
+          "storeMs": 1,
+          "totalMs": 4162
+        },
+        {
+          "step": "painting",
+          "attempt": 1,
+          "model": "seedream-4-0-250828",
+          "outcome": "ok",
+          "providerMs": 12490,
+          "storeMs": 102,
+          "totalMs": 12592
+        },
+        {
+          "step": "sculpting",
+          "attempt": 1,
+          "model": "hunyuan-3d-pro",
+          "outcome": "ok",
+          "providerMs": 8,
+          "storeMs": 9,
+          "totalMs": 17
+        }
+      ],
+      "conceptImageBytes": 416024
+    }
+  ]
+}
