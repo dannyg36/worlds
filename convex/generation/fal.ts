@@ -1,176 +1,95 @@
+import { env } from "../_generated/server";
+import {
+  asRecord,
+  ProviderError,
+  requestJson,
+  withRetries,
+  type JsonRequest,
+  type Provider,
+} from "./provider";
+
 const QUEUE_URL = "https://queue.fal.run";
-const ATTEMPTS = 3;
+const CHECK_TIMEOUT_MS = 30_000;
 
-export class FalError extends Error {
-  constructor(
-    message: string,
-    readonly status?: number,
-  ) {
-    super(message);
-    this.name = "FalError";
-  }
-}
-
-export type QueuedRequest = {
-  requestId: string;
-  statusUrl: string;
-  responseUrl: string;
-  cancelUrl: string;
-};
-
-export type RequestStatus = {
-  state: "IN_QUEUE" | "IN_PROGRESS" | "COMPLETED";
-  error?: string;
-  inferenceMs?: number;
-};
-
-export async function submit(
-  key: string,
-  endpoint: string,
-  input: Record<string, unknown>,
-  options: { webhookUrl?: string; startTimeoutMs: number },
-): Promise<QueuedRequest> {
-  const url = new URL(`${QUEUE_URL}/${endpoint}`);
-  if (options.webhookUrl) {
-    url.searchParams.set("fal_webhook", options.webhookUrl);
-  }
-  const body = asRecord(
-    await falFetch(key, url.toString(), {
-      method: "POST",
-      headers: {
-        "X-Fal-Request-Start-Timeout": String(
-          Math.ceil(options.startTimeoutMs / 1000),
-        ),
-      },
-      body: JSON.stringify(input),
-    }),
-  );
-  const { request_id, status_url, response_url, cancel_url } = body;
-  if (
-    typeof request_id !== "string" ||
-    typeof status_url !== "string" ||
-    typeof response_url !== "string" ||
-    typeof cancel_url !== "string"
-  ) {
-    throw new FalError("fal's queue did not return a request id.");
-  }
-  return {
-    requestId: request_id,
-    statusUrl: status_url,
-    responseUrl: response_url,
-    cancelUrl: cancel_url,
-  };
-}
-
-export async function status(
-  key: string,
-  statusUrl: string,
-): Promise<RequestStatus> {
-  const body = asRecord(await falFetch(key, statusUrl));
-  const state = body.status;
-  if (state !== "IN_QUEUE" && state !== "IN_PROGRESS" && state !== "COMPLETED") {
-    throw new FalError(`fal returned an unknown status: ${String(state)}`);
-  }
-  const inferenceSeconds = asRecord(body.metrics).inference_time;
-  return {
-    state,
-    error: typeof body.error === "string" ? body.error : undefined,
-    inferenceMs:
-      typeof inferenceSeconds === "number"
-        ? Math.round(inferenceSeconds * 1000)
-        : undefined,
-  };
-}
-
-export async function result(key: string, responseUrl: string) {
-  return await withRetries(() => falFetch(key, responseUrl));
-}
-
-export async function cancel(key: string, cancelUrl: string) {
-  await fetch(cancelUrl, {
-    method: "PUT",
-    headers: { Authorization: `Key ${key}` },
-  });
-}
-
-export async function download(url: string): Promise<Blob> {
-  return await withRetries(async () => {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new FalError(
-        `Downloading ${url} failed with ${response.status}.`,
-        response.status,
-      );
+export const fal: Provider = {
+  name: "fal",
+  submit: async (model, input, timeoutMs) => {
+    const body = asRecord(
+      await falFetch(
+        `${QUEUE_URL}/${model}`,
+        {
+          method: "POST",
+          headers: {
+            "X-Fal-Request-Start-Timeout": String(Math.ceil(timeoutMs / 1000)),
+          },
+          body: JSON.stringify(input),
+        },
+      ),
+    );
+    if (typeof body.request_id !== "string") {
+      throw new ProviderError("fal's queue did not return a request id.");
     }
-    return await response.blob();
-  });
-}
-
-export function falErrorDetail(body: unknown): string | undefined {
-  const fields = asRecord(body);
-  const detail = fields.detail ?? fields.error ?? fields.message;
-  if (typeof detail === "string") {
-    return detail;
-  }
-  if (Array.isArray(detail)) {
-    return detail
-      .map((item) => {
-        const message = asRecord(item).msg;
-        return typeof message === "string" ? message : JSON.stringify(item);
-      })
-      .join("; ");
-  }
-  return undefined;
-}
-
-async function falFetch(
-  key: string,
-  url: string,
-  init: RequestInit = {},
-): Promise<unknown> {
-  const response = await fetch(url, {
-    ...init,
-    headers: {
-      Authorization: `Key ${key}`,
-      "Content-Type": "application/json",
-      ...init.headers,
-    },
-  });
-  const text = await response.text();
-  let body: unknown;
-  try {
-    body = JSON.parse(text);
-  } catch {
-    body = undefined;
-  }
-  if (!response.ok) {
-    const detail = falErrorDetail(body) ?? (text.slice(0, 300) || "no details");
-    throw new FalError(`fal ${response.status}: ${detail}`, response.status);
-  }
-  if (body === undefined) {
-    throw new FalError("fal returned a response that isn't JSON.");
-  }
-  return body;
-}
-
-async function withRetries<T>(run: () => Promise<T>): Promise<T> {
-  for (let attempt = 1; ; attempt++) {
+    return { state: "pending", requestId: body.request_id };
+  },
+  check: async (model, requestId) => {
+    const requestUrl = falRequestUrl(model, requestId);
+    const status = asRecord(await falFetch(`${requestUrl}/status`));
+    switch (status.status) {
+      case "IN_QUEUE":
+        return { state: "queued" };
+      case "IN_PROGRESS":
+        return { state: "running" };
+      case "COMPLETED":
+        break;
+      default:
+        throw new ProviderError(
+          `fal returned an unknown status: ${String(status.status)}`,
+        );
+    }
+    if (typeof status.error === "string") {
+      return { state: "failed", error: status.error };
+    }
+    const inferenceSeconds = asRecord(status.metrics).inference_time;
     try {
-      return await run();
+      return {
+        state: "done",
+        output: await withRetries(() => falFetch(requestUrl)),
+        inferenceMs:
+          typeof inferenceSeconds === "number"
+            ? Math.round(inferenceSeconds * 1000)
+            : undefined,
+      };
     } catch (error) {
-      const transient =
-        !(error instanceof FalError) ||
-        error.status === 429 ||
-        (error.status ?? 0) >= 500;
-      if (!transient || attempt >= ATTEMPTS) {
-        throw error;
+      if (
+        error instanceof ProviderError &&
+        error.status !== undefined &&
+        error.status >= 400 &&
+        error.status < 500 &&
+        error.status !== 429
+      ) {
+        return { state: "failed", error: error.message };
       }
+      throw error;
     }
-  }
+  },
+  cancel: async (model, requestId) => {
+    await falFetch(`${falRequestUrl(model, requestId)}/cancel`, { method: "PUT" });
+  },
+};
+
+export function falRequestUrl(model: string, requestId: string) {
+  const app = model.split("/").slice(0, 2).join("/");
+  return `${QUEUE_URL}/${app}/requests/${requestId}`;
 }
 
-function asRecord(value: unknown): Record<string, unknown> {
-  return value && typeof value === "object"
-    ? (value as Record<string, unknown>)
-    : {};
+async function falFetch(url: string, init: JsonRequest = {}) {
+  if (!env.FAL_KEY) {
+    throw new ProviderError("FAL_KEY is not set on this Convex deployment.", 401);
+  }
+  return await requestJson(
+    "fal",
+    url,
+    { ...init, headers: { Authorization: `Key ${env.FAL_KEY}`, ...init.headers } },
+    CHECK_TIMEOUT_MS,
+  );
 }

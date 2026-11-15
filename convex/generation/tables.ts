@@ -40,15 +40,9 @@ export const generationRuns = defineTable({
     v.object({
       step: generationStep,
       attempt: v.number(),
+      provider: v.string(),
       model: v.string(),
-      request: v.optional(
-        v.object({
-          requestId: v.string(),
-          statusUrl: v.string(),
-          responseUrl: v.string(),
-          cancelUrl: v.string(),
-        }),
-      ),
+      requestId: v.optional(v.string()),
       submittedAt: v.number(),
       startedAt: v.optional(v.number()),
       completedAt: v.optional(v.number()),
@@ -69,6 +63,7 @@ export const generationRuns = defineTable({
     total: v.optional(v.number()),
   }),
   startedAt: v.number(),
+  stepStartedAt: v.number(),
   touchedAt: v.number(),
   finishedAt: v.optional(v.number()),
   error: v.optional(v.string()),

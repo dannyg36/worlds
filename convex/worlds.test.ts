@@ -2,15 +2,15 @@
 import { convexTest } from "convex-test";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { api } from "./_generated/api";
-import { installFakeFal } from "./fakeFal.testing";
+import { installFakeGmi } from "./fakeGmi.testing";
 import schema from "./schema";
 
 const modules = import.meta.glob("./**/*.ts");
 
 beforeEach(() => {
   vi.useFakeTimers();
-  vi.stubEnv("FAL_KEY", "test-key");
-  installFakeFal();
+  vi.stubEnv("GMI_API_KEY", "test-key");
+  installFakeGmi();
 });
 
 afterEach(() => {

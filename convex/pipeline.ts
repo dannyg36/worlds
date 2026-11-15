@@ -2,19 +2,19 @@ import { v, type Infer } from "convex/values";
 import { internal } from "./_generated/api";
 import type { Doc, Id } from "./_generated/dataModel";
 import {
-  env,
   internalAction,
   internalMutation,
   type ActionCtx,
   type MutationCtx,
 } from "./_generated/server";
-import * as fal from "./generation/fal";
 import { models } from "./generation/models";
+import { download, ProviderError, type Check } from "./generation/provider";
 import { generationStep, scene } from "./generation/tables";
 
 type Step = Infer<typeof generationStep>;
 type Run = Doc<"generationRuns">;
 type Task = Run["tasks"][number];
+type TaskRef = { runId: Id<"generationRuns">; step: Step; attempt: number };
 
 const STEP_LABELS: Record<Step, string> = {
   dreaming: "Writing the scene",
@@ -22,10 +22,11 @@ const STEP_LABELS: Record<Step, string> = {
   sculpting: "Sculpting the 3D model",
 };
 const ACTIVE_STEPS: Step[] = ["dreaming", "painting", "sculpting"];
-const RETRY_DELAY_MS = 1_000;
+const RETRY_DELAY_MS = 2_000;
+const SLOT_WAIT_MS = 5_000;
 const CLAIM_LEASE_MS = 2 * 60_000;
-const STALL_MS = 60_000;
-const RUN_DEADLINE_MS = 15 * 60_000;
+const STALL_MS = 90_000;
+const RUN_DEADLINE_MS = 30 * 60_000;
 
 const taskArgs = {
   runId: v.id("generationRuns"),
@@ -68,6 +69,7 @@ export async function startGeneration(
     tasks: [],
     durations: {},
     startedAt: now,
+    stepStartedAt: now,
     touchedAt: now,
   });
   await ctx.db.patch("worlds", worldId, {
@@ -96,28 +98,30 @@ export const runStep = internalAction({
     if (!task) {
       return null;
     }
+    const model = models[step];
+    const ref = { runId, step, attempt: task.attempt };
     try {
-      const request = await fal.submit(
-        falKey(),
-        models[step].endpoint,
+      const submission = await model.provider.submit(
+        model.id,
         task.input,
-        {
-          webhookUrl: webhookUrl(runId),
-          startTimeoutMs: models[step].timeoutMs,
-        },
+        model.timeoutMs,
       );
-      const recorded = await ctx.runMutation(
-        internal.pipeline.recordSubmission,
-        { runId, step, attempt: task.attempt, request },
-      );
-      if (!recorded) {
-        await cancelQuietly(request.cancelUrl);
+      if (submission.state === "done") {
+        await complete(ctx, ref, submission.output, {
+          requestId: submission.requestId,
+          completedAt: Date.now(),
+        });
+      } else if (
+        !(await ctx.runMutation(internal.pipeline.recordSubmission, {
+          ...ref,
+          requestId: submission.requestId,
+        }))
+      ) {
+        await cancelQuietly(step, submission.requestId);
       }
     } catch (error) {
       await ctx.runMutation(internal.pipeline.failTask, {
-        runId,
-        step,
-        attempt: task.attempt,
+        ...ref,
         error: errorMessage(error),
         fatal: isFatal(error),
       });
@@ -134,20 +138,38 @@ export const beginTask = internalMutation({
     if (!run || !world || run.step !== step || world.runId !== runId) {
       return null;
     }
+    const model = models[step];
     const tries = run.tasks.filter((task) => task.step === step);
     if (
-      tries.length >= models[step].maxTries ||
+      tries.length >= model.maxTries ||
       tries.some((task) => !task.outcome)
     ) {
       return null;
     }
-    const input = stepInput(step, world, run);
     const now = Date.now();
+    if (
+      model.maxInFlight !== undefined &&
+      (await tasksInFlight(ctx, step)) >= model.maxInFlight
+    ) {
+      await ctx.db.patch("generationRuns", runId, { touchedAt: now });
+      await ctx.scheduler.runAfter(SLOT_WAIT_MS, internal.pipeline.runStep, {
+        runId,
+        step,
+      });
+      return null;
+    }
+    const input = stepInput(step, world, run);
     const attempt = tries.length + 1;
     await ctx.db.patch("generationRuns", runId, {
       tasks: [
         ...run.tasks,
-        { step, attempt, model: models[step].endpoint, submittedAt: now },
+        {
+          step,
+          attempt,
+          provider: model.provider.name,
+          model: model.id,
+          submittedAt: now,
+        },
       ],
       touchedAt: now,
     });
@@ -157,172 +179,102 @@ export const beginTask = internalMutation({
 });
 
 export const recordSubmission = internalMutation({
-  args: {
-    ...taskArgs,
-    request: v.object({
-      requestId: v.string(),
-      statusUrl: v.string(),
-      responseUrl: v.string(),
-      cancelUrl: v.string(),
-    }),
-  },
-  handler: async (ctx, { request, ...args }) => {
-    const run = await ctx.db.get("generationRuns", args.runId);
-    const task = run && findTask(run, args.step, args.attempt);
-    if (!run || !task || task.outcome || task.request) {
+  args: requestArgs,
+  handler: async (ctx, { requestId, ...ref }) => {
+    const run = await ctx.db.get("generationRuns", ref.runId);
+    const task = run && findTask(run, ref.step, ref.attempt);
+    if (!run || !task || task.outcome || task.requestId) {
       return false;
     }
-    await updateTask(ctx, run, task, { request });
+    await updateTask(ctx, run, task, { requestId });
     await ctx.scheduler.runAfter(
-      models[args.step].firstPollMs,
+      models[ref.step].pollMs,
       internal.pipeline.poll,
-      { ...args, requestId: request.requestId, statusUrl: request.statusUrl },
+      { ...ref, requestId },
     );
     return true;
   },
 });
 
 export const poll = internalAction({
-  args: { ...requestArgs, statusUrl: v.string() },
-  handler: async (ctx, args) => {
-    let status: fal.RequestStatus | undefined;
+  args: requestArgs,
+  handler: async (ctx, request) => {
+    const { requestId, ...ref } = request;
+    const model = models[ref.step];
+    let check: Check | undefined;
     try {
-      status = await fal.status(falKey(), args.statusUrl);
+      check = await model.provider.check(model.id, requestId);
     } catch (error) {
       console.warn(
-        `Checking fal request ${args.requestId} failed: ${errorMessage(error)}`,
+        `Checking ${model.id} request ${requestId} failed: ${errorMessage(error)}`,
       );
     }
-    const cancelUrl = await ctx.runMutation(internal.pipeline.recordPoll, {
-      ...args,
-      state: status?.state,
-      error: status?.error,
-      inferenceMs: status?.inferenceMs,
-    });
-    if (cancelUrl) {
-      await cancelQuietly(cancelUrl);
+    if (check?.state === "failed") {
+      await ctx.runMutation(internal.pipeline.failTask, {
+        ...ref,
+        error: check.error,
+        fatal: false,
+      });
+      return null;
+    }
+    if (check?.state !== "done") {
+      const cancel = await ctx.runMutation(internal.pipeline.recordPoll, {
+        ...request,
+        running: check?.state === "running",
+      });
+      if (cancel) {
+        await cancelQuietly(ref.step, requestId);
+      }
+      return null;
+    }
+    if (!(await ctx.runMutation(internal.pipeline.claimTask, request))) {
+      return null;
+    }
+    try {
+      await complete(ctx, ref, check.output, {
+        requestId,
+        inferenceMs: check.inferenceMs,
+      });
+    } catch (error) {
+      await ctx.runMutation(internal.pipeline.failTask, {
+        ...ref,
+        error: errorMessage(error),
+        fatal: isFatal(error),
+      });
     }
     return null;
   },
 });
 
 export const recordPoll = internalMutation({
-  args: {
-    ...requestArgs,
-    statusUrl: v.string(),
-    state: v.optional(
-      v.union(
-        v.literal("IN_QUEUE"),
-        v.literal("IN_PROGRESS"),
-        v.literal("COMPLETED"),
-      ),
-    ),
-    error: v.optional(v.string()),
-    inferenceMs: v.optional(v.number()),
-  },
-  handler: async (ctx, { statusUrl, state, error, inferenceMs, ...request }) => {
+  args: { ...requestArgs, running: v.boolean() },
+  handler: async (ctx, { running, ...request }) => {
     const pending = await pendingTask(ctx, request);
     if (!pending || pending.task.completedAt) {
-      return null;
+      return false;
     }
     const { run, task } = pending;
     const model = models[request.step];
     const now = Date.now();
-    if (state === "COMPLETED") {
-      await updateTask(ctx, run, task, { inferenceMs });
-      await ctx.scheduler.runAfter(0, internal.pipeline.finish, {
-        ...request,
-        error,
-      });
-      return null;
-    }
     if (now - task.submittedAt > model.timeoutMs) {
+      const cancellable = model.provider.cancel !== undefined;
       await failTaskIn(
         ctx,
         run,
         task,
-        `fal took longer than ${model.timeoutMs / 1000}s.`,
-        { outcome: "timedOut" },
+        `${model.id} took longer than ${model.timeoutMs / 1000}s.`,
+        { outcome: "timedOut", fatal: !cancellable },
       );
-      return task.request?.cancelUrl ?? null;
+      return cancellable;
     }
     await updateTask(
       ctx,
       run,
       task,
-      state === "IN_PROGRESS" && !task.startedAt ? { startedAt: now } : {},
+      running && !task.startedAt ? { startedAt: now } : {},
     );
-    await ctx.scheduler.runAfter(model.pollMs, internal.pipeline.poll, {
-      ...request,
-      statusUrl,
-    });
-    return null;
-  },
-});
-
-export const receiveWebhook = internalMutation({
-  args: {
-    runId: v.string(),
-    requestId: v.string(),
-    error: v.optional(v.string()),
-  },
-  handler: async (ctx, { requestId, error, ...args }) => {
-    const runId = ctx.db.normalizeId("generationRuns", args.runId);
-    const run = runId && (await ctx.db.get("generationRuns", runId));
-    const task = run?.tasks.find(
-      (candidate) => candidate.request?.requestId === requestId,
-    );
-    if (!run || !task || task.outcome || task.completedAt) {
-      return false;
-    }
-    await ctx.scheduler.runAfter(0, internal.pipeline.finish, {
-      runId: run._id,
-      step: task.step,
-      attempt: task.attempt,
-      requestId,
-      error,
-    });
-    return true;
-  },
-});
-
-export const finish = internalAction({
-  args: { ...requestArgs, error: v.optional(v.string()) },
-  handler: async (ctx, { error, ...request }) => {
-    const claim = await ctx.runMutation(internal.pipeline.claimTask, request);
-    if (!claim) {
-      return null;
-    }
-    try {
-      if (error) {
-        throw new fal.FalError(error);
-      }
-      const key = falKey();
-      const [result, inferenceMs] = await Promise.all([
-        fal.result(key, claim.responseUrl),
-        claim.inferenceMs ??
-          fal.status(key, claim.statusUrl).then(
-            (status) => status.inferenceMs,
-            () => undefined,
-          ),
-      ]);
-      await ctx.runMutation(internal.pipeline.completeTask, {
-        runId: request.runId,
-        attempt: request.attempt,
-        requestId: request.requestId,
-        inferenceMs,
-        output: await storeOutput(ctx, request.step, result),
-      });
-    } catch (failure) {
-      await ctx.runMutation(internal.pipeline.failTask, {
-        runId: request.runId,
-        step: request.step,
-        attempt: request.attempt,
-        error: errorMessage(failure),
-        fatal: isFatal(failure),
-      });
-    }
-    return null;
+    await ctx.scheduler.runAfter(model.pollMs, internal.pipeline.poll, request);
+    return false;
   },
 });
 
@@ -330,20 +282,16 @@ export const claimTask = internalMutation({
   args: requestArgs,
   handler: async (ctx, request) => {
     const pending = await pendingTask(ctx, request);
-    if (!pending?.task.request) {
-      return null;
+    if (!pending) {
+      return false;
     }
     const { run, task } = pending;
     const now = Date.now();
     if (task.completedAt && now - task.completedAt < CLAIM_LEASE_MS) {
-      return null;
+      return false;
     }
     await updateTask(ctx, run, task, { completedAt: now });
-    return {
-      responseUrl: pending.task.request.responseUrl,
-      statusUrl: pending.task.request.statusUrl,
-      inferenceMs: task.inferenceMs,
-    };
+    return true;
   },
 });
 
@@ -351,23 +299,22 @@ export const completeTask = internalMutation({
   args: {
     runId: v.id("generationRuns"),
     attempt: v.number(),
-    requestId: v.string(),
+    requestId: v.optional(v.string()),
+    completedAt: v.optional(v.number()),
     inferenceMs: v.optional(v.number()),
     output: stepOutput,
   },
-  handler: async (ctx, { runId, attempt, requestId, inferenceMs, output }) => {
-    const pending = await pendingTask(ctx, {
-      runId,
-      step: output.step,
-      attempt,
-      requestId,
-    });
-    const world =
-      pending && (await ctx.db.get("worlds", pending.run.worldId));
+  handler: async (ctx, { runId, attempt, requestId, completedAt, inferenceMs, output }) => {
+    const run = await ctx.db.get("generationRuns", runId);
+    const task = run && findTask(run, output.step, attempt);
+    const world = run && (await ctx.db.get("worlds", run.worldId));
     if (
-      !pending ||
+      !run ||
+      !task ||
       !world ||
-      pending.run.step !== output.step ||
+      task.outcome ||
+      (task.requestId !== undefined && task.requestId !== requestId) ||
+      run.step !== output.step ||
       world.runId !== runId
     ) {
       if ("storageId" in output) {
@@ -375,21 +322,20 @@ export const completeTask = internalMutation({
       }
       return false;
     }
-    const { run, task } = pending;
     const now = Date.now();
-    const stepStartedAt = (
-      run.tasks.find((candidate) => candidate.step === output.step) ?? task
-    ).submittedAt;
-    const durations = { ...run.durations, [output.step]: now - stepStartedAt };
+    const durations = { ...run.durations, [output.step]: now - run.stepStartedAt };
     const done = {
       outcome: "ok" as const,
+      requestId: task.requestId ?? requestId,
+      completedAt: task.completedAt ?? completedAt,
       finishedAt: now,
-      inferenceMs: inferenceMs ?? task.inferenceMs,
+      inferenceMs,
     };
     switch (output.step) {
       case "dreaming":
         await updateTask(ctx, run, task, done, {
           step: "painting",
+          stepStartedAt: now,
           durations,
           scene: output.scene,
         });
@@ -407,6 +353,7 @@ export const completeTask = internalMutation({
       case "painting":
         await updateTask(ctx, run, task, done, {
           step: "sculpting",
+          stepStartedAt: now,
           durations,
           imageSourceUrl: output.imageUrl,
         });
@@ -478,24 +425,26 @@ async function revive(ctx: MutationCtx, run: Run, step: Step, now: number) {
       runId: run._id,
       step,
     });
-  } else if (!task.request) {
-    await failTaskIn(ctx, run, task, "fal never confirmed the request.");
-  } else if (!task.completedAt) {
+  } else if (!task.requestId) {
+    await failTaskIn(ctx, run, task, `${task.model} never answered.`);
+  } else if (!task.completedAt || now - task.completedAt > CLAIM_LEASE_MS) {
     await ctx.scheduler.runAfter(0, internal.pipeline.poll, {
       runId: run._id,
       step,
       attempt: task.attempt,
-      requestId: task.request.requestId,
-      statusUrl: task.request.statusUrl,
-    });
-  } else if (now - task.completedAt > CLAIM_LEASE_MS) {
-    await ctx.scheduler.runAfter(0, internal.pipeline.finish, {
-      runId: run._id,
-      step,
-      attempt: task.attempt,
-      requestId: task.request.requestId,
+      requestId: task.requestId,
     });
   }
+}
+
+async function tasksInFlight(ctx: MutationCtx, step: Step) {
+  const runs = await ctx.db
+    .query("generationRuns")
+    .withIndex("by_step", (q) => q.eq("step", step))
+    .take(100);
+  return runs.filter((run) =>
+    run.tasks.some((task) => task.step === step && !task.outcome),
+  ).length;
 }
 
 function stepInput(step: Step, world: Doc<"worlds">, run: Run) {
@@ -515,6 +464,20 @@ function stepInput(step: Step, world: Doc<"worlds">, run: Run) {
   }
 }
 
+async function complete(
+  ctx: ActionCtx,
+  { runId, step, attempt }: TaskRef,
+  result: unknown,
+  details: { requestId?: string; completedAt?: number; inferenceMs?: number },
+) {
+  await ctx.runMutation(internal.pipeline.completeTask, {
+    runId,
+    attempt,
+    ...details,
+    output: await storeOutput(ctx, step, result),
+  });
+}
+
 async function storeOutput(
   ctx: ActionCtx,
   step: Step,
@@ -525,12 +488,12 @@ async function storeOutput(
       return { step, scene: models.dreaming.output(result) };
     case "painting": {
       const imageUrl = models.painting.output(result);
-      const storageId = await ctx.storage.store(await fal.download(imageUrl));
+      const storageId = await ctx.storage.store(await download(imageUrl));
       return { step, imageUrl, storageId };
     }
     case "sculpting": {
       const modelUrl = models.sculpting.output(result);
-      const storageId = await ctx.storage.store(await fal.download(modelUrl));
+      const storageId = await ctx.storage.store(await download(modelUrl));
       return { step, storageId };
     }
   }
@@ -588,11 +551,11 @@ async function failRun(ctx: MutationCtx, run: Run, error: string) {
 
 async function pendingTask(
   ctx: MutationCtx,
-  request: { runId: Id<"generationRuns">; step: Step; attempt: number; requestId: string },
+  request: TaskRef & { requestId: string },
 ) {
   const run = await ctx.db.get("generationRuns", request.runId);
   const task = run && findTask(run, request.step, request.attempt);
-  if (!run || !task || task.outcome || task.request?.requestId !== request.requestId) {
+  if (!run || !task || task.outcome || task.requestId !== request.requestId) {
     return null;
   }
   return { run, task };
@@ -620,31 +583,18 @@ async function updateTask(
   });
 }
 
-function webhookUrl(runId: Id<"generationRuns">) {
-  const base = env.FAL_WEBHOOK_BASE_URL ?? env.CONVEX_SITE_URL;
-  return base?.startsWith("https://")
-    ? `${base.replace(/\/$/, "")}/fal/webhook?runId=${runId}`
-    : undefined;
-}
-
-function falKey() {
-  if (!env.FAL_KEY) {
-    throw new fal.FalError("FAL_KEY is not set on this Convex deployment.", 401);
-  }
-  return env.FAL_KEY;
-}
-
-async function cancelQuietly(cancelUrl: string) {
+async function cancelQuietly(step: Step, requestId: string) {
+  const { provider, id } = models[step];
   try {
-    await fal.cancel(falKey(), cancelUrl);
+    await provider.cancel?.(id, requestId);
   } catch (error) {
-    console.warn(`Cancelling ${cancelUrl} failed: ${errorMessage(error)}`);
+    console.warn(`Cancelling ${id} request ${requestId} failed: ${errorMessage(error)}`);
   }
 }
 
 function isFatal(error: unknown) {
   return (
-    error instanceof fal.FalError &&
+    error instanceof ProviderError &&
     (error.status === 401 || error.status === 403)
   );
 }

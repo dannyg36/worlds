@@ -1,28 +1,28 @@
 /// <reference types="vite/client" />
 import { convexTest, type TestConvex } from "convex-test";
-import { afterEach, beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { api, internal } from "./_generated/api";
 import type { Id } from "./_generated/dataModel";
 import {
-  defaultResult,
-  installFakeFal,
+  chatReply,
+  installFakeGmi,
   MEDIA_URL,
   SCENE,
-  webhookSigner,
-  type FakeFal,
-} from "./fakeFal.testing";
+  type FakeGmi,
+} from "./fakeGmi.testing";
 import { models } from "./generation/models";
 import schema from "./schema";
 
 const modules = import.meta.glob("./**/*.ts");
 const TRANSCRIPT = "Got to the office at nine and ate cold pizza on the floor.";
+const NO_RESOURCES = "hunyuan api error [ResourceInsufficient]: Resources are insufficient.";
 
-let fal: FakeFal;
+let gmi: FakeGmi;
 
 beforeEach(() => {
   vi.useFakeTimers();
-  vi.stubEnv("FAL_KEY", "test-key");
-  fal = installFakeFal();
+  vi.stubEnv("GMI_API_KEY", "test-key");
+  gmi = installFakeGmi();
 });
 
 afterEach(() => {
@@ -42,10 +42,14 @@ async function runUntil(t: Test, done: () => boolean | Promise<boolean>) {
     if (await done()) {
       return;
     }
-    vi.runOnlyPendingTimers();
-    await t.finishInProgressScheduledFunctions();
+    await step(t);
   }
   throw new Error("The pipeline never reached the expected state.");
+}
+
+async function step(t: Test) {
+  vi.runOnlyPendingTimers();
+  await t.finishInProgressScheduledFunctions();
 }
 
 async function world(t: Test, id: Id<"worlds">) {
@@ -65,6 +69,10 @@ async function currentRun(t: Test, id: Id<"worlds">) {
     }
     return run;
   });
+}
+
+async function tasks(t: Test, id: Id<"worlds">, step: keyof typeof models) {
+  return (await currentRun(t, id)).tasks.filter((task) => task.step === step);
 }
 
 async function storedFiles(t: Test) {
@@ -90,18 +98,15 @@ describe("generation", () => {
   test("turns a transcript into a stored, textured world one status at a time", async () => {
     const t = convexTest(schema, modules);
     const id = await t.mutation(api.worlds.add, { transcript: `  ${TRANSCRIPT}  ` });
-
     const statuses = [(await world(t, id)).status];
-    await runUntil(t, async () => {
-      const { status } = await world(t, id);
-      if (status !== statuses.at(-1)) {
-        statuses.push(status);
-      }
-      return status === "ready";
+    gmi.onSubmit(async () => {
+      statuses.push((await world(t, id)).status);
     });
+    await settle(t);
+    const ready = await world(t, id);
+    statuses.push(ready.status);
 
     expect(statuses).toEqual(["queued", "dreaming", "painting", "sculpting", "ready"]);
-    const ready = await world(t, id);
     expect(ready).toMatchObject({
       transcript: TRANSCRIPT,
       title: SCENE.title,
@@ -112,13 +117,17 @@ describe("generation", () => {
     });
     expect(ready.error).toBeUndefined();
 
-    const [dream] = fal.submitted("dreaming");
-    const [paint] = fal.submitted("painting");
-    const [sculpt] = fal.submitted("sculpting");
-    expect(dream.input.prompt).toContain(TRANSCRIPT);
+    const [dream] = gmi.submitted("dreaming");
+    const [paint] = gmi.submitted("painting");
+    const [sculpt] = gmi.submitted("sculpting");
+    expect(JSON.stringify(dream.input.messages)).toContain(TRANSCRIPT);
     expect(paint.input.prompt).toContain(SCENE.imagePrompt);
-    expect(JSON.stringify(sculpt.input)).toContain(`${MEDIA_URL}/${paint.id}.jpg`);
-    expect(fal.requests.every((request) => request.webhookUrl === null)).toBe(true);
+    expect(sculpt.input).toEqual({
+      image_url: `${MEDIA_URL}/${paint.id}.jpg`,
+      generate_type: "Normal",
+      enable_pbr: false,
+      face_count: 40_000,
+    });
 
     const run = await currentRun(t, id);
     expect(run).toMatchObject({
@@ -127,13 +136,13 @@ describe("generation", () => {
       scene: { ...SCENE, palette: ready.palette },
     });
     expect(
-      run.tasks.map((task) => [task.step, task.outcome, task.request?.requestId]),
+      run.tasks.map((task) => [task.step, task.outcome, task.provider, task.model, task.requestId]),
     ).toEqual([
-      ["dreaming", "ok", dream.id],
-      ["painting", "ok", paint.id],
-      ["sculpting", "ok", sculpt.id],
+      ["dreaming", "ok", "gmi", models.dreaming.id, `chatcmpl-${dream.id}`],
+      ["painting", "ok", "gmi", models.painting.id, paint.id],
+      ["sculpting", "ok", "gmi", models.sculpting.id, sculpt.id],
     ]);
-    expect(run.tasks.every((task) => task.inferenceMs === 1250)).toBe(true);
+    expect(run.tasks.every((task) => task.completedAt && task.finishedAt)).toBe(true);
     expect(run.durations).toEqual({
       dreaming: expect.any(Number),
       painting: expect.any(Number),
@@ -141,68 +150,53 @@ describe("generation", () => {
       total: expect.any(Number),
     });
     expect((await storedFiles(t)).sort()).toEqual([
-      `/files/${paint.id}.jpg`,
-      `/files/${sculpt.id}.glb`,
+      `/gmi-test/${paint.id}.jpg`,
+      `/gmi-test/${sculpt.id}.glb`,
     ]);
   });
 
   test("retries a scene writer reply that isn't JSON", async () => {
-    fal.script("dreaming", { result: { output: "Sorry, I can't help with that." } });
+    gmi.script("dreaming", { result: chatReply("Sorry, I can't help with that.") });
     const t = convexTest(schema, modules);
     const id = await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
     await settle(t);
 
     expect((await world(t, id)).status).toBe("ready");
-    const dreams = (await currentRun(t, id)).tasks.filter(
-      (task) => task.step === "dreaming",
-    );
+    const dreams = await tasks(t, id, "dreaming");
     expect(dreams.map((task) => task.outcome)).toEqual(["failed", "ok"]);
     expect(dreams[0].error).toBe("The scene writer returned no JSON object.");
   });
 
-  test("retries a submission fal rejects", async () => {
-    fal.script("painting", { rejectSubmit: 503 });
+  test("retries requests GMI rejects or marks failed", async () => {
+    gmi.script("painting", { rejectSubmit: 503 }, { error: "Upstream provider unavailable" });
+    gmi.script("sculpting", { error: "Model generation failed" });
     const t = convexTest(schema, modules);
     const id = await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
     await settle(t);
 
     expect((await world(t, id)).status).toBe("ready");
-    expect(fal.rejectedSubmits).toEqual(["painting"]);
-    const paints = (await currentRun(t, id)).tasks.filter(
-      (task) => task.step === "painting",
-    );
-    expect(paints.map((task) => [task.outcome, task.request === undefined])).toEqual([
-      ["failed", true],
-      ["ok", false],
+    expect(gmi.rejectedSubmits).toEqual(["painting"]);
+    expect(
+      (await tasks(t, id, "painting")).map((task) => [task.outcome, task.error]),
+    ).toEqual([
+      ["failed", "GMI 503: Upstream provider unavailable; please retry"],
+      ["failed", "Upstream provider unavailable"],
+      ["ok", undefined],
+    ]);
+    expect(
+      (await tasks(t, id, "sculpting")).map((task) => [task.outcome, task.error]),
+    ).toEqual([
+      ["failed", "Model generation failed"],
+      ["ok", undefined],
     ]);
   });
 
-  test("cancels and replaces a request that never finishes", async () => {
-    fal.script("sculpting", { stuck: true });
-    const t = convexTest(schema, modules);
-    const id = await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
-    await settle(t);
-
-    expect((await world(t, id)).status).toBe("ready");
-    const [stuck, replacement] = fal.submitted("sculpting");
-    expect(stuck.cancelled).toBe(true);
-    expect(replacement.cancelled).toBe(false);
-    const sculpts = (await currentRun(t, id)).tasks.filter(
-      (task) => task.step === "sculpting",
-    );
-    expect(sculpts[0]).toMatchObject({
-      outcome: "timedOut",
-      startedAt: expect.any(Number),
-      error: `fal took longer than ${models.sculpting.timeoutMs / 1000}s.`,
-    });
-    expect(sculpts[1].outcome).toBe("ok");
-  });
-
-  test("fails the world once every sculpting attempt fails, and retry regenerates it", async () => {
-    fal.script(
+  test("fails the world once every 3D attempt fails, and retry regenerates it", async () => {
+    gmi.script(
       "sculpting",
       ...Array.from({ length: models.sculpting.maxTries }, () => ({
-        error: "CUDA out of memory",
+        rejectSubmit: 500,
+        error: NO_RESOURCES,
       })),
     );
     const t = convexTest(schema, modules);
@@ -212,12 +206,12 @@ describe("generation", () => {
     const failed = await world(t, id);
     expect(failed).toMatchObject({
       status: "failed",
-      error: "Sculpting the 3D model failed: CUDA out of memory",
+      error: `Sculpting the 3D model failed: GMI 500: ${NO_RESOURCES}`,
       title: SCENE.title,
       imageUrl: expect.any(String),
     });
     expect(failed.modelUrl).toBeUndefined();
-    expect(fal.submitted("sculpting")).toHaveLength(models.sculpting.maxTries);
+    expect(gmi.rejectedSubmits).toHaveLength(models.sculpting.maxTries);
 
     await t.mutation(api.worlds.retry, { id });
     const restarted = await world(t, id);
@@ -229,174 +223,143 @@ describe("generation", () => {
 
     expect((await world(t, id)).status).toBe("ready");
     expect((await currentRun(t, id)).attempt).toBe(2);
-    expect(fal.submitted("dreaming")).toHaveLength(2);
-    const [, paint] = fal.submitted("painting");
-    const sculpt = fal.submitted("sculpting").at(-1)!;
+    expect(gmi.submitted("dreaming")).toHaveLength(2);
+    const paint = gmi.submitted("painting").at(-1)!;
+    const sculpt = gmi.submitted("sculpting").at(-1)!;
     expect((await storedFiles(t)).sort()).toEqual([
-      `/files/${paint.id}.jpg`,
-      `/files/${sculpt.id}.glb`,
+      `/gmi-test/${paint.id}.jpg`,
+      `/gmi-test/${sculpt.id}.glb`,
     ]);
   });
 
-  test("fails at once without retrying when FAL_KEY is missing", async () => {
-    vi.stubEnv("FAL_KEY", "");
+  test("gives up on a 3D request that never finishes without paying for another", async () => {
+    gmi.script("sculpting", { stuck: true });
     const t = convexTest(schema, modules);
     const id = await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
     await settle(t);
 
     expect(await world(t, id)).toMatchObject({
       status: "failed",
-      error: "Writing the scene failed: FAL_KEY is not set on this Convex deployment.",
+      error: `Sculpting the 3D model failed: ${models.sculpting.id} took longer than ${models.sculpting.timeoutMs / 1000}s.`,
     });
-    expect((await currentRun(t, id)).tasks).toHaveLength(1);
-    expect(fal.requests).toHaveLength(0);
-  });
-});
-
-describe("fal webhooks", () => {
-  const BASE_URL = "https://worlds.example";
-  let signer: Awaited<ReturnType<typeof webhookSigner>>;
-
-  beforeAll(async () => {
-    signer = await webhookSigner();
+    expect(gmi.submitted("sculpting")).toHaveLength(1);
+    expect(await tasks(t, id, "sculpting")).toEqual([
+      expect.objectContaining({ outcome: "timedOut", startedAt: expect.any(Number) }),
+    ]);
   });
 
-  async function stuckAt(step: "dreaming" | "painting" | "sculpting") {
-    fal.setJwks([signer.jwk]);
-    vi.stubEnv("FAL_WEBHOOK_BASE_URL", BASE_URL);
-    fal.script(step, { stuck: true });
+  test("fails at once without retrying when GMI_API_KEY is missing", async () => {
+    vi.stubEnv("GMI_API_KEY", "");
     const t = convexTest(schema, modules);
     const id = await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
-    await runUntil(t, () => fal.submitted(step).length === 1);
-    const request = fal.submitted(step)[0];
-    const webhook = new URL(request.webhookUrl!);
-    return { t, id, request, path: webhook.pathname + webhook.search };
-  }
+    await settle(t);
 
-  test("finishes a step once from duplicate signed deliveries and a poll", async () => {
-    const { t, id, request, path } = await stuckAt("painting");
-    const run = await currentRun(t, id);
-    expect(request.webhookUrl).toBe(`${BASE_URL}/fal/webhook?runId=${run._id}`);
-
-    request.outcome = {};
-    const delivery = await signer.sign({
-      request_id: request.id,
-      gateway_request_id: request.id,
-      status: "OK",
-      payload: defaultResult(request),
+    expect(await world(t, id)).toMatchObject({
+      status: "failed",
+      error: "Writing the scene failed: GMI_API_KEY is not set on this Convex deployment.",
     });
-    const responses = await Promise.all([
-      t.fetch(path, delivery),
-      t.fetch(path, delivery),
-    ]);
-    expect(responses.map((response) => response.status)).toEqual([200, 200]);
-    await settle(t);
-
-    expect((await world(t, id)).status).toBe("ready");
-    expect(fal.submitted("painting")).toHaveLength(1);
-    expect(request.resultFetches).toBe(1);
-    expect(fal.submitted("sculpting")).toHaveLength(1);
-    const paints = (await currentRun(t, id)).tasks.filter(
-      (task) => task.step === "painting",
-    );
-    expect(paints).toEqual([expect.objectContaining({ outcome: "ok" })]);
-    expect(await storedFiles(t)).toHaveLength(2);
-
-    const late = await t.fetch(path, delivery);
-    expect(late.status).toBe(200);
-    await settle(t);
-    expect(await storedFiles(t)).toHaveLength(2);
+    expect((await currentRun(t, id)).tasks).toHaveLength(1);
+    expect(gmi.requests).toHaveLength(0);
   });
 
-  test("an ERROR delivery fails the attempt and the step is retried", async () => {
-    const { t, id, request, path } = await stuckAt("dreaming");
-    const response = await t.fetch(
-      path,
-      await signer.sign({
-        request_id: request.id,
-        status: "ERROR",
-        error: "Invalid status code: 422",
-        payload: { detail: [{ msg: "prompt is too long" }] },
-      }),
-    );
-    expect(response.status).toBe(200);
-    await settle(t);
-
-    expect((await world(t, id)).status).toBe("ready");
-    const dreams = (await currentRun(t, id)).tasks.filter(
-      (task) => task.step === "dreaming",
-    );
-    expect(dreams.map((task) => [task.outcome, task.error])).toEqual([
-      ["failed", "Invalid status code: 422: prompt is too long"],
-      ["ok", undefined],
-    ]);
-  });
-
-  test("rejects deliveries that fail verification and ignores unknown requests", async () => {
-    const { t, id, request, path } = await stuckAt("painting");
-    const delivery = {
-      request_id: request.id,
-      status: "OK",
-      payload: defaultResult(request),
-    };
-    const signed = await signer.sign(delivery);
-    const stranger = await webhookSigner();
-
-    const rejected = await Promise.all([
-      t.fetch(path, { method: "POST", body: JSON.stringify(delivery) }),
-      t.fetch(path, { ...signed, body: JSON.stringify({ ...delivery, status: "ERROR" }) }),
-      t.fetch(
-        path,
-        await signer.sign(delivery, { timestamp: Math.floor(Date.now() / 1000) - 600 }),
+  test("keeps one 3D job in flight and starts the next when it finishes", async () => {
+    gmi.script("sculpting", { stuck: true });
+    const t = convexTest(schema, modules);
+    const ids = [
+      await t.mutation(api.worlds.add, { transcript: TRANSCRIPT }),
+      await t.mutation(api.worlds.add, { transcript: "Rainy Monday, ramen with Sam." }),
+    ];
+    await runUntil(t, async () =>
+      (await Promise.all(ids.map((id) => world(t, id)))).every(
+        (found) => found.status === "sculpting",
       ),
-      t.fetch(path, await stranger.sign(delivery)),
-    ]);
-    expect(rejected.map((response) => response.status)).toEqual([401, 401, 401, 401]);
-
-    const ignored = await Promise.all([
-      t.fetch(path, await signer.sign({ ...delivery, request_id: "someone-else" })),
-      t.fetch("/fal/webhook?runId=not-a-run", signed),
-    ]);
-    expect(ignored.map((response) => response.status)).toEqual([200, 200]);
-
-    await t.finishInProgressScheduledFunctions();
-    const paint = (await currentRun(t, id)).tasks.find(
-      (task) => task.step === "painting",
     );
-    expect(paint?.outcome).toBeUndefined();
-    expect(paint?.completedAt).toBeUndefined();
+    for (let round = 0; round < 20; round++) {
+      await step(t);
+    }
+    expect(gmi.submitted("sculpting")).toHaveLength(1);
+    const sculpts = await Promise.all(ids.map((id) => tasks(t, id, "sculpting")));
+    expect(sculpts.map((found) => found.length).sort()).toEqual([0, 1]);
+
+    gmi.submitted("sculpting")[0].outcome = {};
+    await settle(t);
+
+    expect((await Promise.all(ids.map((id) => world(t, id)))).map((found) => found.status)).toEqual([
+      "ready",
+      "ready",
+    ]);
+    expect(gmi.submitted("sculpting")).toHaveLength(2);
+    const [first, second] = (
+      await Promise.all(ids.map(async (id) => (await tasks(t, id, "sculpting"))[0]))
+    ).sort((a, b) => a.submittedAt - b.submittedAt);
+    expect(second.submittedAt).toBeGreaterThanOrEqual(first.finishedAt!);
+  });
+
+  test("completes a step once when two polls find it done", async () => {
+    gmi.script("sculpting", { stuck: true });
+    const t = convexTest(schema, modules);
+    const id = await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
+    await runUntil(t, () => gmi.submitted("sculpting").length === 1);
+    await cancelScheduledFunctions(t);
+    const [request] = gmi.submitted("sculpting");
+    request.outcome = {};
+
+    const runId = (await currentRun(t, id))._id;
+    const poll = { runId, step: "sculpting" as const, attempt: 1, requestId: request.id };
+    await Promise.all([
+      t.action(internal.pipeline.poll, poll),
+      t.action(internal.pipeline.poll, poll),
+    ]);
+    await settle(t);
+
+    expect((await world(t, id)).status).toBe("ready");
+    expect(gmi.downloads.filter((path) => path.endsWith(".glb"))).toHaveLength(1);
+    expect(await tasks(t, id, "sculpting")).toEqual([
+      expect.objectContaining({ outcome: "ok", requestId: request.id }),
+    ]);
+
+    const late = await t.run(async (ctx) => ctx.storage.store(new Blob(["late"])));
+    expect(
+      await t.mutation(internal.pipeline.completeTask, {
+        runId,
+        attempt: 1,
+        requestId: request.id,
+        output: { step: "sculpting", storageId: late },
+      }),
+    ).toBe(false);
+    expect(await storedFiles(t)).toHaveLength(2);
   });
 });
 
 describe("watchdog", () => {
   test("revives a run whose poll chain was lost", async () => {
-    fal.script("sculpting", { stuck: true });
+    gmi.script("sculpting", { stuck: true });
     const t = convexTest(schema, modules);
     const id = await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
-    await runUntil(t, () => fal.submitted("sculpting").length === 1);
+    await runUntil(t, () => gmi.submitted("sculpting").length === 1);
     await cancelScheduledFunctions(t);
-    fal.submitted("sculpting")[0].outcome = {};
+    gmi.submitted("sculpting")[0].outcome = {};
 
     vi.advanceTimersByTime(30_000);
     await t.mutation(internal.pipeline.watchdog, {});
     await settle(t);
     expect((await world(t, id)).status).toBe("sculpting");
 
-    vi.advanceTimersByTime(60_000);
+    vi.advanceTimersByTime(90_000);
     await t.mutation(internal.pipeline.watchdog, {});
     await settle(t);
     expect((await world(t, id)).status).toBe("ready");
-    expect(fal.submitted("sculpting")).toHaveLength(1);
+    expect(gmi.submitted("sculpting")).toHaveLength(1);
   });
 
   test("fails a run that passes its deadline", async () => {
-    fal.script("sculpting", { stuck: true });
+    gmi.script("sculpting", { stuck: true });
     const t = convexTest(schema, modules);
     const id = await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
-    await runUntil(t, () => fal.submitted("sculpting").length === 1);
+    await runUntil(t, () => gmi.submitted("sculpting").length === 1);
     await cancelScheduledFunctions(t);
 
-    vi.advanceTimersByTime(16 * 60_000);
+    vi.advanceTimersByTime(31 * 60_000);
     await t.mutation(internal.pipeline.watchdog, {});
 
     expect(await world(t, id)).toMatchObject({
