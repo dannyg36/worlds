@@ -31,10 +31,11 @@ import { env, internalAction } from "./_generated/server";
  *           prompt, before the voice note, with a blank line between them:
  *             cast ? `${cast}\n\n${prompt}` : prompt
  *
- * Spaces: everyone shares SHARED_SPACE until sign-in lands. Then pass each
- * person's own space to remember (from worlds.add) and to recall. Supermemory
- * namespaces allow letters, digits, "-", "_" and ":", up to 100 characters,
- * so build it from a users-table id, not a raw tokenIdentifier.
+ * Spaces: everyone shares SHARED_SPACE until device profiles land. Then pass
+ * each person's own space to remember (from worlds.add) and to recall.
+ * Supermemory namespaces allow letters, digits, "-", "_" and ":", up to 100
+ * characters, so derive the space from identity.tokenIdentifier, for example
+ * as a hash of it, instead of using the raw value.
  */
 
 export const SHARED_SPACE = "worlds-shared";
