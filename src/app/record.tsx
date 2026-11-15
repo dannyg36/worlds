@@ -17,6 +17,7 @@ import {
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { DayPhotos, uploadPhotos } from "@/components/DayPhotos";
 import { type SpeechError, useSpeechToText } from "@/hooks/use-speech-to-text";
 import { api } from "../../convex/_generated/api";
 
@@ -90,10 +91,12 @@ export default function RecordScreen() {
   const { bottom } = useSafeAreaInsets();
   const { source } = useLocalSearchParams<{ source?: string }>();
   const addWorld = useMutation(api.worlds.add);
+  const generateUploadUrl = useMutation(api.worlds.generateUploadUrl);
   const { isWebSocketConnected } = useConvexConnectionState();
   const [draft, setDraft] = useState<string | null>(canRecord ? null : "");
   const [saving, setSaving] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
+  const [photos, setPhotos] = useState<string[]>([]);
   const speech = useSpeechToText({
     maxSeconds: MAX_SECONDS,
     onFinish: setDraft,
@@ -114,7 +117,10 @@ export default function RecordScreen() {
     setSaving(true);
     setSaveFailed(false);
     try {
-      await addWorld({ transcript: draft });
+      await addWorld({
+        transcript: draft,
+        photos: await uploadPhotos(photos, generateUploadUrl),
+      });
       navigation.goBack();
     } catch {
       setSaveFailed(true);
@@ -219,6 +225,7 @@ export default function RecordScreen() {
               },
             ]}
           />
+          <DayPhotos photos={photos} onChange={setPhotos} disabled={saving} />
           <Pressable
             accessibilityRole="button"
             accessibilityState={{ disabled: !canCreate }}
