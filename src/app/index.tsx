@@ -113,12 +113,15 @@ function Today({
       {viewerReady ? (
         <View style={[styles.actions, { top }]}>
           {walking ? null : <ShareButton world={world} />}
-          <IconButton
-            variant="frost"
-            icon={walking ? { ios: "xmark", web: "close" } : { ios: "figure.walk", web: "directions_walk" }}
-            accessibilityLabel={walking ? "Stop walking" : "Walk around"}
-            onPress={() => onWalkingChange(!walking)}
-          />
+          {/* Island scenes can't be walked. */}
+          {world.scene ? null : (
+            <IconButton
+              variant="frost"
+              icon={walking ? { ios: "xmark", web: "close" } : { ios: "figure.walk", web: "directions_walk" }}
+              accessibilityLabel={walking ? "Stop walking" : "Walk around"}
+              onPress={() => onWalkingChange(!walking)}
+            />
+          )}
         </View>
       ) : null}
     </View>
