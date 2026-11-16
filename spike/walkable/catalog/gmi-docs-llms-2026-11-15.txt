@@ -1,0 +1,465 @@
+# GMI Cloud Documentation
+
+> Inference Endpoints, GPU Compute, AI Workflows, and Agent Deployment
+
+- [Welcome to GMI Cloud](https://docs.gmicloud.ai/index.md): Run inference, train on GPU clusters, build AI workflows, and publish agents on GMI Cloud.
+- [Quick Start](https://docs.gmicloud.ai/quickstart.md): Get up and running with GMI Cloud in three steps.
+- [Inference Overview](https://docs.gmicloud.ai/inference-engine/ie-intro.md): Serverless and Dedicated endpoints for running ML models in production on GMI Cloud.
+- [LLM API Reference](https://docs.gmicloud.ai/inference-engine/api-reference/llm-api-reference.md): REST API reference for GMI Cloud LLM inference endpoints.
+- [Video API Reference](https://docs.gmicloud.ai/inference-engine/api-reference/video-api-reference.md): REST API reference for video inference endpoints.
+- [Video SDK Reference](https://docs.gmicloud.ai/inference-engine/api-reference/video-sdk-reference.md): SDK reference for video inference on GMI Cloud.
+- [Rate limits](https://docs.gmicloud.ai/inference-engine/api-reference/rate-limit.md): How GMI Cloud rate-limits inference API requests and how to handle 429 responses.
+- [GMI Router Overview](https://docs.gmicloud.ai/inference-engine/gmi-router/gmi-router-overview.md)
+- [Serverless Endpoint](https://docs.gmicloud.ai/inference-engine/marketplace/serverless.md): Run inference on serverless endpoints with OpenAI-compatible APIs.
+- [Dedicated Endpoint](https://docs.gmicloud.ai/inference-engine/marketplace/dedicated.md): Provision a private inference endpoint for a chosen model with reserved GPU capacity.
+- [Playground](https://docs.gmicloud.ai/inference-engine/playground.md): Interactive testbed for every model in the catalog. Chat with LLMs, run multimodal models, and launch workflows.
+- [My Models](https://docs.gmicloud.ai/inference-engine/my-models.md): Manage user-owned, fine-tuned, or custom models that your dedicated deployments can target.
+- [Inference Storage](https://docs.gmicloud.ai/inference-engine/inference-storage.md): Shared file workspace consumed by the Playground, Workflows, and Media Library.
+- [Resources](https://docs.gmicloud.ai/inference-engine/resources/resources.md): Overview of inference resources: artifacts, tasks, and storage.
+- [Artifacts](https://docs.gmicloud.ai/inference-engine/resources/artifacts.md): Inputs, outputs, and other files referenced by inference workflows.
+- [Tasks](https://docs.gmicloud.ai/inference-engine/resources/tasks.md): Track and manage asynchronous inference tasks.
+- [Pricing](https://docs.gmicloud.ai/inference-engine/billing/price.md): Where to find current GMI Cloud pricing.
+- [Usage](https://docs.gmicloud.ai/inference-engine/billing/usage.md): Track usage and spending across inference services.
+- [06/24/2026 Change Log ](https://docs.gmicloud.ai/inference/console-release-notes/06-24-2026-change-log--.md)
+- [GPU Compute](https://docs.gmicloud.ai/cluster-engine/index.md): Run GPU workloads on GMI Cloud: managed Kubernetes clusters, container instances, or dedicated bare-metal servers.
+- [Browser Requirements](https://docs.gmicloud.ai/cluster-engine/cluster-engine-client-requirements.md): System requirements and supported clients for connecting to GMI Cloud GPU Compute.
+- [Bare Metal Resources](https://docs.gmicloud.ai/cluster-engine/resources/bare-metal.md): List, configure, and manage bare-metal servers attached to your organization.
+- [VPC & Subnets](https://docs.gmicloud.ai/cluster-engine/resources/vpc-subnets.md): Virtual Private Cloud and subnet management for GMI Cloud Compute resources.
+- [Container Resources](https://docs.gmicloud.ai/cluster-engine/resources/containers.md): Launch, manage, and connect to container workloads on GMI Cloud.
+- [Templates](https://docs.gmicloud.ai/cluster-engine/resources/templates.md): Container image templates available to launch new container workloads.
+- [Managed GPU Clusters](https://docs.gmicloud.ai/cluster-engine/resources/managed-gpu-clusters.md): Provision and operate managed Kubernetes GPU clusters for large-scale AI workloads.
+- [Cluster Requests](https://docs.gmicloud.ai/cluster-engine/resources/cluster-requests.md): Track pending cluster and node provisioning requests for your organization.
+- [Firewalls](https://docs.gmicloud.ai/cluster-engine/resources/firewalls.md): Control inbound traffic to bare-metal servers and container instances.
+- [Elastic IP](https://docs.gmicloud.ai/cluster-engine/resources/elastic-ip.md): Allocate, attach, and release static IPv4 addresses for GMI Cloud Compute resources.
+- [Fine-Tuning](https://docs.gmicloud.ai/cluster-engine/fine-tuning.md): Fine-tuning support for GMI Cloud models. Coming soon.
+- [Account](https://docs.gmicloud.ai/cluster-engine/user-management/account.md): Personal account settings: profile, password, payments, and usage tier.
+- [User and Password Management](https://docs.gmicloud.ai/cluster-engine/user-management/login.md): Sign in to the GMI Cloud console.
+- [API Keys](https://docs.gmicloud.ai/cluster-engine/user-management/api-keys.md): Create and revoke API keys used by external clients and SDKs to call GMI Cloud Inference.
+- [SSH Keys](https://docs.gmicloud.ai/cluster-engine/user-management/ssh-keys.md): Manage SSH keys used to access bare-metal servers and containers.
+- [Organization](https://docs.gmicloud.ai/cluster-engine/user-management/organization.md): Manage your organization, team members, and roles in GMI Cloud.
+- [Credits & Coupons](https://docs.gmicloud.ai/cluster-engine/user-management/credits-coupons.md): Balance, transaction history, coupon redemption, and the referral program.
+- [Billing](https://docs.gmicloud.ai/cluster-engine/user-management/billing.md): View invoices, payment methods, and current usage for your GMI Cloud account.
+- [API Introduction](https://docs.gmicloud.ai/api-reference/introduction.md): Getting started with GMI Cloud APIs
+- [Request password reset](https://docs.gmicloud.ai/api-reference/users/request-password-reset.md): Sends a password reset email to the user.
+- [Resend email verification code](https://docs.gmicloud.ai/api-reference/users/resend-email-verification-code.md): Resend email verificaion code.
+- [Verify user's email and complete user registration.](https://docs.gmicloud.ai/api-reference/users/verify-users-email-and-complete-user-registration.md): Confirms the user's email address and finalizes the the account creation process.
+- [Delete a user account.](https://docs.gmicloud.ai/api-reference/users/delete-a-user-account.md): Delete a user account. - A user can delete their own account. - An organization owner cannot be deleted. - An organization owner can delete any user within the same organization.
+- [Create an auth token.](https://docs.gmicloud.ai/api-reference/me/create-an-auth-token.md): Create a short-term authentication token using user credentials for exchanging access and refresh tokens.
+- [Create an auth token via OAuth.](https://docs.gmicloud.ai/api-reference/me/create-an-auth-token-via-oauth.md): Create a short-term authentication token using a third-party OAuth provider (e.g., Google).
+- [Resend 2FA verification code.](https://docs.gmicloud.ai/api-reference/me/resend-2fa-verification-code.md): Resend 2FA verificaion code.
+- [Create session](https://docs.gmicloud.ai/api-reference/me/create-session.md): Create a login session for user.
+- [Refresh session](https://docs.gmicloud.ai/api-reference/me/refresh-session.md): Refresh an existing session, which will return a new access token and refresh token.
+- [Retrieve user's profile](https://docs.gmicloud.ai/api-reference/me/retrieve-users-profile.md): Retrieves the profile information of the current authenticated user.
+- [Update user's profile](https://docs.gmicloud.ai/api-reference/me/update-users-profile.md): Update the current authenticated user's profile. Either **firstName** or **lastName** should be provided in the request body.
+- [Verify API Key and retrieve the key details](https://docs.gmicloud.ai/api-reference/me/verify-api-key-and-retrieve-the-key-details.md): Validate the API key from the Authorization Bearer token and return the key details.
+- [Update user password](https://docs.gmicloud.ai/api-reference/me/update-user-password.md): Allows a user to update their password. - **Authenticated user**: Must use `Bearer <access token>` in Authorization header and provide `currentPassword` in the request body. - **Password reset user**: Must provide `passwordResetToken` and provide `otpCode` in the request body.
+- [List SSH keys](https://docs.gmicloud.ai/api-reference/me/list-ssh-keys.md): Retrieve a list of SSH keys for the current authenticated user.
+- [Create an SSH key](https://docs.gmicloud.ai/api-reference/me/create-an-ssh-key.md): Create an SSH public key for the current authenticated user.
+- [Delete an SSH key.](https://docs.gmicloud.ai/api-reference/me/delete-an-ssh-key.md): Delete an SSH key owned by the currently authenticated user.  - Users can only delete their own keys.
+- [Update an SSH key.](https://docs.gmicloud.ai/api-reference/me/update-an-ssh-key.md): Update the name of an SSH key owned by the currently authenticated user. - Users can only update their own keys.
+- [Exchange authorization code for access token](https://docs.gmicloud.ai/api-reference/oauth/exchange-authorization-code-for-access-token.md): Exchanges an authorization code for an access token.
+- [Register an organization](https://docs.gmicloud.ai/api-reference/organizations/register-an-organization.md): Allow users to register an organization. The user will automatically leave their current organization.
+- [Retrieve organization information](https://docs.gmicloud.ai/api-reference/organizations/retrieve-organization-information.md): Retrieve information about a specific organization by its ID.  Only users within the organization can access the API.
+- [Delete an organization](https://docs.gmicloud.ai/api-reference/organizations/delete-an-organization.md): Deletes an organization. - Allowed only if the organization has no users. - Only the `organization owner` can access the API. - The owner account will also be deleted.
+- [Update organization information](https://docs.gmicloud.ai/api-reference/organizations/update-organization-information.md): Update information about a specific organization by its ID. - Only the `organization owner` can access the API.
+- [Transfer organization ownership](https://docs.gmicloud.ai/api-reference/organizations/transfer-organization-ownership.md): Transfers the ownership of an organization to another user within the organization. - Only the current **organization owner** can perform this action. - The new owner **must be an existing member** of the organization. - The current owner **will be demoted to a regular user** after the transfer.
+- [List users by organization](https://docs.gmicloud.ai/api-reference/organizations/list-users-by-organization.md): Retrieve a list of users belonging to the specified organization. Only users within the organization can access the API.
+- [Send invitations via email](https://docs.gmicloud.ai/api-reference/organizations/send-invitations-via-email.md): Allows an organization admin to invite users via email.
+- [(DEPRECATED) Accept invitation](https://docs.gmicloud.ai/api-reference/organizations/deprecated-accept-invitation.md): This API is deprecated, use POST /invitations/{invitationKey} instead. Allows user to accept an invitation to join the organization. The user will automatically leave their current organization.
+- [List API keys](https://docs.gmicloud.ai/api-reference/organizations/list-api-keys.md): Retrieve a list of API keys accessible by the authenticated user.   - **Organization owner/admin**: Can view all API keys within the organization.   - **Organization user**: Can only see their own API keys.
+- [Create an API key](https://docs.gmicloud.ai/api-reference/organizations/create-an-api-key.md): Allows a user to generate an API key for their organization.
+- [Delete an API key](https://docs.gmicloud.ai/api-reference/organizations/delete-an-api-key.md): Deletes an API key by its ID.  - **Organization owner/admin**: Can delete any API key within their organization. - **Organization user**: Can only delete the API keys they created.
+- [Accept invitation by key](https://docs.gmicloud.ai/api-reference/invitations/accept-invitation-by-key.md): Allows user to accept an invitation to join the organization using invitationKey. The user will automatically leave their current organization.
+- [List all baremetal servers](https://docs.gmicloud.ai/api-reference/baremetals/list-all-baremetal-servers.md)
+- [Create baremetal servers](https://docs.gmicloud.ai/api-reference/baremetals/create-baremetal-servers.md)
+- [Get baremetal server by ID](https://docs.gmicloud.ai/api-reference/baremetals/get-baremetal-server-by-id.md)
+- [Update baremetal server](https://docs.gmicloud.ai/api-reference/baremetals/update-baremetal-server.md)
+- [Delete baremetal server](https://docs.gmicloud.ai/api-reference/baremetals/delete-baremetal-server.md)
+- [Execute baremetal server action](https://docs.gmicloud.ai/api-reference/baremetals/execute-baremetal-server-action.md)
+- [Get baremetal products](https://docs.gmicloud.ai/api-reference/baremetals/get-baremetal-products.md)
+- [List container information](https://docs.gmicloud.ai/api-reference/containers/list-container-information.md)
+- [Create containers](https://docs.gmicloud.ai/api-reference/containers/create-containers.md): create Container under default namespace
+- [Get container info by ID](https://docs.gmicloud.ai/api-reference/containers/get-container-info-by-id.md)
+- [Update container](https://docs.gmicloud.ai/api-reference/containers/update-container.md)
+- [Delete container](https://docs.gmicloud.ai/api-reference/containers/delete-container.md)
+- [Download container logs](https://docs.gmicloud.ai/api-reference/containers/download-container-logs.md)
+- [Restart container](https://docs.gmicloud.ai/api-reference/containers/restart-container.md)
+- [Generate container shell URL path](https://docs.gmicloud.ai/api-reference/containers/generate-container-shell-url-path.md)
+- [Get container products](https://docs.gmicloud.ai/api-reference/containers/get-container-products.md)
+- [Get elastic IP](https://docs.gmicloud.ai/api-reference/elastic-ips/get-elastic-ip.md)
+- [Allocate elastic IP for organization](https://docs.gmicloud.ai/api-reference/elastic-ips/allocate-elastic-ip-for-organization.md)
+- [Get elastic IP](https://docs.gmicloud.ai/api-reference/elastic-ips/get-elastic-ip-1.md)
+- [Release elastic IP](https://docs.gmicloud.ai/api-reference/elastic-ips/release-elastic-ip.md)
+- [Associate elastic IP with instance](https://docs.gmicloud.ai/api-reference/elastic-ips/associate-elastic-ip-with-instance.md)
+- [Disassociate elastic IP from instance](https://docs.gmicloud.ai/api-reference/elastic-ips/disassociate-elastic-ip-from-instance.md)
+- [Get elastic IP products](https://docs.gmicloud.ai/api-reference/elastic-ips/get-elastic-ip-products.md)
+- [List firewalls](https://docs.gmicloud.ai/api-reference/firewalls/list-firewalls.md)
+- [Create firewall](https://docs.gmicloud.ai/api-reference/firewalls/create-firewall.md)
+- [Get firewall information by ID](https://docs.gmicloud.ai/api-reference/firewalls/get-firewall-information-by-id.md)
+- [Update firewall](https://docs.gmicloud.ai/api-reference/firewalls/update-firewall.md)
+- [Delete firewall](https://docs.gmicloud.ai/api-reference/firewalls/delete-firewall.md)
+- [Associate firewall](https://docs.gmicloud.ai/api-reference/firewalls/associate-firewall.md)
+- [Disassociate firewall](https://docs.gmicloud.ai/api-reference/firewalls/disassociate-firewall.md)
+- [List images](https://docs.gmicloud.ai/api-reference/images/list-images.md)
+- [Get image by ID](https://docs.gmicloud.ai/api-reference/images/get-image-by-id.md)
+- [Get templates list](https://docs.gmicloud.ai/api-reference/templates/get-templates-list.md)
+- [Create template](https://docs.gmicloud.ai/api-reference/templates/create-template.md): create template
+- [Get template](https://docs.gmicloud.ai/api-reference/templates/get-template.md)
+- [Update template](https://docs.gmicloud.ai/api-reference/templates/update-template.md)
+- [Delete template](https://docs.gmicloud.ai/api-reference/templates/delete-template.md)
+- [List all VPCs](https://docs.gmicloud.ai/api-reference/vpcs/list-all-vpcs.md)
+- [Allocate default VPC for organization in IDC](https://docs.gmicloud.ai/api-reference/vpcs/allocate-default-vpc-for-organization-in-idc.md)
+- [Get VPC](https://docs.gmicloud.ai/api-reference/vpcs/get-vpc.md)
+- [Release default VPC](https://docs.gmicloud.ai/api-reference/vpcs/release-default-vpc.md)
+- [List all IDCs](https://docs.gmicloud.ai/api-reference/idcs/list-all-idcs.md): Retrieves a list of IDC information that are not marked as hidden.
+- [Introduction](https://docs.gmicloud.ai/gmi-studio/gmi-studio-user-manual/introduction.md): Visual workflow editor for running open-source-based AI pipelines on GMI Cloud GPUs.
+- [Getting Started](https://docs.gmicloud.ai/gmi-studio/gmi-studio-user-manual/getting-started.md): Sign in, find your way around the console, and create your first workflow.
+- [Workflow Canvas](https://docs.gmicloud.ai/gmi-studio/gmi-studio-user-manual/canvas.md): Tour of the GMI Studio editor: canvas, palettes, inspector, and toolbars.
+- [Library, Search & Blueprints](https://docs.gmicloud.ai/gmi-studio/gmi-studio-user-manual/library-and-search.md): Universal node search, Blueprints, Comfy, Partner, and Extensions filters in GMI Studio.
+- [Running a Workflow](https://docs.gmicloud.ai/gmi-studio/gmi-studio-user-manual/running-a-workflow.md): Execute workflows, track progress, handle errors, and retrieve outputs.
+- [Managing Workflows](https://docs.gmicloud.ai/gmi-studio/gmi-studio-user-manual/managing-workflows.md): Where your workflows, shared team work, and generated media live in the GMI Studio console.
+- [Tutorials](https://docs.gmicloud.ai/gmi-studio/gmi-studio-user-manual/tutorials.md): Step-by-step examples for image, video, audio, and batch workflows.
+- [Image Nodes](https://docs.gmicloud.ai/gmi-studio/nodes/image/overview.md): Image generation and editing nodes for GMI Studio workflows.
+- [Reve Create](https://docs.gmicloud.ai/gmi-studio/nodes/image/reve-create.md): Generates an image from a text prompt using the Reve text-to-image model.
+- [Reve Edit](https://docs.gmicloud.ai/gmi-studio/nodes/image/reve-edit.md): Edits an image using a reference image and a text prompt.
+- [Reve Edit Fast](https://docs.gmicloud.ai/gmi-studio/nodes/image/reve-edit-fast.md): Fast version of image editing using a reference image and text prompt.
+- [Reve Remix](https://docs.gmicloud.ai/gmi-studio/nodes/image/reve-remix.md): Generates an image from 1–6 reference images combined with a text prompt.
+- [Reve Remix Fast](https://docs.gmicloud.ai/gmi-studio/nodes/image/reve-remix-fast.md): Fast version of multi-image remix generation using 1–6 reference images.
+- [Video Nodes](https://docs.gmicloud.ai/gmi-studio/nodes/video/overview.md): Text-to-video, image-to-video, and editing nodes for GMI Studio workflows.
+- [Kling 2_6 Motion Control](https://docs.gmicloud.ai/gmi-studio/nodes/video/kling-2-6-motion-control.md): Transfers motion from a reference video to a character image.
+- [Kling 3 Motion Control](https://docs.gmicloud.ai/gmi-studio/nodes/video/kling-3-motion-control.md): Transfers motion from a reference video to a character image.
+- [Kling Edit Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/kling-edit-video.md): Edits existing video using text instructions and optional reference images.
+- [Kling Image2Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/kling-image2video.md): Generates a video from a reference image and text prompt.
+- [Kling Reference To Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/kling-reference-to-video.md): Generates video using reference video and optional image conditioning.
+- [Kling Text-to-Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/kling-text-to-video.md): Generates a video from a text prompt using Kling models (Standard/Pro, multiple versions).
+- [Kling V3 Image To Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/kling-v3-image-to-video.md): Generates video from image and prompt with optional tail frame support.
+- [Kling V3 Text To Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/kling-v3-text-to-video.md): Generates video purely from text prompt.
+- [Ltx2 Fast Image To Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/ltx2-fast-image-to-video.md): Converts a static image into a motion video with optional audio generation.
+- [Ltx2 Fast TextToVideo](https://docs.gmicloud.ai/gmi-studio/nodes/video/ltx2-fast-texttovideo.md): Generates video directly from a text prompt.
+- [Ltx2 Pro Audio-to-Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/ltx2-pro-audio-to-video.md): Generates video driven by audio input, optionally guided by image or prompt.
+- [Ltx2 Pro ImageToVideo](https://docs.gmicloud.ai/gmi-studio/nodes/video/ltx2-pro-imagetovideo.md): High-fidelity image-to-video generation with improved visual quality and stability.
+- [Ltx2 Pro Retake](https://docs.gmicloud.ai/gmi-studio/nodes/video/ltx2-pro-retake.md): Edits a specific segment of an existing video (audio, video, or both).
+- [Ltx2 Pro TextToVideo](https://docs.gmicloud.ai/gmi-studio/nodes/video/ltx2-pro-texttovideo.md): Premium-quality text-to-video generation with enhanced realism and detail.
+- [Luma Image-to-Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/luma-image-to-video.md): Generates video from text prompts with optional image conditioning, frame control, and configurable output settings.
+- [Minimax Hailuo Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/minimax-hailuo-video.md): Generates video using Minimax-Hailuo model (text-to-video or image-to-video).
+- [Minimax Image To Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/minimax-image-to-video.md): Generates video from image \+ text prompt using Minimax-Hailuo.
+- [Minimax Text To Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/minimax-text-to-video.md): Generates video from text-only prompts using Minimax-Hailuo.
+- [SkyReels Image-to-Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/skyreels-image-to-video.md): Animates a single image into a cinematic video using SkyReels V4.
+- [SkyReels Text-to-Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/skyreels-text-to-video.md): Generates cinematic video from a text prompt using SkyReels V4.
+- [Vidu Q2 Pro I2V](https://docs.gmicloud.ai/gmi-studio/nodes/video/vidu-q2-pro-i2v.md): Generates a video from a single reference image using VIDU Q2 Pro I2V model.
+- [Vidu Q2 Pro R2V](https://docs.gmicloud.ai/gmi-studio/nodes/video/vidu-q2-pro-r2v.md): Generates video from multiple reference images and/or videos using VIDU Q2 Pro R2V model.
+- [Vidu Q2 T2V](https://docs.gmicloud.ai/gmi-studio/nodes/video/vidu-q2-t2v.md): Generates a video from text using VIDU Q2 T2V model.
+- [Vidu Q3 Pro I2V](https://docs.gmicloud.ai/gmi-studio/nodes/video/vidu-q3-pro-i2v.md): Generates video from a single reference image using VIDU Q3 Pro I2V.
+- [Vidu Q3 Pro T2V](https://docs.gmicloud.ai/gmi-studio/nodes/video/vidu-q3-pro-t2v.md): Generates a video from text using VIDU Q3 Pro T2V model.
+- [Wan 2.5 Image-to-Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/wan-2-5-image-to-video.md): Generate video from image using WAN 2.5 model.
+- [Wan 2.6 Image-to-Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/wan-2-6-image-to-video.md): Generate video from image using WAN 2.6 model.
+- [Wan 2.6 Reference-to-Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/wan-2-6-reference-to-video.md): Generate video using reference video URLs (multi-character supported).
+- [Wan 2.6 Text-to-Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/wan-2-6-text-to-video.md): Generate video from text using WAN 2.6 model.
+- [Wan Animate Video](https://docs.gmicloud.ai/gmi-studio/nodes/video/wan-animate-video.md): Generate a video using a reference image and a template video.
+- [LLM Node](https://docs.gmicloud.ai/gmi-studio/nodes/llm/llm-node.md): Calls large language models with optional multimodal inputs (text, image, video).
+- [FAQ](https://docs.gmicloud.ai/gmi-studio/gmi-studio-user-manual/faq.md): Common questions about running, sharing, and queueing workflows in GMI Studio.
+- [Overview](https://docs.gmicloud.ai/agentbox-marketplace/overview.md): Agentbox is GMI Cloud's platform for deploying and distributing AI agents.
+- [Search and use an agent](https://docs.gmicloud.ai/agentbox-marketplace/search-and-use.md): Find an agent in the Agent Marketplace and deploy your own copy.
+- [Register an agent](https://docs.gmicloud.ai/agentbox-marketplace/register-an-agent.md): Register a template to run on GMI, or connect an agent you host.
+- [Managing your deployment](https://docs.gmicloud.ai/agentbox-marketplace/managing-your-deployment.md): Launch sandboxes from your template, monitor them, and manage your listing.
+- [List an agent](https://docs.gmicloud.ai/agentbox-marketplace/list-an-agent.md): Submit a registered template to the Agent Marketplace.
+- [Agents I use](https://docs.gmicloud.ai/agentbox-marketplace/agents-i-use.md): Return to the agents you recently used on GMI Agentbox.
+- [Verified agents](https://docs.gmicloud.ai/agentbox-marketplace/verified-agents.md): What the Verified badge means on GMI Agentbox and how agents earn it.
+- [Handle long-running requests](https://docs.gmicloud.ai/agentbox-marketplace/handle-long-running-requests.md): Keep long agent jobs off the HTTP connection with a job ID and polling.
+- [Agentbox SDK](https://docs.gmicloud.ai/agentbox-sdk/overview.md): Create and control GMI Agentbox sandboxes from Python or Go.
+- [Quickstart](https://docs.gmicloud.ai/agentbox-sdk/quickstart.md): Launch your first Agentbox sandbox and run a command.
+- [Agents and image builds](https://docs.gmicloud.ai/agentbox-sdk/agents.md): Create the Agent that sandboxes launch from, and follow its image build.
+- [Sandboxes](https://docs.gmicloud.ai/agentbox-sdk/sandboxes.md): Launch, label, pause, resume and delete sandboxes.
+- [Commands and files](https://docs.gmicloud.ai/agentbox-sdk/commands-and-files.md): Run commands in a sandbox and transfer files in and out.
+- [Interactive shell (Beta)](https://docs.gmicloud.ai/agentbox-sdk/shell.md): Open an interactive terminal session in a sandbox.
+- [Snapshots](https://docs.gmicloud.ai/agentbox-sdk/snapshots.md): Save a running sandbox and launch many sandboxes from it.
+- [Errors and limits](https://docs.gmicloud.ai/agentbox-sdk/errors-and-limits.md): Handle SDK errors and plan around current limits.
+- [Python SDK reference](https://docs.gmicloud.ai/agentbox-sdk/python-reference.md): Classes and methods in the gmi-agentbox-sdk Python package.
+- [Go SDK reference](https://docs.gmicloud.ai/agentbox-sdk/go-reference.md): Types and methods in the github.com/GMISWE/agentbox-sdk-go module.
+- [GMI Sandbox SDK Usage](https://docs.gmicloud.ai/agentbox-api/sandbox-sdk/usage.md): Install, configure, and use the GMI Sandbox Python SDK.
+- [GMI Sandbox SDK Reference](https://docs.gmicloud.ai/agentbox-api/sandbox-sdk/sdk-reference.md): Python SDK reference for GMI Sandbox control-plane and data-plane APIs.
+- [Sandbox API Overview](https://docs.gmicloud.ai/agentbox-api/sandbox/overview.md): How the GMI Sandbox control plane and data plane fit together, and which token each one expects.
+- [List active sandboxes](https://docs.gmicloud.ai/agentbox-api/sandbox/list-active-sandboxes.md): Returns sandboxes that are still actionable or still worth watching: `provisioning`, `running`, `updating`, `checkpointing`, `pausing`, `paused`, `resuming`, plus the terminal failure state `failed`. Instances in transitional states do not disappear from the list while an operation is in flight, and…
+- [Create a sandbox](https://docs.gmicloud.ai/agentbox-api/sandbox/create-a-sandbox.md): Creates a sandbox from exactly one source: `template_id` or a ready `snapshot_id`.
+- [Get sandbox details](https://docs.gmicloud.ai/agentbox-api/sandbox/get-sandbox-details.md): Returns sandbox details. Instances in the terminal failure state (`failed`) remain readable, with the failure reason in `failure`. Instances being deleted or already deleted (`deleting` / `deleted`) also remain readable, with the deleting party and reason in `deletion`, and the response carries no `…
+- [Delete (kill) a sandbox](https://docs.gmicloud.ai/agentbox-api/sandbox/delete-kill-a-sandbox.md): Deletes the sandbox. The control plane releases the backing resources synchronously within this request: on success the response is **200** with `state` `deleted` (a soft delete; the record stays readable). If the release fails or times out the response is **202** with `state` `deleting`: the deleti…
+- [Update sandbox metadata](https://docs.gmicloud.ai/agentbox-api/sandbox/update-sandbox-metadata.md): Replaces the customer-defined metadata as a whole — no per-key merging; passing an empty object clears it. There are no mutable fields other than `metadata`. This operation does not take the lifecycle lock, so it works in any state except `deleting` and `deleted`, for which it returns 404.
+- [Connect to a sandbox](https://docs.gmicloud.ai/agentbox-api/sandbox/connect-to-a-sandbox.md): Connects to a running sandbox and returns its data-plane connection info (domain and access token). When `timeout` is provided and greater than 0, the call also extends the sandbox's lifetime (extend-only, never shortens). A paused instance returns 409: waking one up is an explicit operation, so cal…
+- [Pause a sandbox](https://docs.gmicloud.ai/agentbox-api/sandbox/pause-a-sandbox.md): Pauses a running sandbox, preserving its ID, disk, memory, and process state. Resume continues the saved processes without re-running the template startup command. Only a running instance can be paused; any other state returns 409.
+- [Resume a paused sandbox](https://docs.gmicloud.ai/agentbox-api/sandbox/resume-a-paused-sandbox.md): Wakes a paused sandbox. This is the **only** way to wake one — `/connect` no longer wakes an instance as a side effect. Only a `paused` instance can be resumed; any other state returns 409.
+- [Execute a sandbox runtime action](https://docs.gmicloud.ai/agentbox-api/sandbox/execute-a-sandbox-runtime-action.md): Single dispatch endpoint for runtime actions on a running sandbox. Currently `update_egress_policy` is supported: it replaces the egress allowlist. Only a sandbox created with `egress_control=true` can be updated; the allowlist is a full replacement, not a merge.
+- [Set sandbox timeout](https://docs.gmicloud.ai/agentbox-api/sandbox/set-sandbox-timeout.md): Resets the time-to-live relative to the current time. When `timeout` is omitted or is 0 or less, 300 seconds is used. Only allowed while `running` or `paused`; any other state returns 409.
+- [Execute a command in a sandbox](https://docs.gmicloud.ai/agentbox-api/sandbox-exec/execute-a-command-in-a-sandbox.md): Starts an asynchronous shell execution in the sandbox. The request body keeps the `action=exec` and `parameters` shape used by the runtime contract. The effective URL is the sandbox data-plane host; the sandbox ID is obtained from the leftmost Host label and is not repeated in the path. The endpoint…
+- [Get a sandbox execution](https://docs.gmicloud.ai/agentbox-api/sandbox-exec/get-a-sandbox-execution.md)
+- [Cancel a sandbox execution](https://docs.gmicloud.ai/agentbox-api/sandbox-exec/cancel-a-sandbox-execution.md): Requests cancellation of a non-terminal execution. The call returns `202` once cancellation is accepted; the execution then moves to `cancelling` and finally `cancelled`. Cancellation is not idempotent: cancelling an execution that is already cancelled, being cancelled, or finished returns `409` (`E…
+- [Launch the sandbox interactive shell](https://docs.gmicloud.ai/agentbox-api/sandbox-shell/launch-the-sandbox-interactive-shell.md): Ensures the sandbox's single logical shell (PTY) session exists. The call is idempotent: if the shell already exists, it returns `200` with the current status instead of creating a duplicate. The effective URL is the sandbox data-plane host (`https://{sandbox_key}.{domain}`; both values, like the `X…
+- [Attach to the sandbox shell (WebSocket)](https://docs.gmicloud.ai/agentbox-api/sandbox-shell/attach-to-the-sandbox-shell-websocket.md): WebSocket handshake — **not a normal GET**. Code generators produce no usable client for this operation (see `x-websocket`); consumers use a WebSocket library instead. The address is composed from the `POST /shell` response: `wss://{sandbox_key}.{domain}{connect_url}` — the same data-plane host, sch…
+- [Control the sandbox shell (resize / close)](https://docs.gmicloud.ai/agentbox-api/sandbox-shell/control-the-sandbox-shell-resize-close.md): Out-of-band control channel for the shell. Control commands never travel over the WebSocket; this is a plain HTTP call and works from any replica.
+- [Download a sandbox file](https://docs.gmicloud.ai/agentbox-api/sandbox-files/download-a-sandbox-file.md): Reads a single file inside the sandbox by absolute path; the response body is the raw byte stream.
+- [Upload a sandbox file](https://docs.gmicloud.ai/agentbox-api/sandbox-files/upload-a-sandbox-file.md): Writes one file to the given absolute path inside the sandbox via `multipart/form-data`, overwriting any existing file.
+- [List the product catalog (unified, tenant-facing)](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/list-the-product-catalog-unified-tenant-facing.md): Unified product catalog query: identity, display name, status and resources per product. This is a config-plane read view for tenants — it carries no inventory and no purchasability judgement; whether a given operation may use a product is answered by that operation's own validation. `status` is ext…
+- [List Templates](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/list-templates.md): Lists Templates visible to the authenticated organization. Results are sorted by creation time in descending order. Internal artifact IDs are never returned. `name` is an exact match on the Template display name; omit it to list every visible Template.
+- [Create a Template and start its initial Build](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/create-a-template-and-start-its-initial-build.md): Creates a logical Template together with its initial Build. The initial Build is created and started from the required `build` definition in the same request. A dockerfile that references an uploaded file (`{{file:...}}`) cannot be used here (400): create the Template without `build`, upload the fil…
+- [Get a Template](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/get-a-template.md): Returns the logical Template and its current and latest Build references.
+- [Delete a Template](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/delete-a-template.md): Accepts deletion and returns 202 with status=deleting. GET and LIST keep the Template visible until deletion completes. New sandboxes, derived builds, rebuilds and metadata updates are rejected while deleting or delete_failed. Once deletion completes, the Template disappears from tenant-visible list…
+- [Update mutable Template metadata](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/update-mutable-template-metadata.md): Updates mutable metadata only (`name`, `description`, `labels`). IDC, source, resource specification, and existing Build definitions are immutable. This is a metadata-only update.
+- [Initialize a Template build-context upload](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/initialize-a-template-build-context-upload.md): Creates an immutable tar/tgz build context and returns a staging upload session. Upload the archive directly with a single HTTP PUT to the returned URL and poll the returned status URL; there is no client-visible complete operation. The platform verifies the uploaded object and imports it into the s…
+- [Get Template build-context status](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/get-template-build-context-status.md): Returns the platform-owned lifecycle state of the uploaded build context. Backend references and storage object names are never returned. Only a ready, unexpired file with sufficient remaining validity in the selected IDC may be referenced by a new Build.
+- [List Template Builds](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/list-template-builds.md): Lists immutable Build attempts in reverse chronological order.
+- [Create and start a rebuild](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/create-and-start-a-rebuild.md): Creates a new Build from the given definition and starts it immediately. A rebuild inherits the most recent Build's IDC placement and resources, so a Template with no Build records left has nothing to inherit and returns 409. Not supported in every IDC; IDCs without rebuild support reject it with 42…
+- [Get a Template Build](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/get-a-template-build.md): Returns normalized Build status and artifact availability.
+- [Start an existing Build](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/start-an-existing-build.md): Starts a Build created by the split create flow (a `waiting` initial Build). This is an action on an existing record — nothing new is created — so success is a 202 acceptance; poll the Build for the outcome. Starting a Build that is not in `waiting` state returns 400 `Parameter.Invalid`. Not support…
+- [Get live Template Build logs](https://docs.gmicloud.ai/agentbox-api/sandboxtemplate/get-live-template-build-logs.md): Returns live logs for a Template Build; the platform does not persist them.  Logs are filtered and paged server-side across upstream pages, preserving raw log offsets.
+- [List durable snapshots](https://docs.gmicloud.ai/agentbox-api/sandboxsnapshot/list-durable-snapshots.md): Lists snapshots in the current tenant, including `deleting` and `delete_failed`. Deleted snapshots are excluded. Filtering by `status=deleted` returns 400.
+- [Create a durable snapshot](https://docs.gmicloud.ai/agentbox-api/sandboxsnapshot/create-a-durable-snapshot.md): Creates a durable snapshot from a running sandbox in the current tenant. The snapshot can be queried immediately, while creation completes asynchronously. Poll GET /snapshots/{snapshot_id} until `status` becomes `ready` or `error`. A ready snapshot can be supplied as `snapshot_id` to POST /sandboxes…
+- [Get a durable snapshot](https://docs.gmicloud.ai/agentbox-api/sandboxsnapshot/get-a-durable-snapshot.md): Returns a snapshot in the current tenant. Missing, deleted, or other-tenant snapshots return 404. Malformed snapshot identifiers return 400.
+- [Delete a durable snapshot](https://docs.gmicloud.ai/agentbox-api/sandboxsnapshot/delete-a-durable-snapshot.md): Accepts asynchronous deletion and returns 202 with `status: deleting`. The snapshot remains readable through GET and LIST while deletion completes; new sandbox launches from it are rejected. Repeating DELETE while `deleting` returns the same accepted response. Once deletion completes, GET returns 40…
+- [Update a durable snapshot](https://docs.gmicloud.ai/agentbox-api/sandboxsnapshot/update-a-durable-snapshot.md): Updates the customer-defined name and/or metadata. Omitted fields remain unchanged. Use an empty string to clear the name or an empty object to clear metadata; metadata replaces the entire existing map.
+- [GMI MCP Server](https://docs.gmicloud.ai/mcp/gmi-mcp-server.md)
+- [Guides](https://docs.gmicloud.ai/guides-overview.md): Model quickstarts, agent walkthroughs, and coding-tool integrations for GMI Cloud.
+- [Model Library](https://docs.gmicloud.ai/model-quickstarts/model-library.md)
+- [LLM models](https://docs.gmicloud.ai/model-quickstarts/text/overview.md): Text, chat, code, and multimodal language models available on GMI Cloud.
+- [Claude Haiku 4.5](https://docs.gmicloud.ai/model-quickstarts/text/anthropic-claude-haiku-4-5.md): Claude Haiku 4.5 is Anthropic's fastest and most cost-effective model, optimized for speed and efficiency.
+- [Claude Opus 4.1](https://docs.gmicloud.ai/model-quickstarts/text/anthropic-claude-opus-4-1.md): Claude Opus 4.1 is an incremental upgrade over Claude Opus 4, released August 2025.
+- [Claude Opus 4.5](https://docs.gmicloud.ai/model-quickstarts/text/anthropic-claude-opus-4-5.md): Claude Opus 4.5 is Anthropic's most powerful and capable flagship model, representing the pinnacle of AI reasoning and intelligence.
+- [Claude Opus 4.6](https://docs.gmicloud.ai/model-quickstarts/text/anthropic-claude-opus-4-6.md): Claude Opus 4.6 is Anthropic's most powerful and capable flagship model, representing the pinnacle of AI reasoning and intelligence.
+- [Claude Opus 4.7](https://docs.gmicloud.ai/model-quickstarts/text/anthropic-claude-opus-4-7.md): Claude Opus 4.7 is Anthropic's flagship high-intelligence model, built for users who need top-tier reasoning, analysis, and coding performance.
+- [Claude Sonnet 4](https://docs.gmicloud.ai/model-quickstarts/text/anthropic-claude-sonnet-4.md): Claude Sonnet 4 is a high-performance model in Anthropic's Claude 4 family, released May 2025.
+- [Claude Sonnet 4.5](https://docs.gmicloud.ai/model-quickstarts/text/anthropic-claude-sonnet-4-5.md): Claude Sonnet 4.5 is Anthropic's most intelligent model to date, delivering exceptional performance across reasoning, coding, and complex analysis tasks.
+- [Claude Sonnet 4.6](https://docs.gmicloud.ai/model-quickstarts/text/anthropic-claude-sonnet-4-6.md): Claude Sonnet 4.6 is Anthropic's most capable Sonnet model, delivering the best combination of speed and intelligence in the Claude family.
+- [ByteDance Seed 2.0 Mini](https://docs.gmicloud.ai/model-quickstarts/text/bytedance-seed-2-0-mini.md): Seed 2.0 Mini is ByteDance's efficiency-optimized model in the Seed 2.0 series, designed for high-concurrency and batch generation scenarios.
+- [DeepSeek Prover v2 671B](https://docs.gmicloud.ai/model-quickstarts/text/deepseek-ai-deepseek-prover-v2-671b.md): DeepSeek Prover V2 671B is a powerful large language model that has been distilled from larger models while maintaining strong performance.
+- [DeepSeek R1 (0528)](https://docs.gmicloud.ai/model-quickstarts/text/deepseek-ai-deepseek-r1-0528.md): DeepSeek-V3.2 is a powerful large language model that has been distilled from larger models while maintaining strong performance.
+- [DeepSeek R1 Distill Llama 70B](https://docs.gmicloud.ai/model-quickstarts/text/deepseek-ai-deepseek-r1-distill-llama-70b.md): DeepSeek-R1-Distill-Llama-70B is a powerful large language model that has been distilled from larger models while maintaining strong performance.
+- [DeepSeek R1 Distill Qwen 14B](https://docs.gmicloud.ai/model-quickstarts/text/deepseek-ai-deepseek-r1-distill-qwen-14b.md): DeepSeek-R1-Distill-Qwen-14B is a powerful large language model that has been distilled from larger models while maintaining strong performance.
+- [DeepSeek R1 Distill Qwen 7B](https://docs.gmicloud.ai/model-quickstarts/text/deepseek-ai-deepseek-r1-distill-qwen-7b.md): DeepSeek-R1-Distill-Qwen-7B is a powerful large language model that has been distilled from larger models while maintaining strong performance.
+- [DeepSeek V3 (0324)](https://docs.gmicloud.ai/model-quickstarts/text/deepseek-ai-deepseek-v3-0324.md): DeepSeek-V3-0324 is a powerful large language model maintaining strong performance.
+- [DeepSeek V3.1 Terminus](https://docs.gmicloud.ai/model-quickstarts/text/deepseek-ai-deepseek-v3-1-terminus.md): **DeepSeek-V3.1-Terminus** represents the culmination of the V3.1 series, a highly optimized large language model engineered for **maximum inference efficiency**, **stability**, and **precision**.
+- [DeepSeek V3.2](https://docs.gmicloud.ai/model-quickstarts/text/deepseek-ai-deepseek-v3-2.md): DeepSeek V3.2 is a powerful large language model that has been distilled from larger models while maintaining strong performance.
+- [DeepSeek V4 Flash](https://docs.gmicloud.ai/model-quickstarts/text/deepseek-ai-deepseek-v4-flash.md): DeepSeek V4 Flash is an efficiency-optimized Mixture-of-Experts model from DeepSeek with 284B total parameters and 13B activated parameters, supporting a 1M-token context window.
+- [DeepSeek V4 Pro](https://docs.gmicloud.ai/model-quickstarts/text/deepseek-ai-deepseek-v4-pro.md): DeepSeek-V4-Pro is a powerful large language model maintaining strong performance.
+- [Gemini 3.1 Flash Lite Preview](https://docs.gmicloud.ai/model-quickstarts/text/google-gemini-3-1-flash-lite-preview.md): Google Gemini 3.1 Flash-Lite Preview is a lightweight, cost-efficient model in the Gemini 3 series from Google, optimized for high-throughput and low-latency tasks.
+- [Gemini 3.1 Pro Preview](https://docs.gmicloud.ai/model-quickstarts/text/google-gemini-3-1-pro-preview.md): Google Gemini 3.1 Pro Preview is the latest iteration in the Gemini 3 series from Google, featuring significantly improved reasoning capabilities for complex problem-solving tasks.
+- [Gemini 3 Flash Preview](https://docs.gmicloud.ai/model-quickstarts/text/google-gemini-3-flash-preview.md): Google Gemini 3 Flash Preview is a fast and efficient multimodal large language model from Google.
+- [Gemma 4 26B A4B (IT)](https://docs.gmicloud.ai/model-quickstarts/text/google-gemma-4-26b-a4b-it.md): Google Gemma 4 26B A4B is a large language model from Google’s Gemma family.
+- [Gemma 4 31B (IT)](https://docs.gmicloud.ai/model-quickstarts/text/google-gemma-4-31b-it.md): Google Gemma 4 31B is a large language model from Google’s Gemma family.
+- [KAT Coder Pro v2](https://docs.gmicloud.ai/model-quickstarts/text/kwaipilot-kat-coder-pro-v2.md): KAT-Coder-Pro V2 is the latest high-performance model in KwaiKAT’s KAT-Coder series, designed for complex enterprise-grade software engineering and SaaS integration.
+- [CLIP ViT-B/32 (LAION2B-s34B-b79K)](https://docs.gmicloud.ai/model-quickstarts/text/laion-clip-vit-b-32-laion2b-s34b-b79k.md): A CLIP ViT-B/32 model trained with the LAION-2B English subset of LAION-5B (https://laion.ai/blog/laion-5b/) using OpenCLIP (https://github.com/mlfoundations/open_clip).
+- [Llama 4 Maverick 17B 128E Instruct (FP8)](https://docs.gmicloud.ai/model-quickstarts/text/meta-llama-llama-4-maverick-17b-128e-instruct-fp8.md): Llama-4-Maverick-17B-128E-Instruct is a powerful large language model maintaining strong performance.
+- [MiniMax M2.1](https://docs.gmicloud.ai/model-quickstarts/text/minimaxai-minimax-m2-1.md): M2.1 was built to shatter the stereotype that high-performance agents must remain behind closed doors.
+- [MiniMax M2.5](https://docs.gmicloud.ai/model-quickstarts/text/minimaxai-minimax-m2-5.md): MiniMax-M2.5 is an advanced reasoning model featuring built-in extended thinking capabilities for complex problem-solving.
+- [MiniMax M2.7](https://docs.gmicloud.ai/model-quickstarts/text/minimaxai-minimax-m2-7.md): MiniMax-M2.7 is MiniMax's first model deeply participating in its own evolution.
+- [Kimi K2.5](https://docs.gmicloud.ai/model-quickstarts/text/moonshotai-kimi-k2-5.md): Kimi K2.5 is an open-source, native multimodal agentic model built through continual pretraining on approximately 15 trillion mixed visual and text tokens atop Kimi-K2-Base.
+- [Kimi K2.6](https://docs.gmicloud.ai/model-quickstarts/text/moonshotai-kimi-k2-6.md): Kimi-K2.6 is an open-source, native multimodal agentic model developed by Moonshot AI.
+- [Kimi K2 Instruct (0905)](https://docs.gmicloud.ai/model-quickstarts/text/moonshotai-kimi-k2-instruct-0905.md): Moonshotai Kimi K2 Instruct 0905 is a powerful large language model that has been distilled from larger models while maintaining strong performance.
+- [Kimi K2 Thinking](https://docs.gmicloud.ai/model-quickstarts/text/moonshotai-kimi-k2-thinking.md): Moonshotai Kimi K2 Instruct 0905 is a powerful large language model that has been distilled from larger models while maintaining strong performance.
+- [Nvidia Nemotron 3 Nano Omni](https://docs.gmicloud.ai/model-quickstarts/text/nvidia-nemotron-3-nano-omni.md): Nvidia Nemotron 3 Nano Omni is available on GMI Cloud's OpenAI-compatible inference API.
+- [NVIDIA Nemotron 3 Nano Omni](https://docs.gmicloud.ai/model-quickstarts/text/nvidia-nvidia-nemotron-3-nano-omni.md): Nemotron 3 Nano Omni is a multimodal large language model developed by NVIDIA, designed for high-performance understanding and generation across text, images, video, and audio.
+- [GPT-4o](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-4o.md): GPT-4o ("o" for "omni") is OpenAI's latest AI model, supporting both text and image inputs with text outputs.
+- [GPT-4o Mini](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-4o-mini.md): GPT-4o mini is OpenAI's newest model after GPT-4 Omni, supporting both text and image inputs with text outputs.
+- [GPT-5](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5.md): GPT-5 is OpenAI’s most advanced model, offering major improvements in reasoning, code quality, and user experience.
+- [GPT-5.1](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5-1.md): GPT-5.1 is the latest frontier-grade model in the GPT-5 series, offering stronger general-purpose reasoning, improved instruction adherence, and a more natural conversational style compared to GPT-5.
+- [GPT-5.1 Chat](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5-1-chat.md): GPT-5.1 Chat (AKA Instant is the fast, lightweight member of the 5.1 family, optimized for low-latency chat while retaining strong general intelligence.
+- [GPT-5.2](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5-2.md): GPT-5.2 is the latest frontier-grade model in the GPT-5 series, offering stronger agentic and long context perfomance compared to GPT-5.1.
+- [GPT-5.2 Chat](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5-2-chat.md): GPT-5.2 Chat (AKA Instant) is the fast, lightweight member of the 5.2 family, optimized for low-latency chat while retaining strong general intelligence.
+- [GPT-5.2 Codex](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5-2-codex.md): GPT-5.2-Codex is an upgraded version of gpt-5.1-codex optimized for software engineering and coding workflows.
+- [GPT-5.3 Codex](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5-3-codex.md): GPT-5.3-Codex is an upgraded version of gpt-5.2-codex optimized for software engineering and coding workflows.
+- [GPT-5.4](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5-4.md): GPT-5.4 is OpenAI’s latest frontier model, unifying the Codex and GPT lines into a single system.
+- [GPT-5.4 Mini](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5-4-mini.md): GPT-5.4 mini brings the core capabilities of GPT-5.4 to a faster, more efficient model optimized for high-throughput workloads.
+- [GPT-5.4 Nano](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5-4-nano.md): GPT-5.4 nano is the most lightweight and cost-efficient variant of the GPT-5.4 family, optimized for speed-critical and high-volume tasks.
+- [GPT-5.4 Pro](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5-4-pro.md): GPT-5.4 Pro is OpenAI's most advanced model, building on GPT-5.4's unified architecture with enhanced reasoning capabilities for complex, high-stakes tasks.
+- [GPT-5.5](https://docs.gmicloud.ai/model-quickstarts/text/openai-gpt-5-5.md): GPT-5.5 is OpenAI’s frontier model designed for complex professional workloads, building on GPT-5.4 with stronger reasoning, higher reliability, and improved token efficiency on hard tasks.
+- [Qwen3 235B A22B (FP8)](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-235b-a22b-fp8.md): Qwen3-235B-A22B-FP8 is a powerful large language model while maintaining strong performance.
+- [Qwen3 235B A22B Instruct (2507, FP8)](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-235b-a22b-instruct-2507-fp8.md): Qwen3-235B-A22B-Instruct-2507-FP8 is a powerful large language model that has been distilled from larger models while maintaining strong performance.
+- [Qwen3 235B A22B Thinking (2507, FP8)](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-235b-a22b-thinking-2507-fp8.md): Interact with this model via GMI's OpenAI-compatible chat completions endpoint.
+- [Qwen3 32B (FP8)](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-32b-fp8.md): Qwen3-32B-FP8 is a powerful large language model while maintaining strong performance.
+- [Qwen3.5 122B A10B](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-5-122b-a10b.md): Qwen3.5 122B A10B is a native vision-language model built on a hybrid architecture that integrates a linear attention mechanism with a sparse mixture-of-experts model, achieving higher inference.
+- [Qwen3.5 27B](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-5-27b.md): Qwen3.5 27B is a powerful dense language model that incorporates a linear attention mechanism, delivering fast response times while balancing inference speed and performance.
+- [Qwen3.5 35B A3B](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-5-35b-a3b.md): Qwen3.5-35B-A3B is a native vision-language model designed with a hybrid architecture that integrates linear attention mechanisms and a sparse mixture-of-experts model.
+- [Qwen3.5 397B A17B](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-5-397b-a17b.md): Qwen3.5-397B-A17B is the flagship model of the Qwen3.5 series, based on a hybrid architecture that integrates linear attention mechanisms with sparse Mixture-of-Experts (MoE), achieving higher.
+- [Qwen3.6-35B-A3B](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-6-35b-a3b.md): Qwen3.6-35B-A3B is available on GMI Cloud's OpenAI-compatible inference API.
+- [Qwen3.6 Max Preview](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-6-max-preview.md): Qwen3.6 Max Preview is a preview version of the flagship model in the Qwen3.6 series, offering enhanced reasoning, coding, and multimodal capabilities.
+- [Qwen3.6 Plus](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-6-plus.md): Qwen3.6 Plus is an advanced model in the Qwen3.6 series, designed with enhanced efficiency and performance through improvements in hybrid attention mechanisms and optimized Mixture-of-Experts (MoE).
+- [Qwen3.6 Plus (2026-04-02)](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-6-plus-2026-04-02.md): Qwen3.6 Plus is an advanced model in the Qwen3.6 series, designed with enhanced efficiency and performance through improvements in hybrid attention mechanisms and optimized Mixture-of-Experts (MoE).
+- [Qwen3.7 Max](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-7-max.md): Qwen3.7 Max is available on GMI Cloud's OpenAI-compatible inference API.
+- [Qwen3 Coder 480B A35B Instruct (FP8)](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-coder-480b-a35b-instruct-fp8.md): Qwen3-Coder is available in multiple sizes. Today, we're excited to introduce Qwen3-Coder-480B-A35B-Instruct-FP8.
+- [Qwen3 Next 80B A3B Instruct](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-next-80b-a3b-instruct.md): Qwen3 Next 80B A3B Instruct is a powerful large language model that has been distilled from larger models while maintaining strong performance.
+- [Qwen3 Next 80B A3B Thinking](https://docs.gmicloud.ai/model-quickstarts/text/qwen-qwen3-next-80b-a3b-thinking.md): Qwen3 Next 80B A3B Thinking is a highly sparse MoE model with 80B total parameters but only ~3B activated per inference step.
+- [hy3-preview](https://docs.gmicloud.ai/model-quickstarts/text/tencent-hy3-preview.md): hy3-preview is available on GMI Cloud's OpenAI-compatible inference API.
+- [Xiaomi MiMo v2.5](https://docs.gmicloud.ai/model-quickstarts/text/xiaomimimo-mimo-v2-5.md): MiMo-V2.5 is Xiaomi’s **multimodal** MiMo generation: it combines a **sparse MoE** language backbone (~310B total parameters, ~15B active) trained on **~48T tokens** with **in-house visual and audio.
+- [Xiaomi MiMo v2.5 Pro](https://docs.gmicloud.ai/model-quickstarts/text/xiaomimimo-mimo-v2-5-pro.md): MiMo-V2.5-Pro is Xiaomi’s strongest MiMo model to date, focused on **agentic behavior**, **complex software engineering**, and **long-horizon coherence**.
+- [GLM 4.5 Air (FP8)](https://docs.gmicloud.ai/model-quickstarts/text/zai-org-glm-4-5-air-fp8.md): **GLM-4.5-Air-FP8** is a **lightweight**, **high-efficiency**, and **FP8-quantized** variant of the GLM-4.5-Air model, designed to achieve **ultra-fast inference** with **minimal memory footprint**.
+- [GLM 4.5 (FP8)](https://docs.gmicloud.ai/model-quickstarts/text/zai-org-glm-4-5-fp8.md): **GLM-4.5-FP8** is a high-efficiency variant of the GLM-4.5 large language model, designed for **ultra-fast inference** and **reduced memory consumption** through FP8 quantization.
+- [GLM 4.7 (FP8)](https://docs.gmicloud.ai/model-quickstarts/text/zai-org-glm-4-7-fp8.md): DeepSeek-V3.2 is a powerful large language model that has been distilled from larger models while maintaining strong performance.
+- [GLM 5.1 (FP8)](https://docs.gmicloud.ai/model-quickstarts/text/zai-org-glm-5-1-fp8.md): GLM-5.1 is a cutting-edge large language model developed for high-performance natural language understanding and generation.
+- [GLM 5 (FP8)](https://docs.gmicloud.ai/model-quickstarts/text/zai-org-glm-5-fp8.md): GLM-5 is a cutting-edge large language model developed for high-performance natural language understanding and generation.
+- [Image Models](https://docs.gmicloud.ai/model-quickstarts/image/about.md)
+- [bria-eraser](https://docs.gmicloud.ai/model-quickstarts/image/bria-eraser.md): API usage guide for bria-eraser.
+- [bria-fibo-edit-2.0](https://docs.gmicloud.ai/model-quickstarts/image/bria-fibo-edit-2-0.md): API usage guide for bria-fibo-edit-2.0.
+- [bria-fibo-generate-2.0](https://docs.gmicloud.ai/model-quickstarts/image/bria-fibo-generate-2-0.md): API usage guide for bria-fibo-generate-2.0.
+- [bria-genfill](https://docs.gmicloud.ai/model-quickstarts/image/bria-genfill.md): API usage guide for bria-genfill.
+- [bria-image-increase-resolution](https://docs.gmicloud.ai/model-quickstarts/image/bria-image-increase-resolution.md): API usage guide for bria-image-increase-resolution.
+- [bria-image-remove-background](https://docs.gmicloud.ai/model-quickstarts/image/bria-image-remove-background.md): API usage guide for bria-image-remove-background.
+- [bria-product-dimensions](https://docs.gmicloud.ai/model-quickstarts/image/bria-product-dimensions.md): API usage guide for bria-product-dimensions.
+- [flux-kontext-pro](https://docs.gmicloud.ai/model-quickstarts/image/flux-kontext-pro.md): API usage guide for flux-kontext-pro.
+- [Flux2-Dev](https://docs.gmicloud.ai/model-quickstarts/image/flux2-dev.md): API usage guide for Flux2-Dev.
+- [Flux2-Klein](https://docs.gmicloud.ai/model-quickstarts/image/flux2-klein.md): API usage guide for Flux2-Klein.
+- [gemini-2.5-flash-image](https://docs.gmicloud.ai/model-quickstarts/image/gemini-2-5-flash-image.md): API usage guide for gemini-2.5-flash-image.
+- [gemini-3-pro-image](https://docs.gmicloud.ai/model-quickstarts/image/gemini-3-pro-image.md): API usage guide for gemini-3-pro-image.
+- [gemini-3.1-flash-image](https://docs.gmicloud.ai/model-quickstarts/image/gemini-3-1-flash-image.md): API usage guide for gemini-3.1-flash-image.
+- [gemini-3.1-flash-lite-image](https://docs.gmicloud.ai/model-quickstarts/image/gemini-3-1-flash-lite-image.md): API usage guide for gemini-3.1-flash-lite-image.
+- [Gemini-batch-inference](https://docs.gmicloud.ai/model-quickstarts/image/gemini-batch-inference.md): API usage guide for Gemini-batch-inference.
+- [gemini-nano-banana-2.1](https://docs.gmicloud.ai/model-quickstarts/image/gemini-nano-banana-2-1.md): API usage guide for gemini-nano-banana-2.1.
+- [GLM-Image](https://docs.gmicloud.ai/model-quickstarts/image/glm-image.md): API usage guide for GLM-Image.
+- [gpt-image-2-edit](https://docs.gmicloud.ai/model-quickstarts/image/gpt-image-2-edit.md): API usage guide for gpt-image-2-edit.
+- [gpt-image-2-generate](https://docs.gmicloud.ai/model-quickstarts/image/gpt-image-2-generate.md): API usage guide for gpt-image-2-generate.
+- [hunyuan-image-to-image](https://docs.gmicloud.ai/model-quickstarts/image/hunyuan-image-to-image.md): API usage guide for hunyuan-image-to-image.
+- [luma-uni-1.1](https://docs.gmicloud.ai/model-quickstarts/image/luma-uni-1-1.md): API usage guide for luma-uni-1.1.
+- [Qwen-Image-2512](https://docs.gmicloud.ai/model-quickstarts/image/qwen-image-2512.md): API usage guide for Qwen-Image-2512.
+- [reve-2-1](https://docs.gmicloud.ai/model-quickstarts/image/reve-2-1.md): API usage guide for reve-2-1.
+- [seededit-3-0-i2i-250628](https://docs.gmicloud.ai/model-quickstarts/image/seededit-3-0-i2i-250628.md): API usage guide for seededit-3-0-i2i-250628.
+- [seedream-3-0-t2i-250415](https://docs.gmicloud.ai/model-quickstarts/image/seedream-3-0-t2i-250415.md): API usage guide for seedream-3-0-t2i-250415.
+- [seedream-4-0-250828](https://docs.gmicloud.ai/model-quickstarts/image/seedream-4-0-250828.md): API usage guide for seedream-4-0-250828.
+- [seedream-5.0-lite](https://docs.gmicloud.ai/model-quickstarts/image/seedream-5-0-lite.md): API usage guide for seedream-5.0-lite.
+- [seedream-5.0-pro](https://docs.gmicloud.ai/model-quickstarts/image/seedream-5-0-pro.md): API usage guide for seedream-5.0-pro.
+- [wan2.7-image](https://docs.gmicloud.ai/model-quickstarts/image/wan2-7-image.md): API usage guide for wan2.7-image.
+- [wan2.7-image-pro](https://docs.gmicloud.ai/model-quickstarts/image/wan2-7-image-pro.md): API usage guide for wan2.7-image-pro.
+- [Z-Image](https://docs.gmicloud.ai/model-quickstarts/image/z-image.md): API usage guide for Z-Image.
+- [Z-Image-Turbo](https://docs.gmicloud.ai/model-quickstarts/image/z-image-turbo.md): API usage guide for Z-Image-Turbo.
+- [Z-Image-Turbo-Fun-Controlnet-Union-2.1](https://docs.gmicloud.ai/model-quickstarts/image/z-image-turbo-fun-controlnet-union-2-1.md): API usage guide for Z-Image-Turbo-Fun-Controlnet-Union-2.1.
+- [Video Models](https://docs.gmicloud.ai/model-quickstarts/video/about.md)
+- [bria-video-eraser](https://docs.gmicloud.ai/model-quickstarts/video/bria-video-eraser.md): API usage guide for bria-video-eraser.
+- [bria-video-increase-resolution](https://docs.gmicloud.ai/model-quickstarts/video/bria-video-increase-resolution.md): API usage guide for bria-video-increase-resolution.
+- [bria-video-remove-background](https://docs.gmicloud.ai/model-quickstarts/video/bria-video-remove-background.md): API usage guide for bria-video-remove-background.
+- [gemini-omni-1.1-flash-preview](https://docs.gmicloud.ai/model-quickstarts/video/gemini-omni-1-1-flash-preview.md): API usage guide for gemini-omni-1.1-flash-preview.
+- [gemini-omni-1.2-flash](https://docs.gmicloud.ai/model-quickstarts/video/gemini-omni-1-2-flash.md): API usage guide for gemini-omni-1.2-flash.
+- [gemini-omni-flash-preview](https://docs.gmicloud.ai/model-quickstarts/video/gemini-omni-flash-preview.md): API usage guide for gemini-omni-flash-preview.
+- [GMI-Halloween-HauntedYou-Workflow](https://docs.gmicloud.ai/model-quickstarts/video/gmi-halloween-hauntedyou-workflow.md): API usage guide for GMI-Halloween-HauntedYou-Workflow.
+- [GMI-MiniMeTalks-Workflow](https://docs.gmicloud.ai/model-quickstarts/video/gmi-minimetalks-workflow.md): API usage guide for GMI-MiniMeTalks-Workflow.
+- [happyhorse-1.0-i2v](https://docs.gmicloud.ai/model-quickstarts/video/happyhorse-1-0-i2v.md): API usage guide for happyhorse-1.0-i2v.
+- [happyhorse-1.0-t2v](https://docs.gmicloud.ai/model-quickstarts/video/happyhorse-1-0-t2v.md): API usage guide for happyhorse-1.0-t2v.
+- [happyhorse-1.1-i2v](https://docs.gmicloud.ai/model-quickstarts/video/happyhorse-1-1-i2v.md): API usage guide for happyhorse-1.1-i2v.
+- [happyhorse-1.1-r2v](https://docs.gmicloud.ai/model-quickstarts/video/happyhorse-1-1-r2v.md): API usage guide for happyhorse-1.1-r2v.
+- [happyhorse-1.1-t2v](https://docs.gmicloud.ai/model-quickstarts/video/happyhorse-1-1-t2v.md): API usage guide for happyhorse-1.1-t2v.
+- [heygen-avatar-4](https://docs.gmicloud.ai/model-quickstarts/video/heygen-avatar-4.md): API usage guide for heygen-avatar-4.
+- [Hunyuan1.5](https://docs.gmicloud.ai/model-quickstarts/video/hunyuan1-5.md): API usage guide for Hunyuan1.5.
+- [kling-2.6-motion-control](https://docs.gmicloud.ai/model-quickstarts/video/kling-2-6-motion-control.md): API usage guide for kling-2.6-motion-control.
+- [kling-3-motion-control](https://docs.gmicloud.ai/model-quickstarts/video/kling-3-motion-control.md): API usage guide for kling-3-motion-control.
+- [kling-3.0-turbo-i2v](https://docs.gmicloud.ai/model-quickstarts/video/kling-3-0-turbo-i2v.md): API usage guide for kling-3.0-turbo-i2v.
+- [kling-3.0-turbo-t2v](https://docs.gmicloud.ai/model-quickstarts/video/kling-3-0-turbo-t2v.md): API usage guide for kling-3.0-turbo-t2v.
+- [kling-identify-face](https://docs.gmicloud.ai/model-quickstarts/video/kling-identify-face.md): API usage guide for kling-identify-face.
+- [Kling-Image2Video-V1.6-Pro](https://docs.gmicloud.ai/model-quickstarts/video/kling-image2video-v1-6-pro.md): API usage guide for Kling-Image2Video-V1.6-Pro.
+- [Kling-Image2Video-V1.6-Standard](https://docs.gmicloud.ai/model-quickstarts/video/kling-image2video-v1-6-standard.md): API usage guide for Kling-Image2Video-V1.6-Standard.
+- [Kling-Image2Video-V2-Master](https://docs.gmicloud.ai/model-quickstarts/video/kling-image2video-v2-master.md): API usage guide for Kling-Image2Video-V2-Master.
+- [Kling-Image2Video-V2.1-Master](https://docs.gmicloud.ai/model-quickstarts/video/kling-image2video-v2-1-master.md): API usage guide for Kling-Image2Video-V2.1-Master.
+- [Kling-Image2Video-V2.1-Pro](https://docs.gmicloud.ai/model-quickstarts/video/kling-image2video-v2-1-pro.md): API usage guide for Kling-Image2Video-V2.1-Pro.
+- [Kling-Image2Video-V2.1-Standard](https://docs.gmicloud.ai/model-quickstarts/video/kling-image2video-v2-1-standard.md): API usage guide for Kling-Image2Video-V2.1-Standard.
+- [kling-lip-sync](https://docs.gmicloud.ai/model-quickstarts/video/kling-lip-sync.md): API usage guide for kling-lip-sync.
+- [kling-o1-edit-video](https://docs.gmicloud.ai/model-quickstarts/video/kling-o1-edit-video.md): API usage guide for kling-o1-edit-video.
+- [kling-o1-flfv](https://docs.gmicloud.ai/model-quickstarts/video/kling-o1-flfv.md): API usage guide for kling-o1-flfv.
+- [kling-o1-image-to-video](https://docs.gmicloud.ai/model-quickstarts/video/kling-o1-image-to-video.md): API usage guide for kling-o1-image-to-video.
+- [kling-o1-reference-to-video](https://docs.gmicloud.ai/model-quickstarts/video/kling-o1-reference-to-video.md): API usage guide for kling-o1-reference-to-video.
+- [Kling-Text2Video-V1.6-Standard](https://docs.gmicloud.ai/model-quickstarts/video/kling-text2video-v1-6-standard.md): API usage guide for Kling-Text2Video-V1.6-Standard.
+- [Kling-Text2Video-V2-Master](https://docs.gmicloud.ai/model-quickstarts/video/kling-text2video-v2-master.md): API usage guide for Kling-Text2Video-V2-Master.
+- [Kling-Text2Video-V2.1-Master](https://docs.gmicloud.ai/model-quickstarts/video/kling-text2video-v2-1-master.md): API usage guide for Kling-Text2Video-V2.1-Master.
+- [kling-v2-5-turbo](https://docs.gmicloud.ai/model-quickstarts/video/kling-v2-5-turbo.md): API usage guide for kling-v2-5-turbo.
+- [kling-v2-6](https://docs.gmicloud.ai/model-quickstarts/video/kling-v2-6.md): API usage guide for kling-v2-6.
+- [kling-v3-image-to-video](https://docs.gmicloud.ai/model-quickstarts/video/kling-v3-image-to-video.md): API usage guide for kling-v3-image-to-video.
+- [kling-v3-text-to-video](https://docs.gmicloud.ai/model-quickstarts/video/kling-v3-text-to-video.md): API usage guide for kling-v3-text-to-video.
+- [LTX-2](https://docs.gmicloud.ai/model-quickstarts/video/ltx-2.md): API usage guide for LTX-2.
+- [LTX-2-KeyframeInterpolation](https://docs.gmicloud.ai/model-quickstarts/video/ltx-2-keyframeinterpolation.md): API usage guide for LTX-2-KeyframeInterpolation.
+- [LTX2-Distilled](https://docs.gmicloud.ai/model-quickstarts/video/ltx2-distilled.md): API usage guide for LTX2-Distilled.
+- [LTX2-ICLoRA](https://docs.gmicloud.ai/model-quickstarts/video/ltx2-iclora.md): API usage guide for LTX2-ICLoRA.
+- [LTX2-Ti2VidTwoStages](https://docs.gmicloud.ai/model-quickstarts/video/ltx2-ti2vidtwostages.md): API usage guide for LTX2-Ti2VidTwoStages.
+- [luma-ray-3-2-edit](https://docs.gmicloud.ai/model-quickstarts/video/luma-ray-3-2-edit.md): API usage guide for luma-ray-3-2-edit.
+- [luma-ray-3-2-generate](https://docs.gmicloud.ai/model-quickstarts/video/luma-ray-3-2-generate.md): API usage guide for luma-ray-3-2-generate.
+- [luma-ray-3-2-reframe](https://docs.gmicloud.ai/model-quickstarts/video/luma-ray-3-2-reframe.md): API usage guide for luma-ray-3-2-reframe.
+- [MiniMax-H3](https://docs.gmicloud.ai/model-quickstarts/video/minimax-h3.md): API usage guide for MiniMax-H3.
+- [Minimax-Hailuo-02](https://docs.gmicloud.ai/model-quickstarts/video/minimax-hailuo-02.md): API usage guide for Minimax-Hailuo-02.
+- [Minimax-Hailuo-2.3](https://docs.gmicloud.ai/model-quickstarts/video/minimax-hailuo-2-3.md): API usage guide for Minimax-Hailuo-2.3.
+- [Minimax-Hailuo-2.3-Fast](https://docs.gmicloud.ai/model-quickstarts/video/minimax-hailuo-2-3-fast.md): API usage guide for Minimax-Hailuo-2.3-Fast.
+- [pixverse-v5.5-i2v](https://docs.gmicloud.ai/model-quickstarts/video/pixverse-v5-5-i2v.md): API usage guide for pixverse-v5.5-i2v.
+- [pixverse-v5.5-t2v](https://docs.gmicloud.ai/model-quickstarts/video/pixverse-v5-5-t2v.md): API usage guide for pixverse-v5.5-t2v.
+- [pixverse-v5.5-transition](https://docs.gmicloud.ai/model-quickstarts/video/pixverse-v5-5-transition.md): API usage guide for pixverse-v5.5-transition.
+- [pixverse-v5.6-i2v](https://docs.gmicloud.ai/model-quickstarts/video/pixverse-v5-6-i2v.md): API usage guide for pixverse-v5.6-i2v.
+- [pixverse-v5.6-t2v](https://docs.gmicloud.ai/model-quickstarts/video/pixverse-v5-6-t2v.md): API usage guide for pixverse-v5.6-t2v.
+- [pixverse-v5.6-transition](https://docs.gmicloud.ai/model-quickstarts/video/pixverse-v5-6-transition.md): API usage guide for pixverse-v5.6-transition.
+- [pixverse-v6-extend](https://docs.gmicloud.ai/model-quickstarts/video/pixverse-v6-extend.md): API usage guide for pixverse-v6-extend.
+- [pixverse-v6-i2v](https://docs.gmicloud.ai/model-quickstarts/video/pixverse-v6-i2v.md): API usage guide for pixverse-v6-i2v.
+- [pixverse-v6-t2v](https://docs.gmicloud.ai/model-quickstarts/video/pixverse-v6-t2v.md): API usage guide for pixverse-v6-t2v.
+- [pixverse-v6-transition](https://docs.gmicloud.ai/model-quickstarts/video/pixverse-v6-transition.md): API usage guide for pixverse-v6-transition.
+- [seedance-1-0-pro-250528](https://docs.gmicloud.ai/model-quickstarts/video/seedance-1-0-pro-250528.md): API usage guide for seedance-1-0-pro-250528.
+- [seedance-1-0-pro-fast-251015](https://docs.gmicloud.ai/model-quickstarts/video/seedance-1-0-pro-fast-251015.md): API usage guide for seedance-1-0-pro-fast-251015.
+- [seedance-1-5-pro-251215](https://docs.gmicloud.ai/model-quickstarts/video/seedance-1-5-pro-251215.md): API usage guide for seedance-1-5-pro-251215.
+- [seedance-2-0-260128](https://docs.gmicloud.ai/model-quickstarts/video/seedance-2-0-260128.md): API usage guide for seedance-2-0-260128.
+- [seedance-2-0-260128-upscale](https://docs.gmicloud.ai/model-quickstarts/video/seedance-2-0-260128-upscale.md): API usage guide for seedance-2-0-260128-upscale.
+- [seedance-2-0-fast-260128](https://docs.gmicloud.ai/model-quickstarts/video/seedance-2-0-fast-260128.md): API usage guide for seedance-2-0-fast-260128.
+- [seedance-2-5-260628](https://docs.gmicloud.ai/model-quickstarts/video/seedance-2-5-260628.md): API usage guide for seedance-2-5-260628.
+- [skyreels-v4-image-to-video](https://docs.gmicloud.ai/model-quickstarts/video/skyreels-v4-image-to-video.md): API usage guide for skyreels-v4-image-to-video.
+- [skyreels-v4-omni](https://docs.gmicloud.ai/model-quickstarts/video/skyreels-v4-omni.md): API usage guide for skyreels-v4-omni.
+- [skyreels-v4-text-to-video](https://docs.gmicloud.ai/model-quickstarts/video/skyreels-v4-text-to-video.md): API usage guide for skyreels-v4-text-to-video.
+- [veo-3.1-fast-generate-001](https://docs.gmicloud.ai/model-quickstarts/video/veo-3-1-fast-generate-001.md): API usage guide for veo-3.1-fast-generate-001.
+- [veo-3.1-fast-generate-preview](https://docs.gmicloud.ai/model-quickstarts/video/veo-3-1-fast-generate-preview.md): API usage guide for veo-3.1-fast-generate-preview.
+- [veo-3.1-generate-001](https://docs.gmicloud.ai/model-quickstarts/video/veo-3-1-generate-001.md): API usage guide for veo-3.1-generate-001.
+- [veo-3.1-generate-preview](https://docs.gmicloud.ai/model-quickstarts/video/veo-3-1-generate-preview.md): API usage guide for veo-3.1-generate-preview.
+- [veo-3.1-lite-generate-001](https://docs.gmicloud.ai/model-quickstarts/video/veo-3-1-lite-generate-001.md): API usage guide for veo-3.1-lite-generate-001.
+- [vidu-q2-pro-flfv](https://docs.gmicloud.ai/model-quickstarts/video/vidu-q2-pro-flfv.md): API usage guide for vidu-q2-pro-flfv.
+- [vidu-q2-pro-i2v](https://docs.gmicloud.ai/model-quickstarts/video/vidu-q2-pro-i2v.md): API usage guide for vidu-q2-pro-i2v.
+- [vidu-q3-pro-i2v](https://docs.gmicloud.ai/model-quickstarts/video/vidu-q3-pro-i2v.md): API usage guide for vidu-q3-pro-i2v.
+- [vidu-q3-pro-t2v](https://docs.gmicloud.ai/model-quickstarts/video/vidu-q3-pro-t2v.md): API usage guide for vidu-q3-pro-t2v.
+- [Wan-AI_Wan2.1-FLF2V-14B-720P](https://docs.gmicloud.ai/model-quickstarts/video/wan-ai-wan2-1-flf2v-14b-720p.md): API usage guide for Wan-AI_Wan2.1-FLF2V-14B-720P.
+- [Wan-AI_Wan2.1-I2V-14B-480P](https://docs.gmicloud.ai/model-quickstarts/video/wan-ai-wan2-1-i2v-14b-480p.md): API usage guide for Wan-AI_Wan2.1-I2V-14B-480P.
+- [Wan-AI_Wan2.1-I2V-14B-720P](https://docs.gmicloud.ai/model-quickstarts/video/wan-ai-wan2-1-i2v-14b-720p.md): API usage guide for Wan-AI_Wan2.1-I2V-14B-720P.
+- [Wan-AI_Wan2.1-T2V-14B](https://docs.gmicloud.ai/model-quickstarts/video/wan-ai-wan2-1-t2v-14b.md): API usage guide for Wan-AI_Wan2.1-T2V-14B.
+- [Wan2.2-Animate-14B](https://docs.gmicloud.ai/model-quickstarts/video/wan2-2-animate-14b.md): API usage guide for Wan2.2-Animate-14B.
+- [wan2.5-i2v-preview](https://docs.gmicloud.ai/model-quickstarts/video/wan2-5-i2v-preview.md): API usage guide for wan2.5-i2v-preview.
+- [wan2.6-i2v](https://docs.gmicloud.ai/model-quickstarts/video/wan2-6-i2v.md): API usage guide for wan2.6-i2v.
+- [wan2.6-r2v](https://docs.gmicloud.ai/model-quickstarts/video/wan2-6-r2v.md): API usage guide for wan2.6-r2v.
+- [wan2.6-t2v](https://docs.gmicloud.ai/model-quickstarts/video/wan2-6-t2v.md): API usage guide for wan2.6-t2v.
+- [wan2.7-i2v](https://docs.gmicloud.ai/model-quickstarts/video/wan2-7-i2v.md): API usage guide for wan2.7-i2v.
+- [wan2.7-r2v](https://docs.gmicloud.ai/model-quickstarts/video/wan2-7-r2v.md): API usage guide for wan2.7-r2v.
+- [wan2.7-t2v](https://docs.gmicloud.ai/model-quickstarts/video/wan2-7-t2v.md): API usage guide for wan2.7-t2v.
+- [wan2.7-videoedit](https://docs.gmicloud.ai/model-quickstarts/video/wan2-7-videoedit.md): API usage guide for wan2.7-videoedit.
+- [wan3.0-video](https://docs.gmicloud.ai/model-quickstarts/video/wan3-0-video.md): API usage guide for wan3.0-video.
+- [wan3.0-video-prime](https://docs.gmicloud.ai/model-quickstarts/video/wan3-0-video-prime.md): API usage guide for wan3.0-video-prime.
+- [Audio Models](https://docs.gmicloud.ai/model-quickstarts/audio/about.md)
+- [Chatterbox-tts](https://docs.gmicloud.ai/model-quickstarts/audio/chatterbox-tts.md): API usage guide for Chatterbox-tts.
+- [inworld-tts-2](https://docs.gmicloud.ai/model-quickstarts/audio/inworld-tts-2.md): API usage guide for inworld-tts-2.
+- [inworld-tts-2-flash](https://docs.gmicloud.ai/model-quickstarts/audio/inworld-tts-2-flash.md): API usage guide for inworld-tts-2-flash.
+- [kling-custom-voice](https://docs.gmicloud.ai/model-quickstarts/audio/kling-custom-voice.md): API usage guide for kling-custom-voice.
+- [minimax-audio-voice-clone-speech-2.6-hd](https://docs.gmicloud.ai/model-quickstarts/audio/minimax-audio-voice-clone-speech-2-6-hd.md): API usage guide for minimax-audio-voice-clone-speech-2.6-hd.
+- [minimax-audio-voice-clone-speech-2.6-turbo](https://docs.gmicloud.ai/model-quickstarts/audio/minimax-audio-voice-clone-speech-2-6-turbo.md): API usage guide for minimax-audio-voice-clone-speech-2.6-turbo.
+- [minimax-audio-voice-clone-speech-2.8-hd](https://docs.gmicloud.ai/model-quickstarts/audio/minimax-audio-voice-clone-speech-2-8-hd.md): API usage guide for minimax-audio-voice-clone-speech-2.8-hd.
+- [minimax-audio-voice-clone-speech-2.8-turbo](https://docs.gmicloud.ai/model-quickstarts/audio/minimax-audio-voice-clone-speech-2-8-turbo.md): API usage guide for minimax-audio-voice-clone-speech-2.8-turbo.
+- [minimax-music-2.5](https://docs.gmicloud.ai/model-quickstarts/audio/minimax-music-2-5.md): API usage guide for minimax-music-2.5.
+- [minimax-music-3.0](https://docs.gmicloud.ai/model-quickstarts/audio/minimax-music-3-0.md): API usage guide for minimax-music-3.0.
+- [minimax-tts-speech-2.6-hd](https://docs.gmicloud.ai/model-quickstarts/audio/minimax-tts-speech-2-6-hd.md): API usage guide for minimax-tts-speech-2.6-hd.
+- [minimax-tts-speech-2.6-turbo](https://docs.gmicloud.ai/model-quickstarts/audio/minimax-tts-speech-2-6-turbo.md): API usage guide for minimax-tts-speech-2.6-turbo.
+- [minimax-tts-speech-2.8-hd](https://docs.gmicloud.ai/model-quickstarts/audio/minimax-tts-speech-2-8-hd.md): API usage guide for minimax-tts-speech-2.8-hd.
+- [minimax-tts-speech-2.8-turbo](https://docs.gmicloud.ai/model-quickstarts/audio/minimax-tts-speech-2-8-turbo.md): API usage guide for minimax-tts-speech-2.8-turbo.
+- [Realtime-tts-1.5-max](https://docs.gmicloud.ai/model-quickstarts/audio/inworld-tts-1-5-max.md): API usage guide for Realtime-tts-1.5-max.
+- [Realtime-tts-1.5-mini](https://docs.gmicloud.ai/model-quickstarts/audio/inworld-tts-1-5-mini.md): API usage guide for Realtime-tts-1.5-mini.
+- [hunyuan-3d-pro](https://docs.gmicloud.ai/model-quickstarts/3d/hunyuan-3d-pro.md): API usage guide for hunyuan-3d-pro.
+- [Hermes Agent](https://docs.gmicloud.ai/agents/set-up-hermes-agent-with-gmi-cloud.md): Install Hermes Agent, connect it to GMI Cloud, and chat with it from Telegram.
+- [Dify](https://docs.gmicloud.ai/agents/build-deep-research-workflow-in-dify.md): Build a Deep Research agent in Dify with GMI Cloud as the model provider.
+- [OpenClaw](https://docs.gmicloud.ai/agents/openclaw.md): Use GMI Cloud models directly inside OpenClaw via the official provider plugin.
+- [Claude Code](https://docs.gmicloud.ai/coding-tools/claude-code.md): Run Anthropic's Claude Code CLI against GMI Cloud, no Claude Max subscription, no rate limits.
+- [Codex](https://docs.gmicloud.ai/coding-tools/codex.md): Route OpenAI Codex CLI through GMI Cloud as a custom model provider.
+- [Cursor](https://docs.gmicloud.ai/coding-tools/cursor.md): Use GMI Cloud models inside Cursor by overriding the OpenAI base URL.
+- [Factory](https://docs.gmicloud.ai/coding-tools/factory.md)
+- [Kilo](https://docs.gmicloud.ai/coding-tools/kilo.md)
+- [OpenCode](https://docs.gmicloud.ai/coding-tools/opencode.md): Install OpenCode and connect it to GMI Cloud in under 5 minutes.
+- [TRAE](https://docs.gmicloud.ai/coding-tools/trae.md): Use GMI Cloud models inside TRAE by adding GMI as a custom model.
+- [Hermes Agent on Agentbox](https://docs.gmicloud.ai/agentbox-guides/hermes-agent-on-agent-box.md)
+- [Migration Guides](https://docs.gmicloud.ai/migration/index.md): Guides for moving data and workloads into GMI Cloud.
+- [AWS S3 to GMI Cloud](https://docs.gmicloud.ai/migration/s3-to-vast-migration.md): Move data from AWS S3 to GMI Cloud Cold Storage using S3-compatible tools and standard CLI workflows.
+
+## OpenAPI Specs
+
+- [ias-public-api](/api-spec/ias-public-api.yaml)
+- [ids-public-api](/api-spec/ids-public-api.yaml)
+- [sandbox_api](/api-spec/sandbox_api.yaml)
+- [service_api](/api-spec/service_api.yaml)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

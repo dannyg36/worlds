@@ -1,0 +1,77 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent;overflow:hidden}</style>
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}</script>
+</head><body><script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+let renderer, scene, camera, root, clayMat, originals = new Map();
+
+function setup(size) {
+  renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, alpha: true });
+  renderer.setPixelRatio(1);
+  renderer.setSize(size, size);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.NeutralToneMapping;
+  renderer.toneMappingExposure = 1.0;
+  renderer.setClearColor(0x000000, 0);
+  document.body.appendChild(renderer.domElement);
+  scene = new THREE.Scene();
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environmentIntensity = 0.6;
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x9a948c, 0.9));
+  const key = new THREE.DirectionalLight(0xffffff, 1.6);
+  key.position.set(3, 6, 5);
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.5);
+  fill.position.set(-5, 2, -3);
+  scene.add(fill);
+  camera = new THREE.PerspectiveCamera(30, 1, 0.01, 1000);
+  clayMat = new THREE.MeshStandardMaterial({ color: 0xa9a49b, roughness: 0.85, metalness: 0.0 });
+}
+
+window.loadGLB = async (url, size) => {
+  if (!renderer) setup(size || 768);
+  if (root) { scene.remove(root); root.traverse(o => { if (o.geometry) o.geometry.dispose(); }); }
+  originals = new Map();
+  const gltf = await new GLTFLoader().loadAsync(url);
+  root = gltf.scene;
+  let tris = 0, verts = 0, texs = new Set();
+  root.traverse(o => {
+    if (o.isMesh) {
+      const g = o.geometry;
+      verts += g.attributes.position.count;
+      tris += g.index ? g.index.count / 3 : g.attributes.position.count / 3;
+      originals.set(o, o.material);
+      const mats = Array.isArray(o.material) ? o.material : [o.material];
+      for (const m of mats) for (const k of ['map','normalMap','roughnessMap','metalnessMap','emissiveMap']) if (m[k] && m[k].image) texs.add(k + ':' + m[k].image.width + 'x' + m[k].image.height);
+    }
+  });
+  const box = new THREE.Box3().setFromObject(root);
+  const center = box.getCenter(new THREE.Vector3());
+  root.position.sub(center);
+  scene.add(root);
+  const box2 = new THREE.Box3().setFromObject(root);
+  const sphere = box2.getBoundingSphere(new THREE.Sphere());
+  window.__radius = sphere.radius;
+  const sz = box.getSize(new THREE.Vector3());
+  const matTypes = new Set(); originals.forEach(m => (Array.isArray(m)?m:[m]).forEach(x => matTypes.add(x.type)));
+  return { tris: Math.round(tris), verts, textures: [...texs], size: [sz.x, sz.y, sz.z].map(v => +v.toFixed(3)), materials: [...matTypes] };
+};
+
+window.renderView = (az, el, mode, margin) => {
+  root.traverse(o => { if (o.isMesh) o.material = mode === 'clay' ? clayMat : originals.get(o); });
+  const r = window.__radius;
+  const fov = THREE.MathUtils.degToRad(camera.fov);
+  const dist = (r * (margin || 1.08)) / Math.sin(fov / 2);
+  const a = THREE.MathUtils.degToRad(az), e = THREE.MathUtils.degToRad(el);
+  camera.position.set(dist * Math.cos(e) * Math.sin(a), dist * Math.sin(e), dist * Math.cos(e) * Math.cos(a));
+  camera.near = dist / 100; camera.far = dist * 10; camera.updateProjectionMatrix();
+  camera.lookAt(0, 0, 0);
+  renderer.render(scene, camera);
+  return renderer.domElement.toDataURL('image/png');
+};
+window.__ready = true;
+</script></body></html>

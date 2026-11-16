@@ -1,0 +1,12 @@
+{
+ "model": "sd5lite",
+ "gmi_model": "seedream-5.0-lite",
+ "style": "clay",
+ "slug": "dolores-park",
+ "latency_s": 103.41,
+ "server_s": 42,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_09f45e4c-16c2-4405-913a-9f2e658d8a7876fa6937-d17f-4c43-b432-aeb80996856c.png",
+ "prompt": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A bright green grassy slope tilts gently from back to front, bathed in warm morning light. In the center, two figures sit side by side on a small picnic blanket: one in a denim jacket and one in a soft lilac sweater, sharing halves of a silver foil burrito. Right beside them, a scruffy tan dog proudly clamps a slightly oversized bright lime tennis ball in his jaws. Along the back edge, two tiny figures toss a red disc beneath the slender trunk of a single palm tree. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "09f45e4c-16c2-4405-913a-9f2e658d8a78"
+}

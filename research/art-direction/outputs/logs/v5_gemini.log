@@ -1,0 +1,41 @@
+google/gemini-3.8-flash                  finals-library   r0  3.64s out=291 issues=[]
+google/gemini-3.8-flash                  birthday-dinner  r0  3.66s out=425 issues=[]
+google/gemini-3.8-flash                  dolores-park     r0  4.43s out=543 issues=[]
+google/gemini-3.8-flash                  hackathon        r0  4.87s out=490 issues=[]
+google/gemini-3.8-flash                  rainy-monday     r0  5.38s out=438 issues=[]
+google/gemini-3.8-flash                  santa-cruz       r0  6.69s out=480 issues=[]
+google/gemini-3.8-flash                  farmers-market   r0  3.32s out=483 issues=[]
+google/gemini-3.8-flash                  empty            r0  3.20s out=372 issues=[]
+google/gemini-3.8-flash                  filler           r0  3.36s out=292 issues=[]
+google/gemini-3.8-flash                  mission-peak     r0  4.66s out=470 issues=[]
+google/gemini-3.8-flash                  rambling         r0  4.28s out=534 issues=[]
+google/gemini-3.8-flash                  sad              r0  4.01s out=396 issues=[]
+google/gemini-3.8-flash                  injection        r0  3.30s out=376 issues=[]
+google/gemini-3.8-flash                  profanity        r0  4.38s out=361 issues=[]
+google/gemini-3.8-flash                  hackathon        r1  4.61s out=459 issues=['style_word:miniature']
+google/gemini-3.8-flash                  santa-cruz       r1  4.22s out=442 issues=[]
+google/gemini-3.8-flash                  rainy-monday     r1  3.54s out=431 issues=[]
+google/gemini-3.8-flash                  spanish          r0  6.09s out=482 issues=[]
+google/gemini-3.8-flash                  birthday-dinner  r1  3.76s out=430 issues=[]
+google/gemini-3.8-flash                  dolores-park     r1  4.37s out=470 issues=[]
+google/gemini-3.8-flash                  finals-library   r1  4.10s out=392 issues=[]
+google/gemini-3.8-flash                  mission-peak     r1  3.58s out=400 issues=[]
+google/gemini-3.8-flash                  empty            r1  3.98s out=403 issues=[]
+google/gemini-3.8-flash                  filler           r1  3.43s out=325 issues=[]
+google/gemini-3.8-flash                  farmers-market   r1  5.03s out=475 issues=[]
+google/gemini-3.8-flash                  rambling         r1  4.85s out=405 issues=[]
+google/gemini-3.8-flash                  profanity        r1  3.06s out=392 issues=[]
+google/gemini-3.8-flash                  sad              r1  5.00s out=404 issues=[]
+google/gemini-3.8-flash                  spanish          r1  4.17s out=426 issues=[]
+google/gemini-3.8-flash                  injection        r1  4.52s out=453 issues=[]
+{
+ "google/gemini-3.8-flash": {
+  "n": 30,
+  "errors": 0,
+  "p50_s": 4.2,
+  "max_s": 6.69,
+  "cost_usd": 0.0882,
+  "with_issues": 1
+ }
+}
+ledger total so far: 1.609 USD

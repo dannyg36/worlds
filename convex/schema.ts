@@ -1,11 +1,15 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { generationRuns, worldGenerationFields } from "./generation/tables";
 
 export default defineSchema({
   worlds: defineTable({
     ownerTokenIdentifier: v.string(),
     transcript: v.string(),
+    /** Photos shared with the transcript, in the order they were added. */
+    photos: v.optional(v.array(v.id("_storage"))),
     shared: v.optional(v.boolean()),
+    ...worldGenerationFields,
   })
     .index("by_ownerTokenIdentifier", ["ownerTokenIdentifier"])
     .index("by_ownerTokenIdentifier_and_shared", [
@@ -29,4 +33,23 @@ export default defineSchema({
     "tokenIdentifier",
     "friendTokenIdentifier",
   ]),
+  generationRuns,
+  pushTokens: defineTable({
+    installId: v.string(),
+    token: v.string(),
+    timeZone: v.string(),
+    reminderMinutes: v.number(),
+    nextReminderAt: v.number(),
+    lastReminderDate: v.optional(v.string()),
+    ownerTokenIdentifier: v.optional(v.string()),
+    registeredAt: v.number(),
+  })
+    .index("by_installId", ["installId"])
+    .index("by_token", ["token"])
+    .index("by_nextReminderAt", ["nextReminderAt"])
+    .index("by_ownerTokenIdentifier", ["ownerTokenIdentifier"]),
+  worldNotices: defineTable({
+    worldId: v.id("worlds"),
+    status: v.union(v.literal("ready"), v.literal("failed")),
+  }).index("by_worldId_and_status", ["worldId", "status"]),
 });

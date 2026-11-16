@@ -1,0 +1,66 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "farmers-market",
+ "rep": 1,
+ "latency_s": 5.03,
+ "usage": {
+  "completion_tokens": 475,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1798,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2273
+ },
+ "cost_usd": 0.00312975,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Eating homemade peach galette on the balcony at golden hour.",
+  "elements": [
+   {
+    "name": "peach galette",
+    "kind": "object",
+    "look": "a rustic, slightly uneven baked pastry topped with glazed peach slices"
+   },
+   {
+    "name": "purple carrots",
+    "kind": "object",
+    "look": "a bunch of oversized deep purple carrots with bushy green tops peeking from a market tote"
+   },
+   {
+    "name": "sourdough loaf",
+    "kind": "object",
+    "look": "a round crusty golden-brown sourdough loaf in a brown paper sleeve"
+   },
+   {
+    "name": "FaceTime phone",
+    "kind": "object",
+    "look": "a smartphone propped upright on the table glowing with a soft screen"
+   },
+   {
+    "name": "balcony",
+    "kind": "place",
+    "look": "a small wooden balcony floor with a dark metal railing"
+   }
+  ],
+  "time_of_day": "golden hour",
+  "weather": "clear",
+  "mood": "warm contentment",
+  "palette": [
+   "#F4A261",
+   "#E76F51",
+   "#4A2040",
+   "#DDA15E",
+   "#264653"
+  ],
+  "scene": "A warm wooden balcony floor bathed in amber sunlight features a small round patio table at the center. An oversized rustic peach galette sits on a ceramic plate, sliced and glistening with golden fruit. A smartphone props upright against a water glass, its screen glowing softly. To the left, a canvas market tote spills giant leafy purple carrots and a round sourdough loaf onto the floorboards. At the back edge, a simple black metal railing overlooks a warm golden glow.",
+  "title": "Golden Hour Galette",
+  "caption": "Baked an ugly, delicious galette with Mom and ate it at sunset."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

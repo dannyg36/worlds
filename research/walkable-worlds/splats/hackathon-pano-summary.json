@@ -1,0 +1,201 @@
+{
+  "id": "hackathon-pano",
+  "day": "hackathon",
+  "pano": {
+    "source": "work/inputs/hackathon-pano.png",
+    "width": 4096,
+    "height": 2048
+  },
+  "depth": "moge2-cpu",
+  "fov": 100,
+  "faceSize": 768,
+  "kScale": 0.65,
+  "skyRange": 120,
+  "camHeight_depth_units": 1.433,
+  "metric_scale_applied": 1.1164,
+  "face_scales": [
+    {
+      "face": "front",
+      "scale": 1,
+      "valid_frac": 1,
+      "median_range": 3.546,
+      "wall_s": 7.34,
+      "cpu_s": 25.5
+    },
+    {
+      "face": "right",
+      "scale": 1.0923,
+      "valid_frac": 1,
+      "median_range": 2.775,
+      "wall_s": 7.24,
+      "cpu_s": 26.06
+    },
+    {
+      "face": "back",
+      "scale": 1.2088,
+      "valid_frac": 1,
+      "median_range": 3.006,
+      "wall_s": 7.6,
+      "cpu_s": 27.19
+    },
+    {
+      "face": "left",
+      "scale": 1.0926,
+      "valid_frac": 1,
+      "median_range": 2.731,
+      "wall_s": 7.08,
+      "cpu_s": 25.85
+    },
+    {
+      "face": "up",
+      "scale": 0.7154,
+      "valid_frac": 0.9999,
+      "median_range": 4.913,
+      "wall_s": 8.19,
+      "cpu_s": 29.51
+    },
+    {
+      "face": "down",
+      "scale": 1.173,
+      "valid_frac": 1,
+      "median_range": 1.456,
+      "wall_s": 7.9,
+      "cpu_s": 28.37
+    }
+  ],
+  "pairs": [
+    {
+      "a": "front",
+      "b": "right",
+      "log_ratio": -0.1635,
+      "n": 9097
+    },
+    {
+      "a": "front",
+      "b": "left",
+      "log_ratio": -0.0812,
+      "n": 9124
+    },
+    {
+      "a": "front",
+      "b": "up",
+      "log_ratio": 0.3095,
+      "n": 9125
+    },
+    {
+      "a": "front",
+      "b": "down",
+      "log_ratio": -0.0663,
+      "n": 9097
+    },
+    {
+      "a": "right",
+      "b": "back",
+      "log_ratio": -0.179,
+      "n": 9096
+    },
+    {
+      "a": "right",
+      "b": "up",
+      "log_ratio": 0.4136,
+      "n": 9125
+    },
+    {
+      "a": "right",
+      "b": "down",
+      "log_ratio": -0.0592,
+      "n": 9097
+    },
+    {
+      "a": "back",
+      "b": "left",
+      "log_ratio": 0.1442,
+      "n": 9097
+    },
+    {
+      "a": "back",
+      "b": "up",
+      "log_ratio": 0.5198,
+      "n": 7828
+    },
+    {
+      "a": "back",
+      "b": "down",
+      "log_ratio": -0.0868,
+      "n": 9097
+    },
+    {
+      "a": "left",
+      "b": "up",
+      "log_ratio": 0.4623,
+      "n": 9123
+    },
+    {
+      "a": "left",
+      "b": "down",
+      "log_ratio": -0.0596,
+      "n": 9095
+    }
+  ],
+  "fal_calls": [],
+  "depth_meta": {
+    "model": "Ruicheng/moge-2-vits-normal",
+    "load_s": 0.47,
+    "total_wall_s": 45.98,
+    "cpu_s": 162.5,
+    "threads": 4
+  },
+  "timings": {
+    "load_pano": 0.13,
+    "cut_faces": 0.63,
+    "moge2_cpu": 48.25,
+    "align_faces": 0.14,
+    "splats_2896": 6.46,
+    "splats_2048": 3.1,
+    "splats_1448": 1.67,
+    "splats_1024": 0.89,
+    "total_s": 61.66
+  },
+  "outputs": [
+    {
+      "width": 2896,
+      "height": 1448,
+      "splats": 2889056,
+      "bytes": 30764535,
+      "file": "/workspace/worlds/spike/walkable/splats/work/hackathon-pano/hackathon-pano-2896.spz",
+      "fallback_frac": 0.024,
+      "sky_frac": 0,
+      "range_m": [
+        0.71,
+        7.45
+      ]
+    },
+    {
+      "width": 2048,
+      "height": 1024,
+      "splats": 1444466,
+      "bytes": 16067912,
+      "file": "/workspace/worlds/spike/walkable/splats/work/hackathon-pano/hackathon-pano-2048.spz",
+      "fallback_frac": 0.023,
+      "sky_frac": 0
+    },
+    {
+      "width": 1448,
+      "height": 724,
+      "splats": 722134,
+      "bytes": 8217605,
+      "file": "/workspace/worlds/spike/walkable/splats/work/hackathon-pano/hackathon-pano-1448.spz",
+      "fallback_frac": 0.02,
+      "sky_frac": 0
+    },
+    {
+      "width": 1024,
+      "height": 512,
+      "splats": 361040,
+      "bytes": 4220795,
+      "file": "/workspace/worlds/spike/walkable/splats/work/hackathon-pano/hackathon-pano-1024.spz",
+      "fallback_frac": 0.016,
+      "sky_frac": 0
+    }
+  ]
+}

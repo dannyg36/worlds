@@ -1,0 +1,269 @@
+{
+  "day": "santa-cruz",
+  "set": "gmi-objects-front",
+  "provider": "gmi",
+  "image_mode": "objects",
+  "image_model": "seedream-4-0-250828",
+  "model3d": "hunyuan-3d-pro",
+  "payload3d": {},
+  "started_at": "2026-11-15T21:03:16.818Z",
+  "objects": {},
+  "timeline": [
+    {
+      "t": 0.01,
+      "event": "start",
+      "note": "7 objects via objects"
+    },
+    {
+      "t": 8.4,
+      "event": "object image",
+      "id": "chowder",
+      "note": "7.76s"
+    },
+    {
+      "t": 8.54,
+      "event": "object image",
+      "id": "surfer",
+      "note": "7.9s"
+    },
+    {
+      "t": 8.61,
+      "event": "object image",
+      "id": "cypress",
+      "note": "7.95s"
+    },
+    {
+      "t": 8.7,
+      "event": "object image",
+      "id": "wharf",
+      "note": "8.11s"
+    },
+    {
+      "t": 8.7,
+      "event": "object image",
+      "id": "bench",
+      "note": "8.02s"
+    },
+    {
+      "t": 8.85,
+      "event": "object image",
+      "id": "sealion",
+      "note": "8.36s"
+    },
+    {
+      "t": 9.04,
+      "event": "object image",
+      "id": "bike",
+      "note": "8.56s"
+    },
+    {
+      "t": 9.04,
+      "event": "images done"
+    },
+    {
+      "t": 9.04,
+      "event": "done"
+    }
+  ],
+  "calls": [
+    {
+      "ts": "2026-11-15T21:03:16.862Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "santa-cruz-gmi-objects-front-chowder",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "2f6aa104-efad-49e8-92fa-aa2f676b7d04",
+      "status": "ok",
+      "error": null,
+      "latency_s": 7.76,
+      "queue_wait_s": 7.76,
+      "server_s": 7,
+      "est_cost_usd": 0.05,
+      "output_bytes": 252045,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_2f6aa104-efad-49e8-92fa-aa2f676b7d04a87dfe6c-ac2c-4a07-a191-7de70b1284af.jpg",
+          "local": "assets/santa-cruz/gmi-objects-front/santa-cruz-gmi-objects-front-chowder__media_urls.0.url.jpg",
+          "bytes": 252045,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_2f6aa104-efad-49e8-92fa-aa2f676b7d04a87dfe6c-ac2c-4a07-a191-7de70b1284af.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T21:03:16.861Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "santa-cruz-gmi-objects-front-surfer",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "a03f7f4b-6338-48a5-8d30-63c0a574a2bf",
+      "status": "ok",
+      "error": null,
+      "latency_s": 7.9,
+      "queue_wait_s": 7.9,
+      "server_s": 7,
+      "est_cost_usd": 0.05,
+      "output_bytes": 230601,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_a03f7f4b-6338-48a5-8d30-63c0a574a2bfc896af2a-06f6-48e6-ad5e-c64ce16cc92b.jpg",
+          "local": "assets/santa-cruz/gmi-objects-front/santa-cruz-gmi-objects-front-surfer__media_urls.0.url.jpg",
+          "bytes": 230601,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_a03f7f4b-6338-48a5-8d30-63c0a574a2bfc896af2a-06f6-48e6-ad5e-c64ce16cc92b.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T21:03:16.862Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "santa-cruz-gmi-objects-front-cypress",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "1e24ba24-9add-470f-91ad-6e4fc6ae1200",
+      "status": "ok",
+      "error": null,
+      "latency_s": 7.95,
+      "queue_wait_s": 7.95,
+      "server_s": 7,
+      "est_cost_usd": 0.05,
+      "output_bytes": 410792,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_1e24ba24-9add-470f-91ad-6e4fc6ae120064e16b07-8d19-4721-af5f-e6bb9c0618ad.jpg",
+          "local": "assets/santa-cruz/gmi-objects-front/santa-cruz-gmi-objects-front-cypress__media_urls.0.url.jpg",
+          "bytes": 410792,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_1e24ba24-9add-470f-91ad-6e4fc6ae120064e16b07-8d19-4721-af5f-e6bb9c0618ad.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T21:03:16.827Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "santa-cruz-gmi-objects-front-wharf",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "4f60a568-f096-40d3-9f0e-c48066b669c0",
+      "status": "ok",
+      "error": null,
+      "latency_s": 8.11,
+      "queue_wait_s": 8.11,
+      "server_s": 7,
+      "est_cost_usd": 0.05,
+      "output_bytes": 266638,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_4f60a568-f096-40d3-9f0e-c48066b669c0f66d58e5-0fec-46e1-a559-3694c282852c.jpg",
+          "local": "assets/santa-cruz/gmi-objects-front/santa-cruz-gmi-objects-front-wharf__media_urls.0.url.jpg",
+          "bytes": 266638,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_4f60a568-f096-40d3-9f0e-c48066b669c0f66d58e5-0fec-46e1-a559-3694c282852c.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T21:03:16.862Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "santa-cruz-gmi-objects-front-bench",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "14349b69-f860-4241-87c0-50f678b8bad3",
+      "status": "ok",
+      "error": null,
+      "latency_s": 8.02,
+      "queue_wait_s": 8.02,
+      "server_s": 7,
+      "est_cost_usd": 0.05,
+      "output_bytes": 294073,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_14349b69-f860-4241-87c0-50f678b8bad333a128da-652f-4eb4-a28e-c62ec36d239a.jpg",
+          "local": "assets/santa-cruz/gmi-objects-front/santa-cruz-gmi-objects-front-bench__media_urls.0.url.jpg",
+          "bytes": 294073,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_14349b69-f860-4241-87c0-50f678b8bad333a128da-652f-4eb4-a28e-c62ec36d239a.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T21:03:16.859Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "santa-cruz-gmi-objects-front-sealion",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "c3edcb0f-78d4-409a-a29f-ad75b56d9f54",
+      "status": "ok",
+      "error": null,
+      "latency_s": 8.36,
+      "queue_wait_s": 8.36,
+      "server_s": 8,
+      "est_cost_usd": 0.05,
+      "output_bytes": 209843,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_c3edcb0f-78d4-409a-a29f-ad75b56d9f54f7c3006d-3235-4c56-b464-c490b0be1741.jpg",
+          "local": "assets/santa-cruz/gmi-objects-front/santa-cruz-gmi-objects-front-sealion__media_urls.0.url.jpg",
+          "bytes": 209843,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_c3edcb0f-78d4-409a-a29f-ad75b56d9f54f7c3006d-3235-4c56-b464-c490b0be1741.jpg"
+        }
+      ]
+    },
+    {
+      "ts": "2026-11-15T21:03:16.860Z",
+      "approach": "composite",
+      "provider": "gmi",
+      "label": "santa-cruz-gmi-objects-front-bike",
+      "endpoint": "seedream-4-0-250828",
+      "request_id": "365a165a-b184-4b4e-8aaa-e46f39496a44",
+      "status": "ok",
+      "error": null,
+      "latency_s": 8.56,
+      "queue_wait_s": 8.56,
+      "server_s": 7,
+      "est_cost_usd": 0.05,
+      "output_bytes": 337016,
+      "files": [
+        {
+          "key": "media_urls.0.url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_365a165a-b184-4b4e-8aaa-e46f39496a4473f4ddb0-d5b5-41ed-9bd3-380a12049bde.jpg",
+          "local": "assets/santa-cruz/gmi-objects-front/santa-cruz-gmi-objects-front-bike__media_urls.0.url.jpg",
+          "bytes": 337016,
+          "content_type": "image/jpeg"
+        },
+        {
+          "key": "thumbnail_image_url",
+          "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_365a165a-b184-4b4e-8aaa-e46f39496a4473f4ddb0-d5b5-41ed-9bd3-380a12049bde.jpg"
+        }
+      ]
+    }
+  ],
+  "wall_s": 9.04,
+  "est_cost_usd": 0.35,
+  "download_bytes": 0
+}

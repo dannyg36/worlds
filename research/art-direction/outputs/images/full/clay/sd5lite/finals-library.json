@@ -1,0 +1,12 @@
+{
+ "model": "sd5lite",
+ "gmi_model": "seedream-5.0-lite",
+ "style": "clay",
+ "slug": "finals-library",
+ "latency_s": 60.82,
+ "server_s": 31,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_02a64136-9b0d-4a09-8a5c-6e7205d8e86d0ecdf86c-f08a-4554-82a6-332c88a8167d.png",
+ "prompt": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A narrow stone sidewalk dusted with powdery white snow stretches from front to back. In the center, a small bundled figure in a dark navy coat and grey scarf walks forward, holding a steaming takeaway cup in mittened hands. Small footprints trail behind them in the fresh snow. To the left, a tall dark iron lamppost glows with soft amber light, illuminating the ground. At the back edge sits the dark brick fragment of a sleeping townhouse with snowy steps. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "02a64136-9b0d-4a09-8a5c-6e7205d8e86d"
+}

@@ -1,0 +1,66 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "spanish",
+ "rep": 1,
+ "latency_s": 4.17,
+ "usage": {
+  "completion_tokens": 426,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1789,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2215
+ },
+ "cost_usd": 0.00293925,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Making tamales in grandmother's kitchen while listening to old boleros on the radio.",
+  "elements": [
+   {
+    "name": "abuela",
+    "kind": "person",
+    "look": "an older woman in a floral apron and pale lavender cardigan"
+   },
+   {
+    "name": "corn husks and tamales",
+    "kind": "object",
+    "look": "soaked pale green and cream corn husks stacked beside wrapped tamales tied with thin strips"
+   },
+   {
+    "name": "yellow flowers",
+    "kind": "object",
+    "look": "a bundle of bright yellow marigold flowers in a clay jar"
+   },
+   {
+    "name": "basket of ripe mangos",
+    "kind": "object",
+    "look": "a woven palm basket overflowing with plump orange-red mangos"
+   },
+   {
+    "name": "vintage radio",
+    "kind": "object",
+    "look": "a small wooden tabletop transistor radio with a round dial"
+   }
+  ],
+  "time_of_day": "golden hour",
+  "weather": "clear",
+  "mood": "tender warmth",
+  "palette": [
+   "#E88732",
+   "#F2C335",
+   "#5A7D42",
+   "#8A4C2E",
+   "#D96E43"
+  ],
+  "scene": "A warm kitchen patch paved with terracotta tiles. In the center, a sturdy dark wood prep table is covered in soaked pale corn husks, mounds of dough, and wrapped tamales. An older woman in a floral apron guides a younger figure in a cream shirt. To the right, a basket of vibrant orange mangos and a clay pitcher of bright yellow flowers rest on the counter. At the back edge, a small wooden radio sits near a tiled kitchen wall catching the warm golden sunlight.",
+  "title": "Tamales con la Abuela",
+  "caption": "Mi abuela me enseñó a doblar las hojas de maíz."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

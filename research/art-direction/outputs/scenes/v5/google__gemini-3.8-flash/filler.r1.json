@@ -1,0 +1,61 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "filler",
+ "rep": 1,
+ "latency_s": 3.43,
+ "usage": {
+  "completion_tokens": 325,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1758,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2083
+ },
+ "cost_usd": 0.00253725,
+ "format": "json_object",
+ "spec": {
+  "status": "sparse",
+  "moment": "A quiet, uneventful evening resting at home by a glowing lamp.",
+  "elements": [
+   {
+    "name": "armchair",
+    "kind": "object",
+    "look": "a soft olive-green upholstered armchair with a folded cream blanket on the back"
+   },
+   {
+    "name": "side table",
+    "kind": "object",
+    "look": "a low round wooden side table holding a ceramic mug"
+   },
+   {
+    "name": "small table lamp",
+    "kind": "object",
+    "look": "a warm glowing lamp casting soft amber light across the floor"
+   },
+   {
+    "name": "potted plant",
+    "kind": "object",
+    "look": "a small leafy green houseplant in a terracotta pot"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "clear",
+  "mood": "quiet",
+  "palette": [
+   "#4a5d4e",
+   "#d8c4a0",
+   "#8c6239",
+   "#f5dfa2",
+   "#2e3a34"
+  ],
+  "scene": "A small circular patch of warm wooden floorboards sits in soft darkness. In the center stands a comfortable olive-green armchair draped with a cream knitted throw. Beside it on the right, a round wooden table holds a steaming ceramic mug and a glowing amber lamp that washes everything in soft light. A leafy potted fern rests on the left edge, and a pair of gray slip-on shoes sits untied by the front edge.",
+  "title": "Just Fine",
+  "caption": "Nothing really happened, and that was just fine."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

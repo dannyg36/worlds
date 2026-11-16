@@ -1,0 +1,59 @@
+{
+ "style": "clay",
+ "name": "Claymation diorama",
+ "jobs": [
+  {
+   "day": "dolores-park",
+   "model": "hunyuan-3d-pro",
+   "payload": {
+    "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_c2064177-f4d1-4049-99b9-aad6153eec5c_caf21185-bb26-4181-a77b-c0dbd8aa7bbb.png",
+    "generate_type": "Normal",
+    "enable_pbr": false
+   }
+  },
+  {
+   "day": "birthday-dinner",
+   "model": "hunyuan-3d-pro",
+   "payload": {
+    "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_c24f6598-18ac-460e-968b-607207912760_af8605ef-44c3-4faa-9b19-ac22a1b322de.png",
+    "generate_type": "Normal",
+    "enable_pbr": false
+   }
+  },
+  {
+   "day": "santa-cruz",
+   "model": "hunyuan-3d-pro",
+   "payload": {
+    "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_b5a2d81d-bec5-4edf-8296-3511b053a31c_f7743c0e-613d-42f5-acb9-9ecbcee872fc.png",
+    "generate_type": "Normal",
+    "enable_pbr": false
+   }
+  }
+ ],
+ "inputs": [
+  {
+   "day": "dolores-park",
+   "file": "dolores-park.png",
+   "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_c2064177-f4d1-4049-99b9-aad6153eec5c_caf21185-bb26-4181-a77b-c0dbd8aa7bbb.png",
+   "image_model": "gpt-image-2.5-flare-generate",
+   "title": "Lazy Sunday with Biscuit",
+   "image_prompt": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A bright green grassy slope tilts gently from back to front, bathed in warm morning light. In the center, two figures sit side by side on a small picnic blanket: one in a denim jacket and one in a soft lilac sweater, sharing halves of a silver foil burrito. Right beside them, a scruffy tan dog proudly clamps a slightly oversized bright lime tennis ball in his jaws. Along the back edge, two tiny figures toss a red disc beneath the slender trunk of a single palm tree. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  {
+   "day": "birthday-dinner",
+   "file": "birthday-dinner.png",
+   "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_c24f6598-18ac-460e-968b-607207912760_af8605ef-44c3-4faa-9b19-ac22a1b322de.png",
+   "image_model": "gpt-image-2.5-flare-generate",
+   "title": "A Sparkler for Priya",
+   "image_prompt": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A warm brick patio floor holds a long wooden dining table crowded with red bowls of pasta, wine glasses, and bread baskets. Overhead, crisscrossed string lights glow with soft amber light. At the center of the table sits an oversized square tiramisu glowing beneath a fizzing golden sparkler. A figure in a yellow dress sits beside it, while a waiter in a white shirt and dark apron leans in from the left holding the dessert platter. Two friends sit opposite in teal and olive sweaters. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  {
+   "day": "santa-cruz",
+   "file": "santa-cruz.png",
+   "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_b5a2d81d-bec5-4edf-8296-3511b053a31c_f7743c0e-613d-42f5-acb9-9ecbcee872fc.png",
+   "image_model": "gpt-image-2.5-flare-generate",
+   "title": "Chowder on the Wharf",
+   "image_prompt": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A weathered wooden wharf deck bathed in bright coastal afternoon sun. At the center, two round sourdough bread bowls of clam chowder sit on a rustic picnic bench. Leaning over the sturdy wooden railing are two figures in windbreakers, peering down at two plump brown sea lions perched on timber beams below. On the left, two colorful cruiser bikes rest against the rail. The sun casts sharp, warm shadows across the splintered gray planks. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  }
+ ]
+}

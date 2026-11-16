@@ -1,0 +1,73 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "hackathon",
+ "rep": 1,
+ "latency_s": 4.61,
+ "usage": {
+  "completion_tokens": 459,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1804,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2263
+ },
+ "cost_usd": 0.00307425,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "The team celebrating when their first 3D world finally rendered at sunset.",
+  "elements": [
+   {
+    "name": "hackathon table",
+    "kind": "object",
+    "look": "a long wooden work desk cluttered with cords, laptops, and empty cans"
+   },
+   {
+    "name": "laptop with render",
+    "kind": "object",
+    "look": "an open silver laptop glowing with a vibrant tiny colorful 3D landscape on screen"
+   },
+   {
+    "name": "cold pizza box",
+    "kind": "object",
+    "look": "an open square cardboard box with half-eaten pizza slices resting on the carpet floor"
+   },
+   {
+    "name": "energy drink cans",
+    "kind": "object",
+    "look": "slim silver and blue aluminum cans scattered across the desk and floor"
+   },
+   {
+    "name": "celebrating team",
+    "kind": "person",
+    "look": "three small figures in hoodies with hands thrown up in joy around the desk"
+   },
+   {
+    "name": "office window",
+    "kind": "place",
+    "look": "a large gridded window frame glowing warm orange and violet with late evening light"
+   }
+  ],
+  "time_of_day": "sunset",
+  "weather": "clear",
+  "mood": "triumphant",
+  "palette": [
+   "#E86A38",
+   "#5B3A82",
+   "#2B3A42",
+   "#E8C872",
+   "#F2EDE4"
+  ],
+  "scene": "A patch of gray office carpet sits bathed in warm amber and violet sunset light streaming through a tall window frame at the back edge. In the center, a long wooden desk is crowded with tangled cables and slim silver energy-drink cans. At the center of the desk, an open laptop glows with a miniature colorful landscape on its screen. Three small figures in dark hoodies celebrate around the desk with raised arms. On the floor in front, an open cardboard box holds cold pizza slices.",
+  "title": "First Render at Sunset",
+  "caption": "The first world finally rendered at sunset and we all screamed."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": [
+  "style_word:miniature"
+ ]
+}

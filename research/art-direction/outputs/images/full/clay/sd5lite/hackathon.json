@@ -1,0 +1,12 @@
+{
+ "model": "sd5lite",
+ "gmi_model": "seedream-5.0-lite",
+ "style": "clay",
+ "slug": "hackathon",
+ "latency_s": 68.41,
+ "server_s": 39,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_d78ec90e-1f85-4de3-bbb4-f4efe10b6f0fb9f0d9c8-6874-40b8-bbc7-ef1afad53af7.png",
+ "prompt": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: On a square patch of charcoal office carpet, a cluttered wooden work table sits at the center. Three small figures in dark hoodies raise their arms in excitement around an open silver laptop that glows with bright blue and green shapes. Slim silver energy-drink cans and coiled black cables crowd the tabletop. In front, on the floor, rests an open cardboard pizza box with leftover slices. At the back edge, a tall gridded windowpane glows with rich amber sunset light. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "d78ec90e-1f85-4de3-bbb4-f4efe10b6f0f"
+}

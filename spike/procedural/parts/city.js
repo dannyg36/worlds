@@ -1,0 +1,860 @@
+// City: cars, a stubby toy bus, bus stop, food truck, cone, street signs, hydrant,
+// backdrop cottages and shallow shop fronts. Toy-scaled (a person is ~1.4 m), chunky clay.
+import { THREE, mat, glowMat, glassMat, cachedTex, canvasTex, stripeTex, box, cyl, sph, torus, lathe, put, group, shade, pick } from "../core.js";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+
+const PI = Math.PI;
+const num = (v, d) => {
+  const n = Number(v);
+  return v != null && v !== "" && Number.isFinite(n) ? n : d;
+};
+const col = (v, d) => (typeof v === "string" && v.trim() ? v : d);
+const isDark = (t) => ["dusk", "night", "snow"].includes(t);
+const asM = (m) => (m && m.isMaterial ? m : mat(m));
+const WARM = "#ffb862";
+
+// ---------- local helpers ----------
+// Rounded box; seg 1 is ~100 tris, seg 2 ~300.
+function rb(w, h, d, m, r = Math.min(w, h, d) * 0.2, seg = 1) {
+  r = Math.min(r, Math.min(w, h, d) / 2 - 1e-4);
+  return new THREE.Mesh(new RoundedBoxGeometry(w, h, d, seg, Math.max(r, 1e-4)), asM(m));
+}
+const UP = new THREE.Vector3(0, 1, 0);
+function rod(parent, a, b, r, m, seg = 6) {
+  const A = new THREE.Vector3(...a), B = new THREE.Vector3(...b);
+  const c = new THREE.Mesh(new THREE.CylinderGeometry(r, r, A.distanceTo(B), seg), asM(m));
+  c.position.copy(A).add(B).multiplyScalar(0.5);
+  c.quaternion.setFromUnitVectors(UP, B.clone().sub(A).normalize());
+  parent.add(c);
+  return c;
+}
+// Many copies in one draw call. items: { p, s (number | [x,y,z]), r, c }
+function inst(parent, geo, m, items) {
+  if (!items.length) return;
+  const im = new THREE.InstancedMesh(geo, asM(m), items.length);
+  const o = new THREE.Object3D(), c = new THREE.Color();
+  items.forEach((it, i) => {
+    o.position.set(...it.p);
+    o.rotation.set(...(it.r ?? [0, 0, 0]));
+    const s = it.s ?? 1;
+    Array.isArray(s) ? o.scale.set(...s) : o.scale.setScalar(s);
+    o.updateMatrix();
+    im.setMatrixAt(i, o.matrix);
+    if (it.c) im.setColorAt(i, c.set(it.c));
+  });
+  parent.add(im);
+  return im;
+}
+function uvScale(mesh, su, sv) {
+  const uv = mesh.geometry.attributes.uv;
+  for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * su, uv.getY(i) * sv);
+  return mesh;
+}
+// Lean the top of a centred mesh inward along z (front and back separately): windscreens.
+function taper(mesh, kf, kb) {
+  const p = mesh.geometry.attributes.position;
+  mesh.geometry.computeBoundingBox();
+  const { min, max } = mesh.geometry.boundingBox;
+  for (let i = 0; i < p.count; i++) {
+    const t = (p.getY(i) - min.y) / (max.y - min.y);
+    const z = p.getZ(i);
+    p.setZ(i, z * (1 - (1 - (z > 0 ? kf : kb)) * t));
+  }
+  mesh.geometry.computeVertexNormals();
+  return mesh;
+}
+const icoGeo = new THREE.IcosahedronGeometry(1, 0);
+const icoGeo1 = new THREE.IcosahedronGeometry(1, 1);
+const lowSph = new THREE.SphereGeometry(1, 6, 4);
+const boxGeo = new THREE.BoxGeometry(1, 1, 1);
+
+// ---------- shared materials ----------
+const tireM = () => mat("#2b2a2e", { rough: 0.9 });
+const hubM = () => mat("#d6d3cc", { rough: 0.45, metal: 0.25 });
+const trimM = () => mat("#3a3b40", { rough: 0.7 });
+const ironM = () => mat("#3b4348", { rough: 0.55, metal: 0.3 });
+const woodM = (c = "#a8754a") => mat(c, { rough: 0.85 });
+
+function carGlass() {
+  return mat("#ffffff", {
+    rough: 0.18,
+    clay: false,
+    map: cachedTex("city:carglass", () =>
+      canvasTex(128, 128, (cx, w, h) => {
+        const g = cx.createLinearGradient(0, 0, 0, h);
+        g.addColorStop(0, "#7d98a8");
+        g.addColorStop(0.5, "#405867");
+        g.addColorStop(1, "#2a3a46");
+        cx.fillStyle = g;
+        cx.fillRect(0, 0, w, h);
+        cx.strokeStyle = "rgba(255,255,255,0.28)";
+        cx.lineWidth = 10;
+        cx.beginPath(); cx.moveTo(w * 0.15, h); cx.lineTo(w * 0.55, 0); cx.stroke();
+        cx.lineWidth = 4;
+        cx.beginPath(); cx.moveTo(w * 0.42, h); cx.lineTo(w * 0.82, 0); cx.stroke();
+      }),
+    ),
+  });
+}
+const headM = (dark) => (dark ? glowMat("#fff3d0", 1.8) : mat("#fff7e0", { rough: 0.25, clay: false, emissive: "#fff2cc", emissiveIntensity: 0.25 }));
+const tailM = (dark) => (dark ? glowMat("#ff3b2a", 2.2) : mat("#d8352b", { rough: 0.35, clay: false }));
+
+// House / shop window glass: cool reflections by day, warm curtains glowing at night.
+let paneDay, paneNight;
+function pane(dark) {
+  if (dark) {
+    paneNight ??= new THREE.MeshStandardMaterial({
+      color: "#3a2a1c",
+      roughness: 0.4,
+      emissive: WARM,
+      emissiveIntensity: 1.6,
+      emissiveMap: canvasTex(64, 64, (cx, w, h) => {
+        const g = cx.createRadialGradient(w / 2, h * 0.6, 4, w / 2, h * 0.6, w * 0.75);
+        g.addColorStop(0, "#ffffff");
+        g.addColorStop(1, "#7a5a3a");
+        cx.fillStyle = g;
+        cx.fillRect(0, 0, w, h);
+        cx.fillStyle = "rgba(110,40,30,0.75)";
+        cx.fillRect(0, 0, w * 0.18, h);
+        cx.fillRect(w * 0.82, 0, w * 0.18, h);
+      }),
+    });
+    return paneNight;
+  }
+  paneDay ??= new THREE.MeshStandardMaterial({
+    color: "#ffffff",
+    roughness: 0.3,
+    map: canvasTex(64, 64, (cx, w, h) => {
+      const g = cx.createLinearGradient(0, 0, w, h);
+      g.addColorStop(0, "#a9c4d2");
+      g.addColorStop(0.45, "#58758a");
+      g.addColorStop(1, "#2e4050");
+      cx.fillStyle = g;
+      cx.fillRect(0, 0, w, h);
+      cx.strokeStyle = "rgba(255,255,255,0.4)";
+      cx.lineWidth = 5;
+      cx.beginPath(); cx.moveTo(w * 0.15, h * 0.55); cx.lineTo(w * 0.55, h * 0.1); cx.stroke();
+    }),
+  });
+  return paneDay;
+}
+
+// Four chunky wheels with hubs, poking out of the body sides.
+function wheels(g, W, zs, r, w = 0.17) {
+  for (const z of zs)
+    for (const s of [-1, 1]) {
+      const x = s * (W / 2 - w / 2 + 0.04);
+      put(g, cyl(r, r, w, tireM(), 14), x, r, z, 0, 0, PI / 2);
+      put(g, cyl(r * 0.5, r * 0.5, w + 0.025, hubM(), 8), x, r, z, 0, 0, PI / 2);
+    }
+}
+function lamp(g, x, y, z, r, m, back = false) {
+  put(g, cyl(r, r, 0.04, m, 12), x, y, z, PI / 2, 0, 0);
+  put(g, cyl(r + 0.015, r + 0.015, 0.03, trimM(), 10), x, y, z - (back ? -0.012 : 0.012), PI / 2, 0, 0);
+}
+
+// ---------- car ----------
+const CAR_COLORS = ["#d8483a", "#3f7cc0", "#5aa36b", "#e9e1cf", "#e08a3c", "#8a5bb0", "#4a5560"];
+function checkerTex() {
+  return cachedTex("city:checker", () =>
+    canvasTex(256, 32, (cx, w, h) => {
+      cx.fillStyle = "#f6f1e4";
+      cx.fillRect(0, 0, w, h);
+      cx.fillStyle = "#1f1f22";
+      for (let i = 0; i < 16; i++) for (let j = 0; j < 2; j++) if ((i + j) % 2) cx.fillRect(i * 16, j * 16, 16, 16);
+    }),
+  );
+}
+
+function car(p, ctx) {
+  const kind = ["sedan", "hatch", "taxi", "van"].includes(p.kind) ? p.kind : "sedan";
+  const dark = isDark(ctx.time);
+  const color = col(p.color, kind === "taxi" ? "#f2c230" : kind === "van" ? "#6fb0c4" : pick(ctx.rand, CAR_COLORS));
+  const body = mat(color, { rough: 0.55 });
+  const g = group();
+  const W = kind === "van" ? 1.3 : 1.2;
+  const L = { sedan: 2.5, taxi: 2.5, hatch: 2.1, van: 2.6 }[kind];
+  const y0 = 0.17, wr = 0.24;
+  const glass = carGlass();
+  let top;
+
+  if (kind === "van") {
+    const bh = 0.58;
+    put(g, rb(W, bh, L, body, 0.16, 2), 0, y0 + bh / 2, 0);
+    const uh = 0.72, ul = L - 0.12;
+    const upper = mat("#f3ead6", { rough: 0.6 });
+    put(g, rb(W - 0.04, uh, ul, upper, 0.2, 2), 0, y0 + bh + uh / 2 - 0.02, -0.04);
+    const wy = y0 + bh + uh * 0.5;
+    // Side windows, windscreen and rear window.
+    for (const s of [-1, 1]) for (const z of [-0.75, -0.12, 0.6]) put(g, rb(0.03, 0.36, z > 0.3 ? 0.42 : 0.52, glass, 0.06), s * (W / 2 - 0.02), wy + 0.02, z);
+    put(g, rb(W - 0.3, 0.4, 0.04, glass, 0.08), 0, wy + 0.02, ul / 2 - 0.04 + 0.005);
+    put(g, rb(W - 0.5, 0.32, 0.04, glass, 0.06), 0, wy + 0.04, -ul / 2 - 0.04 - 0.005);
+    // Sliding door seam and handle.
+    put(g, box(0.012, bh + uh * 0.75, 0.012, trimM()), W / 2 + 0.001, y0 + (bh + uh * 0.75) / 2 + 0.05, 0.25);
+    put(g, box(0.03, 0.03, 0.14, trimM()), W / 2 + 0.01, y0 + bh * 0.8, 0.12);
+    // Round headlights, a big emblem, roof rack.
+    for (const s of [-1, 1]) lamp(g, s * (W / 2 - 0.22), y0 + bh * 0.6, L / 2 + 0.01, 0.1, headM(dark));
+    put(g, cyl(0.1, 0.1, 0.03, upper, 14), 0, y0 + bh * 0.75, L / 2 + 0.01, PI / 2, 0, 0);
+    for (const s of [-1, 1]) put(g, box(0.18, 0.1, 0.03, tailM(dark)), s * (W / 2 - 0.2), y0 + bh * 0.7, -L / 2 - 0.005);
+    const ry = y0 + bh + uh - 0.02;
+    for (const s of [-1, 1]) put(g, box(0.05, 0.05, ul - 0.4, ironM()), s * (W / 2 - 0.15), ry + 0.08, -0.04);
+    for (const z of [-0.7, 0, 0.7]) put(g, box(W - 0.25, 0.04, 0.05, ironM()), 0, ry + 0.08, z);
+    top = ry + 0.1;
+  } else {
+    const bh = 0.48;
+    put(g, rb(W, bh, L, body, 0.16, 2), 0, y0 + bh / 2, 0);
+    const hatch = kind === "hatch";
+    const cl = hatch ? 1.25 : 1.3, ch = 0.42, cw = W - 0.12;
+    const cz = hatch ? -L / 2 + 0.12 + cl / 2 : -0.1;
+    const kf = 0.62, kb = hatch ? 0.9 : 0.72;
+    const yb = y0 + bh - 0.02;
+    put(g, taper(rb(cw, ch, cl, glass, 0.07), kf, kb), 0, yb + ch / 2, cz);
+    const rl = (cl / 2) * (kf + kb), rz = cz + (cl / 4) * (kf - kb);
+    put(g, rb(cw + 0.05, 0.08, rl + 0.06, body, 0.035), 0, yb + ch + 0.03, rz);
+    // Pillars (A, B, C) in body colour.
+    for (const s of [-1, 1]) {
+      const x = s * (cw / 2 - 0.005);
+      rod(g, [x, yb, cz + cl / 2 - 0.02], [x, yb + ch, cz + (cl / 2) * kf], 0.035, body);
+      rod(g, [x, yb, cz - cl / 2 + 0.02], [x, yb + ch, cz - (cl / 2) * kb], 0.035, body);
+      put(g, box(0.05, ch, 0.08, body), x, yb + ch / 2, cz + (hatch ? 0.05 : 0.02));
+    }
+    // Door seams and handles.
+    for (const s of [-1, 1]) {
+      const x = s * (W / 2 + 0.001);
+      for (const z of hatch ? [cz + 0.05] : [cz + 0.05, cz - cl / 2 + 0.05]) put(g, box(0.012, bh * 0.72, 0.012, trimM()), x, y0 + bh * 0.52, z);
+      for (const z of hatch ? [cz + 0.2] : [cz + 0.2, cz - 0.35]) put(g, box(0.03, 0.03, 0.12, trimM()), x + s * 0.01, y0 + bh * 0.78, z);
+      put(g, box(0.1, 0.07, 0.06, body), s * (W / 2 + 0.03), yb + 0.08, cz + cl / 2 - 0.08);
+    }
+    for (const s of [-1, 1]) lamp(g, s * (W / 2 - 0.22), y0 + bh * 0.62, L / 2 + 0.005, 0.075, headM(dark));
+    put(g, box(0.42, 0.11, 0.03, trimM()), 0, y0 + bh * 0.5, L / 2 + 0.005);
+    for (const s of [-1, 1]) put(g, box(0.2, 0.09, 0.03, tailM(dark)), s * (W / 2 - 0.2), y0 + bh * 0.66, -L / 2 - 0.005);
+    top = yb + ch + 0.07;
+    if (kind === "taxi") {
+      const sign = dark ? glowMat("#ffd659", 2.5) : mat("#fff1b0", { rough: 0.4 });
+      put(g, rb(0.44, 0.14, 0.2, sign, 0.04), 0, top + 0.07, rz);
+      put(g, box(0.3, 0.035, 0.205, trimM()), 0, top + 0.07, rz);
+      const ck = mat("#ffffff", { map: checkerTex(), rough: 0.6 });
+      for (const s of [-1, 1]) put(g, box(0.012, 0.07, L * 0.62, ck), s * (W / 2 + 0.004), y0 + bh * 0.4, -0.05);
+      top += 0.14;
+    }
+  }
+  // Bumpers and plates.
+  const bump = mat("#4a4b50", { rough: 0.6 });
+  for (const s of [-1, 1]) {
+    put(g, rb(W * 0.98, 0.13, 0.14, bump, 0.05), 0, y0 + 0.07, s * (L / 2 - 0.02));
+    put(g, box(0.28, 0.08, 0.02, mat(kind === "taxi" ? "#f4d35e" : "#f4f0e4")), 0, y0 + 0.07, s * (L / 2 + 0.055));
+  }
+  const wz = L / 2 - (kind === "hatch" ? 0.45 : 0.52);
+  wheels(g, W, [wz, -wz], wr);
+  return { group: g, top };
+}
+
+// ---------- bus ----------
+function bus(p, ctx) {
+  const dark = isDark(ctx.time);
+  const color = col(p.color, "#d9483b");
+  const body = mat(color, { rough: 0.55 });
+  const cream = mat("#f4ecd9", { rough: 0.6 });
+  const glass = carGlass();
+  const g = group();
+  const W = 1.4, L = 3.2, y0 = 0.2, wr = 0.27;
+  const lh = 0.72, gh = 0.48, rh = 0.22;
+  put(g, rb(W, lh, L, body, 0.15, 2), 0, y0 + lh / 2, 0);
+  const gy = y0 + lh + gh / 2 - 0.02;
+  put(g, rb(W - 0.05, gh, L - 0.05, glass, 0.1), 0, gy, 0);
+  const ry = y0 + lh + gh - 0.04;
+  put(g, rb(W, rh, L, cream, 0.12, 2), 0, ry + rh / 2, 0);
+  const H = ry + rh;
+  // Window pillars, skipping the door on +x.
+  const doorZ = L / 2 - 0.6;
+  for (const s of [-1, 1])
+    for (let z = -L / 2 + 0.45; z < L / 2 - 0.2; z += 0.52) {
+      if (s > 0 && Math.abs(z - doorZ) < 0.4) continue;
+      put(g, box(0.05, gh, 0.07, body), s * (W / 2 - 0.035), gy, z);
+    }
+  for (const z of [L / 2 - 0.04, -L / 2 + 0.04]) put(g, box(0.06, gh, 0.06, body), 0, gy, z); // windscreen divider
+  // Cream stripe along the sides.
+  for (const s of [-1, 1]) put(g, box(0.012, 0.07, L - 0.3, cream), s * (W / 2 + 0.002), y0 + lh * 0.72, 0);
+  // Door on +x: frame, two glass leaves, a step.
+  const dx = W / 2 + 0.01, dh = lh + gh - 0.12;
+  put(g, rb(0.04, dh + 0.06, 0.6, trimM(), 0.02), dx, y0 + 0.08 + dh / 2, doorZ);
+  for (const s of [-1, 1]) put(g, box(0.02, dh - 0.08, 0.24, glass), dx + 0.02, y0 + 0.08 + dh / 2, doorZ + s * 0.13);
+  put(g, box(0.025, dh - 0.08, 0.02, trimM()), dx + 0.025, y0 + 0.08 + dh / 2, doorZ);
+  put(g, rb(0.18, 0.06, 0.6, trimM(), 0.02), W / 2 - 0.02, 0.17, doorZ);
+  // Front: destination sign, lamps, grille, bumpers, mirrors on stalks.
+  put(g, rb(0.85, 0.13, 0.03, dark ? glowMat("#ffb43a", 2.5) : mat("#2d2a26"), 0.03), 0, H - 0.11, L / 2 + 0.005);
+  if (!dark) put(g, box(0.6, 0.04, 0.035, mat("#ffb43a", { emissive: "#ffb43a", emissiveIntensity: 0.6 })), 0, H - 0.11, L / 2 + 0.005);
+  for (const s of [-1, 1]) lamp(g, s * (W / 2 - 0.25), y0 + lh * 0.45, L / 2 + 0.005, 0.09, headM(dark));
+  for (let i = 0; i < 3; i++) put(g, box(0.4, 0.025, 0.02, trimM()), 0, y0 + lh * 0.3 + i * 0.06, L / 2 + 0.005);
+  const bump = mat("#4a4b50", { rough: 0.6 });
+  for (const s of [-1, 1]) put(g, rb(W * 0.98, 0.14, 0.14, bump, 0.05), 0, y0 + 0.06, s * (L / 2 - 0.01));
+  for (const s of [-1, 1]) {
+    rod(g, [s * (W / 2 - 0.05), H - 0.25, L / 2 - 0.1], [s * (W / 2 + 0.12), H - 0.2, L / 2 + 0.12], 0.015, ironM());
+    put(g, rb(0.08, 0.2, 0.05, trimM(), 0.02), s * (W / 2 + 0.12), H - 0.3, L / 2 + 0.12);
+    put(g, rb(0.18, 0.1, 0.03, tailM(dark), 0.02), s * (W / 2 - 0.22), y0 + lh * 0.55, -L / 2 - 0.005);
+  }
+  // Rear engine grille, roof AC unit.
+  for (let i = 0; i < 4; i++) put(g, box(0.6, 0.025, 0.02, trimM()), 0, y0 + lh * 0.35 + i * 0.06, -L / 2 - 0.005);
+  put(g, rb(0.8, 0.12, 0.8, mat("#d9d6cf"), 0.04), 0, H + 0.05, -L / 2 + 0.65);
+  wheels(g, W, [L / 2 - 0.68, -L / 2 + 0.68], wr, 0.2);
+  return { group: g, top: H };
+}
+
+// ---------- bus stop ----------
+function posterTex() {
+  return cachedTex("city:poster", () =>
+    canvasTex(128, 192, (cx, w, h) => {
+      cx.fillStyle = "#f6e3b4";
+      cx.fillRect(0, 0, w, h);
+      cx.fillStyle = "#e8604c";
+      cx.beginPath(); cx.arc(w * 0.5, h * 0.4, w * 0.3, 0, 7); cx.fill();
+      cx.fillStyle = "#2f6f8f";
+      cx.fillRect(0, h * 0.68, w, h * 0.32);
+      cx.fillStyle = "#f6e3b4";
+      cx.fillRect(w * 0.15, h * 0.76, w * 0.7, h * 0.05);
+      cx.fillRect(w * 0.15, h * 0.86, w * 0.45, h * 0.04);
+      cx.fillStyle = "#ffd25e";
+      cx.beginPath(); cx.arc(w * 0.62, h * 0.32, w * 0.1, 0, 7); cx.fill();
+    }),
+  );
+}
+function busIcon(g, x, y, z, s, m) {
+  put(g, rb(0.2 * s, 0.12 * s, 0.02, m, 0.025 * s), x, y, z);
+  for (const dx of [-0.055, 0.055]) put(g, cyl(0.025 * s, 0.025 * s, 0.02, m, 8), x + dx * s, y - 0.065 * s, z, PI / 2, 0, 0);
+}
+function busStop(p, ctx) {
+  const dark = isDark(ctx.time);
+  const frame = mat(col(p.color, "#2f5566"), { rough: 0.5, metal: 0.2 });
+  const g = group();
+  const W = 1.8, zb = -0.32, zf = 0.32, H = 2.05;
+  // Posts and roof.
+  for (const x of [-W / 2, W / 2]) for (const z of [zb, zf]) put(g, cyl(0.035, 0.035, H, frame, 8), x, H / 2, z);
+  put(g, rb(W + 0.25, 0.1, 0.95, frame, 0.04), 0, H + 0.04, 0.02, -0.05, 0, 0);
+  put(g, box(W - 0.1, 0.03, 0.12, dark ? glowMat("#fff1d0", 2.5) : mat("#e9eef0")), 0, H - 0.02, 0.0);
+  // Glass back and left side, poster box on the right.
+  const gl = glassMat("#cfe6ee", 0.28);
+  put(g, box(W - 0.06, 1.55, 0.02, gl), 0, 0.25 + 1.55 / 2, zb);
+  for (const y of [0.25, 1.8]) put(g, box(W, 0.05, 0.05, frame), 0, y, zb);
+  put(g, box(0.02, 1.55, zf - zb - 0.12, gl), -W / 2, 0.25 + 1.55 / 2, (zb + zf) / 2 - 0.06);
+  put(g, box(0.05, 0.05, zf - zb, frame), -W / 2, 1.8, (zb + zf) / 2);
+  put(g, box(0.05, 0.05, zf - zb, frame), -W / 2, 0.25, (zb + zf) / 2);
+  put(g, rb(0.1, 1.3, 0.56, frame, 0.03), W / 2, 0.95, (zb + zf) / 2 - 0.02);
+  const poster = mat("#ffffff", { map: posterTex(), rough: 0.5, ...(dark ? { emissive: "#ffffff", emissiveIntensity: 0.35, emissiveMap: posterTex() } : {}) });
+  for (const s of [-1, 1]) put(g, box(0.012, 1.15, 0.46, poster), W / 2 + s * 0.052, 0.95, (zb + zf) / 2 - 0.02);
+  // Bench: wooden slats on two iron brackets; seat centred on the origin.
+  const seatY = 0.46, wd = woodM("#b07a4a");
+  for (const x of [-0.5, 0.5]) {
+    put(g, box(0.05, seatY - 0.03, 0.05, ironM()), x, (seatY - 0.03) / 2, -0.05);
+    put(g, box(0.05, 0.04, 0.34, ironM()), x, seatY - 0.04, 0);
+  }
+  for (const z of [-0.11, 0, 0.11]) put(g, rb(1.35, 0.04, 0.1, wd, 0.015), 0, seatY - 0.0, z);
+  for (const y of [0.62, 0.76]) put(g, rb(1.35, 0.08, 0.035, wd, 0.015), 0, y, -0.2);
+  for (const x of [-0.5, 0.5]) put(g, box(0.04, 0.36, 0.03, ironM()), x, 0.62, -0.23);
+  // Stop pole: round red-ringed sign with a bus, and a timetable.
+  const px = W / 2 + 0.28, pz = zf + 0.05;
+  put(g, cyl(0.03, 0.03, 2.25, mat("#8a9096", { metal: 0.3, rough: 0.5 }), 8), px, 1.125, pz);
+  put(g, cyl(0.24, 0.24, 0.03, mat("#d8392f"), 20), px, 2.0, pz, PI / 2, 0, 0);
+  put(g, cyl(0.18, 0.18, 0.035, mat("#f7f3ea"), 20), px, 2.0, pz, PI / 2, 0, 0);
+  busIcon(g, px, 2.01, pz + 0.025, 1.1, mat("#2f5566"));
+  busIcon(g, px, 2.01, pz - 0.025, 1.1, mat("#2f5566"));
+  put(g, rb(0.22, 0.32, 0.04, mat("#f2ead6"), 0.02), px, 1.35, pz + 0.04);
+  for (let i = 0; i < 4; i++) put(g, box(0.15, 0.018, 0.01, mat("#6a7a82")), px, 1.44 - i * 0.06, pz + 0.062);
+  if (dark) ctx.addLight([0, 1.8, 0.2], "#fff1d6", 1.0, 3);
+  return { group: g, top: seatY + 0.02 };
+}
+
+// ---------- striped awning with scalloped valance (shop front, food truck) ----------
+// Attaches at the wall (y = 0, z = 0), projects P along +z and drops `drop`.
+function awningGroup(W, P, drop, c1, c2) {
+  const g = group();
+  const n = Math.max(2, Math.round(W / 0.2));
+  const sw = W / n;
+  const tex = stripeTex(c1, c2, 8, true);
+  const cloth = mat("#ffffff", { map: tex, rough: 0.9 });
+  const len = Math.hypot(P, drop), ang = Math.atan2(drop, P);
+  put(g, uvScale(new THREE.Mesh(new THREE.BoxGeometry(W, 0.025, len), cloth), W / (sw * 8), 1), 0, -drop / 2, P / 2, ang, 0, 0);
+  const vh = 0.11;
+  put(g, uvScale(new THREE.Mesh(new THREE.BoxGeometry(W, vh, 0.02), cloth), W / (sw * 8), 1), 0, -drop - vh / 2 + 0.01, P);
+  const half = new THREE.CircleGeometry(sw / 2, 8, PI, PI);
+  const items = [];
+  for (let k = 0; k < n; k++) items.push({ p: [-W / 2 + sw * (k + 0.5), -drop - vh + 0.012, P + 0.011], c: k % 2 ? c2 : c1 });
+  inst(g, half, mat("#ffffff", { side: THREE.DoubleSide, rough: 0.9 }), items);
+  // Iron arms from the wall to the front corners.
+  for (const s of [-1, 1]) rod(g, [s * (W / 2 - 0.04), -drop - 0.35, 0], [s * (W / 2 - 0.04), -drop + 0.01, P - 0.02], 0.012, ironM());
+  return g;
+}
+
+// ---------- food truck ----------
+function foodTruck(p, ctx) {
+  const dark = isDark(ctx.time);
+  const color = col(p.color, "#7cc7b4");
+  const body = mat(color, { rough: 0.55 });
+  const cream = mat("#f6eedc", { rough: 0.6 });
+  const glass = carGlass();
+  const g = group();
+  const W = 1.4, L = 2.8, y0 = 0.19, wr = 0.25;
+  const bl = 1.95, bz = -L / 2 + bl / 2, bh = 1.7;
+  put(g, rb(W, bh, bl, body, 0.14, 2), 0, y0 + bh / 2, bz);
+  const cl = L - bl + 0.05, cz = L / 2 - cl / 2, ch = 0.62;
+  put(g, rb(W, ch, cl, body, 0.15, 2), 0, y0 + ch / 2, cz);
+  put(g, taper(rb(W - 0.12, 0.5, cl - 0.12, glass, 0.07), 0.6, 1), 0, y0 + ch + 0.22, cz - 0.04);
+  put(g, rb(W - 0.06, 0.08, 0.5, body, 0.03), 0, y0 + ch + 0.5, cz - 0.1);
+  const roofY = y0 + bh;
+  // Two-tone stripe and a scalloped trim line along both sides.
+  for (const s of [-1, 1]) put(g, box(0.012, 0.16, bl - 0.25, cream), s * (W / 2 + 0.003), y0 + 0.42, bz);
+  // Serving hatch on +x: dark (or glowing) interior, frame, counter, a few jars, awning.
+  const hz = bz + 0.1, hw = 1.2, hh = 0.62, hy = y0 + 1.05;
+  const inside = dark ? mat("#5a3a22", { emissive: WARM, emissiveIntensity: 0.9 }) : mat("#4a3a30");
+  put(g, box(0.02, hh, hw, inside), W / 2 + 0.003, hy, hz);
+  for (const y of [hy - hh / 2, hy + hh / 2]) put(g, box(0.04, 0.05, hw + 0.05, cream), W / 2 + 0.01, y, hz);
+  for (const z of [hz - hw / 2, hz + hw / 2]) put(g, box(0.04, hh, 0.05, cream), W / 2 + 0.01, hy, z);
+  put(g, rb(0.22, 0.05, hw + 0.1, woodM(), 0.015), W / 2 + 0.1, hy - hh / 2 - 0.02, hz);
+  for (const z of [hz - 0.4, hz + 0.4]) rod(g, [W / 2 + 0.005, hy - hh / 2 - 0.22, z], [W / 2 + 0.17, hy - hh / 2 - 0.04, z], 0.012, ironM());
+  const jarC = ["#e8604c", "#f2c230", "#8cc152", "#f6eedc"];
+  jarC.forEach((c, i) => put(g, cyl(0.04, 0.04, 0.1, mat(c), 10), W / 2 + 0.06, hy - hh / 2 + 0.05, hz - 0.42 + i * 0.12));
+  put(g, cyl(0.035, 0.03, 0.09, mat("#ffffff"), 10), W / 2 + 0.12, hy - hh / 2 + 0.05, hz + 0.25);
+  put(g, cyl(0.035, 0.03, 0.09, mat("#ffffff"), 10), W / 2 + 0.15, hy - hh / 2 + 0.05, hz + 0.36);
+  const aw = put(g, awningGroup(hw + 0.2, 0.55, 0.28, col(p.awning?.[0], "#e8604c"), col(p.awning?.[1], "#f7efe0")), W / 2 + 0.01, hy + hh / 2 + 0.2, hz, 0, PI / 2, 0);
+  // Bulbs along the awning edge.
+  const bulb = dark ? glowMat("#ffd28a", 3) : mat("#fff3d6", { rough: 0.3, emissive: "#ffd28a", emissiveIntensity: 0.4 });
+  const bulbs = [];
+  for (let k = 0; k < 7; k++) bulbs.push({ p: [-0.6 + k * 0.2, -0.28 - 0.16, 0.55 + 0.03], s: 0.03 });
+  inst(aw, icoGeo1, bulb, bulbs);
+  // Menu board between hatch and cab with chalky lines.
+  const mz = hz + hw / 2 + 0.2;
+  put(g, rb(0.03, 0.55, 0.32, mat("#2d3a35"), 0.02), W / 2 + 0.02, hy, mz);
+  ["#f7efe0", "#f2c230", "#e8a0a8", "#f7efe0", "#9fd3c7"].forEach((c, i) => put(g, box(0.01, 0.022, i === 0 ? 0.22 : 0.16, mat(c)), W / 2 + 0.04, hy + 0.17 - i * 0.08, mz - (i === 0 ? 0 : 0.03)));
+  // Roof sign board (blank), vent.
+  const sx = -0.3;
+  put(g, rb(0.08, 0.42, 1.3, cream, 0.03), sx, roofY + 0.27, bz);
+  put(g, rb(0.09, 0.32, 1.18, mat(shade(color, -0.2)), 0.03), sx, roofY + 0.27, bz);
+  for (const z of [bz - 0.5, bz + 0.5]) put(g, box(0.04, 0.08, 0.04, ironM()), sx, roofY + 0.04, z);
+  put(g, cyl(0.06, 0.06, 0.18, ironM(), 10), -0.45, roofY + 0.09, bz - 0.8);
+  // Front lamps, grille, bumpers, mirrors; rear doors and tail lights.
+  for (const s of [-1, 1]) lamp(g, s * (W / 2 - 0.22), y0 + ch * 0.55, L / 2 + 0.005, 0.08, headM(dark));
+  put(g, rb(0.45, 0.12, 0.03, trimM(), 0.02), 0, y0 + ch * 0.45, L / 2 + 0.005);
+  const bump = mat("#4a4b50", { rough: 0.6 });
+  for (const s of [-1, 1]) put(g, rb(W * 0.98, 0.13, 0.14, bump, 0.05), 0, y0 + 0.06, s * (L / 2 - 0.02));
+  for (const s of [-1, 1]) put(g, rb(0.08, 0.12, 0.05, trimM(), 0.02), s * (W / 2 + 0.05), y0 + ch + 0.12, cz + 0.15);
+  put(g, box(0.012, bh - 0.3, 0.012, trimM()), 0, y0 + bh / 2, -L / 2 - 0.001);
+  for (const s of [-1, 1]) put(g, rb(0.14, 0.1, 0.03, tailM(dark), 0.02), s * (W / 2 - 0.18), y0 + 0.4, -L / 2 - 0.005);
+  wheels(g, W, [L / 2 - 0.45, -L / 2 + 0.5], wr);
+  if (dark) ctx.addLight([W / 2 + 0.6, hy + 0.2, hz], WARM, 1.4, 3.5);
+  return { group: g, top: roofY };
+}
+
+// ---------- traffic cone ----------
+function trafficCone(p) {
+  const g = group();
+  const orange = mat(col(p.color, "#f26a1f"), { rough: 0.5 });
+  put(g, rb(0.38, 0.05, 0.38, mat("#2b2a2e"), 0.02), 0, 0.025, 0);
+  const R = (y) => 0.135 - (y - 0.05) * 0.2;
+  put(g, lathe([[0.135, 0.05], [0.04, 0.52], [0.025, 0.545], [0, 0.55]], orange, 16), 0, 0, 0);
+  const white = mat("#f4f2ec", { rough: 0.4 });
+  for (const [a, b] of [[0.2, 0.27], [0.34, 0.39]]) put(g, lathe([[R(a) + 0.004, a], [R(b) + 0.004, b]], white, 16), 0, 0, 0);
+  return { group: g, top: 0.55 };
+}
+
+// ---------- street sign ----------
+function streetSign(p) {
+  const kind = ["stop", "arrow", "bus"].includes(p.kind) ? p.kind : "stop";
+  const g = group();
+  const H = 2.1;
+  put(g, cyl(0.03, 0.03, H, mat("#8a9096", { metal: 0.3, rough: 0.5 }), 8), 0, H / 2, 0);
+  put(g, cyl(0.07, 0.08, 0.05, mat("#6f757a"), 10), 0, 0.025, 0);
+  put(g, sph(0.035, mat("#8a9096"), 8), 0, H, 0);
+  const white = mat("#f6f3ea", { rough: 0.5 });
+  if (kind === "stop") {
+    const y = H - 0.28;
+    put(g, cyl(0.3, 0.3, 0.03, white, 8), 0, y, 0.04, PI / 2, PI / 8, 0);
+    put(g, cyl(0.27, 0.27, 0.035, mat("#c8312b", { rough: 0.5 }), 8), 0, y, 0.045, PI / 2, PI / 8, 0);
+    put(g, rb(0.34, 0.08, 0.02, white, 0.02), 0, y, 0.065);
+  } else if (kind === "arrow") {
+    const y = H - 0.22;
+    put(g, rb(0.7, 0.24, 0.035, mat("#2f62a8", { rough: 0.5 }), 0.03), 0, y, 0.04);
+    const s = new THREE.Shape();
+    s.moveTo(-0.25, -0.035); s.lineTo(0.1, -0.035); s.lineTo(0.1, -0.08); s.lineTo(0.26, 0);
+    s.lineTo(0.1, 0.08); s.lineTo(0.1, 0.035); s.lineTo(-0.25, 0.035); s.closePath();
+    put(g, new THREE.Mesh(new THREE.ShapeGeometry(s), white), 0, y, 0.059);
+    put(g, rb(0.06, 0.16, 0.03, mat("#8a9096"), 0.01), 0, y, 0.01);
+  } else {
+    const y = H - 0.3;
+    put(g, rb(0.42, 0.5, 0.035, mat("#2f7d55", { rough: 0.5 }), 0.06), 0, y, 0.04);
+    put(g, rb(0.36, 0.44, 0.02, white, 0.05), 0, y, 0.05);
+    put(g, rb(0.32, 0.4, 0.02, mat("#2f7d55", { rough: 0.5 }), 0.045), 0, y, 0.056);
+    busIcon(g, 0, y + 0.03, 0.07, 1.25, white);
+    put(g, rb(0.22, 0.3, 0.04, mat("#f2ead6"), 0.02), 0, 1.15, 0.04);
+    for (let i = 0; i < 4; i++) put(g, box(0.15, 0.018, 0.01, mat("#6a7a82")), 0, 1.24 - i * 0.06, 0.062);
+  }
+  return { group: g };
+}
+
+// ---------- hydrant ----------
+function hydrant(p) {
+  const g = group();
+  const c = col(p.color, "#d23a2c");
+  const red = mat(c, { rough: 0.5 });
+  const cap = mat(shade(c, 0.32), { rough: 0.45 });
+  put(g, lathe([[0.15, 0], [0.15, 0.05], [0.115, 0.07], [0.105, 0.44], [0.13, 0.46], [0.13, 0.5], [0.1, 0.52]], red, 16), 0, 0, 0);
+  put(g, sph(0.1, red, 14), 0, 0.52, 0);
+  put(g, cyl(0.035, 0.045, 0.07, cap, 6), 0, 0.64, 0);
+  for (const s of [-1, 1]) {
+    put(g, cyl(0.045, 0.045, 0.12, red, 10), s * 0.14, 0.34, 0, 0, 0, PI / 2);
+    put(g, cyl(0.05, 0.05, 0.035, cap, 6), s * 0.205, 0.34, 0, 0, 0, PI / 2);
+  }
+  put(g, cyl(0.06, 0.06, 0.1, red, 12), 0, 0.3, 0.12, PI / 2, 0, 0);
+  put(g, cyl(0.065, 0.065, 0.04, cap, 6), 0, 0.3, 0.18, PI / 2, 0, 0);
+  for (let i = 0; i < 4; i++) put(g, sph(0.012, cap, 6), Math.cos((i * PI) / 2 + 0.6) * 0.135, 0.06, Math.sin((i * PI) / 2 + 0.6) * 0.135);
+  return { group: g, top: 0.68 };
+}
+
+// ---------- cottage ----------
+function shingleTex() {
+  return cachedTex("city:shingle", () =>
+    canvasTex(256, 256, (cx, w, h) => {
+      cx.fillStyle = "#9a9a9a";
+      cx.fillRect(0, 0, w, h);
+      const rows = 6, cols = 6, rh = h / rows, cw = w / cols;
+      let seed = 3;
+      const r = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+      for (let j = rows; j >= -1; j--)
+        for (let i = -1; i <= cols; i++) {
+          const x = i * cw + (j % 2) * cw * 0.5, y = j * rh;
+          const v = 200 + r() * 55;
+          cx.fillStyle = `rgb(${v},${v},${v})`;
+          cx.beginPath();
+          cx.moveTo(x + 2, y);
+          cx.lineTo(x + 2, y + rh * 0.55);
+          cx.quadraticCurveTo(x + cw / 2, y + rh * 1.35, x + cw - 2, y + rh * 0.55);
+          cx.lineTo(x + cw - 2, y);
+          cx.fill();
+          cx.strokeStyle = "rgba(60,40,30,0.35)";
+          cx.lineWidth = 2;
+          cx.stroke();
+        }
+    }),
+  );
+}
+const WALLS = ["#f1e3c6", "#e9cfc0", "#d8e3d0", "#f3ead9", "#e8d7a8", "#cfdde6"];
+const ROOFS = ["#b8573f", "#8c4a36", "#4f6475", "#9a3f33", "#6b5a4a"];
+
+function cottageWindow(w, h, dark, frameC, shutterC, flowerC, r) {
+  const g = group();
+  put(g, box(w, h, 0.03, pane(dark)), 0, 0, 0);
+  const fm = mat(frameC, { rough: 0.7 });
+  const f = 0.05;
+  for (const s of [-1, 1]) {
+    put(g, box(w + f, f, 0.05, fm), 0, s * h / 2, 0.01);
+    put(g, box(f, h + f, 0.05, fm), s * w / 2, 0, 0.01);
+  }
+  put(g, box(0.03, h, 0.04, fm), 0, 0, 0.01);
+  put(g, box(w, 0.03, 0.04, fm), 0, h * 0.1, 0.01);
+  put(g, rb(w + 0.14, 0.05, 0.1, mat("#ece3cf"), 0.015), 0, -h / 2 - 0.04, 0.04);
+  if (shutterC) {
+    const sm = mat(shutterC, { rough: 0.7 });
+    for (const s of [-1, 1]) {
+      put(g, rb(w * 0.48, h + 0.04, 0.03, sm, 0.01), s * (w * 0.74 + 0.04), 0, 0.01);
+      for (let k = 0; k < 4; k++) put(g, box(w * 0.36, 0.015, 0.02, mat(shade(shutterC, -0.12))), s * (w * 0.74 + 0.04), -h * 0.36 + k * h * 0.24, 0.03);
+    }
+  }
+  if (flowerC) {
+    put(g, rb(w + 0.04, 0.1, 0.12, woodM("#8a5a36"), 0.02), 0, -h / 2 - 0.12, 0.08);
+    const items = [];
+    for (let i = 0; i < 7; i++) {
+      const x = -w / 2 + 0.04 + (i / 6) * (w - 0.08);
+      items.push({ p: [x, -h / 2 - 0.05 + r() * 0.02, 0.08 + (r() - 0.5) * 0.05], s: 0.045, c: "#5f8f45" });
+      if (i % 2 === 0) items.push({ p: [x + 0.02, -h / 2 - 0.02 + r() * 0.03, 0.1], s: 0.03, c: flowerC });
+    }
+    inst(g, icoGeo, mat("#ffffff", { flat: true }), items);
+  }
+  return g;
+}
+
+function house(p, ctx) {
+  const dark = isDark(ctx.time);
+  const r = ctx.rand;
+  const medium = p.size === "medium";
+  const W = medium ? 3.0 : 2.4, D = medium ? 2.4 : 2.0, H = medium ? 2.3 : 2.0, Rh = medium ? 1.05 : 0.9;
+  const wallC = col(p.color, pick(r, WALLS));
+  const roofC = col(p.roof, pick(r, ROOFS));
+  const wall = mat(wallC, { rough: 0.85 });
+  const g = group();
+  // Body, plinth, attic prism.
+  put(g, rb(W, H, D, wall, 0.04), 0, H / 2, 0);
+  put(g, rb(W + 0.06, 0.22, D + 0.06, mat("#b9ac97"), 0.03), 0, 0.11, 0);
+  const tri = new THREE.Shape();
+  tri.moveTo(-D / 2, 0); tri.lineTo(D / 2, 0); tri.lineTo(0, Rh); tri.closePath();
+  const pg = new THREE.ExtrudeGeometry(tri, { depth: W - 0.02, bevelEnabled: false });
+  pg.rotateY(PI / 2);
+  pg.translate(-(W - 0.02) / 2, H - 0.01, 0);
+  g.add(new THREE.Mesh(pg, wall));
+  // Corner boards.
+  const trimC = "#f6f0e2";
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) put(g, box(0.08, H - 0.2, 0.08, mat(trimC)), sx * (W / 2 - 0.02), H / 2 + 0.1, sz * (D / 2 - 0.02));
+  // Roof slabs with shingles, ridge, chimney.
+  const ang = Math.atan2(Rh, D / 2), e = 0.16, T = 0.1;
+  const slope = (D / 2 + e) / Math.cos(ang) + 0.05, RL = W + 0.36;
+  const roofM = mat("#ffffff", { map: shingleTex(), tint: roofC, rough: 0.85 });
+  for (const s of [1, -1]) {
+    const piv = put(g, group(), 0, H + Rh + 0.02, 0, s * ang, 0, 0);
+    put(piv, uvScale(new THREE.Mesh(new THREE.BoxGeometry(RL, T, slope), roofM), RL / 0.6, slope / 0.6), 0, T / 2, (s * slope) / 2);
+  }
+  put(g, cyl(0.075, 0.075, RL + 0.02, mat(shade(roofC, -0.12)), 10), 0, H + Rh + 0.07, 0, 0, 0, PI / 2);
+  const chx = W * 0.28, chz = -D * 0.22;
+  const chBase = H + Rh * (1 - (2 * Math.abs(chz)) / D) - 0.1, chTop = H + Rh + 0.4;
+  put(g, rb(0.32, chTop - chBase, 0.32, mat("#a4553d"), 0.03), chx, (chTop + chBase) / 2, chz);
+  put(g, rb(0.4, 0.08, 0.4, mat("#8a4430"), 0.02), chx, chTop, chz);
+  put(g, cyl(0.06, 0.06, 0.12, mat("#5a4a40"), 8), chx, chTop + 0.08, chz);
+  // Round attic vents on the gables.
+  for (const s of [-1, 1]) {
+    put(g, cyl(0.13, 0.13, 0.04, mat(trimC), 14), s * (W / 2), H + Rh * 0.38, 0, 0, 0, PI / 2);
+    put(g, cyl(0.09, 0.09, 0.05, pane(dark), 14), s * (W / 2), H + Rh * 0.38, 0, 0, 0, PI / 2);
+  }
+  // Door with hood, step, lamp.
+  const doorC = pick(r, ["#3f6a8a", "#9a3f33", "#2f6a45", "#e0b13f", "#5d3b23"]);
+  const dx = 0;
+  const dh = 1.45, dw = medium ? 0.62 : 0.58, zf = D / 2;
+  put(g, rb(dw + 0.1, dh + 0.06, 0.05, mat(trimC), 0.02), dx, dh / 2 + 0.2, zf + 0.01);
+  put(g, rb(dw, dh, 0.06, mat(doorC, { rough: 0.6 }), 0.02), dx, dh / 2 + 0.2, zf + 0.02);
+  for (const y of [0.55, 1.15]) put(g, rb(dw - 0.18, 0.4, 0.03, mat(shade(doorC, -0.08)), 0.02), dx, y + 0.2, zf + 0.05);
+  put(g, sph(0.03, mat("#d9b04a", { metal: 0.4, rough: 0.4 }), 8), dx + dw * 0.33, 0.95, zf + 0.07);
+  put(g, rb(dw + 0.3, 0.06, 0.32, mat(shade(roofC, -0.05)), 0.02), dx, dh + 0.33, zf + 0.15);
+  for (const s of [-1, 1]) rod(g, [dx + s * (dw / 2 + 0.08), dh + 0.12, zf], [dx + s * (dw / 2 + 0.08), dh + 0.3, zf + 0.26], 0.015, woodM("#6a4a32"));
+  put(g, rb(dw + 0.3, 0.12, 0.3, mat("#c9bca6"), 0.03), dx, 0.06, zf + 0.15);
+  const lx = (medium ? 1 : -1) * (dw / 2 + 0.16);
+  put(g, box(0.04, 0.04, 0.08, ironM()), lx, 1.25, zf + 0.04);
+  put(g, rb(0.1, 0.16, 0.1, dark ? glowMat("#ffd28a", 3) : mat("#f6ead0", { rough: 0.3 }), 0.02), lx, 1.25, zf + 0.1);
+  put(g, rb(0.13, 0.03, 0.13, ironM(), 0.01), lx, 1.34, zf + 0.1);
+  // Windows: front, sides, back.
+  const shutterC = pick(r, ["#2f6a45", "#3f6a8a", "#9a3f33", "#e0b13f", null]);
+  const flowerC = pick(r, ["#e86a8a", "#f3d36b", "#f6a9c4", "#e8604c", "#b18ad8"]);
+  const ww = medium ? 0.46 : 0.44, wh = 0.62, wy = H * 0.52;
+  for (const x of medium ? [-1.0, 1.0] : [-0.78, 0.78]) put(g, cottageWindow(ww, wh, dark, trimC, medium ? shutterC : null, flowerC, r), x, wy, zf + 0.015);
+  for (const s of [-1, 1]) put(g, cottageWindow(ww, wh, dark, trimC, null, null, r), s * (W / 2 + 0.015), wy, 0, 0, (s * PI) / 2, 0);
+  for (const x of medium ? [-0.7, 0.7] : [0]) put(g, cottageWindow(ww, wh, dark, trimC, null, null, r), x, wy, -zf - 0.015, 0, PI, 0);
+  if (dark) ctx.addLight([0, 1.2, zf + 0.7], WARM, 1.2, 3.5);
+  return { group: g };
+}
+
+// ---------- shop front ----------
+const SHOP = {
+  cafe: { color: "#2f5d50", awning: ["#2f5d50", "#f3ead8"], inside: "#e8d2b0" },
+  bakery: { color: "#f0d3c9", awning: ["#e7849a", "#fff3e6"], inside: "#f7e3d3" },
+  bookshop: { color: "#6b2f3a", awning: ["#6b2f3a", "#e9d9b8"], inside: "#d9c49a" },
+  market: { color: "#3a6d8c", awning: ["#3f8a4a", "#f4efe0"], inside: "#efe6cf" },
+  office: { color: "#d8d2c4", awning: ["#3c4a5c", "#cfd6de"], inside: "#e6e8ea" },
+};
+const BOOK_C = ["#c0392b", "#2e5e8a", "#e0b13f", "#3f7a4a", "#7a3f6a", "#e8e0cc", "#d9774a", "#2d2d3a"];
+const FRUIT_C = { apples: "#c8312b", oranges: "#f08a24", greens: "#6aa84f", lemons: "#f2d13f", plums: "#6b2f5a" };
+
+function crate(g, x, y, z, w, d, fruitC, r, tilt = 0) {
+  const c = put(g, group(), x, y, z, tilt, 0, 0);
+  const wd = woodM("#c08f5a");
+  put(c, rb(w, 0.14, d, wd, 0.015), 0, 0.07, 0);
+  for (const s of [-1, 1]) put(c, box(w + 0.01, 0.025, 0.012, mat("#9a6c40")), 0, 0.09, s * (d / 2 + 0.001));
+  const items = [];
+  const n = Math.max(2, Math.round(w / 0.11)), m = Math.max(2, Math.round(d / 0.11));
+  const fs = Math.min(w / n, d / m) * 0.5;
+  for (let i = 0; i < n; i++)
+    for (let j = 0; j < m; j++) items.push({ p: [-w / 2 + (i + 0.5) * (w / n), 0.15 + r() * 0.02, -d / 2 + (j + 0.5) * (d / m)], s: fs * (0.95 + r() * 0.15), r: [r() * 3, r() * 3, 0], c: fruitC });
+  inst(c, lowSph, mat("#ffffff", { rough: 0.5 }), items);
+}
+
+function fillWindow(g, kind, x0, x1, yl, dark, r) {
+  const w = x1 - x0, cx = (x0 + x1) / 2;
+  const at = (f) => x0 + w * f;
+  if (kind === "bakery") {
+    // Two shelves of bread on the back wall.
+    for (const y of [1.15, 1.55]) {
+      put(g, rb(w - 0.05, 0.04, 0.16, woodM(), 0.01), cx, y, -0.17);
+      const items = [];
+      for (let x = x0 + 0.1; x < x1 - 0.08; x += 0.15) items.push({ p: [x, y + 0.06, -0.17], s: [0.07, 0.05, 0.06], c: pick(r, ["#c98a4b", "#b9763b", "#dca463"]) });
+      inst(g, lowSph, mat("#ffffff"), items);
+    }
+    // Cake stand, loaves, croissants on the ledge.
+    const sx = at(0.28);
+    put(g, cyl(0.02, 0.05, 0.14, mat("#f4f0e6"), 10), sx, yl + 0.07, 0);
+    put(g, cyl(0.15, 0.15, 0.015, mat("#f4f0e6"), 16), sx, yl + 0.145, 0);
+    put(g, cyl(0.12, 0.12, 0.13, mat("#f4b6c2"), 16), sx, yl + 0.22, 0);
+    put(g, cyl(0.125, 0.125, 0.025, mat("#fff5ea"), 16), sx, yl + 0.29, 0);
+    put(g, sph(0.025, mat("#c8312b", { rough: 0.3 }), 8), sx, yl + 0.32, 0);
+    for (let i = 0; i < 2; i++) put(g, new THREE.Mesh(new THREE.CapsuleGeometry(0.05, 0.16, 3, 8), mat("#c98a4b")), at(0.55 + i * 0.12), yl + 0.05, 0.05 - i * 0.12, PI / 2, 0.4, 0);
+    const loaf = put(g, sph(0.09, mat("#b9763b"), 12), at(0.82), yl + 0.05, -0.02);
+    loaf.scale.set(1, 0.65, 1);
+    for (let i = 0; i < 3; i++) put(g, new THREE.Mesh(new THREE.TorusGeometry(0.05, 0.028, 6, 8, PI * 1.25), mat("#dca463")), at(0.5 + i * 0.13), yl + 0.03, 0.12, PI / 2, 0, i);
+  } else if (kind === "bookshop") {
+    const items = [];
+    for (const y of [0.85, 1.25, 1.65]) {
+      put(g, rb(w - 0.04, 0.03, 0.2, woodM("#6a4a32"), 0.01), cx, y, -0.15);
+      for (let x = x0 + 0.06; x < x1 - 0.05; ) {
+        const bw = 0.035 + r() * 0.03, bh = 0.22 + r() * 0.1;
+        items.push({ p: [x + bw / 2, y + 0.015 + bh / 2, -0.15], s: [bw, bh, 0.16], r: [0, 0, r() < 0.08 ? 0.25 : 0], c: pick(r, BOOK_C) });
+        x += bw + 0.004;
+      }
+    }
+    for (let i = 0; i < 6; i++) {
+      const fx = 0.12 + i * 0.075 + (i > 2 ? 0.25 : 0);
+      if (fx > 0.95) break;
+      items.push({ p: [at(fx), yl + 0.13, 0.05], s: [0.05, 0.26, 0.18], r: [-0.12, 0, 0], c: pick(r, BOOK_C) });
+    }
+    for (let i = 0; i < 4; i++) items.push({ p: [at(0.82), yl + 0.025 + i * 0.05, 0.05], s: [0.22, 0.045, 0.16], r: [0, (r() - 0.5) * 0.4, 0], c: pick(r, BOOK_C) });
+    inst(g, boxGeo, mat("#ffffff"), items);
+    for (const s of [-1, 1]) put(g, box(0.15, 0.012, 0.2, mat("#f6f0e2")), at(0.55) + s * 0.075, yl + 0.1, 0.06, 0.5, 0, s * -0.15);
+  } else if (kind === "cafe") {
+    // Back counter with an espresso machine, pendant lamps, cups and a cake dome on the ledge.
+    put(g, rb(w - 0.04, 0.9, 0.2, woodM("#7a4e2f"), 0.02), cx, 0.45, -0.15);
+    put(g, rb(0.3, 0.26, 0.16, mat("#c9ccd0", { metal: 0.5, rough: 0.35 }), 0.04), at(0.3), 1.03, -0.16);
+    put(g, rb(0.08, 0.08, 0.08, mat("#2d2d3a"), 0.02), at(0.3), 1.2, -0.16);
+    for (let i = 0; i < 4; i++) put(g, cyl(0.03, 0.025, 0.06, mat("#f6f0e2"), 8), at(0.6 + i * 0.08), 0.93, -0.16);
+    for (const f of [0.3, 0.72]) {
+      put(g, cyl(0.005, 0.005, 0.3, ironM(), 4), at(f), 1.85, 0.0);
+      put(g, cyl(0.03, 0.11, 0.1, mat("#2f5d50"), 12), at(f), 1.66, 0.0);
+      put(g, sph(0.035, dark ? glowMat("#ffd28a", 3) : mat("#fff3d6"), 8), at(f), 1.6, 0.0);
+    }
+    for (let i = 0; i < 3; i++) {
+      const x = at(0.18 + i * 0.16);
+      put(g, cyl(0.06, 0.06, 0.012, mat("#f6f0e2"), 12), x, yl + 0.006, 0.06);
+      put(g, cyl(0.045, 0.04, 0.08, mat(i === 1 ? "#e8a33d" : "#f6f0e2"), 12), x, yl + 0.05, 0.06);
+      put(g, torus(0.022, 0.008, mat("#f6f0e2"), 8), x + 0.05, yl + 0.05, 0.06);
+    }
+    put(g, cyl(0.12, 0.12, 0.015, mat("#f4f0e6"), 14), at(0.78), yl + 0.008, 0.03);
+    put(g, cyl(0.09, 0.09, 0.09, mat("#7a4a2f"), 14), at(0.78), yl + 0.06, 0.03);
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(0.115, 14, 8, 0, PI * 2, 0, PI / 2), glassMat("#e8f4ff", 0.3));
+    put(g, dome, at(0.78), yl + 0.015, 0.03);
+  } else if (kind === "market") {
+    const items = [];
+    put(g, rb(w - 0.04, 0.03, 0.18, woodM(), 0.01), cx, 1.3, -0.16);
+    for (let x = x0 + 0.08; x < x1 - 0.06; x += 0.1) items.push({ p: [x, 1.38, -0.16], s: [0.035, 0.065, 0.035], c: pick(r, ["#e8604c", "#f2c230", "#8cc152", "#c0392b"]) });
+    inst(g, new THREE.CylinderGeometry(1, 1, 2, 6), mat("#ffffff", { rough: 0.3 }), items);
+    const fr = Object.values(FRUIT_C);
+    const n = Math.min(3, Math.max(2, Math.floor(w / 0.42)));
+    for (let i = 0; i < n; i++) crate(g, x0 + (i + 0.5) * (w / n), yl, -0.02, Math.min(0.36, w / n - 0.05), 0.26, fr[i % fr.length], r, 0.15);
+  } else {
+    // Office: desk with a monitor, chair back, plant, blinds.
+    put(g, rb(Math.min(0.9, w - 0.1), 0.04, 0.32, mat("#e9e2d2"), 0.01), cx, 0.78, -0.08);
+    const scr = dark ? glowMat("#bfe3ff", 1.6) : mat("#3a4a58", { rough: 0.3, clay: false });
+    put(g, rb(0.36, 0.24, 0.03, mat("#2d2d3a"), 0.01), cx - 0.12, 1.0, -0.16);
+    put(g, box(0.32, 0.2, 0.01, scr), cx - 0.12, 1.0, -0.142);
+    put(g, box(0.04, 0.12, 0.04, mat("#2d2d3a")), cx - 0.12, 0.85, -0.17);
+    put(g, rb(0.32, 0.36, 0.06, mat("#3c4a5c"), 0.04), cx - 0.12, 0.98, 0.12);
+    put(g, cyl(0.08, 0.06, 0.16, mat("#c96f4a"), 10), x1 - 0.14, yl + 0.08, 0.02);
+    put(g, sph(0.12, mat("#4f8a45", { flat: true }), 8), x1 - 0.14, yl + 0.26, 0.02);
+    put(g, rb(0.32, 0.5, 0.25, mat("#9aa3ab"), 0.02), x0 + 0.22, 0.8, -0.12);
+    put(g, cyl(0.1, 0.1, 0.02, mat("#f6f3ea"), 16), cx + 0.25, 1.55, -0.24, PI / 2, 0, 0);
+    for (let i = 0; i < 6; i++) put(g, box(w - 0.04, 0.025, 0.01, mat("#f4f2ec")), cx, 1.97 - i * 0.055, 0.19);
+  }
+}
+
+function shopFront(p, ctx) {
+  const dark = isDark(ctx.time);
+  const r = ctx.rand;
+  const kind = SHOP[p.kind] ? p.kind : "cafe";
+  const K = SHOP[kind];
+  const Wd = Math.min(6, Math.max(1.6, num(p.width, 2.6)));
+  const D = 0.6, H = 2.9, top = 2.0, yl = 0.55, pw = 0.14, fz = D / 2;
+  const color = col(p.color, K.color);
+  const facade = mat(color, { rough: 0.85 });
+  const trim = mat(shade(color, color === K.color && kind === "office" ? -0.15 : 0.18), { rough: 0.7 });
+  const aw = Array.isArray(p.awning) ? [col(p.awning[0], K.awning[0]), col(p.awning[1] ?? p.awning[0], K.awning[1])] : K.awning;
+  const g = group();
+
+  // Openings: door on the right (or centred with windows either side when wide).
+  const dw = 0.78;
+  let ops;
+  if (Wd >= 3.6) ops = [{ x0: -Wd / 2 + pw, x1: -dw / 2 - 0.12, win: true }, { x0: -dw / 2, x1: dw / 2 }, { x0: dw / 2 + 0.12, x1: Wd / 2 - pw, win: true }];
+  else {
+    const d1 = Wd / 2 - pw - 0.08;
+    ops = [{ x0: -Wd / 2 + pw, x1: d1 - dw - 0.12, win: true }, { x0: d1 - dw, x1: d1 }];
+  }
+  // Solid columns between openings, band above, stall risers below windows.
+  const xs = [-Wd / 2, ...ops.flatMap((o) => [o.x0, o.x1]), Wd / 2];
+  for (let i = 0; i < xs.length; i += 2) if (xs[i + 1] - xs[i] > 1e-3) put(g, box(xs[i + 1] - xs[i], top, D, facade), (xs[i] + xs[i + 1]) / 2, top / 2, 0);
+  put(g, box(Wd, H - top, D, facade), 0, (H + top) / 2, 0);
+  for (const o of ops.filter((q) => q.win)) {
+    put(g, box(o.x1 - o.x0, yl, D, facade), (o.x0 + o.x1) / 2, yl / 2, 0);
+    put(g, rb(o.x1 - o.x0 - 0.16, yl - 0.18, 0.03, trim, 0.02), (o.x0 + o.x1) / 2, yl / 2, fz + 0.01);
+    put(g, rb(o.x1 - o.x0 + 0.04, 0.04, D - 0.12, woodM("#b08a5f"), 0.01), (o.x0 + o.x1) / 2, yl + 0.02, 0.0);
+  }
+  // Interior: back wall (glows warm at night), floor.
+  const inside = dark ? mat(K.inside, { emissive: WARM, emissiveIntensity: 0.55 }) : mat(K.inside);
+  put(g, box(Wd - 2 * pw, top, 0.04, inside), 0, top / 2, -fz + 0.06);
+  put(g, box(Wd - 0.02, H, 0.04, facade), 0, H / 2, -fz + 0.02);
+  put(g, box(Wd - 2 * pw, 0.02, D - 0.1, woodM("#9a6c45")), 0, 0.01, 0.02);
+  // Pilasters, plinth, cornice.
+  for (const x of [-Wd / 2 + pw / 2, Wd / 2 - pw / 2]) put(g, rb(pw + 0.06, top + 0.1, 0.08, trim, 0.02), x, (top + 0.1) / 2, fz + 0.02);
+  put(g, rb(Wd + 0.14, 0.12, D + 0.12, trim, 0.03), 0, H - 0.04, 0.02);
+  put(g, rb(Wd + 0.06, 0.07, D + 0.06, trim, 0.02), 0, H - 0.14, 0.01);
+  put(g, rb(Wd + 0.06, 0.06, 0.1, trim, 0.02), 0, top + 0.03, fz + 0.02);
+  // Sign board (blank) with a contrasting border.
+  put(g, rb(Wd - 0.5, 0.46, 0.05, mat(aw[1]), 0.03), 0, 2.42, fz + 0.03);
+  put(g, rb(Wd - 0.62, 0.36, 0.05, mat(shade(aw[0], -0.08)), 0.03), 0, 2.42, fz + 0.045);
+  put(g, rb(Wd * 0.35, 0.05, 0.02, mat(aw[1]), 0.02), 0, 2.42, fz + 0.075);
+  // Windows: glass, frame, transom bars.
+  const glass = dark ? mat("#ffe2b0", { transparent: true, opacity: 0.22, emissive: WARM, emissiveIntensity: 0.4, rough: 0.2 }) : glassMat("#e6f3fa", 0.12);
+  const fm = mat(shade(aw[0], -0.1), { rough: 0.6 });
+  for (const o of ops) {
+    const w = o.x1 - o.x0, cx = (o.x0 + o.x1) / 2;
+    if (o.win) {
+      const h = top - yl;
+      put(g, box(w, h, 0.015, glass), cx, yl + h / 2, fz - 0.08);
+      for (const y of [yl + 0.03, top - 0.03, top - 0.33]) put(g, box(w, 0.05, 0.05, fm), cx, y, fz - 0.07);
+      for (const x of [o.x0 + 0.025, o.x1 - 0.025]) put(g, box(0.05, h, 0.05, fm), x, yl + h / 2, fz - 0.07);
+      const nb = Math.max(1, Math.round(w / 0.45));
+      for (let k = 1; k < nb; k++) put(g, box(0.03, 0.3, 0.04, fm), o.x0 + (w * k) / nb, top - 0.18, fz - 0.07);
+      fillWindow(g, kind, o.x0 + 0.05, o.x1 - 0.05, yl + 0.04, dark, r);
+    } else {
+      // Glazed door, recessed a little, with kick plate, handle and a hanging placard.
+      const dz = fz - 0.15, dh = top - 0.02;
+      put(g, rb(w, dh, 0.05, fm, 0.02), cx, dh / 2, dz);
+      put(g, box(w - 0.16, dh * 0.6, 0.06, glass), cx, dh * 0.58, dz);
+      put(g, box(w - 0.16, 0.025, 0.065, fm), cx, dh * 0.88 - 0.02, dz);
+      put(g, rb(w - 0.14, 0.3, 0.06, mat(shade(aw[0], -0.18)), 0.02), cx, 0.2, dz + 0.01);
+      put(g, cyl(0.015, 0.015, 0.3, mat("#d9b04a", { metal: 0.5, rough: 0.35 }), 8), o.x0 + 0.12, 1.0, dz + 0.06);
+      put(g, rb(0.2, 0.12, 0.015, mat("#f6f0e2"), 0.01), cx, 1.38, dz + 0.04);
+      put(g, rb(w + 0.1, 0.07, 0.22, mat("#b9ac97"), 0.02), cx, 0.035, fz - 0.03);
+      // Fill the interior visible behind the door glass.
+      put(g, box(w, 0.02, D - 0.2, woodM("#9a6c45")), cx, 0.02, -0.05);
+    }
+  }
+  // Awning across the openings.
+  const awW = Wd - 0.12;
+  put(g, awningGroup(awW, 0.75, 0.3, aw[0], aw[1]), 0, top + 0.05, fz + 0.02);
+  // Hanging blade sign on the right pilaster.
+  const bx = Wd / 2 - 0.07;
+  put(g, box(0.03, 0.03, 0.42, ironM()), bx, 2.52, fz + 0.21);
+  for (const z of [0.12, 0.36]) put(g, cyl(0.006, 0.006, 0.08, ironM(), 4), bx, 2.47, fz + z);
+  put(g, cyl(0.17, 0.17, 0.04, mat(aw[1]), 18), bx, 2.26, fz + 0.24, 0, 0, PI / 2);
+  put(g, cyl(0.13, 0.13, 0.05, mat(aw[0]), 18), bx, 2.26, fz + 0.24, 0, 0, PI / 2);
+  // Cafe: chalkboard A-frame outside. Market: a fruit stall in front of the window.
+  const win = ops.find((q) => q.win);
+  if (kind === "cafe" && win) {
+    const ax = Math.min(win.x1 - 0.25, win.x0 + (win.x1 - win.x0) * 0.75), az = fz + 0.45;
+    for (const s of [-1, 1]) {
+      const a = put(g, group(), ax, 0, az, s * 0.2, 0, 0);
+      put(a, rb(0.4, 0.6, 0.03, woodM("#8a5a36"), 0.01), 0, 0.3, s * 0.01);
+      put(a, box(0.33, 0.5, 0.01, mat("#2d3a35")), 0, 0.31, s * 0.03);
+      ["#f7efe0", "#f2c230", "#e8a0a8"].forEach((c, i) => put(a, box(i ? 0.18 : 0.24, 0.025, 0.012, mat(c)), 0, 0.46 - i * 0.1, s * 0.035));
+    }
+  } else if (kind === "market" && win) {
+    const sx0 = win.x0 + 0.05, sx1 = win.x1 - 0.05, sw = sx1 - sx0, cxs = (sx0 + sx1) / 2;
+    put(g, rb(sw, 0.05, 0.4, woodM("#9a6c40"), 0.01), cxs, 0.5, fz + 0.3);
+    for (const s of [-1, 1]) put(g, box(0.05, 0.5, 0.05, woodM("#7a4e2f")), cxs + s * (sw / 2 - 0.05), 0.25, fz + 0.42);
+    const fr = Object.values(FRUIT_C);
+    const n = Math.min(3, Math.max(2, Math.floor(sw / 0.45)));
+    for (let i = 0; i < n; i++) crate(g, sx0 + (i + 0.5) * (sw / n), 0.52, fz + 0.28, Math.min(0.38, sw / n - 0.06), 0.3, fr[(i + 2) % fr.length], r, 0.25);
+  }
+  if (dark) ctx.addLight([0, 1.3, fz + 0.6], WARM, 1.4, 3.5);
+  return { group: g };
+}
+
+export const parts = {
+  car,
+  bus,
+  "bus-stop": busStop,
+  "food-truck": foodTruck,
+  "traffic-cone": trafficCone,
+  "street-sign": streetSign,
+  hydrant,
+  house,
+  "shop-front": shopFront,
+};

@@ -1,0 +1,61 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "empty",
+ "rep": 0,
+ "latency_s": 1.79,
+ "usage": {
+  "prompt_tokens": 1768,
+  "completion_tokens": 316,
+  "total_tokens": 2084,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.00054576,
+ "format": "json_schema",
+ "spec": {
+  "status": "empty",
+  "moment": "A quiet night at the windowsill with a mug of tea and a small glowing lamp.",
+  "elements": [
+   {
+    "name": "windowsill",
+    "kind": "place",
+    "look": "a narrow wooden windowsill at night, night-blue glass beyond"
+   },
+   {
+    "name": "mug of tea",
+    "kind": "object",
+    "look": "a warm ceramic mug with a curl of steam"
+   },
+   {
+    "name": "small lamp",
+    "kind": "object",
+    "look": "a tiny round lamp glowing soft amber"
+   },
+   {
+    "name": "sleeping houseplant",
+    "kind": "object",
+    "look": "a small potted plant with drooping rounded leaves"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "clear",
+  "mood": "calm quiet",
+  "palette": [
+   "#2B3A55",
+   "#4A5B7A",
+   "#E8B96A",
+   "#F0E2C8",
+   "#6E8B6B"
+  ],
+  "scene": "A narrow wooden windowsill fills the small patch of ground, night-blue glass panes rising at the back edge. At the center sits a warm ceramic mug of tea, a thin curl of steam above it, a little larger than life. To its left, a tiny round lamp glows soft amber, lighting the wood in a warm pool. To the right, a small potted houseplant rests with drooping rounded leaves, half in shadow. Cool blue light from the panes meets the lamp's amber, and everything is still.",
+  "title": "A Quiet Night",
+  "caption": "A quiet night in, just me and a warm mug."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

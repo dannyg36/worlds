@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<title>worlds · splats</title>
+<script>window.__T_HTML = performance.now();</script>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #000; color: #fff; font: 12px/1.35 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; overscroll-behavior: none; }
+  canvas#c { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; touch-action: none; }
+  #hud { position: fixed; top: calc(env(safe-area-inset-top) + 6px); left: 6px; right: 6px; pointer-events: none; font: 11px/1.3 ui-monospace, "SF Mono", Menlo, monospace; white-space: pre; text-shadow: 0 1px 2px #000, 0 0 4px #000; color: #e8ffe8; }
+  #hud.off { display: none; }
+  #bar { position: fixed; left: 0; right: 0; bottom: 0; padding: 6px 6px calc(env(safe-area-inset-bottom) + 6px); display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; background: linear-gradient(transparent, rgba(0,0,0,.55)); }
+  #bar button { appearance: none; border: 1px solid rgba(255,255,255,.35); background: rgba(20,20,20,.55); color: #fff; border-radius: 16px; padding: 7px 11px; font: 600 12px -apple-system, system-ui, sans-serif; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+  #bar button.on { background: rgba(255,214,102,.9); color: #111; border-color: transparent; }
+  #stick { position: fixed; left: 18px; bottom: calc(env(safe-area-inset-bottom) + 70px); width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(255,255,255,.35); background: rgba(255,255,255,.08); touch-action: none; }
+  #stick.hidden { display: none; }
+  #knob { position: absolute; left: 35px; top: 35px; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,.55); pointer-events: none; }
+  #hint { position: fixed; right: 12px; bottom: calc(env(safe-area-inset-bottom) + 84px); max-width: 46vw; text-align: right; color: rgba(255,255,255,.75); font-size: 11px; text-shadow: 0 1px 2px #000; pointer-events: none; }
+  #loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: #000; transition: opacity .4s; pointer-events: none; }
+  #loading.done { opacity: 0; }
+  #loading .t { font: 600 15px -apple-system, system-ui, sans-serif; }
+  #loading .p { width: 60vw; height: 4px; background: #222; border-radius: 2px; overflow: hidden; }
+  #loading .p i { display: block; height: 100%; width: 0; background: #ffd666; }
+  #loading .m { color: #aaa; font: 11px ui-monospace, Menlo, monospace; max-width: 86vw; text-align: center; white-space: pre-wrap; }
+  #rec { position: fixed; top: calc(env(safe-area-inset-top) + 8px); right: 10px; color: #ff5a5a; font: 700 12px system-ui; display: none; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./assets/vendor/three.module.js",
+    "three/addons/": "./assets/vendor/addons/",
+    "@sparkjsdev/spark": "./assets/vendor/spark.module.min.js"
+  }
+}
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud"></div>
+<div id="rec">● REC</div>
+<div id="stick" class="hidden"><div id="knob"></div></div>
+<div id="hint"></div>
+<div id="bar"></div>
+<div id="loading"><div class="t">Loading world…</div><div class="p"><i></i></div><div class="m"></div></div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

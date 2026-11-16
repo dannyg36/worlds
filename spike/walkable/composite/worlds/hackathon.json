@@ -1,0 +1,184 @@
+{
+  "day": "hackathon",
+  "spec": {
+    "day": "hackathon",
+    "title": "The first world renders",
+    "transcript": "Okay so today was the YC hackathon. Got to the office at like nine, the whole team crammed around one table by the window, way too many Red Bulls. Danny and I argued about the database for twenty minutes. Around sunset we finally got the first world to render and everybody screamed. Ate cold pizza on the floor.",
+    "time_of_day": "sunset",
+    "weather": "clear, golden light through big windows",
+    "palette": "warm gold, amber, teal shadows",
+    "ground": {
+      "type": "office floor",
+      "material": "warm wood planks",
+      "island_radius_m": 6
+    },
+    "objects": [
+      {
+        "id": "table",
+        "prompt": "a long wooden office table crowded with laptops and glowing monitors",
+        "size_m": 3,
+        "count": 1,
+        "place": "center"
+      },
+      {
+        "id": "monitor",
+        "prompt": "a computer monitor showing a tiny colorful 3D world",
+        "size_m": 0.7,
+        "count": 1,
+        "place": "on table"
+      },
+      {
+        "id": "cans",
+        "prompt": "a messy pile of Red Bull energy drink cans",
+        "size_m": 0.4,
+        "count": 1,
+        "place": "on table"
+      },
+      {
+        "id": "pizza",
+        "prompt": "two open pizza boxes with cold pizza slices",
+        "size_m": 0.6,
+        "count": 1,
+        "place": "floor near table"
+      },
+      {
+        "id": "person",
+        "prompt": "a young person cheering with both arms raised, casual hoodie",
+        "size_m": 1.7,
+        "count": 4,
+        "place": "around table"
+      },
+      {
+        "id": "whiteboard",
+        "prompt": "a rolling whiteboard covered in database diagrams",
+        "size_m": 1.8,
+        "count": 1,
+        "place": "edge"
+      },
+      {
+        "id": "beanbag",
+        "prompt": "a big orange beanbag chair",
+        "size_m": 1,
+        "count": 1,
+        "place": "edge"
+      },
+      {
+        "id": "window",
+        "prompt": "a tall floor-to-ceiling window frame glowing with sunset light",
+        "size_m": 3,
+        "count": 1,
+        "place": "backdrop"
+      }
+    ],
+    "style": "Stylized 3D animated-film look, soft clay-like materials, warm cinematic light"
+  },
+  "panorama": {
+    "file": "hackathon/pano-4096.jpeg",
+    "bytes": 784682,
+    "source_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_3a17cd8f-6021-4420-af25-dced6c24718eb7bff6fe-a6cc-4c2d-a8bf-7c6ab8cfba4a.png",
+    "source_bytes": 10748297,
+    "model": "seedream-5.0-lite",
+    "size": "4096x2048",
+    "yaw_deg": 0,
+    "height_m": 1.7
+  },
+  "default_set": "cards",
+  "sets": {
+    "cards": {
+      "objects": {
+        "table": {
+          "card": {
+            "image": "hackathon/cards/table.png",
+            "depth": "hackathon/cards/table.depth.png",
+            "width": 768,
+            "height": 498,
+            "top_frac": 0.777,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 140401
+        },
+        "monitor": {
+          "card": {
+            "image": "hackathon/cards/monitor.png",
+            "depth": "hackathon/cards/monitor.depth.png",
+            "width": 536,
+            "height": 560,
+            "top_frac": 0.993,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 119977
+        },
+        "cans": {
+          "card": {
+            "image": "hackathon/cards/cans.png",
+            "depth": "hackathon/cards/cans.depth.png",
+            "width": 768,
+            "height": 385,
+            "top_frac": 0.491,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 128551
+        },
+        "pizza": {
+          "card": {
+            "image": "hackathon/cards/pizza.png",
+            "depth": "hackathon/cards/pizza.depth.png",
+            "width": 768,
+            "height": 411,
+            "top_frac": 0.893,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 110857
+        },
+        "person": {
+          "card": {
+            "image": "hackathon/cards/person.png",
+            "depth": "hackathon/cards/person.depth.png",
+            "width": 661,
+            "height": 768,
+            "top_frac": 0.948,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 164707
+        },
+        "whiteboard": {
+          "card": {
+            "image": "hackathon/cards/whiteboard.png",
+            "depth": "hackathon/cards/whiteboard.depth.png",
+            "width": 346,
+            "height": 768,
+            "top_frac": 0.966,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 97286
+        },
+        "beanbag": {
+          "card": {
+            "image": "hackathon/cards/beanbag.png",
+            "depth": "hackathon/cards/beanbag.depth.png",
+            "width": 734,
+            "height": 565,
+            "top_frac": 0.754,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 153198
+        },
+        "window": {
+          "card": {
+            "image": "hackathon/cards/window.png",
+            "depth": "hackathon/cards/window.depth.png",
+            "width": 392,
+            "height": 768,
+            "top_frac": 0.962,
+            "keyer": "bria-image-remove-background"
+          },
+          "bytes": 109929
+        }
+      },
+      "label": "cutout cards from gmi-objects-front (local keyer + Depth Anything V2 Small relief)",
+      "kind": "cards",
+      "cards_ms": 20550,
+      "source": "gmi-objects-front"
+    }
+  }
+}

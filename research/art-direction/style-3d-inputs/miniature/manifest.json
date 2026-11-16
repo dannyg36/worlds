@@ -1,0 +1,59 @@
+{
+ "style": "miniature",
+ "name": "Tilt-shift tabletop miniature",
+ "jobs": [
+  {
+   "day": "dolores-park",
+   "model": "hunyuan-3d-pro",
+   "payload": {
+    "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_52ba1d5f-58f5-410c-9c27-d02bc3c898ea_cbad0ef3-a868-4476-b1ec-577e6e8080e3.png",
+    "generate_type": "Normal",
+    "enable_pbr": false
+   }
+  },
+  {
+   "day": "birthday-dinner",
+   "model": "hunyuan-3d-pro",
+   "payload": {
+    "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_36d1e8ee-fb91-464b-afef-b14cf210f5c2_4cf73458-3cf1-4e47-b247-4d40ba662e07.png",
+    "generate_type": "Normal",
+    "enable_pbr": false
+   }
+  },
+  {
+   "day": "santa-cruz",
+   "model": "hunyuan-3d-pro",
+   "payload": {
+    "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_055689ae-2af3-4855-8602-e88cff33a72e_4557e8d8-9e89-4f09-a919-ae0fe9e51864.png",
+    "generate_type": "Normal",
+    "enable_pbr": false
+   }
+  }
+ ],
+ "inputs": [
+  {
+   "day": "dolores-park",
+   "file": "dolores-park.png",
+   "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_52ba1d5f-58f5-410c-9c27-d02bc3c898ea_cbad0ef3-a868-4476-b1ec-577e6e8080e3.png",
+   "image_model": "gpt-image-2.5-flare-generate",
+   "title": "Lazy Sunday with Biscuit",
+   "image_prompt": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A bright green grassy slope tilts gently from back to front, bathed in warm morning light. In the center, two figures sit side by side on a small picnic blanket: one in a denim jacket and one in a soft lilac sweater, sharing halves of a silver foil burrito. Right beside them, a scruffy tan dog proudly clamps a slightly oversized bright lime tennis ball in his jaws. Along the back edge, two tiny figures toss a red disc beneath the slender trunk of a single palm tree. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  {
+   "day": "birthday-dinner",
+   "file": "birthday-dinner.png",
+   "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_36d1e8ee-fb91-464b-afef-b14cf210f5c2_4cf73458-3cf1-4e47-b247-4d40ba662e07.png",
+   "image_model": "gpt-image-2.5-flare-generate",
+   "title": "A Sparkler for Priya",
+   "image_prompt": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A warm brick patio floor holds a long wooden dining table crowded with red bowls of pasta, wine glasses, and bread baskets. Overhead, crisscrossed string lights glow with soft amber light. At the center of the table sits an oversized square tiramisu glowing beneath a fizzing golden sparkler. A figure in a yellow dress sits beside it, while a waiter in a white shirt and dark apron leans in from the left holding the dessert platter. Two friends sit opposite in teal and olive sweaters. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  },
+  {
+   "day": "santa-cruz",
+   "file": "santa-cruz.png",
+   "image_url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_055689ae-2af3-4855-8602-e88cff33a72e_4557e8d8-9e89-4f09-a919-ae0fe9e51864.png",
+   "image_model": "gpt-image-2.5-flare-generate",
+   "title": "Chowder on the Wharf",
+   "image_prompt": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A weathered wooden wharf deck bathed in bright coastal afternoon sun. At the center, two round sourdough bread bowls of clam chowder sit on a rustic picnic bench. Leaning over the sturdy wooden railing are two figures in windbreakers, peering down at two plump brown sea lions perched on timber beams below. On the left, two colorful cruiser bikes rest against the rail. The sun casts sharp, warm shadows across the splintered gray planks. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+  }
+ ]
+}

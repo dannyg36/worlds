@@ -1,0 +1,12 @@
+{
+ "model": "sd5lite",
+ "gmi_model": "seedream-5.0-lite",
+ "style": "painted",
+ "slug": "dolores-park",
+ "latency_s": 62.6,
+ "server_s": 31,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_b1236783-de4f-4578-9ae7-481d0028f10b52f3bf28-fe49-49ee-a50a-2e20b0d705bd.png",
+ "prompt": "A stylized hand-painted 3D diorama like a cozy indie game: chunky exaggerated shapes, soft painterly textures with visible brush strokes and warm bounced light, on a small round platform of earth. On the platform: A sunlit patch of grassy green hill slopes gently downward. At the center, two simple seated figures in casual morning clothes relax on a red-striped picnic blanket with a halved foil-wrapped burrito between them. Just in front, a scruffy tan dog happily guards an oversized bright neon-yellow tennis ball between his front paws. Two tall palm trees stand at the back right corner, while far in the background a tiny plastic disc hovers near distant tiny park-goers under clear morning light. Storybook warmth, simple readable shapes and tiny stylized figures. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Plain seamless pale cream background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "b1236783-de4f-4578-9ae7-481d0028f10b"
+}

@@ -1,0 +1,26 @@
+{
+  "root": {
+    "cap_usd": 6,
+    "owner": "YCCO-10 root: shared base images, panoramas and diorama GLBs"
+  },
+  "skybox": {
+    "cap_usd": 5,
+    "owner": "Subagent 1: 360 panorama skybox + diorama"
+  },
+  "pano3d": {
+    "cap_usd": 3,
+    "owner": "Subagent 2: panorama to 3D (depth mesh; HunyuanWorld needs fal or a GPU)"
+  },
+  "splats": {
+    "cap_usd": 3,
+    "owner": "Subagent 3: Gaussian splats + phone rendering"
+  },
+  "worldmodels": {
+    "cap_usd": 8,
+    "owner": "Subagent 4: world models (none on GMI) and GMI video walk-throughs"
+  },
+  "composite": {
+    "cap_usd": 10,
+    "owner": "Subagent 5: scene spec -> separate assets laid out procedurally"
+  }
+}

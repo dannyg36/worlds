@@ -21,7 +21,11 @@ function stubSupermemory(respond: Respond) {
   vi.stubGlobal(
     "fetch",
     vi.fn(async (input: string | URL | Request, init?: RequestInit) => {
-      const path = new URL(String(input)).pathname;
+      const url = new URL(String(input));
+      if (/gmi|googleapis/.test(url.hostname)) {
+        return new Response("{}", { status: 500 });
+      }
+      const path = url.pathname;
       const body = JSON.parse(String(init?.body ?? "{}"));
       calls.push({
         path,
@@ -100,7 +104,7 @@ test("adding a world schedules remember, which saves the day to its owner's spac
   expect(calls).toHaveLength(0);
 
   await t.finishAllScheduledFunctions(vi.runAllTimers);
-  expect(calls).toEqual([
+  expect(calls.filter((call) => call.path.endsWith("/document"))).toEqual([
     {
       path: `/ns/${space}/document`,
       body: {
@@ -111,6 +115,42 @@ test("adding a world schedules remember, which saves the day to its owner's spac
       },
       authorization: "Bearer sm_test",
     },
+  ]);
+});
+
+test("adding to a world remembers only the new part, in the same document", async () => {
+  vi.useFakeTimers();
+  const calls = stubSupermemory(() => ({ id: "doc", status: "queued" }));
+  const t = convexTest(schema, modules);
+  const owner = t.withIdentity({ tokenIdentifier: OWNER });
+  const space = await memorySpace(OWNER);
+
+  const worldId = await owner.mutation(api.worlds.add, {
+    transcript: "Took Mochi to Blue Door Café.",
+  });
+  await t.finishAllScheduledFunctions(vi.runAllTimers);
+  await owner.mutation(api.worlds.extend, {
+    id: worldId,
+    transcript: "  Priya came by after.  ",
+  });
+  await t.finishAllScheduledFunctions(vi.runAllTimers);
+
+  expect(
+    calls
+      .filter((call) => call.path.endsWith("/document"))
+      .map(({ path, body }) => [path, body]),
+  ).toEqual([
+    [
+      `/ns/${space}/document`,
+      expect.objectContaining({
+        id: worldId,
+        content: "Took Mochi to Blue Door Café.",
+      }),
+    ],
+    [
+      `/ns/${space}/document`,
+      expect.objectContaining({ id: worldId, content: "Priya came by after." }),
+    ],
   ]);
 });
 
@@ -138,7 +178,9 @@ test.each([
       ctx.db.system.query("_scheduled_functions").collect(),
     );
     expect(
-      runs.map((run) => [run.name, run.args[0].attempt, run.state.kind]),
+      runs
+        .filter((run) => run.name.startsWith("memory:"))
+        .map((run) => [run.name, run.args[0].attempt, run.state.kind]),
     ).toEqual([
       ["memory:remember", undefined, "success"],
       ["memory:remember", 1, "success"],

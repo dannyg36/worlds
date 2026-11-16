@@ -1,0 +1,71 @@
+{
+ "model": "deepseek-ai/deepseek-v4.1-flash-1017",
+ "slug": "finals-library",
+ "rep": 0,
+ "latency_s": 2.17,
+ "usage": {
+  "prompt_tokens": 1831,
+  "completion_tokens": 414,
+  "total_tokens": 2245,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "cost_usd": 0.0006276599999999999,
+ "format": "json_schema",
+ "spec": {
+  "status": "ok",
+  "moment": "Walking home at midnight through the quiet snow after eleven hours in the library, hot chocolate in hand.",
+  "elements": [
+   {
+    "name": "library desk",
+    "kind": "place",
+    "look": "a long wooden study desk with a green glass banker's lamp glowing warm"
+   },
+   {
+    "name": "hot chocolate",
+    "kind": "object",
+    "look": "a white ceramic mug of cocoa with a little whipped cream, slightly oversized"
+   },
+   {
+    "name": "snowy sidewalk",
+    "kind": "place",
+    "look": "a wet grey sidewalk under a thin fresh layer of snow, boot prints pressed in"
+   },
+   {
+    "name": "huge library windows",
+    "kind": "place",
+    "look": "a tall arched window slice at the back edge, warm light glowing behind frosted glass"
+   },
+   {
+    "name": "Jake",
+    "kind": "person",
+    "look": "a small simple figure in a red beanie and dark coat holding a mug"
+   },
+   {
+    "name": "snow-laden street lamp",
+    "kind": "object",
+    "look": "a black iron lamp post with a soft amber glow and snow resting on its cap"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "snowy",
+  "mood": "quiet relief",
+  "palette": [
+   "#1F2A44",
+   "#E8E2D6",
+   "#3E6B4F",
+   "#E0A94E",
+   "#8FA6B8"
+  ],
+  "scene": "A small patch of snowy sidewalk fills the foreground, boot prints pressed into the fresh white. At the center a black iron lamp post glows soft amber, snow resting on its cap, and beside it a white mug of hot chocolate with whipped cream stands a little larger than life. To the left a long wooden study desk with a glowing green banker's lamp, and at the back edge a tall arched library window slice glowing warm behind frosted glass. A small figure in a red beanie stands near the lamp, and snow rests on every surface.",
+  "title": "Midnight Walk After Orgo",
+  "caption": "Eleven hours of reactions, then the quietest snowy walk home with Jake's cocoa. "
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

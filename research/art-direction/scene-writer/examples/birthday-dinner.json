@@ -1,0 +1,55 @@
+{
+ "transcript": "It was Priya's birthday. We did dinner at this tiny Italian place with string lights over the patio. Eight of us at one long table, way too much pasta. The waiters brought out a tiramisu with a sparkler and sang. After, we walked to the bay and someone played guitar on the pier.",
+ "model": "google/gemini-3.8-flash",
+ "latency_s": 3.66,
+ "spec": {
+  "status": "ok",
+  "moment": "The waiters bringing out a tiramisu with a glittering sparkler to the patio table under string lights.",
+  "elements": [
+   {
+    "name": "tiramisu with sparkler",
+    "kind": "object",
+    "look": "a square dusted dessert topped with a bright glittering sparkler casting warm light"
+   },
+   {
+    "name": "patio string lights",
+    "kind": "object",
+    "look": "small glowing golden bulbs strung overhead on dark wires"
+   },
+   {
+    "name": "long dining table",
+    "kind": "object",
+    "look": "a rustic wooden table crowded with bowls of pasta and wine glasses"
+   },
+   {
+    "name": "birthday friend",
+    "kind": "person",
+    "look": "a seated figure in a bright yellow dress smiling towards the dessert"
+   },
+   {
+    "name": "waiter",
+    "kind": "person",
+    "look": "a figure in a crisp white shirt and black apron presenting the glowing plate"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "clear",
+  "mood": "joyful celebration",
+  "palette": [
+   "#2b1810",
+   "#e8a838",
+   "#f4ecd8",
+   "#9c2a2a",
+   "#4a7c59"
+  ],
+  "scene": "A warm brick patio floor holds a long wooden dining table crowded with red bowls of pasta, wine glasses, and bread baskets. Overhead, crisscrossed string lights glow with soft amber light. At the center of the table sits an oversized square tiramisu glowing beneath a fizzing golden sparkler. A figure in a yellow dress sits beside it, while a waiter in a white shirt and dark apron leans in from the left holding the dessert platter. Two friends sit opposite in teal and olive sweaters.",
+  "title": "A Sparkler for Priya",
+  "caption": "We sang around the sparkler and ate way too much pasta."
+ },
+ "image_prompts": {
+  "clay": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A warm brick patio floor holds a long wooden dining table crowded with red bowls of pasta, wine glasses, and bread baskets. Overhead, crisscrossed string lights glow with soft amber light. At the center of the table sits an oversized square tiramisu glowing beneath a fizzing golden sparkler. A figure in a yellow dress sits beside it, while a waiter in a white shirt and dark apron leans in from the left holding the dessert platter. Two friends sit opposite in teal and olive sweaters. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "lowpoly": "A low-poly 3D floating island: a small chunk of land built from faceted, flat-shaded polygons with crisp edges, its rocky underside tapering to a point, hovering in empty space. On the island: A warm brick patio floor holds a long wooden dining table crowded with red bowls of pasta, wine glasses, and bread baskets. Overhead, crisscrossed string lights glow with soft amber light. At the center of the table sits an oversized square tiramisu glowing beneath a fizzing golden sparkler. A figure in a yellow dress sits beside it, while a waiter in a white shirt and dark apron leans in from the left holding the dessert platter. Two friends sit opposite in teal and olive sweaters. Clean stylized game-asset look: every element, including people, furniture, food and plants, is built from flat-shaded faceted polygons in soft pastel colors, with no realistic textures. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "miniature": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A warm brick patio floor holds a long wooden dining table crowded with red bowls of pasta, wine glasses, and bread baskets. Overhead, crisscrossed string lights glow with soft amber light. At the center of the table sits an oversized square tiramisu glowing beneath a fizzing golden sparkler. A figure in a yellow dress sits beside it, while a waiter in a white shirt and dark apron leans in from the left holding the dessert platter. Two friends sit opposite in teal and olive sweaters. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "vinyl": "A designer vinyl toy playset: glossy, smooth molded plastic in soft candy colors, rounded chunky shapes and cute collectible figures with oversized heads and molded hair, arranged on a rounded display base. In the playset: A warm brick patio floor holds a long wooden dining table crowded with red bowls of pasta, wine glasses, and bread baskets. Overhead, crisscrossed string lights glow with soft amber light. At the center of the table sits an oversized square tiramisu glowing beneath a fizzing golden sparkler. A figure in a yellow dress sits beside it, while a waiter in a white shirt and dark apron leans in from the left holding the dessert platter. Two friends sit opposite in teal and olive sweaters. Premium collectible product shot with soft highlights and no harsh reflections. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless soft neutral background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+ }
+}

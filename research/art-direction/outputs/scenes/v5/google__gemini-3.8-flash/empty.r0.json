@@ -1,0 +1,60 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "empty",
+ "rep": 0,
+ "latency_s": 3.2,
+ "usage": {
+  "completion_tokens": 372,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1736,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2108
+ },
+ "cost_usd": 0.0026969999999999997,
+ "format": "json_object",
+ "spec": {
+  "status": "empty",
+  "moment": "A peaceful moment by the windowsill at night.",
+  "elements": [
+   {
+    "name": "windowsill",
+    "kind": "place",
+    "look": "a dark wooden windowsill with a glass pane showing evening reflections"
+   },
+   {
+    "name": "mug of tea",
+    "kind": "object",
+    "look": "a warm ceramic mug with faint steam rising"
+   },
+   {
+    "name": "glowing lamp",
+    "kind": "object",
+    "look": "a small round lamp casting soft amber light"
+   },
+   {
+    "name": "houseplant",
+    "kind": "object",
+    "look": "a potted green plant resting quietly beside the glass"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "clear",
+  "mood": "calm",
+  "palette": [
+   "#2b2d42",
+   "#8d99ae",
+   "#e9c46a",
+   "#f4a261"
+  ],
+  "scene": "A polished dark wood windowsill forms the ground. At the center sits a ceramic mug of warm tea, slightly oversized. To the left, a small round lamp glows with gentle amber light. To the right, a leafy potted green houseplant rests quietly. Along the back edge, a clean windowpane reflects the soft interior light against the dark night outside.",
+  "title": "A Quiet Night",
+  "caption": "A calm, still evening to rest and recharge."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

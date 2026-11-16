@@ -1,0 +1,12 @@
+{
+ "model": "flare",
+ "gmi_model": "gpt-image-2.5-flare-generate",
+ "style": "miniature",
+ "slug": "rainy-monday",
+ "latency_s": 19.84,
+ "server_s": 20,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_5b59ffd7-fdd4-455b-ba95-f3e90809fe7f_27c4a8c4-4001-4068-975b-f6949429d2a5.png",
+ "prompt": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A warm wooden cafe floor with wet footprints leading from the doorway. At center, an oversized ceramic cup sits on a small round bistro table, filled with milky coffee and foam shaped into a tiny cat face. Leaning against the table leg lies a dark umbrella, blown inside out with glistening rain droplets on its fabric. At the back edge stands a slice of wooden counter with a barista in a dark green apron beside a silver espresso machine. Soft amber light glows from an overhead pendant lamp. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "5b59ffd7-fdd4-455b-ba95-f3e90809fe7f"
+}

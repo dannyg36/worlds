@@ -1,0 +1,71 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "spanish",
+ "rep": 0,
+ "latency_s": 6.09,
+ "usage": {
+  "completion_tokens": 482,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1789,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2271
+ },
+ "cost_usd": 0.00314925,
+ "format": "json_object",
+ "spec": {
+  "status": "ok",
+  "moment": "Making tamales together in abuela's warm kitchen in the afternoon.",
+  "elements": [
+   {
+    "name": "abuela",
+    "kind": "person",
+    "look": "an older woman in a floral apron and cardigan"
+   },
+   {
+    "name": "tamales in corn husks",
+    "kind": "object",
+    "look": "a generous pile of neatly folded pale green and dried yellow corn husks"
+   },
+   {
+    "name": "yellow flowers",
+    "kind": "object",
+    "look": "a bundle of bright golden-yellow blooms resting in a glass jar"
+   },
+   {
+    "name": "ripe mangos",
+    "kind": "object",
+    "look": "a woven bowl heaped with sunset-orange and red-blushed mangos"
+   },
+   {
+    "name": "vintage radio",
+    "kind": "object",
+    "look": "a small wooden tabletop transistor radio with glowing amber dials"
+   },
+   {
+    "name": "abuela's kitchen",
+    "kind": "place",
+    "look": "a cozy kitchen corner with warm terracotta floor tiles and a rustic wooden table"
+   }
+  ],
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "mood": "tender",
+  "palette": [
+   "#D97724",
+   "#E2B63E",
+   "#8B4513",
+   "#607246",
+   "#F4D06F"
+  ],
+  "scene": "A warm kitchen patch paved with rustic terracotta tiles. At the center, an older woman in a floral apron and a grandchild in a yellow shirt sit beside a wide wooden table, folding pale dried corn husks around fresh tamales. On the left side of the table, a woven basket overflows with ripe orange-red mangos, next to a jar of bright yellow flowers. To the right, a small vintage wooden radio rests beside a tall steaming metal pot, bathed in warm amber afternoon light pouring from a window frame at the back edge.",
+  "title": "Tamales con la Abuela",
+  "caption": "Pasamos toda la tarde preparando tamales y escuchando viejos boleros juntos."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

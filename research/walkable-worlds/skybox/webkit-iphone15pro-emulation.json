@@ -1,0 +1,57 @@
+{
+  "device": "Playwright WebKit, devices['iPhone 15 Pro'] emulation (software GL)",
+  "viewport": {
+    "width": 393,
+    "height": 659
+  },
+  "dpr": 3,
+  "ua": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",
+  "results": [
+    {
+      "day": "hackathon",
+      "load_ms_to_first_frame": 1949,
+      "look_drag_changed_view": true,
+      "joystick_changed_view": true,
+      "stand_tap_ok": true,
+      "life_tap_ok": true,
+      "errors": [],
+      "orbit_hud": [
+        "FPS 7.2  frame 236.5 ms  p95 1174.0  max 1325",
+        "Apple GPU · WebGL2.0",
+        "maxTex 16384 cube 16384 · MSAA on",
+        "DPR 2.0/3 · 786x1318",
+        "calls 6 · tris 36.6k · tex 7",
+        "pano upscale-seamfix-gpt 4096x2048 1.06 MB",
+        "  fetch 19 dec 18 pmrem 707 up 524 ms",
+        "card 1.04 MB · 0k tris",
+        "  fetch 25 parse 766 ms · map 891x1024",
+        "TTFF 1.74 s · compile 62 ms · GPU~91 MB",
+        "orbit · gyro off · boot 1"
+      ],
+      "life_hud_fps": "FPS 3.2  frame 150.8 ms  p95 475.0  max 667"
+    },
+    {
+      "day": "santa-cruz",
+      "load_ms_to_first_frame": 983,
+      "look_drag_changed_view": true,
+      "joystick_changed_view": true,
+      "stand_tap_ok": true,
+      "life_tap_ok": true,
+      "errors": [],
+      "orbit_hud": [
+        "FPS 7.9  frame 151.1 ms  p95 333.0  max 467",
+        "Apple GPU · WebGL2.0",
+        "maxTex 16384 cube 16384 · MSAA on",
+        "DPR 2.0/3 · 786x1318",
+        "calls 6 · tris 36.6k · tex 7",
+        "pano upscale-seamfix-gpt 4096x2048 1.66 MB",
+        "  fetch 34 dec 10 pmrem 234 up 338 ms",
+        "card 1.19 MB · 0k tris",
+        "  fetch 27 parse 308 ms · map 1001x1024",
+        "TTFF 0.73 s · compile 25 ms · GPU~92 MB",
+        "orbit · gyro off · boot 1"
+      ],
+      "life_hud_fps": "FPS 3.0  frame 183.3 ms  p95 705.0  max 744"
+    }
+  ]
+}

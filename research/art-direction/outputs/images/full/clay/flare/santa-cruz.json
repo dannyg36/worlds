@@ -1,0 +1,12 @@
+{
+ "model": "flare",
+ "gmi_model": "gpt-image-2.5-flare-generate",
+ "style": "clay",
+ "slug": "santa-cruz",
+ "latency_s": 22.06,
+ "server_s": 13,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/google_ai_studio_b5a2d81d-bec5-4edf-8296-3511b053a31c_f7743c0e-613d-42f5-acb9-9ecbcee872fc.png",
+ "prompt": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A weathered wooden wharf deck bathed in bright coastal afternoon sun. At the center, two round sourdough bread bowls of clam chowder sit on a rustic picnic bench. Leaning over the sturdy wooden railing are two figures in windbreakers, peering down at two plump brown sea lions perched on timber beams below. On the left, two colorful cruiser bikes rest against the rail. The sun casts sharp, warm shadows across the splintered gray planks. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "b5a2d81d-bec5-4edf-8296-3511b053a31c"
+}

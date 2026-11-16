@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<title>worlds · step into your day (live world model)</title>
+<script type="importmap">
+{
+  "imports": {
+    "@fal-ai/client": "https://cdn.jsdelivr.net/npm/@fal-ai/client@1.11.0-alpha.6/+esm",
+    "@fal-ai/client/realtime/wma": "https://cdn.jsdelivr.net/npm/@fal-ai/client@1.11.0-alpha.6/realtime/wma/+esm"
+  }
+}
+</script>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="idle">
+<div id="stage">
+  <img id="poster" alt="" decoding="async">
+  <video id="world" playsinline webkit-playsinline muted autoplay></video>
+</div>
+<canvas id="mockcanvas" width="960" height="540" style="position:fixed;left:0;top:0;width:4px;height:4px;opacity:0.01;pointer-events:none"></canvas>
+<pre id="hud" aria-live="off"></pre>
+<div id="topbar">
+  <button id="btn-hud" type="button">HUD</button>
+  <button id="btn-fit" type="button">Fill</button>
+  <button id="btn-rec" type="button">Rec</button>
+  <button id="btn-tests" type="button">Tests</button>
+  <button id="btn-end" type="button" hidden>End</button>
+</div>
+<div id="clock" hidden></div>
+<div id="start">
+  <div class="card">
+    <div class="eyebrow" id="day-eyebrow">Tonight's world</div>
+    <h1 id="day-title">Loading your day…</h1>
+    <p id="day-transcript"></p>
+    <div class="row"><select id="model" aria-label="World model"></select></div>
+    <button id="btn-start" type="button" disabled>Step into your day</button>
+    <p class="fine" id="model-note"></p>
+  </div>
+</div>
+<div id="toast" hidden></div>
+<div id="joy" class="pad" hidden><div class="ring"></div><div id="knob"></div><span class="label">move</span></div>
+<div id="look" class="pad" hidden><span class="label">drag to look</span><div id="lookdot"></div></div>
+<div id="actions" hidden></div>
+<div id="tests" hidden>
+  <button data-test="latency" type="button">Latency probe</button>
+  <button data-test="turn" type="button">Turn away and back</button>
+  <button data-test="walk" type="button">Walk out and back</button>
+  <button data-test="spin" type="button">Full turn</button>
+  <button data-test="snap" type="button">Snapshot</button>
+  <button data-test="ice" type="button">ICE probe</button>
+  <pre id="testout"></pre>
+</div>
+<script type="module" src="/app.js"></script>
+</body>
+</html>

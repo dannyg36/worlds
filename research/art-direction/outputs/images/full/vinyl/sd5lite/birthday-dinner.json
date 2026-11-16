@@ -1,0 +1,12 @@
+{
+ "model": "sd5lite",
+ "gmi_model": "seedream-5.0-lite",
+ "style": "vinyl",
+ "slug": "birthday-dinner",
+ "latency_s": 117.41,
+ "server_s": 31,
+ "url": "https://storage.googleapis.com/gmi-video-assests-prod/user-assets/4e0833cf-e5d0-496e-bd7e-44bf17cb412c/fd8aeb57-b907-41cc-93d6-6cc23d093de4/gmi-videogen/generated/source_image_80275bce-b672-48fc-a8da-527e9f0247a0e072483c-08e1-47ab-bb72-81c5ff7e0117.png",
+ "prompt": "A designer vinyl toy playset: glossy, smooth molded plastic in soft candy colors, rounded chunky shapes and cute collectible figures with oversized heads and molded hair, arranged on a rounded display base. In the playset: A warm brick patio floor holds a long wooden dining table crowded with red bowls of pasta, wine glasses, and bread baskets. Overhead, crisscrossed string lights glow with soft amber light. At the center of the table sits an oversized square tiramisu glowing beneath a fizzing golden sparkler. A figure in a yellow dress sits beside it, while a waiter in a white shirt and dark apron leans in from the left holding the dessert platter. Two friends sit opposite in teal and olive sweaters. Premium collectible product shot with soft highlights and no harsh reflections. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Plain seamless soft neutral background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+ "seed": 7,
+ "request_id": "80275bce-b672-48fc-a8da-527e9f0247a0"
+}

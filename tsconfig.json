@@ -16,5 +16,12 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "research",
+    "tools",
+    "spike",
+    "src/world/island/kit"
   ]
 }

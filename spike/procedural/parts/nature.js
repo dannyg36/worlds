@@ -1,0 +1,533 @@
+// Nature parts: trees, bushes, potted plants, planters, rocks.
+// Every part is built into ONE merged, vertex-coloured clay mesh (one draw call per instance).
+// Leaf masses are many small squashed blobs in 3 shades, lighter on top, so they read as hand-pinched clay.
+import { THREE, mat, shade } from "../core.js";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
+
+const V = (x = 0, y = 0, z = 0) => new THREE.Vector3(x, y, z);
+const { lerp, clamp } = THREE.MathUtils;
+const TAU = Math.PI * 2;
+
+// ---------- geometry helpers ----------
+// Displace a geometry by a smooth function of position (duplicated verts move together, so no cracks).
+function lump(g, amt, seed = 0) {
+  const P = g.attributes.position;
+  for (let i = 0; i < P.count; i++) {
+    const x = P.getX(i), y = P.getY(i), z = P.getZ(i);
+    const n =
+      Math.sin(x * 3.1 + seed) * Math.sin(y * 2.7 + seed * 1.7) * Math.sin(z * 3.3 + seed * 0.3 + 1) +
+      0.45 * Math.sin(x * 7.3 - seed) * Math.sin(y * 6.1 + seed * 2.1 + 2) * Math.sin(z * 6.9 - seed);
+    const k = 1 + amt * n;
+    P.setXYZ(i, x * k, y * k, z * k);
+  }
+  return g;
+}
+// Smooth normals for a non-indexed geometry by welding on position.
+function smoothNormals(g) {
+  g.computeVertexNormals();
+  const P = g.attributes.position, N = g.attributes.normal, acc = new Map();
+  const key = (i) => `${P.getX(i).toFixed(4)},${P.getY(i).toFixed(4)},${P.getZ(i).toFixed(4)}`;
+  for (let i = 0; i < P.count; i++) {
+    const k = key(i), s = acc.get(k) ?? [0, 0, 0];
+    s[0] += N.getX(i); s[1] += N.getY(i); s[2] += N.getZ(i);
+    acc.set(k, s);
+  }
+  for (let i = 0; i < P.count; i++) {
+    const s = acc.get(key(i)), l = Math.hypot(s[0], s[1], s[2]) || 1;
+    N.setXYZ(i, s[0] / l, s[1] / l, s[2] / l);
+  }
+  return g;
+}
+const prep = (g) => {
+  if (g.index) g = g.toNonIndexed();
+  g.clearGroups();
+  g.computeBoundingBox();
+  return g;
+};
+
+// Shared base shapes (unit sized).
+const BASES = {
+  blob: () => smoothNormals(lump(new THREE.IcosahedronGeometry(1, 1), 0.12, 1.3)), // 80 tris
+  lo: () => smoothNormals(lump(new THREE.SphereGeometry(1, 7, 5).toNonIndexed(), 0.1, 2.1)), // 56 tris
+  petal: () => new THREE.SphereGeometry(1, 5, 3), // 20 tris
+  cyl: () => new THREE.CylinderGeometry(1, 1, 1, 7, 1).translate(0, 0.5, 0),
+  disc: () => new THREE.CylinderGeometry(1, 1, 1, 14, 1).translate(0, 0.5, 0),
+  // A pointed leaf from z=0 (stem) to z=1 (tip), thin in y, tip curling up. 36 tris.
+  leaf: () => {
+    const g = new THREE.SphereGeometry(1, 6, 4);
+    g.rotateX(Math.PI / 2);
+    const P = g.attributes.position;
+    for (let i = 0; i < P.count; i++) {
+      const t = (P.getZ(i) + 1) / 2;
+      P.setXYZ(i, P.getX(i) * 0.5 * (1.25 - 0.8 * t), P.getY(i) * 0.16 + 0.18 * t * t, t);
+    }
+    g.computeVertexNormals();
+    return g;
+  },
+};
+const baseCache = {};
+const base = (name) => (baseCache[name] ??= prep(BASES[name]()));
+
+// Tapered tube along points: trunks and branches.
+function limbGeo(pts, r0, r1, radial = 7, segs = 8) {
+  const curve = new THREE.CatmullRomCurve3(pts);
+  const fr = curve.computeFrenetFrames(segs, false);
+  const pos = [], nor = [], uv = [], idx = [];
+  for (let i = 0; i <= segs; i++) {
+    const t = i / segs, P = curve.getPointAt(t), N = fr.normals[i], B = fr.binormals[i];
+    const rad = lerp(r0, r1, Math.pow(t, 0.7));
+    for (let j = 0; j <= radial; j++) {
+      const a = (j / radial) * TAU, c = -Math.cos(a), s = Math.sin(a);
+      const n = V().addScaledVector(N, c).addScaledVector(B, s);
+      pos.push(P.x + n.x * rad, P.y + n.y * rad, P.z + n.z * rad);
+      nor.push(n.x, n.y, n.z);
+      uv.push(j / radial, t * 2);
+    }
+  }
+  for (let i = 0; i < segs; i++)
+    for (let j = 0; j < radial; j++) {
+      const a = i * (radial + 1) + j, b = a + radial + 1;
+      idx.push(a, b, a + 1, b, b + 1, a + 1);
+    }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute("normal", new THREE.Float32BufferAttribute(nor, 3));
+  g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
+  g.setIndex(idx);
+  return prep(g);
+}
+const latheGeo = (pts, seg = 20) => new THREE.LatheGeometry(pts.map(([r, y]) => new THREE.Vector2(r, y)), seg);
+
+// ---------- batch: collect coloured pieces, merge to one mesh ----------
+let vcMat;
+const clayVC = () => {
+  if (!vcMat) {
+    vcMat = mat("#ffffff", { rough: 0.88 }).clone();
+    vcMat.vertexColors = true;
+  }
+  return vcMat;
+};
+const _m = new THREE.Matrix4(), _q = new THREE.Quaternion(), _e = new THREE.Euler(), _p = V(), _s = V(), _c = new THREE.Color(), _t = new THREE.Color();
+
+class Batch {
+  geos = [];
+  // geo: base name or geometry; rot: [x,y,z] radians or Quaternion; scl: number or [x,y,z].
+  // opts.grad: darken toward local -y (fake occlusion); opts.tip: [color, from] blends toward the local +z end.
+  add(geo, color, pos = [0, 0, 0], rot = [0, 0, 0], scl = 1, { grad = 0.3, tip } = {}) {
+    const src = typeof geo === "string" ? base(geo) : geo;
+    const g = src.clone();
+    const P = g.attributes.position, bb = src.boundingBox;
+    const yr = bb.max.y - bb.min.y || 1, zr = bb.max.z - bb.min.z || 1;
+    const col = new Float32Array(P.count * 3);
+    const c0 = new THREE.Color(color), tc = tip && new THREE.Color(tip[0]);
+    for (let i = 0; i < P.count; i++) {
+      _c.copy(c0);
+      if (tc) {
+        const tz = clamp(((P.getZ(i) - bb.min.z) / zr - tip[1]) / (1 - tip[1]), 0, 1);
+        _c.lerp(tc, tz * tz);
+      }
+      const f = 1 - grad + grad * ((P.getY(i) - bb.min.y) / yr);
+      col[i * 3] = _c.r * f; col[i * 3 + 1] = _c.g * f; col[i * 3 + 2] = _c.b * f;
+    }
+    g.setAttribute("color", new THREE.BufferAttribute(col, 3));
+    if (rot.isQuaternion) _q.copy(rot); else _q.setFromEuler(_e.set(rot[0], rot[1], rot[2]));
+    Array.isArray(pos) ? _p.fromArray(pos) : _p.copy(pos);
+    typeof scl === "number" ? _s.setScalar(scl) : _s.fromArray(scl);
+    g.applyMatrix4(_m.compose(_p, _q, _s));
+    this.geos.push(g);
+    return this;
+  }
+  mesh() {
+    const geo = mergeGeometries(this.geos, false);
+    geo.computeBoundingBox();
+    geo.computeBoundingSphere();
+    return new THREE.Mesh(geo, clayVC());
+  }
+}
+
+// Quaternion turning local +z toward dir with local +y kept as close to `up` as possible.
+const _look = new THREE.Matrix4(), _zero = V();
+function aim(dir, up = V(0, 1, 0)) {
+  _look.lookAt(_zero, dir.clone().negate(), up);
+  return new THREE.Quaternion().setFromRotationMatrix(_look);
+}
+const jitter = (r, hex, l = 0.05, h = 0.015) => _t.set(hex).offsetHSL((r() - 0.5) * h, (r() - 0.5) * 0.06, (r() - 0.5) * l).getHex();
+const randUnit = (r, yMin = -1, yMax = 1) => {
+  const y = lerp(yMin, yMax, r()), a = r() * TAU, s = Math.sqrt(1 - y * y);
+  return V(Math.cos(a) * s, y, Math.sin(a) * s);
+};
+const noFlowers = (f) => f === "none" || f === false || f === null;
+
+// ---------- foliage ----------
+// Fill an ellipsoid with clumps of squashed leaf blobs. Shade by height: dark underneath, light on top.
+function foliage(b, r, o) {
+  const { c, rx, ry, rz = rx, puffs = 6, per = 7, size = 0.32, shades, geo = "blob", flat = 0.78, floor = -Infinity, fill = 2, yMin = -0.4 } = o;
+  const out = [], avg = (rx + ry + rz) / 3;
+  const blob = (p, s, bias = 0) => {
+    const sy = s * flat;
+    if (p.y - sy * 0.5 < floor) p.y = floor + sy * 0.5;
+    const h = clamp((p.y - (c.y - ry)) / (2 * ry), 0, 1);
+    const i = clamp(Math.floor(h * shades.length * 0.9 + (r() - 0.35) * 1.1 + bias), 0, shades.length - 1);
+    b.add(geo, jitter(r, shades[i]), p, [(r() - 0.5) * 0.6, r() * TAU, (r() - 0.5) * 0.6], [s, sy, s * (0.85 + r() * 0.3)]);
+    out.push({ p: p.clone(), s, h });
+  };
+  for (let k = 0; k < fill; k++) blob(c.clone().add(V((r() - 0.5) * rx * 0.3, (r() - 0.6) * ry * 0.3, (r() - 0.5) * rz * 0.3)), avg * 0.62, -3);
+  for (let k = 0; k < puffs; k++) {
+    const d = randUnit(r, yMin, 1);
+    const pc = c.clone().add(V(d.x * rx * 0.52, d.y * ry * 0.5, d.z * rz * 0.52));
+    const pr = avg * 0.42;
+    for (let j = 0; j < per; j++) {
+      const d2 = randUnit(r).add(d.clone().multiplyScalar(0.9)).normalize();
+      blob(pc.clone().add(d2.multiplyScalar(pr * (0.55 + r() * 0.35))), avg * size * (0.75 + r() * 0.5));
+    }
+  }
+  return out;
+}
+
+// Five-petal daisy facing up (about 120 tris).
+function daisy(b, r, p, color, s, centre = "#f2c230") {
+  const a0 = r() * TAU, tilt = (r() - 0.5) * 0.5;
+  const q = new THREE.Quaternion().setFromEuler(_e.set(tilt, a0, (r() - 0.5) * 0.5));
+  for (let k = 0; k < 5; k++) {
+    const a = (k / 5) * TAU;
+    const off = V(Math.cos(a) * s * 0.55, 0.0, Math.sin(a) * s * 0.55).applyQuaternion(q);
+    const pq = q.clone().multiply(new THREE.Quaternion().setFromEuler(_e.set(0, -a, 0.25)));
+    b.add("petal", jitter(r, color, 0.04), p.clone().add(off), pq, [s * 0.55, s * 0.16, s * 0.34], { grad: 0.15 });
+  }
+  b.add("petal", centre, p.clone().add(V(0, s * 0.1, 0).applyQuaternion(q)), q, [s * 0.26, s * 0.2, s * 0.26], { grad: 0.2 });
+}
+// Little ball cluster (geranium / hydrangea head).
+function bloom(b, r, p, color, s) {
+  for (let k = 0; k < 5; k++) {
+    const d = k === 4 ? V(0, 1, 0) : randUnit(r, -0.1, 0.6);
+    b.add("petal", jitter(r, color, 0.1), p.clone().addScaledVector(d, s * 0.5), [r() * 3, r() * 3, 0], s * (0.36 + r() * 0.1), { grad: 0.35 });
+  }
+}
+function sprinkle(b, r, blobs, n, color, s, kind = daisy, minH = 0.35) {
+  const top = blobs.filter((o) => o.h >= minH);
+  const pool = top.length ? top : blobs;
+  for (let k = 0; k < n && pool.length; k++) {
+    const o = pool[Math.floor(r() * pool.length)];
+    const d = randUnit(r, 0.25, 1);
+    kind(b, r, o.p.clone().add(V(d.x * o.s * 0.8, d.y * o.s * 0.7, d.z * o.s * 0.8)), color, s * (0.85 + r() * 0.3));
+  }
+}
+
+// ---------- palettes ----------
+const GREENS = ["#2c5a20", "#3f7a2a", "#579434", "#76b03f"];
+const OLIVE = ["#4a5c34", "#5f7442", "#788d55", "#8fa268"];
+const PINE = ["#284d33", "#356140", "#467a4c", "#5a8f58"];
+const CYPRESS = ["#264430", "#30573a", "#3f6c45", "#55844f"];
+const PALM = ["#3e7a32", "#55943d", "#72ad4b"];
+const HERB = ["#3f8a33", "#55a03e", "#6fb44c"];
+const BARK = "#6e4a31";
+const TERRACOTTA = "#c26a42";
+const SOIL = "#4a3426";
+
+function greensFrom(color, fallback) {
+  if (!color) return fallback;
+  return [shade(color, -0.14), shade(color, -0.06), color, shade(color, 0.08)];
+}
+
+// ---------- trees ----------
+function treeRound(b, r, H, shades) {
+  const trunkH = H * 0.36, lean = (r() - 0.5) * 0.25, w = H / 2.8;
+  const top = V(lean * 0.6, trunkH + 0.25 * w, (r() - 0.5) * 0.12);
+  b.add(limbGeo([V(0, 0, 0), V(lean * 0.15, trunkH * 0.45, 0), top], 0.17 * w, 0.1 * w), BARK, [0, 0, 0], [0, 0, 0], 1, { grad: 0.25 });
+  for (let k = 0; k < 3; k++) b.add("blob", BARK, [Math.cos(k * 2.1) * 0.11 * w, 0.03, Math.sin(k * 2.1) * 0.11 * w], [0, k * 2.1, 0], [0.09 * w, 0.06 * w, 0.06 * w]);
+  for (let k = 0; k < 2; k++) {
+    const a = r() * TAU, s = V(top.x * 0.7, trunkH * 0.8, top.z * 0.7);
+    b.add(limbGeo([s, s.clone().add(V(Math.cos(a) * 0.35 * w, 0.3 * w, Math.sin(a) * 0.35 * w)), s.clone().add(V(Math.cos(a) * 0.5 * w, 0.6 * w, Math.sin(a) * 0.5 * w))], 0.06 * w, 0.03 * w, 6, 4), BARK);
+  }
+  const R = H * 0.36;
+  foliage(b, r, { c: V(top.x, trunkH + R * 0.92, top.z), rx: R, ry: R * 0.88, puffs: 10, per: 7, size: 0.25, shades, geo: "lo", fill: 3 });
+}
+
+function treeOlive(b, r, H, shades) {
+  const w = H / 2.4, bark = "#857462";
+  // Two or three twisting trunks splitting from a gnarled base.
+  const n = 2 + (r() < 0.5 ? 1 : 0), ends = [];
+  for (let k = 0; k < n; k++) {
+    const a = (k / n) * TAU + r() * 0.8, sp = (0.35 + r() * 0.25) * w;
+    const end = V(Math.cos(a) * sp, H * (0.55 + r() * 0.1), Math.sin(a) * sp);
+    const mid = V(Math.cos(a + 1.2) * 0.12 * w, H * 0.28, Math.sin(a + 1.2) * 0.12 * w);
+    b.add(limbGeo([V(Math.cos(a) * 0.04, 0, Math.sin(a) * 0.04), mid, end], 0.11 * w, 0.04 * w, 7, 8), jitter(r, bark, 0.06), [0, 0, 0], [0, 0, 0], 1, { grad: 0.2 });
+    ends.push(end);
+  }
+  b.add("blob", bark, [0, 0.04, 0], [0, r() * 3, 0], [0.18 * w, 0.1 * w, 0.16 * w]);
+  // A loose, flat canopy: one clump per trunk plus a crown clump, gaps between them.
+  const crown = V(0, H * 0.78, 0);
+  for (const e of [...ends, crown]) {
+    const c = e.clone().add(V(0, 0.16 * w, 0));
+    foliage(b, r, { c, rx: 0.5 * w, ry: 0.3 * w, puffs: 4, per: 4, size: 0.44, shades, geo: "lo", flat: 0.62, fill: 1, yMin: -0.2 });
+  }
+}
+
+function treePalm(b, r, H, shades) {
+  const w = H / 3.6, bend = (0.35 + r() * 0.3) * w, dir = r() * TAU;
+  const at = (t) => V(Math.cos(dir) * bend * t * t, H * 0.86 * t, Math.sin(dir) * bend * t * t);
+  // Ringed trunk: stacked overlapping barrels.
+  const rings = 11;
+  for (let i = 0; i < rings; i++) {
+    const t = i / rings, p = at(t), p2 = at((i + 1) / rings);
+    const d = p2.clone().sub(p), len = d.length();
+    const rad = lerp(0.12, 0.075, t) * w;
+    const g = latheGeo([[rad * 0.82, 0], [rad, len * 0.55], [rad * 0.9, len * 1.15], [rad * 0.6, len * 1.2]], 9);
+    b.add(prep(g), i % 2 ? "#8c6a48" : "#a07c56", p, new THREE.Quaternion().setFromUnitVectors(V(0, 1, 0), d.clone().normalize()), 1, { grad: 0.35 });
+  }
+  const crown = at(1);
+  b.add("blob", "#7a6040", crown, [0, 0, 0], [0.1 * w, 0.09 * w, 0.1 * w]);
+  for (let k = 0; k < 3; k++) {
+    const a = (k / 3) * TAU + r();
+    b.add("lo", "#6b4a2b", crown.clone().add(V(Math.cos(a) * 0.09 * w, -0.08 * w, Math.sin(a) * 0.09 * w)), [0, 0, 0], 0.075 * w);
+  }
+  // Fronds: a drooping midrib with paired leaflets.
+  const fronds = 7;
+  for (let f = 0; f < fronds; f++) {
+    const a = (f / fronds) * TAU + (r() - 0.5) * 0.4, rise = 0.25 + r() * 0.4 - (f % 2) * 0.3, L = (1.2 + r() * 0.3) * w;
+    const hd = V(Math.cos(a), 0, Math.sin(a));
+    const pt = (s) => crown.clone().add(hd.clone().multiplyScalar(s * L)).add(V(0, (rise * s - 0.85 * s * s) * L, 0));
+    const pts = [0, 0.33, 0.66, 1].map(pt);
+    const col = shades[f % shades.length];
+    b.add(limbGeo(pts, 0.025 * w, 0.008 * w, 5, 6), shade(col, -0.05));
+    const side = V(-hd.z, 0, hd.x);
+    const pairs = 7;
+    for (let j = 1; j <= pairs; j++) {
+      const s = j / (pairs + 1), p = pt(s), fwd = pt(s + 0.02).sub(p).normalize();
+      const ll = (0.56 - 0.38 * Math.abs(s - 0.35)) * w;
+      for (const sd of [-1, 1]) {
+        const d = side.clone().multiplyScalar(sd).addScaledVector(fwd, 0.7).add(V(0, -0.35, 0)).normalize();
+        b.add("leaf", jitter(r, col, 0.05), p, aim(d), [0.1 * w, 0.2 * w, ll], { grad: 0.4 });
+      }
+    }
+  }
+}
+
+// Scalloped clay skirt for pine tiers.
+function tierGeo(R, h, k, ph) {
+  const g = latheGeo([[R * 0.25, h * 0.12], [R, 0], [R * 0.96, h * 0.1], [R * 0.45, h * 0.6], [0.01, h]], 28);
+  const P = g.attributes.position;
+  for (let i = 0; i < P.count; i++) {
+    const x = P.getX(i), y = P.getY(i), z = P.getZ(i), rr = Math.hypot(x, z);
+    if (rr < 1e-4) continue;
+    const a = Math.atan2(x, z), wgt = rr / R, wave = Math.sin(a * k + ph);
+    const f = 1 + 0.07 * wave * wgt;
+    P.setXYZ(i, x * f, y - 0.06 * R * (1 - wave) * wgt * wgt, z * f);
+  }
+  g.computeVertexNormals();
+  return prep(g);
+}
+function treePine(b, r, H, shades) {
+  const w = H / 3, trunkH = 0.35 * w;
+  b.add(limbGeo([V(0, 0, 0), V(0, trunkH, 0), V(0, trunkH * 2, 0)], 0.1 * w, 0.06 * w, 7, 2), BARK);
+  const tiers = 5;
+  let y = trunkH;
+  for (let k = 0; k < tiers; k++) {
+    const t = k / (tiers - 1), R = lerp(0.95, 0.32, t) * w, h = R * 1.05;
+    b.add(tierGeo(R, h, 9 - Math.floor(k / 2), r() * TAU), jitter(r, shades[Math.min(shades.length - 1, Math.floor(t * 2.6 + 0.3))], 0.03), [0, y, 0], [(r() - 0.5) * 0.08, r() * TAU, (r() - 0.5) * 0.08], 1, { grad: 0.45 });
+    // a few clay dabs on each skirt so it isn't a smooth cone
+    for (let j = 0; j < 6; j++) {
+      const a = r() * TAU, rr = R * (0.55 + r() * 0.3);
+      b.add("lo", jitter(r, shades[Math.min(shades.length - 1, Math.floor(t * 2.6 + 1))]), [Math.cos(a) * rr, y + h * (1 - rr / R) * 0.6 + 0.02, Math.sin(a) * rr], [0.3, a, 0], [0.09 * w, 0.05 * w, 0.12 * w]);
+    }
+    y += h * (0.5 - 0.06 * t);
+  }
+  b.add("blob", shades[shades.length - 1], [0, y + 0.12 * w, 0], [0, 0, 0], [0.08 * w, 0.16 * w, 0.08 * w]);
+}
+
+function treeCypress(b, r, H, shades) {
+  const w = H / 3.2, W = 0.42 * w;
+  b.add(limbGeo([V(0, 0, 0), V(0, 0.3 * w, 0), V(0, 0.6 * w, 0)], 0.07 * w, 0.05 * w, 6, 2), BARK);
+  // dark core
+  const core = latheGeo([[0.01, 0.15 * w], [W * 0.75, 0.6 * w], [W * 0.75, H * 0.55], [W * 0.35, H * 0.85], [0.01, H * 0.97]], 12);
+  b.add(prep(core), shades[0], [0, 0, 0], [0, 0, 0], 1, { grad: 0.3 });
+  const n = 38;
+  for (let i = 0; i < n; i++) {
+    const t = i / (n - 1), y = lerp(0.3 * w, H * 0.93, t);
+    const prof = W * Math.pow(Math.sin(Math.PI * lerp(0.12, 1, t)), 0.6) * (t > 0.6 ? lerp(1, 0.75, (t - 0.6) / 0.4) : 1);
+    const a = i * 2.39996 + r() * 0.3, rr = prof * (0.45 + r() * 0.2), s = Math.max(prof * 0.62, 0.07 * w);
+    const ci = clamp(Math.floor(t * 2.2 + r() * 1.3), 0, shades.length - 1);
+    b.add("blob", jitter(r, shades[ci], 0.04), [Math.cos(a) * rr, y, Math.sin(a) * rr], [(r() - 0.5) * 0.4, r() * TAU, 0], [s, s * 1.25, s]);
+  }
+}
+
+const TREES = {
+  round: [treeRound, 2.8, GREENS],
+  olive: [treeOlive, 2.4, OLIVE],
+  palm: [treePalm, 3.6, PALM],
+  pine: [treePine, 3.0, PINE],
+  cypress: [treeCypress, 3.2, CYPRESS],
+};
+
+// ---------- pots ----------
+// Terracotta pot (lathe) with a rolled rim and a soil top. Returns the soil height.
+function pot(b, r, R, H, color = TERRACOTTA) {
+  const c = jitter(r, color, 0.06, 0.02);
+  const g = latheGeo([[0.001, 0], [R * 0.7, 0], [R * 0.74, H * 0.04], [R * 0.95, H * 0.76], [R * 1.08, H * 0.78], [R * 1.12, H * 0.84], [R * 1.1, H], [R * 1.02, H * 1.01], [R * 0.93, H * 0.97], [R * 0.9, H * 0.9]], 16);
+  b.add(prep(g), c, [0, 0, 0], [0, r() * TAU, 0], 1, { grad: 0.3 });
+  b.add("disc", SOIL, [0, H * 0.86, 0], [0, 0, 0], [R * 0.92, H * 0.06, R * 0.92], { grad: 0.2 });
+  return H * 0.92;
+}
+
+function pottedHerb(b, r, size, shades) {
+  const H = size * 0.42, R = H * 0.62, top = pot(b, r, R, H);
+  const n = 34, leafL = size * 0.26;
+  for (let i = 0; i < n; i++) {
+    const t = i / n, a = i * 2.39996 + r() * 0.4;
+    const el = lerp(0.12, 0.95, Math.pow(1 - t, 0.8)) + (r() - 0.5) * 0.2; // outer leaves flatter
+    const d = V(Math.cos(a) * Math.cos(el), Math.sin(el), Math.sin(a) * Math.cos(el));
+    const p = V(Math.cos(a) * R * 0.25 * t, top + (size - top) * 0.45 * (1 - t) + 0.02, Math.sin(a) * R * 0.25 * t);
+    b.add("leaf", jitter(r, shades[clamp(Math.floor(r() * shades.length + (1 - t) * 0.6), 0, shades.length - 1)], 0.05), p, aim(d), [leafL * 0.95, leafL * 1.1, leafL * (0.8 + r() * 0.4)], { grad: 0.45 });
+  }
+}
+
+function pottedFlowers(b, r, size, color, shades) {
+  const H = size * 0.42, R = H * 0.62, top = pot(b, r, R, H);
+  const leaves = [];
+  for (let i = 0; i < 16; i++) {
+    const a = i * 2.39996 + r() * 0.3, t = i / 16, rr = R * (0.2 + 0.85 * t);
+    const p = V(Math.cos(a) * rr, top + (size * 0.25) * (1 - t * 0.7) + r() * 0.03, Math.sin(a) * rr);
+    const s = size * (0.09 + r() * 0.03);
+    b.add("lo", jitter(r, shades[clamp(Math.floor((1 - t) * 2 + r() * 1.2), 0, shades.length - 1)], 0.05), p, [(r() - 0.5) * 0.5, r() * TAU, (r() - 0.5) * 0.5], [s, s * 0.45, s], { grad: 0.4 });
+    leaves.push(p);
+  }
+  if (noFlowers(color)) return;
+  const heads = 5;
+  for (let k = 0; k < heads; k++) {
+    const a = (k / heads) * TAU + r() * 0.6, rr = k === 0 ? 0 : R * (0.45 + r() * 0.3);
+    const p = V(Math.cos(a) * rr, size * (0.86 + r() * 0.14), Math.sin(a) * rr);
+    b.add("cyl", "#4c7a32", [p.x * 0.5, top, p.z * 0.5], [Math.atan2(p.z * 0.5, p.y - top) * 0.9, 0, -Math.atan2(p.x * 0.5, p.y - top) * 0.9], [0.008, p.y - top, 0.008]);
+    bloom(b, r, p, color, size * 0.12);
+  }
+}
+
+function pottedOlive(b, r, size, shades) {
+  const H = size * 0.3, R = H * 0.68, top = pot(b, r, R, H);
+  const bark = "#7d6b58", lean = (r() - 0.5) * 0.08;
+  const crown = V(lean, size * 0.58, 0);
+  b.add(limbGeo([V(0, top - 0.02, 0), V(-lean, (top + crown.y) / 2, 0.02), crown], size * 0.035, size * 0.02, 6, 5), bark);
+  for (let k = 0; k < 3; k++) {
+    const a = (k / 3) * TAU + r(), c = crown.clone().add(V(Math.cos(a) * size * 0.14, size * (0.08 + r() * 0.1), Math.sin(a) * size * 0.14));
+    foliage(b, r, { c, rx: size * 0.17, ry: size * 0.11, puffs: 3, per: 3, size: 0.45, shades, geo: "lo", flat: 0.62, fill: 0, yMin: -0.2 });
+  }
+}
+
+function pottedSucculent(b, r, size, shades) {
+  const H = size * 0.38, R = size * 0.42, top = pot(b, r, R, H);
+  const rosette = (cx, cz, s) => {
+    const rings = [[8, 0.45, 1], [6, 0.85, 0.8], [4, 1.25, 0.55]];
+    let off = r() * TAU;
+    for (const [n, el, len] of rings) {
+      off += 0.4;
+      for (let i = 0; i < n; i++) {
+        const a = off + (i / n) * TAU, d = V(Math.cos(a) * Math.cos(el), Math.sin(el), Math.sin(a) * Math.cos(el));
+        b.add("leaf", jitter(r, pickShade(r, shades), 0.03), [cx, top + 0.005, cz], aim(d), [s * 0.55 * len, s * 1.8, s * len], { grad: 0.35, tip: ["#c9707a", 0.55] });
+      }
+    }
+  };
+  rosette(-R * 0.25, 0, size * 0.45);
+  rosette(R * 0.5, R * 0.3, size * 0.3);
+  for (let k = 0; k < 3; k++) b.add("petal", "#d9cfbf", [(r() - 0.2) * R * 0.6, top + 0.01, -R * 0.45 + r() * 0.1], [0, r() * 3, 0], [0.025, 0.014, 0.02]);
+}
+const pickShade = (r, arr) => arr[Math.floor(r() * arr.length) % arr.length];
+const SUCC = ["#7fa58f", "#8fb39a", "#6f9682"];
+
+// ---------- parts ----------
+function tree(p, ctx) {
+  const [fn, defH, defShades] = TREES[p.kind] ?? TREES.round;
+  const H = Number(p.height) > 0 ? Number(p.height) : defH;
+  const b = new Batch();
+  fn(b, ctx.rand, H, greensFrom(p.color, defShades));
+  const g = new THREE.Group();
+  g.add(b.mesh());
+  return { group: g };
+}
+
+function bush(p, ctx) {
+  const r = ctx.rand, s = Number(p.size) > 0 ? Number(p.size) : 0.9;
+  const b = new Batch();
+  const blobs = foliage(b, r, { c: V(0, s * 0.36, 0), rx: s * 0.5, ry: s * 0.36, rz: s * 0.46, puffs: 8, per: 6, size: 0.28, shades: greensFrom(p.color, GREENS), floor: 0.0, fill: 2, yMin: -0.1 });
+  if (p.flowers && !noFlowers(p.flowers)) sprinkle(b, r, blobs, Math.round(6 + s * 5), p.flowers, Math.max(0.07, s * 0.1));
+  const g = new THREE.Group();
+  g.add(b.mesh());
+  return { group: g, top: s * 0.7 };
+}
+
+const POTTED_SIZE = { herb: 0.55, flowers: 0.6, olive: 1.3, succulent: 0.45 };
+function pottedPlant(p, ctx) {
+  const r = ctx.rand, kind = POTTED_SIZE[p.kind] ? p.kind : "herb";
+  const size = Number(p.size) > 0 ? Number(p.size) : POTTED_SIZE[kind];
+  const b = new Batch();
+  if (kind === "herb") pottedHerb(b, r, size, greensFrom(p.color, HERB));
+  else if (kind === "flowers") pottedFlowers(b, r, size, p.flowers ?? pickShade(r, ["#d8343a", "#e0457b", "#f1efe6"]), greensFrom(p.color, GREENS));
+  else if (kind === "olive") pottedOlive(b, r, size, greensFrom(p.color, OLIVE));
+  else pottedSucculent(b, r, size, greensFrom(p.color, SUCC));
+  const g = new THREE.Group();
+  g.add(b.mesh());
+  return { group: g, top: size };
+}
+
+function planter(p, ctx) {
+  const r = ctx.rand, L = Number(p.length) > 0 ? Number(p.length) : 1.6, D = 0.36, H = 0.34;
+  const b = new Batch();
+  const boxC = p.color ?? "#d4c3a3";
+  b.add(prep(new RoundedBoxGeometry(L, H, D, 2, 0.04)), boxC, [0, H / 2, 0], [0, 0, 0], 1, { grad: 0.25 });
+  b.add(prep(new RoundedBoxGeometry(L + 0.05, 0.06, D + 0.05, 2, 0.025)), shade(boxC, 0.04), [0, H - 0.02, 0], [0, 0, 0], 1, { grad: 0.2 });
+  const blobs = [];
+  // a low mound of greens spilling past the rim, then a taller top layer
+  const n = Math.round(L * 16);
+  for (let i = 0; i < n; i++) {
+    const top = i % 2 === 1;
+    const x = lerp(-L / 2 + 0.06, L / 2 - 0.06, (i + r()) / n), z = (r() - 0.5) * D * (top ? 0.6 : 1.15);
+    const y = H + 0.03 + (top ? 0.1 + r() * 0.07 : r() * 0.04), s = top ? 0.08 + r() * 0.04 : 0.1 + r() * 0.04;
+    const h = top ? 0.9 : 0.25;
+    b.add("blob", jitter(r, GREENS[clamp(Math.floor(h * 2.6 + r() * 1.2), 0, 3)]), [x, y, z], [(r() - 0.5) * 0.4, r() * TAU, 0], [s, s * 0.72, s]);
+    blobs.push({ p: V(x, y, z), s, h });
+  }
+  // ivy strands trailing over the front (and sometimes back) edge
+  const strands = Math.max(2, Math.round(L * 2.5));
+  for (let k = 0; k < strands; k++) {
+    const x = lerp(-L / 2 + 0.1, L / 2 - 0.1, (k + 0.3 + r() * 0.4) / strands), sd = k % 3 === 2 ? -1 : 1;
+    const len = 3 + Math.floor(r() * 3);
+    for (let j = 0; j < len; j++) {
+      const side = j % 2 ? 1 : -1, s = 0.085 - j * 0.008;
+      const p = V(x + side * 0.02, H + 0.02 - j * 0.06, sd * (D / 2 + 0.03));
+      const d = V(side * 0.6, -0.9, sd * 0.7).normalize();
+      b.add("leaf", jitter(r, GREENS[clamp(2 - Math.floor(j / 2), 0, 3)]), p, aim(d, V(0, 0, sd)), [s * 0.8, s * 0.6, s], { grad: 0.35 });
+    }
+  }
+  const fl = p.flowers ?? "#f6f1e6";
+  if (!noFlowers(fl)) sprinkle(b, r, blobs, Math.round(L * 6), fl, 0.07, daisy, 0.6);
+  const g = new THREE.Group();
+  g.add(b.mesh());
+  return { group: g, top: H };
+}
+
+function rock(p, ctx) {
+  const r = ctx.rand, s = Number(p.size) > 0 ? Number(p.size) : 0.5;
+  const b = new Batch();
+  const greys = ["#8e8a82", "#a29d93", "#7d7972", "#9a9182"];
+  const stone = (pos, sz, seed) => {
+    const g = prep(smoothNormals(lump(new THREE.IcosahedronGeometry(1, 1), 0.2, seed)));
+    b.add(g, jitter(r, p.color ?? pickShade(r, greys), 0.06), pos, [(r() - 0.5) * 0.3, r() * TAU, (r() - 0.5) * 0.3], [sz * 0.62, sz * 0.42, sz * 0.5], { grad: 0.35 });
+  };
+  stone(V(0, s * 0.3, 0), s, r() * 20);
+  const pebbles = 1 + Math.floor(r() * 2);
+  for (let k = 0; k < pebbles; k++) {
+    const a = r() * TAU;
+    stone(V(Math.cos(a) * s * 0.6, s * 0.08, Math.sin(a) * s * 0.5), s * (0.28 + r() * 0.15), r() * 20);
+  }
+  if (r() < 0.45) {
+    for (let k = 0; k < 4; k++) {
+      const a = r() * TAU, rr = r() * s * 0.2;
+      b.add("lo", jitter(r, pickShade(r, GREENS.slice(1))), [Math.cos(a) * rr, s * 0.62, Math.sin(a) * rr], [0, r() * 3, 0], [s * 0.13, s * 0.05, s * 0.12]);
+    }
+  }
+  const m = b.mesh();
+  const g = new THREE.Group();
+  g.add(m);
+  return { group: g, top: m.geometry.boundingBox.max.y * 0.9 };
+}
+
+export const parts = { tree, bush, "potted-plant": pottedPlant, planter, rock };

@@ -1,0 +1,55 @@
+{
+ "transcript": "Hiked Mission Peak at sunrise with my dad. Super steep, we stopped like five times. At the top there's that weird metal pole everybody takes photos with. Saw cows grazing on the way down. Dad kept talking about his garden tomatoes. Got pancakes after at a diner with red booths.",
+ "model": "google/gemini-3.8-flash",
+ "latency_s": 4.66,
+ "spec": {
+  "status": "ok",
+  "moment": "Reaching the summit of Mission Peak at sunrise beside the iconic metal pole with dad.",
+  "elements": [
+   {
+    "name": "weird metal pole",
+    "kind": "object",
+    "look": "a tall weathered metal landmark pole adorned with small metal sights"
+   },
+   {
+    "name": "dad",
+    "kind": "person",
+    "look": "a small figure in a tan sun hat and olive green hiking jacket"
+   },
+   {
+    "name": "me",
+    "kind": "person",
+    "look": "a small figure in a navy windbreaker leaning on hiking poles"
+   },
+   {
+    "name": "grazing cow",
+    "kind": "animal",
+    "look": "a small black-and-white spotted cow calmly nibbling grass"
+   },
+   {
+    "name": "ripe tomatoes",
+    "kind": "object",
+    "look": "two bright red heirloom garden tomatoes resting on a flat rock"
+   }
+  ],
+  "time_of_day": "dawn",
+  "weather": "clear",
+  "mood": "triumphant",
+  "palette": [
+   "#E88D67",
+   "#F4D06F",
+   "#5B8A72",
+   "#8D99AE",
+   "#C84B31"
+  ],
+  "scene": "A steep grassy hilltop patch glows in warm apricot dawn light. At the center stands a weathered metal pole on a rocky mound, with two bright red garden tomatoes resting on a boulder at its base. To the right, a father in an olive jacket and tan hat stands beside a hiker in a navy windbreaker holding walking sticks. Along the sloping left edge, a tiny black-and-white cow grazes on dew-touched golden-green grass.",
+  "title": "Sunrise on Mission Peak",
+  "caption": "We reached the pole at sunrise, then talked tomatoes all the way down."
+ },
+ "image_prompts": {
+  "clay": "A handmade stop-motion claymation diorama of a tiny world, sculpted entirely from soft matte plasticine with visible thumbprints and gently rounded edges, sitting on a thick round wooden base. In the diorama: A steep grassy hilltop patch glows in warm apricot dawn light. At the center stands a weathered metal pole on a rocky mound, with two bright red garden tomatoes resting on a boulder at its base. To the right, a father in an olive jacket and tan hat stands beside a hiker in a navy windbreaker holding walking sticks. Along the sloping left edge, a tiny black-and-white cow grazes on dew-touched golden-green grass. Chunky, slightly squashed proportions and little clay figures with simple bead eyes. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless warm off-white background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "lowpoly": "A low-poly 3D floating island: a small chunk of land built from faceted, flat-shaded polygons with crisp edges, its rocky underside tapering to a point, hovering in empty space. On the island: A steep grassy hilltop patch glows in warm apricot dawn light. At the center stands a weathered metal pole on a rocky mound, with two bright red garden tomatoes resting on a boulder at its base. To the right, a father in an olive jacket and tan hat stands beside a hiker in a navy windbreaker holding walking sticks. Along the sloping left edge, a tiny black-and-white cow grazes on dew-touched golden-green grass. Clean stylized game-asset look: every element, including people, furniture, food and plants, is built from flat-shaded faceted polygons in soft pastel colors, with no realistic textures. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless pale gray background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "miniature": "A macro photograph of a hand-built tabletop miniature, like a model-railway scene: realistic tiny materials, flocked grass, painted figurines and miniature props, on a round wooden display plinth. In the miniature: A steep grassy hilltop patch glows in warm apricot dawn light. At the center stands a weathered metal pole on a rocky mound, with two bright red garden tomatoes resting on a boulder at its base. To the right, a father in an olive jacket and tan hat stands beside a hiker in a navy windbreaker holding walking sticks. Along the sloping left edge, a tiny black-and-white cow grazes on dew-touched golden-green grass. Tilt-shift toy-world feel with true-to-life textures at tiny scale, the whole miniature in sharp focus. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless light gray studio background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere.",
+  "vinyl": "A designer vinyl toy playset: glossy, smooth molded plastic in soft candy colors, rounded chunky shapes and cute collectible figures with oversized heads and molded hair, arranged on a rounded display base. In the playset: A steep grassy hilltop patch glows in warm apricot dawn light. At the center stands a weathered metal pole on a rocky mound, with two bright red garden tomatoes resting on a boulder at its base. To the right, a father in an olive jacket and tan hat stands beside a hiker in a navy windbreaker holding walking sticks. Along the sloping left edge, a tiny black-and-white cow grazes on dew-touched golden-green grass. Premium collectible product shot with soft highlights and no harsh reflections. The whole world is one compact object, centered, filling about two thirds of the frame with empty space on every side, seen from a three-quarter angle slightly above. Nothing extends beyond its edges: no horizon, sky or distant scenery behind it. Show only what is described: no extra people or animals. Plain seamless soft neutral background with nothing else in it. Soft, even, diffuse light with only a gentle contact shadow; everything in crisp focus. No text, letters, numbers, signs or logos anywhere."
+ }
+}

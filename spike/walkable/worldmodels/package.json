@@ -1,0 +1,13 @@
+{
+  "name": "walkable-worldmodels",
+  "private": true,
+  "type": "module",
+  "description": "worlds walkable spike: real-time world models over fal WMA/WebRTC, guarded proxy + phone page",
+  "scripts": {
+    "start": "node serve.mjs",
+    "assets": "node fetch-assets.mjs"
+  },
+  "dependencies": {
+    "@fal-ai/server-proxy": "1.3.0-alpha.1"
+  }
+}

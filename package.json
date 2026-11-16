@@ -3,17 +3,25 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
+    "@expo-google-fonts/albert-sans": "^0.4.2",
+    "@expo-google-fonts/instrument-serif": "^0.4.1",
+    "@expo-google-fonts/noto-serif-display": "^0.4.2",
     "@expo/ui": "~58.0.28",
     "convex": "^1.50.0",
     "expo": "~58.0.25",
     "expo-asset": "~58.0.21",
+    "expo-blur": "~58.0.6",
     "expo-constants": "~58.0.16",
     "expo-crypto": "~58.0.8",
     "expo-device": "~58.0.5",
     "expo-font": "~58.0.12",
-    "expo-glass-effect": "~58.0.5",
+    "expo-haptics": "~58.0.8",
     "expo-image": "~58.0.18",
+    "expo-image-manipulator": "~58.0.16",
+    "expo-image-picker": "~58.0.10",
     "expo-linking": "~58.0.17",
+    "expo-notifications": "~58.1.9",
     "expo-router": "~58.0.31",
     "expo-secure-store": "~58.0.3",
     "expo-speech-recognition": "^58.0.1",
@@ -31,11 +39,13 @@
     "react-native-screens": "~4.30.1",
     "react-native-web": "~0.21.4",
     "react-native-worklets": "0.13.0",
-    "supermemory": "^5.1.2"
+    "supermemory": "^5.1.2",
+    "three": "^0.187.0"
   },
   "devDependencies": {
     "@edge-runtime/vm": "^5.0.0",
     "@types/react": "~19.3.0",
+    "@types/three": "^0.187.0",
     "convex-test": "^0.0.71",
     "eslint": "^9.0.0",
     "eslint-config-expo": "~58.0.4",
@@ -49,7 +59,8 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "test": "vitest",
-    "dev:backend": "convex dev"
+    "dev:backend": "convex dev",
+    "sync:island": "node tools/sync-island-kit.mjs"
   },
   "private": true
 }

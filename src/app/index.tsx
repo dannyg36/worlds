@@ -1,242 +1,251 @@
-import { useMutation, useQuery } from "convex/react";
-import { Link, router, Stack, useTheme } from "expo-router";
-import { SymbolView } from "expo-symbols";
+import { useMutation } from "convex/react";
+import { router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  FlatList,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, StyleSheet, Text, View, type TextStyle } from "react-native";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
+import { RecordPearl } from "@/components/RecordPearl";
+import { StoriesTray } from "@/components/StoriesTray";
+import { IconButton } from "@/components/ui/IconButton";
+import { Pearl } from "@/components/ui/Pearl";
+import { color, layout, radius, space, type } from "@/design/tokens";
+import { fixtureWorldsEnabled } from "@/world/fixtures";
+import { todaysWorld, usePeople } from "@/world/people";
+import { WorldStage } from "@/world/WorldStage";
+import { worldTitle, type World } from "@/world/worlds";
 
-export default function WorldsScreen() {
-  const { colors } = useTheme();
-  const worlds = useQuery(api.feed.list);
-  const addWorld = useMutation(api.worlds.add);
-  const shareWorld = useMutation(api.sharing.share);
-  const unshareWorld = useMutation(api.sharing.unshare);
-  const [transcript, setTranscript] = useState("");
-  const [adding, setAdding] = useState(false);
-  const canAdd = transcript.trim().length > 0 && !adding;
+/** The pearl's touch area plus its label, above the safe area. */
+const DOCK = layout.pearl + 36 + 24;
 
-  async function handleAdd() {
-    setAdding(true);
-    try {
-      await addWorld({ transcript });
-      setTranscript((current) => (current === transcript ? "" : current));
-    } catch (error) {
-      Alert.alert(
-        "Couldn't add your world",
-        error instanceof Error ? error.message : String(error),
-      );
-    } finally {
-      setAdding(false);
-    }
-  }
-
-  async function toggleShared(worldId: Id<"worlds">, shared: boolean) {
-    try {
-      await (shared ? unshareWorld : shareWorld)({ worldId });
-    } catch (error) {
-      Alert.alert(
-        shared ? "Couldn't stop sharing" : "Couldn't share your world",
-        error instanceof Error ? error.message : String(error),
-      );
-    }
-  }
+/** You open the app inside today's world; the pearl adds to it as the day goes on. */
+export default function HomeScreen() {
+  const insets = useSafeAreaInsets();
+  const people = usePeople();
+  const today = people ? todaysWorld(people.me) : undefined;
+  const [walking, setWalking] = useState(false);
+  const dock = DOCK + insets.bottom + space.lg;
 
   return (
-    <>
-      <Stack.Screen
-        options={{
-          headerRight: () => (
-            <Link
-              href="/friends"
-              style={[styles.headerLink, { color: colors.primary }]}
-            >
-              Friends
-            </Link>
-          ),
-        }}
-      />
-      <FlatList
-        data={worlds ?? []}
-        keyExtractor={(world) => world._id}
-        contentInsetAdjustmentBehavior="automatic"
-        keyboardShouldPersistTaps="handled"
-        keyboardDismissMode="on-drag"
-        contentContainerStyle={styles.content}
-        ListHeaderComponent={
-          <View
-            style={[
-              styles.card,
-              { backgroundColor: colors.card, borderColor: colors.border },
-            ]}
-          >
-            <TextInput
-              value={transcript}
-              onChangeText={setTranscript}
-              placeholder="What happened today?"
-              placeholderTextColor={secondaryText}
-              accessibilityLabel="Describe your day"
-              multiline
-              style={[styles.input, { color: colors.text }]}
-            />
-            <Pressable
-              accessibilityRole="button"
-              accessibilityState={{ disabled: !canAdd }}
-              disabled={!canAdd}
-              onPress={handleAdd}
-              style={[
-                styles.button,
-                { backgroundColor: colors.primary, opacity: canAdd ? 1 : 0.4 },
-              ]}
-            >
-              <Text style={styles.buttonLabel}>
-                {adding ? "Adding…" : "Add world"}
-              </Text>
-            </Pressable>
-          </View>
-        }
-        ListEmptyComponent={
-          worlds === undefined ? (
-            <ActivityIndicator style={styles.empty} />
-          ) : (
-            <Text style={styles.empty}>
-              No worlds yet. Describe your day to make the first one.
-            </Text>
-          )
-        }
-        renderItem={({ item }) => (
-          <View
-            style={[
-              styles.card,
-              { backgroundColor: colors.card, borderColor: colors.border },
-            ]}
-          >
-            <Text style={styles.date}>
-              {item.mine ? "" : `${item.authorName} · `}
-              {new Date(item._creationTime).toLocaleString(undefined, {
-                weekday: "short",
-                month: "short",
-                day: "numeric",
-                hour: "numeric",
-                minute: "2-digit",
-              })}
-            </Text>
-            <Text style={[styles.transcript, { color: colors.text }]}>
-              {item.transcript}
-            </Text>
-            {item.mine && (
-              <View style={styles.shareRow}>
-                <Text style={styles.date}>
-                  {item.shared
-                    ? "Shared with your friends"
-                    : "Only you can see this"}
-                </Text>
-                <Pressable
-                  accessibilityRole="button"
-                  hitSlop={8}
-                  onPress={() => toggleShared(item._id, item.shared)}
-                >
-                  <Text style={[styles.shareAction, { color: colors.primary }]}>
-                    {item.shared ? "Unshare" : "Share"}
-                  </Text>
-                </Pressable>
-              </View>
-            )}
-          </View>
-        )}
-      />
-      <Pressable
-        accessibilityRole="button"
-        onPress={() => router.push("/record")}
-        style={[styles.recordButton, { backgroundColor: colors.primary }]}
-      >
-        <SymbolView
-          name={{ ios: "mic.fill", android: "mic", web: "mic" }}
-          size={20}
-          tintColor="#FFFFFF"
+    <View style={styles.screen}>
+      <StatusBar style="dark" />
+      {people === undefined ? (
+        <View style={styles.center}>
+          <Pearl size={56} />
+        </View>
+      ) : today ? (
+        <Today world={today} dock={dock} walking={walking} onWalkingChange={setWalking} />
+      ) : (
+        <EmptyDay dock={dock} />
+      )}
+      {walking ? null : (
+        <Animated.View
+          entering={FadeIn.duration(400)}
+          exiting={FadeOut.duration(250)}
+          pointerEvents="box-none"
+          style={[styles.dock, { paddingBottom: insets.bottom + space.lg }]}
+        >
+          <RecordPearl
+            label={today ? "Add to today" : "Tell me about your day"}
+            onPress={() =>
+              router.push(today ? { pathname: "/record", params: { worldId: today._id } } : "/record")
+            }
+          />
+        </Animated.View>
+      )}
+      {people && !walking ? (
+        <StoriesTray
+          people={people}
+          top={insets.top}
+          onOpenPerson={(person) => router.push(`/stories/${person.id}`)}
+          onAddFriend={() => router.push("/friends")}
         />
-        <Text style={styles.buttonLabel}>Record your day</Text>
-      </Pressable>
-    </>
+      ) : null}
+    </View>
   );
 }
 
-const secondaryText = "#8E8E93";
+function Today({
+  world,
+  dock,
+  walking,
+  onWalkingChange,
+}: {
+  world: World;
+  dock: number;
+  walking: boolean;
+  onWalkingChange: (walking: boolean) => void;
+}) {
+  const insets = useSafeAreaInsets();
+  const [viewerReady, setViewerReady] = useState(false);
+  const top = insets.top + 60;
+
+  return (
+    <View style={StyleSheet.absoluteFill}>
+      <WorldStage
+        world={world}
+        chrome={{ top: top + 120, bottom: dock }}
+        walking={walking}
+        onWalkingChange={onWalkingChange}
+        onViewerReadyChange={setViewerReady}
+      />
+      {viewerReady && !walking ? (
+        <Animated.View
+          entering={FadeIn.delay(500).duration(700)}
+          exiting={FadeOut.duration(250)}
+          pointerEvents="none"
+          style={[styles.header, { top }]}
+        >
+          <Text style={type.meta}>{longDate(world._creationTime)}</Text>
+          <Text style={styles.title} numberOfLines={2}>
+            {worldTitle(world)}
+          </Text>
+          {world.caption ? (
+            <Text style={type.caption} numberOfLines={2}>
+              {world.caption}
+            </Text>
+          ) : null}
+        </Animated.View>
+      ) : null}
+      {viewerReady ? (
+        <View style={[styles.actions, { top }]}>
+          {walking ? null : <ShareButton world={world} />}
+          {/* Island scenes can't be walked. */}
+          {world.scene ? null : (
+            <IconButton
+              variant="frost"
+              icon={walking ? { ios: "xmark", web: "close" } : { ios: "figure.walk", web: "directions_walk" }}
+              accessibilityLabel={walking ? "Stop walking" : "Walk around"}
+              onPress={() => onWalkingChange(!walking)}
+            />
+          )}
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+function ShareButton({ world }: { world: World }) {
+  const share = useMutation(api.sharing.share);
+  const unshare = useMutation(api.sharing.unshare);
+  const [previewShared, setPreviewShared] = useState(world.shared === true);
+  const shared = fixtureWorldsEnabled ? previewShared : world.shared === true;
+
+  return (
+    <IconButton
+      variant={shared ? "ink" : "frost"}
+      icon={shared ? { ios: "person.2.fill", web: "group" } : { ios: "square.and.arrow.up", web: "ios_share" }}
+      accessibilityLabel={shared ? "Stop sharing with friends" : "Share with friends"}
+      onPress={() => {
+        if (fixtureWorldsEnabled) {
+          setPreviewShared(!shared);
+          return;
+        }
+        (shared ? unshare : share)({ worldId: world._id as Id<"worlds"> }).catch((error) =>
+          Alert.alert(
+            shared ? "Couldn't stop sharing" : "Couldn't share your world",
+            error instanceof Error ? error.message : String(error),
+          ),
+        );
+      }}
+    />
+  );
+}
+
+/** Before the first recording of the day: the date, and the space today's world will fill. */
+function EmptyDay({ dock }: { dock: number }) {
+  const insets = useSafeAreaInsets();
+  const now = new Date();
+  return (
+    <Animated.View
+      entering={FadeIn.duration(800)}
+      style={[styles.empty, { paddingTop: insets.top + 72, paddingBottom: dock + space.lg }]}
+    >
+      <Text style={type.display} accessibilityRole="header">
+        {now.toLocaleDateString(undefined, { weekday: "long" })}
+        {"\n"}
+        {now.toLocaleDateString(undefined, { month: "long", day: "numeric" })}
+      </Text>
+      <View style={styles.plateArea}>
+        <View style={styles.plate} />
+      </View>
+      <Text style={[type.body, styles.emptyBody]}>
+        Today’s world is still empty. Tell it about your morning, and it will grow with your day.
+      </Text>
+    </Animated.View>
+  );
+}
+
+function longDate(time: number) {
+  return new Date(time).toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
+}
 
 const styles = StyleSheet.create({
-  content: {
-    padding: 16,
-    paddingBottom: 120,
-    gap: 12,
+  screen: {
+    flex: 1,
   },
-  card: {
-    borderRadius: 16,
-    borderWidth: StyleSheet.hairlineWidth,
-    padding: 16,
-    gap: 12,
-  },
-  input: {
-    minHeight: 72,
-    fontSize: 17,
-    lineHeight: 22,
-    textAlignVertical: "top",
-  },
-  button: {
+  center: {
+    flex: 1,
     alignItems: "center",
-    borderRadius: 12,
-    paddingVertical: 12,
+    justifyContent: "center",
   },
-  recordButton: {
+  header: {
     position: "absolute",
-    bottom: 40,
-    alignSelf: "center",
+    left: layout.gutter,
+    right: layout.gutter + 104,
+    gap: space.xs,
+  },
+  title: {
+    ...type.headline,
+    textWrap: "balance",
+  } as TextStyle,
+  actions: {
+    position: "absolute",
+    right: layout.gutter - space.xs,
     flexDirection: "row",
+    gap: space.sm,
+  },
+  dock: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
     alignItems: "center",
-    gap: 8,
-    borderRadius: 999,
-    paddingHorizontal: 24,
-    paddingVertical: 16,
-    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.2)",
-  },
-  buttonLabel: {
-    color: "#FFFFFF",
-    fontSize: 17,
-    fontWeight: "600",
-  },
-  date: {
-    color: secondaryText,
-    fontSize: 13,
-    fontWeight: "500",
-  },
-  transcript: {
-    fontSize: 17,
-    lineHeight: 24,
-  },
-  shareRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  shareAction: {
-    fontSize: 15,
-    fontWeight: "600",
-  },
-  headerLink: {
-    fontSize: 17,
   },
   empty: {
-    color: secondaryText,
-    marginTop: 24,
-    textAlign: "center",
+    flex: 1,
+    width: "100%",
+    maxWidth: layout.maxWidth,
+    alignSelf: "center",
+    paddingHorizontal: layout.gutter,
+    gap: space.xl,
+  },
+  plateArea: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    marginBottom: -space.xs,
+  },
+  plate: {
+    height: "100%",
+    maxHeight: 360,
+    aspectRatio: 1,
+    borderRadius: radius.lg + 4,
+    borderCurve: "continuous",
+    borderWidth: 1,
+    borderColor: color.hairline,
+    backgroundColor: color.pearlLight,
+    backgroundImage: [
+      `radial-gradient(circle at 30% 26%, ${color.blush} 0%, rgba(243, 221, 227, 0) 52%)`,
+      `radial-gradient(circle at 76% 70%, ${color.mint} 0%, rgba(214, 236, 231, 0) 50%)`,
+      `radial-gradient(circle at 70% 18%, ${color.lilac} 0%, rgba(227, 221, 243, 0) 44%)`,
+    ].join(", "),
+    boxShadow: "inset 0 1px 3px rgba(0, 0, 0, 0.04)",
+  },
+  emptyBody: {
+    maxWidth: 420,
   },
 });

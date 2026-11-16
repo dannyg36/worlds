@@ -1,0 +1,55 @@
+{
+ "model": "google/gemini-3.8-flash",
+ "slug": "filler",
+ "rep": 0,
+ "latency_s": 3.36,
+ "usage": {
+  "completion_tokens": 292,
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  },
+  "prompt_tokens": 1758,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "total_tokens": 2050
+ },
+ "cost_usd": 0.0024135,
+ "format": "json_object",
+ "spec": {
+  "status": "sparse",
+  "moment": "A calm, uneventful evening resting at home on the couch.",
+  "elements": [
+   {
+    "name": "living room corner",
+    "kind": "place",
+    "look": "a cozy corner with warm wooden floorboards and a cream rug"
+   },
+   {
+    "name": "soft armchair",
+    "kind": "object",
+    "look": "a plush dusty-blue armchair with a folded gray knit blanket"
+   },
+   {
+    "name": "ceramic mug",
+    "kind": "object",
+    "look": "a warm ochre ceramic mug resting on a round wooden side table"
+   }
+  ],
+  "time_of_day": "night",
+  "weather": "clear",
+  "mood": "quiet",
+  "palette": [
+   "#2c3345",
+   "#c98a58",
+   "#dfd3c3",
+   "#627d98"
+  ],
+  "scene": "A warm wooden floor patch with a small woven cream rug in the center. A plush dusty-blue armchair sits angled comfortably, draped with a soft gray knit throw blanket. To the right, a round wooden end table holds an ochre ceramic mug, gently steaming under the glow of a small brass task lamp. At the back edge, a fragment of dark wall holds a framed geometric art print, filling the space with soft amber light.",
+  "title": "A Quiet Evening",
+  "caption": "Nothing really happened today, and that was totally fine."
+ },
+ "raw": null,
+ "parse_error": null,
+ "issues": []
+}

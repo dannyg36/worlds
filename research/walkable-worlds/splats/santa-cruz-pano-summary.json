@@ -1,0 +1,180 @@
+{
+  "id": "santa-cruz-pano",
+  "day": "santa-cruz",
+  "pano": {
+    "source": "work/inputs/santa-cruz-pano.png",
+    "width": 4096,
+    "height": 2048
+  },
+  "depth": "moge2-cpu",
+  "fov": 100,
+  "faceSize": 768,
+  "kScale": 0.65,
+  "skyRange": 120,
+  "camHeight_depth_units": 5.711,
+  "metric_scale_applied": 0.2801,
+  "face_scales": [
+    {
+      "face": "front",
+      "scale": 1,
+      "valid_frac": 0.5384,
+      "median_range": 47.908,
+      "wall_s": 15.9,
+      "cpu_s": 38.43
+    },
+    {
+      "face": "right",
+      "scale": 0.7453,
+      "valid_frac": 0.5364,
+      "median_range": 40.943,
+      "wall_s": 15.98,
+      "cpu_s": 37.53
+    },
+    {
+      "face": "back",
+      "scale": 1.0841,
+      "valid_frac": 0.6823,
+      "median_range": 12.297,
+      "wall_s": 15.63,
+      "cpu_s": 37.88
+    },
+    {
+      "face": "left",
+      "scale": 1.4723,
+      "valid_frac": 0.598,
+      "median_range": 18.347,
+      "wall_s": 16.53,
+      "cpu_s": 39.77
+    },
+    {
+      "face": "up",
+      "scale": 1,
+      "valid_frac": 1,
+      "median_range": 1.492,
+      "wall_s": 16.13,
+      "cpu_s": 38.11
+    },
+    {
+      "face": "down",
+      "scale": 1.1755,
+      "valid_frac": 1,
+      "median_range": 6.581,
+      "wall_s": 15.75,
+      "cpu_s": 37.47
+    }
+  ],
+  "unlinked_faces": [
+    "up"
+  ],
+  "pairs": [
+    {
+      "a": "front",
+      "b": "right",
+      "log_ratio": 0.2461,
+      "n": 4847
+    },
+    {
+      "a": "front",
+      "b": "left",
+      "log_ratio": -0.6188,
+      "n": 680
+    },
+    {
+      "a": "front",
+      "b": "down",
+      "log_ratio": -0.1172,
+      "n": 8746
+    },
+    {
+      "a": "right",
+      "b": "back",
+      "log_ratio": -0.3472,
+      "n": 4208
+    },
+    {
+      "a": "right",
+      "b": "down",
+      "log_ratio": -0.645,
+      "n": 1835
+    },
+    {
+      "a": "back",
+      "b": "left",
+      "log_ratio": -0.4355,
+      "n": 6540
+    },
+    {
+      "a": "back",
+      "b": "down",
+      "log_ratio": 0.0247,
+      "n": 9097
+    },
+    {
+      "a": "left",
+      "b": "down",
+      "log_ratio": 0.0934,
+      "n": 7620
+    }
+  ],
+  "fal_calls": [],
+  "depth_meta": {
+    "model": "Ruicheng/moge-2-vits-normal",
+    "load_s": 2.62,
+    "total_wall_s": 98.77,
+    "cpu_s": 229.2,
+    "threads": 4
+  },
+  "timings": {
+    "load_pano": 0.14,
+    "cut_faces": 0.66,
+    "moge2_cpu": 101.3,
+    "align_faces": 0.14,
+    "splats_2896": 5.66,
+    "splats_2048": 2.77,
+    "splats_1448": 1.48,
+    "splats_1024": 0.78,
+    "total_s": 113.25
+  },
+  "outputs": [
+    {
+      "width": 2896,
+      "height": 1448,
+      "splats": 2889056,
+      "bytes": 28722047,
+      "file": "/workspace/worlds/spike/walkable/splats/work/santa-cruz-pano/santa-cruz-pano-2896.spz",
+      "fallback_frac": 0.48,
+      "sky_frac": 0.444,
+      "range_m": [
+        1.44,
+        113.99
+      ]
+    },
+    {
+      "width": 2048,
+      "height": 1024,
+      "splats": 1444466,
+      "bytes": 14991605,
+      "file": "/workspace/worlds/spike/walkable/splats/work/santa-cruz-pano/santa-cruz-pano-2048.spz",
+      "fallback_frac": 0.484,
+      "sky_frac": 0.443
+    },
+    {
+      "width": 1448,
+      "height": 724,
+      "splats": 722134,
+      "bytes": 7643067,
+      "file": "/workspace/worlds/spike/walkable/splats/work/santa-cruz-pano/santa-cruz-pano-1448.spz",
+      "fallback_frac": 0.472,
+      "sky_frac": 0.442
+    },
+    {
+      "width": 1024,
+      "height": 512,
+      "splats": 361040,
+      "bytes": 3909753,
+      "file": "/workspace/worlds/spike/walkable/splats/work/santa-cruz-pano/santa-cruz-pano-1024.spz",
+      "fallback_frac": 0.476,
+      "sky_frac": 0.441
+    }
+  ]
+}
