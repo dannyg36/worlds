@@ -73,13 +73,16 @@ function WorldScene({ world }: { world: World }) {
   const [walking, setWalking] = useState(false);
   const [viewerReady, setViewerReady] = useState(false);
   const [cardHeight, setCardHeight] = useState(150);
-  const hasModel = world.status !== "failed" && world.modelUrl !== undefined;
+  const failed = world.status === "failed";
+  // An island scene takes the model's place, and islands can't be walked.
+  const hasModel = !failed && !world.scene && world.modelUrl !== undefined;
+  const hasViewer = !failed && (world.scene !== undefined || world.modelUrl !== undefined);
 
   return (
     <View style={styles.screen}>
       <Stack.Screen
         options={{
-          headerRight: viewerReady
+          headerRight: viewerReady && hasModel
             ? () => (
                 <View style={styles.headerAction}>
                   <IconButton
@@ -116,7 +119,7 @@ function WorldScene({ world }: { world: World }) {
         onWalkingChange={setWalking}
         onViewerReadyChange={setViewerReady}
       />
-      {hasModel ? (
+      {hasViewer ? (
         <InfoCard
           world={world}
           visible={viewerReady && !walking}

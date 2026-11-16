@@ -1,3 +1,4 @@
+import type { DOMProps } from "expo/dom";
 import { useEffect, useRef, useState } from "react";
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
@@ -11,6 +12,7 @@ import { color, layout, radius, space, type } from "@/design/tokens";
 import { Aurora } from "@/world/aurora";
 import { auroraBase } from "@/world/color";
 import { WorldForming } from "@/world/forming";
+import IslandViewer from "@/world/island-viewer";
 import WorldViewer from "@/world/viewer";
 import { isForming, useRetryWorld, worldDate, worldPalette, type World } from "@/world/worlds";
 
@@ -24,8 +26,9 @@ const showStats = process.env.EXPO_PUBLIC_VIEWER_STATS === "1";
 export type StageChrome = { top: number; bottom: number; pageBottom?: number };
 
 /**
- * A world, full screen: the 3D viewer once its model is ready, the forming
- * overlay while it takes shape, and calm pages for worlds that failed or never formed.
+ * A world, full screen: its island scene if it has one (islands can't be walked), else the
+ * 3D viewer once its model is ready; the forming overlay while it takes shape; and calm
+ * pages for worlds that failed or never formed.
  * Hosts draw their own chrome (headers, cards, the pearl) on top.
  */
 export function WorldStage({
@@ -45,15 +48,42 @@ export function WorldStage({
   const palette = worldPalette(world);
   const pageBottom = chrome.pageBottom ?? chrome.bottom;
   const failed = world.status === "failed";
-  const modelUrl = failed ? undefined : world.modelUrl;
-  const [readyUrl, setReadyUrl] = useState<string | null>(null);
+  // An island scene takes the model's place.
+  const scene = failed ? undefined : world.scene;
+  const modelUrl = failed || scene ? undefined : world.modelUrl;
+  const source = scene ?? modelUrl;
+  const [readySource, setReadySource] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ url: string; fraction: number } | null>(null);
-  const [modelError, setModelError] = useState<{ url: string; message: string } | null>(null);
+  const [modelError, setModelError] = useState<{ source: string; message: string } | null>(null);
   const [attempt, setAttempt] = useState(0);
   const sawForming = useRef(isForming(world));
-  const viewerReady = modelUrl !== undefined && readyUrl === modelUrl;
-  const errorMessage = modelError && modelError.url === modelUrl ? modelError.message : null;
-  const showOverlay = !failed && (isForming(world) || (modelUrl !== undefined && !viewerReady));
+  const viewerReady = source !== undefined && readySource === source;
+  const errorMessage = modelError && modelError.source === source ? modelError.message : null;
+  // A scene shows the forming overlay only until its island is ready.
+  const showOverlay =
+    !failed &&
+    (scene !== undefined ? !viewerReady : isForming(world) || (modelUrl !== undefined && !viewerReady));
+  const dom: DOMProps = {
+    style: { flex: 1, backgroundColor: auroraBase(palette) },
+    scrollEnabled: false,
+    bounces: false,
+    contentInsetAdjustmentBehavior: "never",
+    automaticallyAdjustContentInsets: false,
+    onContentProcessDidTerminate: () => setAttempt((current) => current + 1),
+  };
+
+  async function handleReady() {
+    setReadySource(source ?? null);
+    if (sawForming.current) {
+      haptics.success();
+    }
+  }
+
+  async function handleError(message: string) {
+    if (source !== undefined) {
+      setModelError({ source, message });
+    }
+  }
 
   useEffect(() => {
     if (isForming(world)) {
@@ -68,13 +98,31 @@ export function WorldStage({
   if (failed) {
     return <FailedWorld world={world} chrome={chrome} />;
   }
-  if (!modelUrl && !isForming(world)) {
+  if (!source && !isForming(world)) {
     return <QuietWorld world={world} chrome={chrome} />;
   }
 
   return (
     <View style={[styles.screen, { backgroundColor: auroraBase(palette) }]}>
-      {modelUrl ? (
+      {scene ? (
+        <View style={StyleSheet.absoluteFill}>
+          <IslandViewer
+            key={`island#${attempt}`}
+            sceneJson={scene}
+            photos={world.photos}
+            insetTop={chrome.top}
+            insetBottom={chrome.bottom}
+            onReady={handleReady}
+            onError={handleError}
+            onSelect={async (index) => {
+              if (index !== null) {
+                haptics.tap();
+              }
+            }}
+            dom={dom}
+          />
+        </View>
+      ) : modelUrl ? (
         <View style={StyleSheet.absoluteFill}>
           <WorldViewer
             key={`${modelUrl}#${attempt}`}
@@ -85,25 +133,13 @@ export function WorldStage({
             walking={walking}
             showStats={showStats}
             onProgress={async (fraction) => setProgress({ url: modelUrl, fraction })}
-            onReady={async () => {
-              setReadyUrl(modelUrl);
-              if (sawForming.current) {
-                haptics.success();
-              }
-            }}
-            onError={async (message) => setModelError({ url: modelUrl, message })}
+            onReady={handleReady}
+            onError={handleError}
             onTap={async () => {
               haptics.tap();
             }}
             onWalkingChange={async (value) => onWalkingChange(value)}
-            dom={{
-              style: { flex: 1, backgroundColor: auroraBase(palette) },
-              scrollEnabled: false,
-              bounces: false,
-              contentInsetAdjustmentBehavior: "never",
-              automaticallyAdjustContentInsets: false,
-              onContentProcessDidTerminate: () => setAttempt((current) => current + 1),
-            }}
+            dom={dom}
           />
           {viewerReady && walking ? <WalkHint top={chrome.top + space.sm} /> : null}
         </View>
