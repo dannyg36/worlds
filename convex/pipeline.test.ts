@@ -635,6 +635,7 @@ describe("extend", () => {
     const extended = await world(t, id);
     expect(extended).toMatchObject({ transcript: DAY, status: "queued" });
     expect(extended.title).toBeUndefined();
+    expect(extended.scene).toBeUndefined();
     expect(extended.imageUrl).toBeUndefined();
     expect(extended.modelUrl).toBeUndefined();
     expect(await storedFiles(t)).toEqual([]);
@@ -643,29 +644,23 @@ describe("extend", () => {
     expect(run.attempt).toBe(2);
 
     await settle(t);
-    expect((await world(t, id)).status).toBe("ready");
-    const dream = gmi.submitted("dreaming").at(-1)!;
-    const messages = dream.input.messages as { role: string; content: string }[];
-    expect(messages.find((message) => message.role === "user")?.content).toBe(
-      `Voice note:\n"""\n${DAY}\n"""`,
-    );
+    expect(await world(t, id)).toMatchObject({ status: "ready", scene: expect.any(String) });
+    const outlines = claude.calls.filter((call) => call.kind === "outline");
+    expect(outlines).toHaveLength(2);
+    expect(outlines[1].user.startsWith(`Voice note:\n"""\n${DAY}\n"""\n\n`)).toBe(true);
     const paint = gmi.submitted("painting").at(-1)!;
-    const sculpt = gmi.submitted("sculpting").at(-1)!;
-    expect((await storedFiles(t)).sort()).toEqual([
-      `/gmi-test/${paint.id}.jpg`,
-      `/gmi-test/${sculpt.id}.glb`,
-    ]);
+    expect(await storedFiles(t)).toEqual([`/gmi-test/${paint.id}.jpg`]);
   });
 
   test("replaces a run that's still forming and throws away its late result", async () => {
-    gmi.script("sculpting", { stuck: true });
+    gmi.script("painting", { stuck: true });
     const t = signedInTest();
     const id = await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
-    await runUntil(t, () => gmi.submitted("sculpting").length === 1);
+    await runUntil(t, () => gmi.submitted("painting").length === 1);
     const replaced = await currentRun(t, id);
 
     await t.mutation(api.worlds.extend, { id, transcript: LATER });
-    const [late] = gmi.submitted("sculpting");
+    const [late] = gmi.submitted("painting");
     late.outcome = {};
     await settle(t);
 
@@ -674,40 +669,9 @@ describe("extend", () => {
     expect(
       await t.run(async (ctx) => ctx.db.get("generationRuns", replaced._id)),
     ).toMatchObject({ step: "failed" });
-    expect(gmi.downloads).toContain(`/gmi-test/${late.id}.glb`);
+    expect(gmi.downloads).toContain(`/gmi-test/${late.id}.jpg`);
     const paint = gmi.submitted("painting").at(-1)!;
-    const sculpt = gmi.submitted("sculpting").at(-1)!;
-    expect(sculpt.id).not.toBe(late.id);
-    expect((await storedFiles(t)).sort()).toEqual([
-      `/gmi-test/${paint.id}.jpg`,
-      `/gmi-test/${sculpt.id}.glb`,
-    ]);
+    expect(paint.id).not.toBe(late.id);
+    expect(await storedFiles(t)).toEqual([`/gmi-test/${paint.id}.jpg`]);
   });
-});
-
-test("the scene writer gets the recalled cast ahead of the voice note", async () => {
-  const cast = "<recurring_cast>\n- Mochi is a corgi in a red collar\n</recurring_cast>";
-  vi.mocked(recallCast).mockResolvedValueOnce(cast);
-  const t = signedInTest();
-  await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
-  await settle(t);
-
-  const [dream] = gmi.submitted("dreaming");
-  const messages = dream.input.messages as { role: string; content: string }[];
-  expect(recallCast).toHaveBeenCalledWith(TRANSCRIPT, await memorySpace(OWNER));
-  expect(messages.find((message) => message.role === "user")?.content).toBe(
-    `${cast}\n\nVoice note:\n"""\n${TRANSCRIPT}\n"""`,
-  );
-});
-
-test("without a recalled cast the scene writer prompt is only the voice note", async () => {
-  const t = signedInTest();
-  await t.mutation(api.worlds.add, { transcript: TRANSCRIPT });
-  await settle(t);
-
-  const [dream] = gmi.submitted("dreaming");
-  const messages = dream.input.messages as { role: string; content: string }[];
-  expect(messages.find((message) => message.role === "user")?.content).toBe(
-    `Voice note:\n"""\n${TRANSCRIPT}\n"""`,
-  );
 });
